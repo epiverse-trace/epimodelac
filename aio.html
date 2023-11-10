@@ -190,6 +190,18 @@
 </div>
 <!--/div.accordion-flush-->
 
+<div class="accordion accordion-flush" id="accordionFlush3">
+  <div class="accordion-item">
+    <div class="accordion-header" id="flush-heading3">
+        <a href="taller.html">2. Taller Zika (Parte B): construyendo un modelo matematico simple para Zika.</a>
+    </div>
+<!--/div.accordion-header-->
+        
+  </div>
+<!--/div.accordion-item-->
+</div>
+<!--/div.accordion-flush-->
+
                 </div>
               </div>
             </div>
@@ -327,7 +339,7 @@ reinforce the objectives.</li>
   Output
   </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
 <div class="accordion-body">
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -358,7 +370,7 @@ challenge blocks?<a class="anchor" aria-label="anchor" href="#challenge-2-how-do
   Show me the solution
   </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
 <div class="accordion-body">
 <p>You can add a line with at least three colons and a
 <code>solution</code> tag.</p>
@@ -419,6 +431,460 @@ locally</li>
 Place links that you need to refer to multiple times across pages here. Delete
 any links that you are not going to use. 
  -->
+</section></section><section id="aio-taller"><p>Content from <a href="taller.html">Taller Zika (Parte B): construyendo un modelo matematico simple para Zika.</a></p>
+<hr>
+<p> Last updated on 2023-11-10 | 
+        
+        <a href="https://github.com/Joskerus/Nuevoformato/edit/main/episodes/taller.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
+<div class="text-end">
+          <button role="button" aria-pressed="false" tabindex="0" id="expand-code" class="pull-right"> Expand All Solutions <i aria-hidden="true" data-feather="plus"></i></button>
+        </div>
+<div class="overview card">
+<h2 class="card-header">Overview</h2>
+<div class="row g-0">
+<div class="col-md-4">
+<div class="card-body">
+<div class="inner">
+<h3 class="card-title">Questions</h3>
+<ul>
+<li>¿Cómo construir un modelo simplificado de zika?</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="col-md-8">
+<div class="card-body">
+<div class="inner bordered">
+<h3 class="card-title">Objectives</h3>
+<p>Objetivos</p>
+<p>Al final de este taller usted podrá:</p>
+<ul>
+<li>Aplicar conceptos como parámetros, <span class="math inline">\(R_0\)</span> e inmunidad de rebaño, aprendidos en
+la sesión A del taller</li>
+<li>Traducir fórmulas matemáticas de las interacciones entre los
+parámetros del modelo a código de R</li>
+<li>Realizar un modelo simple en R para una enfermedad transmitida por
+vector</li>
+<li>Discutir cambios en las proyecciones del modelo cuando se instauran
+diferentes estrategias de control de la infección</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<section id="introducción"><h2 class="section-heading">1. Introducción<a class="anchor" aria-label="anchor" href="#introducci%C3%B3n"></a>
+</h2>
+<hr class="half-width">
+<p>En este taller usted aplicará los conceptos básicos del
+<strong>modelamiento de Enfermedades Transmitidas por Vectores
+(ETV)</strong> mediante el uso del programa R con énfasis en el
+funcionamiento de los métodos, utilizando como ejemplo un modelo básico
+de infección por un arbovirus, el virus del Zika.</p>
+</section><section id="conceptos-básicos-a-desarrollar"><h2 class="section-heading">3. Conceptos básicos a desarrollar<a class="anchor" aria-label="anchor" href="#conceptos-b%C3%A1sicos-a-desarrollar"></a>
+</h2>
+<hr class="half-width">
+<p>En esta práctica se desarrollarán los siguientes conceptos:</p>
+<ul>
+<li>Modelo SIR para ETV Zika</li>
+<li>Parametrización de un modelo dinámico</li>
+<li>Evaluación de un modelo dinámico</li>
+<li>Parametrización de intervenciones de control (fumigación,
+mosquiteros y vacunación) para una ETV</li>
+</ul></section><section id="paquetes-requeridos"><h2 class="section-heading">4. Paquetes requeridos<a class="anchor" aria-label="anchor" href="#paquetes-requeridos"></a>
+</h2>
+<hr class="half-width">
+<p>Cargue los paquetes necesarios ingresando en R los siguientes
+comandos:</p>
+<div class="codewrapper sourceCode" id="cb1">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw">library</span><span class="op">(</span><span class="va">deSolve</span><span class="op">)</span>   <span class="co"># Cargando el paquete deSolve para resolver las ecuaciones diferenciales</span></span>
+<span><span class="kw">library</span><span class="op">(</span><span class="va">tidyverse</span><span class="op">)</span> <span class="co"># Cargando paquetes ggplot2 y dplyr de tidyverse</span></span>
+<span><span class="kw">library</span><span class="op">(</span><span class="va">cowplot</span><span class="op">)</span> <span class="co"># Cargando el paquete gridExtra para unir gráficos.</span></span></code></pre>
+</div>
+<ul>
+<li>Si desea puede tomar notas en el script de R, para esto se
+recomienda usar el símbolo <em>#</em> después de cada línea de código
+(ver ejemplo arriba).</li>
+</ul></section><section id="compartimentos-del-modelo-básico-de-zika"><h2 class="section-heading">5. Compartimentos del modelo básico de Zika<a class="anchor" aria-label="anchor" href="#compartimentos-del-modelo-b%C3%A1sico-de-zika"></a>
+</h2>
+<hr class="half-width">
+<ul>
+<li>
+<span class="math inline">\(S_h\)</span> : Humanos susceptibles</li>
+<li>
+<span class="math inline">\(I_h\)</span> : Humanos infecciosos</li>
+<li>
+<span class="math inline">\(R_h\)</span> : Humanos recuperados de la
+infección (inmunizados frente a nueva infección)</li>
+<li>
+<span class="math inline">\(S_v\)</span> : Vectores
+susceptibles</li>
+<li>
+<span class="math inline">\(E_v\)</span> : Vectores expuestos</li>
+<li>
+<span class="math inline">\(I_v\)</span> : Vectores infecciosos</li>
+</ul></section><section id="parámetros-del-modelo"><h2 class="section-heading">6. Parámetros del modelo<a class="anchor" aria-label="anchor" href="#par%C3%A1metros-del-modelo"></a>
+</h2>
+<hr class="half-width">
+<p>Ahora se usarán los parámetros que discutimos en la parte A del
+taller. Si aún no los tiene, estos se pueden encontrar en la guía de
+aprendizaje de la parte A del taller.</p>
+<p>Busque los valores de los parámetros del modelo y diligéncielos en el
+recuadro de abajo. Tenga en cuenta que todos los parámetros usados
+tienen la misma unidad de tiempo (días).</p>
+<div class="codewrapper sourceCode" id="cb2">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode r" tabindex="0"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>Lv       <span class="ot">&lt;-</span>        <span class="co"># Esperanza de vida de los mosquitos (en días)</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>Lh       <span class="ot">&lt;-</span>        <span class="co"># Esperanza de vida de los humanos (en días)</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>PIh      <span class="ot">&lt;-</span>        <span class="co"># Periodo infeccioso en humanos (en días)</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>PIv      <span class="ot">&lt;-</span>        <span class="co"># Periodo infeccioso en vectores (en días)</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>PEI      <span class="ot">&lt;-</span>        <span class="co"># Período extrínseco de incubación en mosquitos adultos (en días)</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>muv      <span class="ot">&lt;-</span>        <span class="co"># Tasa per capita de mortalidad del vector (1/Lv)</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>muh      <span class="ot">&lt;-</span>        <span class="co"># Tasa per capita de mortalidad del hospedador (1/Lh)</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>alphav   <span class="ot">&lt;-</span>        <span class="co"># Tasa per capita de natalidad del vector</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>alphah   <span class="ot">&lt;-</span>        <span class="co"># Tasa per capita de natalidad del hospedador</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>gamma    <span class="ot">&lt;-</span>        <span class="co"># Tasa de recuperación en humanos (1/PIh)</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>delta    <span class="ot">&lt;-</span>        <span class="co"># Tasa extrínseca de incubación (1/PEI)</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>ph       <span class="ot">&lt;-</span>        <span class="co"># Probabilidad de transmisión del vector al hospedador dada una picadura por un mosquito infeccioso a un humano susceptible</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>pv       <span class="ot">&lt;-</span>        <span class="co"># Probabilidad de transmisión del hospedador al vector dada una picadura por un mosquito susceptible a un humano infeccioso</span></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>Nh       <span class="ot">&lt;-</span>        <span class="co"># Número de humanos</span></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>m        <span class="ot">&lt;-</span>        <span class="co"># Densidad de mosquitos hembra por humano</span></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>Nv       <span class="ot">&lt;-</span>        <span class="co"># Número de vectores (m * Nh)</span></span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>R0       <span class="ot">&lt;-</span>        <span class="co"># Número reproductivo básico</span></span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>b        <span class="ot">&lt;-</span>        <span class="fu">sqrt</span>((R0 <span class="sc">*</span> muv<span class="sc">*</span>(muv<span class="sc">+</span>delta) <span class="sc">*</span> (muh<span class="sc">+</span>gamma)) <span class="sc">/</span></span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>                   (m <span class="sc">*</span> ph <span class="sc">*</span> pv <span class="sc">*</span> delta)) <span class="co"># Tasa de picadura</span></span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>betah    <span class="ot">&lt;-</span>        <span class="co"># Coeficiente de transmisión del mosquito al humano</span></span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>betav    <span class="ot">&lt;-</span>        <span class="co"># Coeficiente de transmisión del humano al mosquito</span></span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>TIME     <span class="ot">&lt;-</span>        <span class="co"># Número de años que se va a simular </span></span></code></pre>
+</div>
+</section><section id="ecuaciones-del-modelo"><h2 class="section-heading">7. Ecuaciones del modelo<a class="anchor" aria-label="anchor" href="#ecuaciones-del-modelo"></a>
+</h2>
+<hr class="half-width">
+<p>Para este modelo emplearemos las siguientes ecuaciones
+diferenciales.</p>
+<div class="section level3">
+<h3 id="humanos">7.1 Humanos<a class="anchor" aria-label="anchor" href="#humanos"></a>
+</h3>
+<p><span class="math display">\[\ \frac{dSh}{dt}  = \alpha_h N_h -
+\beta_h \frac {I_v}{N_h}S_h - \mu_h  S_h \]</span></p>
+<p><span class="math display">\[\ \frac{dIh}{dt}  = \beta_h \frac
+{I_v}{N_h}S_h - (\gamma + \mu_h) I_h \]</span><br></p>
+<p><span class="math display">\[\ \frac{dRh}{dt}  = \gamma I_h  - \mu_h
+R_h\]</span></p>
+</div>
+<div class="section level3">
+<h3 id="vectores">7.2 Vectores<a class="anchor" aria-label="anchor" href="#vectores"></a>
+</h3>
+<p><span class="math display">\[\ \frac{dSv}{dt}  = \alpha_v N_v  -
+\beta_v \frac{ I_h} {N_h}S_v  - \mu_v Sv\]</span></p>
+<p><span class="math display">\[\ \frac{dE_v}{dt}  = \beta_v \frac{I_h}
+{N_h}S_v- (\delta + \mu_v) Ev\]</span><br></p>
+<p><span class="math display">\[\ \frac{dI_v}{dt}  = \delta Ev - \mu_v
+I_v\]</span></p>
+</div>
+</section><section id="fórmula-para-calcular-r_0-número-reproductivo-básico"><h2 class="section-heading">8. Fórmula para calcular <span class="math inline">\(R_0\)</span>
+(Número reproductivo básico)<a class="anchor" aria-label="anchor" href="#f%C3%B3rmula-para-calcular-r_0-n%C3%BAmero-reproductivo-b%C3%A1sico"></a>
+</h2>
+<hr class="half-width">
+<p>Fórmula necesaria para estimar <span class="math inline">\(R_0\)</span>:</p>
+<p><span class="math display">\[ R_0 = \frac{mb^2 p_h p_v \delta}{\mu_v
+(\mu_v+\delta)(\mu_h+\gamma)} \]</span></p>
+</section><section id="modelo-en-r"><h2 class="section-heading">9. Modelo en R<a class="anchor" aria-label="anchor" href="#modelo-en-r"></a>
+</h2>
+<hr class="half-width">
+<p>Es hora de hacer el modelo en R. Para lograrlo se usará la función
+<em>ode</em> del paquete <em>desolve</em>. Para el ejercicio se
+emplearán 4 argumentos de la función <em>ode</em>: el primero son las
+condiciones iniciales del modelo <em>(argumento y)</em>, el segundo es
+la secuencia temporal donde se ejecutará el modelo <em>(argumento
+times)</em>, el tercero es una función que contiene las ecuaciones
+diferenciales que entrarán al sistema <em>(argumento fun)</em> y por
+último un vector que contiene los parámetros con los que se calculará el
+sistema <em>(argumento parms)</em>.</p>
+<div class="codewrapper sourceCode" id="cb3">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode r" tabindex="0"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co">#No la copie a R sólo tiene fines ilustrativos.</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ode</span>(<span class="at">y      =</span> <span class="co"># Condiciones iniciales,</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">times  =</span> <span class="co"># Tiempo,</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">fun    =</span> <span class="co"># Modelo o función que lo contenga,</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">parms  =</span> <span class="co"># Parámetros</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>)</span></code></pre>
+</div>
+<p>En esta sección se empezará por crear la función <em>(argumento
+fun)</em>, para ello es necesario traducir las ecuaciones del modelo a
+R. Abajo encontrará la función ya construida, por favor reemplace los
+parámetros faltantes (Cambie <em>PAR</em> por el parámetro
+correspondiente) en las ecuaciones:</p>
+<div class="codewrapper sourceCode" id="cb4">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">arbovmodel</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">t</span>, <span class="va">x</span>, <span class="va">params</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  </span>
+<span>  <span class="va">Sh</span> <span class="op">&lt;-</span> <span class="va">x</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>    <span class="co"># Humanos susceptibles</span></span>
+<span>  <span class="va">Ih</span> <span class="op">&lt;-</span> <span class="va">x</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span>    <span class="co"># Humanos infecciosos </span></span>
+<span>  <span class="va">Rh</span> <span class="op">&lt;-</span> <span class="va">x</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span>    <span class="co"># Humanos recuperados</span></span>
+<span>  <span class="va">Sv</span> <span class="op">&lt;-</span> <span class="va">x</span><span class="op">[</span><span class="fl">4</span><span class="op">]</span>    <span class="co"># Vectores susceptibles</span></span>
+<span>  <span class="va">Ev</span> <span class="op">&lt;-</span> <span class="va">x</span><span class="op">[</span><span class="fl">5</span><span class="op">]</span>    <span class="co"># Vectores expuestos</span></span>
+<span>  <span class="va">Iv</span> <span class="op">&lt;-</span> <span class="va">x</span><span class="op">[</span><span class="fl">6</span><span class="op">]</span>    <span class="co"># Vectores infecciosos</span></span>
+<span>  </span>
+<span>  <span class="fu">with</span><span class="op">(</span><span class="fu">as.list</span><span class="op">(</span><span class="va">params</span><span class="op">)</span>, <span class="co"># entorno local para evaluar derivados</span></span>
+<span>       <span class="op">{</span></span>
+<span>         <span class="co"># Humanos</span></span>
+<span>         <span class="va">dSh</span>   <span class="op">&lt;-</span>  <span class="va">PAR</span> <span class="op">*</span> <span class="va">Nh</span> <span class="op">-</span> <span class="va">PAR</span> <span class="op">*</span> <span class="op">(</span><span class="va">Iv</span><span class="op">/</span><span class="va">Nh</span><span class="op">)</span> <span class="op">*</span> <span class="va">Sh</span> <span class="op">-</span> <span class="va">PAR</span> <span class="op">*</span> <span class="va">Sh</span>   </span>
+<span>         <span class="va">dIh</span>   <span class="op">&lt;-</span>  <span class="va">PAR</span> <span class="op">*</span> <span class="op">(</span><span class="va">Iv</span><span class="op">/</span><span class="va">Nh</span><span class="op">)</span> <span class="op">*</span> <span class="va">Sh</span> <span class="op">-</span> <span class="op">(</span><span class="va">PAR</span> <span class="op">+</span> <span class="va">PAR</span><span class="op">)</span> <span class="op">*</span> <span class="va">Ih</span></span>
+<span>         <span class="va">dRh</span>   <span class="op">&lt;-</span>  <span class="va">PAR</span> <span class="op">*</span> <span class="va">Ih</span>  <span class="op">-</span> <span class="va">PAR</span> <span class="op">*</span> <span class="va">Rh</span></span>
+<span>         </span>
+<span>         <span class="co"># Vectores</span></span>
+<span>         <span class="va">dSv</span>  <span class="op">&lt;-</span>  <span class="va">alphav</span> <span class="op">*</span> <span class="va">Nv</span> <span class="op">-</span> <span class="va">PAR</span> <span class="op">*</span> <span class="op">(</span><span class="va">Ih</span><span class="op">/</span><span class="va">Nh</span><span class="op">)</span> <span class="op">*</span> <span class="va">Sv</span> <span class="op">-</span> <span class="va">PAR</span> <span class="op">*</span> <span class="va">Sv</span> </span>
+<span>         <span class="va">dEv</span>  <span class="op">&lt;-</span>  <span class="va">PAR</span> <span class="op">*</span> <span class="op">(</span><span class="va">Ih</span><span class="op">/</span><span class="va">Nh</span><span class="op">)</span> <span class="op">*</span> <span class="va">Sv</span> <span class="op">-</span> <span class="op">(</span><span class="va">PAR</span> <span class="op">+</span> <span class="va">PAR</span><span class="op">)</span><span class="op">*</span> <span class="va">Ev</span></span>
+<span>         <span class="va">dIv</span>  <span class="op">&lt;-</span>  <span class="va">PAR</span> <span class="op">*</span> <span class="va">Ev</span> <span class="op">-</span> <span class="va">PAR</span> <span class="op">*</span> <span class="va">Iv</span></span>
+<span>         </span>
+<span>         <span class="va">dx</span>   <span class="op">&lt;-</span> <span class="fu">c</span><span class="op">(</span><span class="va">dSh</span>, <span class="va">dIh</span>, <span class="va">dRh</span>, <span class="va">dSv</span>, <span class="va">dEv</span>, <span class="va">dIv</span><span class="op">)</span></span>
+<span>         <span class="fu">list</span><span class="op">(</span><span class="va">dx</span><span class="op">)</span></span>
+<span>       <span class="op">}</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">}</span></span></code></pre>
+</div>
+</section><section id="resuelva-el-sistema"><h2 class="section-heading">10. Resuelva el Sistema<a class="anchor" aria-label="anchor" href="#resuelva-el-sistema"></a>
+</h2>
+<hr class="half-width">
+<p>En esta sección se crearán los tres argumentos faltantes para usar la
+función <em>ode</em> y se creará un <em>data frame</em> con los
+resultados de la función <em>ode</em>. Por favor complete y comente el
+código para:</p>
+<ul>
+<li><p>Los VALORES de las condiciones iniciales del sistema.</p></li>
+<li><p>Los ARGUMENTOS de la función <strong>ode</strong> en el paquete
+<strong>deSolve</strong>.</p></li>
+</ul>
+<div class="codewrapper sourceCode" id="cb5">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode r" tabindex="0"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Secuencia temporal (times)</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>times  <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">1</span>, <span class="dv">365</span> <span class="sc">*</span> TIME , <span class="at">by =</span> <span class="dv">1</span>)</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Los parámetros (parms)</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>params <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">muv      =</span> muv,     </span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">muh      =</span> muh, </span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">alphav   =</span> alphav,</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">alphah   =</span> alphah,</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">gamma    =</span> gamma,   </span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">delta    =</span> delta,   </span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">betav    =</span> betav,       </span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">betah    =</span> betah,   </span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">Nh       =</span> Nh,      </span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">Nv       =</span> Nv</span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Condiciones iniciales del sistema (y)</span></span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>xstart <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="at">Sh =</span> VALOR?,        <span class="co"># COMPLETE Y COMENTE</span></span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>            <span class="at">Ih =</span> VALOR?,        <span class="co"># COMPLETE Y COMENTE</span></span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>            <span class="at">Rh =</span> VALOR?,        <span class="co"># COMPLETE Y COMENTE</span></span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a>            <span class="at">Sv =</span> VALOR?,        <span class="co"># COMPLETE Y COMENTE</span></span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a>            <span class="at">Ev =</span> VALOR?,        <span class="co"># COMPLETE Y COMENTE</span></span>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a>            <span class="at">Iv =</span> VALOR?)        <span class="co"># COMPLETE Y COMENTE</span></span>
+<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a><span class="co"># Resuelva las ecuaciones</span></span>
+<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a>out <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(<span class="fu">ode</span>(<span class="at">y      =</span> ARGUMENTO?,   <span class="co"># COMPLETE Y COMENTE</span></span>
+<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a>                         <span class="at">times  =</span> ARGUMENTO?,   <span class="co"># COMPLETE Y COMENTE</span></span>
+<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a>                         <span class="at">fun    =</span> ARGUMENTO?,   <span class="co"># COMPLETE Y COMENTE</span></span>
+<span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a>                         <span class="at">parms  =</span> ARGUMENTO?))  <span class="co"># COMPLETE Y COMENTE</span></span></code></pre>
+</div>
+</section><section id="resultados"><h2 class="section-heading">11. Resultados<a class="anchor" aria-label="anchor" href="#resultados"></a>
+</h2>
+<hr class="half-width">
+<p>Para tener una visualización más significativa de los resultados,
+convierta las unidades de tiempo <em>días</em> en <em>años</em> y en
+<em>semanas</em>.</p>
+<div class="codewrapper sourceCode" id="cb6">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode r" tabindex="0"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Cree las opciones de tiempo para años y semanas </span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>out<span class="sc">$</span>years <span class="ot">&lt;-</span> </span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>out<span class="sc">$</span>weeks <span class="ot">&lt;-</span> </span></code></pre>
+</div>
+<div class="section level3">
+<h3 id="comportamiento-general-población-humana">11.1 Comportamiento General (Población humana)<a class="anchor" aria-label="anchor" href="#comportamiento-general-poblaci%C3%B3n-humana"></a>
+</h3>
+<div class="codewrapper sourceCode" id="cb7">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Revise el comportamiento general del modelo para 100 años</span></span>
+<span><span class="va">p1h</span> <span class="op">&lt;-</span> <span class="fu">ggplot</span><span class="op">(</span>data <span class="op">=</span> <span class="va">out</span>, <span class="fu">aes</span><span class="op">(</span>y <span class="op">=</span> <span class="op">(</span><span class="va">Rh</span> <span class="op">+</span> <span class="va">Ih</span> <span class="op">+</span> <span class="va">Sh</span><span class="op">)</span>, x <span class="op">=</span> <span class="va">years</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">geom_line</span><span class="op">(</span>color <span class="op">=</span> <span class="st">'grey68'</span>, size <span class="op">=</span> <span class="fl">1</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">ggtitle</span><span class="op">(</span><span class="st">'Población humana total'</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">theme_bw</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> <span class="fu">ylab</span><span class="op">(</span><span class="st">'Número'</span><span class="op">)</span> <span class="op">+</span> <span class="fu">xlab</span><span class="op">(</span><span class="st">'Años'</span><span class="op">)</span></span>
+<span><span class="va">p2h</span> <span class="op">&lt;-</span> <span class="fu">ggplot</span><span class="op">(</span>data <span class="op">=</span> <span class="va">out</span>, <span class="fu">aes</span><span class="op">(</span>y <span class="op">=</span> <span class="va">Sh</span>, x <span class="op">=</span> <span class="va">years</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">geom_line</span><span class="op">(</span>color <span class="op">=</span> <span class="st">'royalblue'</span>, size <span class="op">=</span> <span class="fl">1</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">ggtitle</span><span class="op">(</span><span class="st">'Población humana susceptible'</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">theme_bw</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> <span class="fu">ylab</span><span class="op">(</span><span class="st">'Número'</span><span class="op">)</span> <span class="op">+</span> <span class="fu">xlab</span><span class="op">(</span><span class="st">'Años'</span><span class="op">)</span></span>
+<span><span class="va">p3h</span> <span class="op">&lt;-</span> <span class="fu">ggplot</span><span class="op">(</span>data <span class="op">=</span> <span class="va">out</span>, <span class="fu">aes</span><span class="op">(</span>y <span class="op">=</span> <span class="va">Ih</span>, x <span class="op">=</span> <span class="va">years</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">geom_line</span><span class="op">(</span>color <span class="op">=</span> <span class="st">'firebrick'</span>, size <span class="op">=</span> <span class="fl">1</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">ggtitle</span><span class="op">(</span><span class="st">'Población humana infecciosa'</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">theme_bw</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> <span class="fu">ylab</span><span class="op">(</span><span class="st">'Número'</span><span class="op">)</span> <span class="op">+</span> <span class="fu">xlab</span><span class="op">(</span><span class="st">'Años'</span><span class="op">)</span></span>
+<span><span class="va">p4h</span> <span class="op">&lt;-</span> <span class="fu">ggplot</span><span class="op">(</span>data <span class="op">=</span> <span class="va">out</span>, <span class="fu">aes</span><span class="op">(</span>y <span class="op">=</span> <span class="va">Rh</span>, x <span class="op">=</span> <span class="va">years</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">geom_line</span><span class="op">(</span>color <span class="op">=</span> <span class="st">'olivedrab'</span>, size <span class="op">=</span> <span class="fl">1</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">ggtitle</span><span class="op">(</span><span class="st">'Población humana recuperada'</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">theme_bw</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> <span class="fu">ylab</span><span class="op">(</span><span class="st">'Número'</span><span class="op">)</span> <span class="op">+</span> <span class="fu">xlab</span><span class="op">(</span><span class="st">'Años'</span><span class="op">)</span></span>
+<span><span class="fu">plot_grid</span><span class="op">(</span><span class="va">p1h</span>, <span class="va">p2h</span>, <span class="va">p3h</span>, <span class="va">p4h</span>, ncol <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></code></pre>
+</div>
+<figure><img src="fig/taller-rendered-p1-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure>
+</div>
+<div class="section level3">
+<h3 id="comportamiento-general-población-de-vectores">11.2 Comportamiento General (Población de vectores)<a class="anchor" aria-label="anchor" href="#comportamiento-general-poblaci%C3%B3n-de-vectores"></a>
+</h3>
+<div class="codewrapper sourceCode" id="cb8">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Revise el comportamiento general del modelo</span></span>
+<span><span class="va">p1v</span> <span class="op">&lt;-</span> <span class="fu">ggplot</span><span class="op">(</span>data <span class="op">=</span> <span class="va">out</span>, <span class="fu">aes</span><span class="op">(</span>y <span class="op">=</span> <span class="op">(</span><span class="va">Sv</span> <span class="op">+</span> <span class="va">Ev</span> <span class="op">+</span> <span class="va">Iv</span><span class="op">)</span>, x <span class="op">=</span> <span class="va">years</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">geom_line</span><span class="op">(</span>color <span class="op">=</span> <span class="st">'grey68'</span>, size <span class="op">=</span> <span class="fl">1</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">ggtitle</span><span class="op">(</span><span class="st">'Población total de mosquitos'</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">theme_bw</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> <span class="fu">ylab</span><span class="op">(</span><span class="st">'Número'</span><span class="op">)</span> <span class="op">+</span> <span class="fu">xlab</span><span class="op">(</span><span class="st">'Años'</span><span class="op">)</span></span>
+<span><span class="va">p2v</span> <span class="op">&lt;-</span> <span class="fu">ggplot</span><span class="op">(</span>data <span class="op">=</span> <span class="va">out</span>, <span class="fu">aes</span><span class="op">(</span>y <span class="op">=</span> <span class="va">Sv</span>, x <span class="op">=</span> <span class="va">years</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">geom_line</span><span class="op">(</span>color <span class="op">=</span> <span class="st">'royalblue'</span>, size <span class="op">=</span> <span class="fl">1</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">ggtitle</span><span class="op">(</span><span class="st">'Población susceptible de mosquitos'</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">theme_bw</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> <span class="fu">ylab</span><span class="op">(</span><span class="st">'Número'</span><span class="op">)</span> <span class="op">+</span> <span class="fu">xlab</span><span class="op">(</span><span class="st">'Años'</span><span class="op">)</span></span>
+<span><span class="va">p3v</span> <span class="op">&lt;-</span> <span class="fu">ggplot</span><span class="op">(</span>data <span class="op">=</span> <span class="va">out</span>, <span class="fu">aes</span><span class="op">(</span>y <span class="op">=</span> <span class="va">Ev</span>, x <span class="op">=</span> <span class="va">years</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">geom_line</span><span class="op">(</span>color <span class="op">=</span> <span class="st">'orchid'</span>, size <span class="op">=</span> <span class="fl">1</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">ggtitle</span><span class="op">(</span><span class="st">'Población expuesta de mosquitos'</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">theme_bw</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> <span class="fu">ylab</span><span class="op">(</span><span class="st">'Número'</span><span class="op">)</span> <span class="op">+</span> <span class="fu">xlab</span><span class="op">(</span><span class="st">'Años'</span><span class="op">)</span></span>
+<span><span class="va">p4v</span> <span class="op">&lt;-</span> <span class="fu">ggplot</span><span class="op">(</span>data <span class="op">=</span> <span class="va">out</span>, <span class="fu">aes</span><span class="op">(</span>y <span class="op">=</span> <span class="va">Iv</span>, x <span class="op">=</span> <span class="va">years</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">geom_line</span><span class="op">(</span>color <span class="op">=</span> <span class="st">'firebrick'</span>, size <span class="op">=</span> <span class="fl">1</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">ggtitle</span><span class="op">(</span><span class="st">'Población infecciosa de mosquitos'</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">theme_bw</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> <span class="fu">ylab</span><span class="op">(</span><span class="st">'Número'</span><span class="op">)</span> <span class="op">+</span> <span class="fu">xlab</span><span class="op">(</span><span class="st">'Años'</span><span class="op">)</span></span>
+<span><span class="fu">plot_grid</span><span class="op">(</span><span class="va">p1v</span>, <span class="va">p2v</span>, <span class="va">p3v</span>, <span class="va">p4v</span>, ncol <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></code></pre>
+</div>
+<figure><img src="fig/taller-rendered-p2-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure>
+</div>
+<div class="section level3">
+<h3 id="proporción">11.3 Proporción<a class="anchor" aria-label="anchor" href="#proporci%C3%B3n"></a>
+</h3>
+<p>Por favor dé una mirada más cuidadosa a las proporciones y
+discútalas</p>
+<div class="codewrapper sourceCode" id="cb9">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">p1</span> <span class="op">&lt;-</span> <span class="fu">ggplot</span><span class="op">(</span>data <span class="op">=</span> <span class="va">out</span>, <span class="fu">aes</span><span class="op">(</span>y <span class="op">=</span> <span class="va">Sh</span><span class="op">/</span><span class="op">(</span><span class="va">Sh</span><span class="op">+</span><span class="va">Ih</span><span class="op">+</span><span class="va">Rh</span><span class="op">)</span>, x <span class="op">=</span> <span class="va">years</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">geom_line</span><span class="op">(</span>color <span class="op">=</span> <span class="st">'royalblue'</span>, size <span class="op">=</span> <span class="fl">1</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">ggtitle</span><span class="op">(</span><span class="st">'Población humana susceptible'</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">theme_bw</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> <span class="fu">ylab</span><span class="op">(</span><span class="st">'Proporción'</span><span class="op">)</span> <span class="op">+</span> <span class="fu">xlab</span><span class="op">(</span><span class="st">'Años'</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">coord_cartesian</span><span class="op">(</span>ylim <span class="op">=</span> <span class="fu">c</span><span class="op">(</span><span class="fl">0</span>,<span class="fl">1</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">p2</span> <span class="op">&lt;-</span> <span class="fu">ggplot</span><span class="op">(</span>data <span class="op">=</span> <span class="va">out</span>, <span class="fu">aes</span><span class="op">(</span>y <span class="op">=</span> <span class="va">Ih</span><span class="op">/</span><span class="op">(</span><span class="va">Sh</span><span class="op">+</span><span class="va">Ih</span><span class="op">+</span><span class="va">Rh</span><span class="op">)</span>, x <span class="op">=</span> <span class="va">years</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">geom_line</span><span class="op">(</span>color <span class="op">=</span> <span class="st">'firebrick'</span>, size <span class="op">=</span> <span class="fl">1</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">ggtitle</span><span class="op">(</span><span class="st">'Población humana infecciosa'</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">theme_bw</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> <span class="fu">ylab</span><span class="op">(</span><span class="st">'Proporción'</span><span class="op">)</span> <span class="op">+</span> <span class="fu">xlab</span><span class="op">(</span><span class="st">'Años'</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">coord_cartesian</span><span class="op">(</span>ylim <span class="op">=</span> <span class="fu">c</span><span class="op">(</span><span class="fl">0</span>,<span class="fl">1</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">p3</span> <span class="op">&lt;-</span> <span class="fu">ggplot</span><span class="op">(</span>data <span class="op">=</span> <span class="va">out</span>, <span class="fu">aes</span><span class="op">(</span>y <span class="op">=</span> <span class="va">Rh</span><span class="op">/</span><span class="op">(</span><span class="va">Sh</span><span class="op">+</span><span class="va">Ih</span><span class="op">+</span><span class="va">Rh</span><span class="op">)</span>, x <span class="op">=</span> <span class="va">years</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">geom_line</span><span class="op">(</span>color <span class="op">=</span> <span class="st">'olivedrab'</span>, size <span class="op">=</span> <span class="fl">1</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">ggtitle</span><span class="op">(</span><span class="st">'Población humana recuperada'</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">theme_bw</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> <span class="fu">ylab</span><span class="op">(</span><span class="st">'Proporción'</span><span class="op">)</span> <span class="op">+</span> <span class="fu">xlab</span><span class="op">(</span><span class="st">'Años'</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">coord_cartesian</span><span class="op">(</span>ylim <span class="op">=</span> <span class="fu">c</span><span class="op">(</span><span class="fl">0</span>,<span class="fl">1</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu">plot_grid</span><span class="op">(</span><span class="va">p1</span>, <span class="va">p2</span>, <span class="va">p3</span>, ncol <span class="op">=</span> <span class="fl">2</span><span class="op">)</span> </span></code></pre>
+</div>
+<figure><img src="fig/taller-rendered-p3-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure>
+</div>
+<div class="section level3">
+<h3 id="la-primera-epidemia">11.4 La primera epidemia<a class="anchor" aria-label="anchor" href="#la-primera-epidemia"></a>
+</h3>
+<div class="codewrapper sourceCode" id="cb10">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Revise la primera epidemia</span></span>
+<span><span class="va">dat</span> <span class="op">&lt;-</span> <span class="va">out</span> <span class="op">%&gt;%</span> <span class="fu">filter</span><span class="op">(</span><span class="va">weeks</span> <span class="op">&lt;</span> <span class="fl">54</span><span class="op">)</span></span>
+<span><span class="va">p1e</span> <span class="op">&lt;-</span> <span class="fu">ggplot</span><span class="op">(</span><span class="va">dat</span>, <span class="fu">aes</span><span class="op">(</span>y <span class="op">=</span> <span class="va">Ih</span>, x <span class="op">=</span> <span class="va">weeks</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">geom_line</span><span class="op">(</span>color <span class="op">=</span> <span class="st">'firebrick'</span>, size <span class="op">=</span> <span class="fl">1</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">ggtitle</span><span class="op">(</span><span class="st">'Población de humanos infecciosos'</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">theme_bw</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> <span class="fu">ylab</span><span class="op">(</span><span class="st">'Número'</span><span class="op">)</span> <span class="op">+</span> <span class="fu">xlab</span><span class="op">(</span><span class="st">'Semanas'</span><span class="op">)</span></span>
+<span><span class="va">p2e</span> <span class="op">&lt;-</span> <span class="fu">ggplot</span><span class="op">(</span><span class="va">dat</span>, <span class="fu">aes</span><span class="op">(</span>y <span class="op">=</span> <span class="va">Rh</span>, x <span class="op">=</span> <span class="va">weeks</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">geom_line</span><span class="op">(</span>color <span class="op">=</span> <span class="st">'olivedrab'</span>, size <span class="op">=</span> <span class="fl">1</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">ggtitle</span><span class="op">(</span><span class="st">'Población humana recuperada'</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">theme_bw</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> <span class="fu">ylab</span><span class="op">(</span><span class="st">'Número'</span><span class="op">)</span> <span class="op">+</span> <span class="fu">xlab</span><span class="op">(</span><span class="st">'Semanas'</span><span class="op">)</span></span>
+<span><span class="fu">plot_grid</span><span class="op">(</span><span class="va">p1e</span>, <span class="va">p2e</span><span class="op">)</span></span></code></pre>
+</div>
+<figure><img src="fig/taller-rendered-p4-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure>
+</div>
+<div class="section level3">
+<h3 id="algunos-aspectos-por-discutir">11.5 Algunos aspectos por discutir<a class="anchor" aria-label="anchor" href="#algunos-aspectos-por-discutir"></a>
+</h3>
+<ul>
+<li>¿Qué tan sensible es el modelo a cambios en el <span class="math inline">\(R_0\)</span>?</li>
+<li>¿Qué razones hay (según el modelo) para el intervalo de tiempo entre
+estas epidemias simuladas?</li>
+<li>¿Cómo se puede calcular la tasa de ataque?</li>
+</ul>
+</div>
+<div class="section level3">
+<h3 id="modele-una-o-más-intervenciones-de-control">11.6 Modele una o más intervenciones de control<a class="anchor" aria-label="anchor" href="#modele-una-o-m%C3%A1s-intervenciones-de-control"></a>
+</h3>
+<p>Ahora, utilizando este modelo básico, por grupos modelar el impacto
+de las siguientes intervenciones.</p>
+<ol style="list-style-type: decimal">
+<li>Grupo 1. Fumigación contra mosquitos</li>
+<li>Grupo 2. Mosquiteros/angeos</li>
+<li>Grupo 3. Vacunación que previene frente a infecciones</li>
+</ol>
+<p>Para cada intervención:<br>
+a) Indique en qué parte del modelo haría los cambios. b) De acuerdo a la
+literatura que explique estas intervenciones y describa cómo
+parametrizará el modelo. ¿Todas estas intervenciones son viables en la
+actualidad?</p>
+</div>
+</section><section id="sobre-este-documento"><h2 class="section-heading">Sobre este documento<a class="anchor" aria-label="anchor" href="#sobre-este-documento"></a>
+</h2>
+<hr class="half-width">
+<div class="section level3">
+<h3 id="contribuciones">Contribuciones<a class="anchor" aria-label="anchor" href="#contribuciones"></a>
+</h3>
+<ul>
+<li>Zulma Cucunuba &amp; Pierre Nouvellet: Versión inicial</li>
+<li>Kelly Charinga &amp; Zhian N. Kamvar: Edición</li>
+<li>José M. Velasco-España: Traducción de Inglés a Español y
+Edición</li>
+<li>Andree Valle-Campos: Ediciones menores</li>
+</ul>
+<p>Contribuciones son bienvenidas vía <a href="https://github.com/reconhub/learn/pulls" class="external-link">pull requests</a>. El
+archivo fuente del documento original puede ser encontrado <a href="https://raw.githubusercontent.com/reconhub/learn/master/content/post/practical-vbd.Rmd" class="external-link"><strong>aquí</strong></a>.</p>
+</div>
+<div class="section level3">
+<h3 id="asuntos-legales">Asuntos legales<a class="anchor" aria-label="anchor" href="#asuntos-legales"></a>
+</h3>
+<p><strong>Licencia</strong>: <a href="https://creativecommons.org/licenses/by/3.0/" class="external-link">CC-BY</a>
+<strong>Copyright</strong>: Zulma Cucunuba &amp; Pierre Nouvellet,
+2017</p>
+<!-- ## Referencias -->
+<div id="keypoints1" class="callout keypoints">
+<div class="callout-square">
+<i class="callout-icon" data-feather="key"></i>
+</div>
+<div class="callout-inner">
+<h3 class="callout-title">Keypoints<a class="anchor" aria-label="anchor" href="#keypoints1"></a>
+</h3>
+<div class="callout-content">
+<p>Revise si al final de esta lección aprendió estos conceptos:</p>
+<ul>
+<li>Modelo SIR para ETV Zika</li>
+<li>Parametrización de un modelo dinámico</li>
+<li>Evaluación de un modelo dinámico</li>
+<li>Parametrización de intervenciones de control (fumigación,
+mosquiteros y vacunación) para una ETV</li>
+</ul>
+</div>
+</div>
+</div>
+<!-- 
+Place links that you need to refer to multiple times across pages here. Delete
+any links that you are not going to use. 
+ -->
+</div>
 </section></section>
 </div>
     </main>
