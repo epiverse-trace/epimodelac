@@ -53,10 +53,19 @@ Estimado participante
 
 Si no ha podido acceder a la plataforma, adjunto encontrará el paso a paso para realizar la inscripción en el programa. El plazo de inscripción al curso es hoy 17 de noviembre de 2023 a las 11:00pm (GMT-5). Si tiene algún problema para el ingreso o la inscripción al curso o la plataforma por favor escríbanos a  tracelac@javeriana.edu.co o gomezblaura@javeriana.edu.co 
 
+:::::::::::::::::::::::: solution 
+
+You can add a line with at least three colons and a `solution` tag.
+
 :::::::::::::::::::::::::::::::::
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
+:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: instructor
 
+Inline instructor notes can help inform instructors of timing challenges
+associated with the lessons. They appear in the "Instructor View"
+
+::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
 
 
@@ -65,5 +74,6 @@ Si no ha podido acceder a la plataforma, adjunto encontrará el paso a paso para
 Normas del curso
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
+
 
 
