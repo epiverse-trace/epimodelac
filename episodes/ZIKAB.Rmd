@@ -27,25 +27,23 @@ exercises: 8
 #Versión última modificación 21/10/2022
 library(knitr)
 opts_chunk$set(collapse = TRUE)
-full_version <- FALSE
+full_version <- TRUE
 ```
 
 :::::::::::::::::::::::::::::::::::::: questions 
 
-- ¿Cómo construir un modelo simplificado de zika?
+¿Cómo construir un modelo simplificado de zika?
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
 ::::::::::::::::::::::::::::::::::::: objectives
 
-Objetivos 
-
 Al final de este taller usted podrá:
 
--	Aplicar conceptos como parámetros, $R_0$ e inmunidad de rebaño, aprendidos en la sesión A del taller
-- Traducir fórmulas matemáticas de las interacciones entre los parámetros del modelo a código de R
+-	Aplicar conceptos como parámetros, $R_0$ e inmunidad de rebaño, aprendidos en la sesión A del taller.
+- Traducir fórmulas matemáticas de las interacciones entre los parámetros del modelo a código de R.
 -	Realizar un modelo simple en R para una enfermedad transmitida por vector
--	Discutir cambios en las proyecciones del modelo cuando se instauran diferentes estrategias de control de la infección
+-	Discutir cambios en las proyecciones del modelo cuando se instauran diferentes estrategias de control de la infección.
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
@@ -53,6 +51,14 @@ Al final de este taller usted podrá:
 
 En este taller usted aplicará los conceptos básicos del **modelamiento de Enfermedades Transmitidas por Vectores (ETV)** mediante el uso del programa R con énfasis en el funcionamiento de los métodos, utilizando como ejemplo un modelo básico de infección por un arbovirus, el virus del Zika.
 
+## 2. Agenda
+
+Contexto e instrucciones: 20 mins
+Puntos 4, 5 y 6: Conceptos básicos (5 mins + 10 de socialización)
+Puntos 7, 8, 9 y 10: Conceptualización del modelo (10 mins + 10 mins)
+Punto 11:   Elaboración de ecuaciones (5 mins + 10 mins)
+Puntos 12 y 13: Tabla de parámetros (5 mins)
+Discusión final: 15 mins
 
 ## 3. Conceptos básicos a desarrollar
 
@@ -88,6 +94,8 @@ library(cowplot) # Cargando el paquete gridExtra para unir gráficos.
 
 Ahora se usarán los parámetros que discutimos en la parte A del taller. Si aún no los tiene, estos se pueden encontrar en la guía de aprendizaje de la parte A del taller.
 
+::::::::::::::::::::::::::::::::::::: Challenge
+
 Busque los valores de los parámetros del modelo y diligéncielos en el recuadro de abajo. Tenga en cuenta que todos los parámetros usados tienen la misma unidad de tiempo (días).
 
 
@@ -115,7 +123,10 @@ betah    <-        # Coeficiente de transmisión del mosquito al humano
 betav    <-        # Coeficiente de transmisión del humano al mosquito
 TIME     <-        # Número de años que se va a simular 
 ```
+:::::::::::::::::::::::::::::::::
 
+
+:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: instructor
 
 ```{r, include = full_version}
 # Parámetros
@@ -149,6 +160,9 @@ betav    <- pv*b     # Coeficiente de transmisión del humano al mosquito
 TIME     <- 100       # Número de años a simular
 
 ```
+
+::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
 
 ## 7. Ecuaciones del modelo
 
@@ -191,6 +205,7 @@ ode(y      = # Condiciones iniciales,
 )
 ```
 
+::::::::::::::::::::::::::::::::::::: Challenge
 En esta sección se empezará por crear la función _(argumento fun)_, para ello es necesario traducir las ecuaciones del modelo a R. Abajo encontrará la función ya construida, por favor reemplace los parámetros faltantes (Cambie *PAR* por el parámetro correspondiente) en las  ecuaciones:
 
 ```{r, eval = FALSE}
@@ -221,6 +236,9 @@ arbovmodel <- function(t, x, params) {
   )
 }
 ```
+:::::::::::::::::::::::::::::::::
+
+:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: instructor
 
 ```{r, include = full_version}
 arbovmodel <- function(t, x, params) {
@@ -250,7 +268,7 @@ arbovmodel <- function(t, x, params) {
   )
 }
 ```
-
+::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
 ## 10. Resuelva el Sistema
 
@@ -260,6 +278,7 @@ En esta sección se crearán los tres argumentos faltantes para usar la función
 
 -   Los ARGUMENTOS de la función **ode** en el paquete **deSolve**.
 
+::::::::::::::::::::::::::::::::::::: Challenge
 ```{r, eval = FALSE}
 # Secuencia temporal (times)
 times  <- seq(1, 365 * TIME , by = 1)
@@ -289,6 +308,10 @@ out <- as.data.frame(ode(y      = ARGUMENTO?,   # COMPLETE Y COMENTE
                          fun    = ARGUMENTO?,   # COMPLETE Y COMENTE
                          parms  = ARGUMENTO?))  # COMPLETE Y COMENTE
 ```
+:::::::::::::::::::::::::::::::::
+
+
+:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: instructor
 
 ```{r, include = full_version}
 # ----------- Resuelva el modelo
@@ -320,7 +343,9 @@ out <- as.data.frame(ode(y      = xstart,     # Condiciones iniciales
                          fun    = arbovmodel, # Modelo
                          parms  = params))    # Parámetros
 ```
+::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
+::::::::::::::::::::::::::::::::::::: Challenge
 ## 11. Resultados
 
 Para tener una visualización más significativa de los resultados, convierta las unidades de tiempo *días* en *años* y en *semanas*.
@@ -330,12 +355,17 @@ Para tener una visualización más significativa de los resultados, convierta la
 out$years <- 
 out$weeks <- 
 ```
+:::::::::::::::::::::::::::::::::
+
+:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: instructor
 
 ```{r, include = full_version}
 # Cree las opciones de tiempo a mostrar 
 out$years <- out$time / 365
 out$weeks <- out$time / 7
 ```
+::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
 
 ### 11.1 Comportamiento General (Población humana)
 
@@ -440,6 +470,7 @@ Ahora, utilizando este modelo básico, por grupos modelar el impacto de las sigu
 
 Para cada intervención:  
 a) Indique en qué parte del modelo haría los cambios.
+
 b) De acuerdo a la literatura que explique estas intervenciones y describa cómo parametrizará el modelo. ¿Todas estas intervenciones son viables en la actualidad? 
 
 
