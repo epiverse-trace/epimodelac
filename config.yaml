@@ -59,7 +59,7 @@ contact: 'team@carpentries.org'
 
 # Order of episodes in your lesson
 episodes:
-- introduction.Rmd
+
 - ZIKAB.Rmd
 
 
