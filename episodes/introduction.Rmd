@@ -1,22 +1,24 @@
 ---
-title: 'Bienvenida'
-teaching: 5
-exercises: 0
+title: 'introduction'
+teaching: 10
+exercises: 2
 ---
 
 :::::::::::::::::::::::::::::::::::::: questions 
 
-
+- How do you write a lesson using R Markdown and `{sandpaper}`?
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
 ::::::::::::::::::::::::::::::::::::: objectives
 
+- Explain how to use markdown with the new lesson template
+- Demonstrate how to include pieces of code, figures, and nested challenge blocks
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
 ## Introduction
- 
+
 This is a lesson created via The Carpentries Workbench. It is written in
 [Pandoc-flavored Markdown][pandoc] for static files (with extension `.md`) and
 [R Markdown][r-markdown] for dynamic files that can render code into output
