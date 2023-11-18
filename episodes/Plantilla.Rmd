@@ -1,5 +1,5 @@
 ---
-title: "Titulo del taller"
+title: 'Titulo del taller'
 author: "Autor del Taller"
 date: "AAAA-MM-DD (Fecha de elaboración)"
 output:
@@ -14,6 +14,8 @@ editor_options:
   markdown:
     wrap: 72
 licenses: "CC-BY"
+teaching: 90
+exercises: 8
 ---
 
 ## Introducción (Sección 1)

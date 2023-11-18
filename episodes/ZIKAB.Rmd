@@ -1,5 +1,5 @@
 ---
-title: "Taller Zika (Parte B): construyendo un modelo matemático simple para Zika."
+title: 'Taller Zika (Parte B): construyendo un modelo matemático simple para Zika.'
 author: "Zulma Cucunubá, Pierre Nouvellet & José M. Velasco-España"
 date: '2022-10-24'
 output:
