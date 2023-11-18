@@ -179,19 +179,7 @@
 <div class="accordion accordion-flush" id="accordionFlush2">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-heading2">
-        <a href="introduction.html">1. Bienvenida</a>
-    </div>
-<!--/div.accordion-header-->
-        
-  </div>
-<!--/div.accordion-item-->
-</div>
-<!--/div.accordion-flush-->
-
-<div class="accordion accordion-flush" id="accordionFlush3">
-  <div class="accordion-item">
-    <div class="accordion-header" id="flush-heading3">
-        <a href="taller.html">2. Taller Zika (Parte B): construyendo un modelo matemático simple para Zika.</a>
+        <a href="ZIKAB.html">1. Taller Zika (Parte B): construyendo un modelo matemático simple para Zika.</a>
     </div>
 <!--/div.accordion-header-->
         
@@ -262,17 +250,131 @@ any links that you are not going to use.
  -->
 
 
-      <section id="aggregate-instructor-notes"><section id="introduction"><h2 class="section-heading"><a href="introduction.html">Bienvenida</a></h2>
+      <section id="aggregate-instructor-notes"><section id="ZIKAB"><h2 class="section-heading"><a href="ZIKAB.html">Taller Zika (Parte B): construyendo un modelo matemático simple para Zika.</a></h2>
 <hr class="half-width">
-<h3 id="introduction-headingInstructor1">
-<a href="introduction.html#headingInstructor1">Instructor Note</a><a class="anchor" aria-label="anchor" href="#introduction-headingInstructor1"></a>
+<h3 id="ZIKAB-headingInstructor1">
+<a href="ZIKAB.html#headingInstructor1">Instructor Note</a><a class="anchor" aria-label="anchor" href="#ZIKAB-headingInstructor1"></a>
 </h3>
-<p>Inline instructor notes can help inform instructors of timing
-challenges associated with the lessons. They appear in the “Instructor
-View”</p>
+<div class="codewrapper sourceCode" id="cb3">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Parámetros</span></span>
+<span><span class="va">ph</span>       <span class="op">&lt;-</span> <span class="fl">0.7</span>       <span class="co"># Probabilidad de transmisión del vector al hospedador dada una picadura por un mosquito infeccioso a un humano susceptible</span></span>
+<span><span class="va">pv</span>       <span class="op">&lt;-</span> <span class="fl">0.7</span>       <span class="co"># Probabilidad de transmisión del hospedador al vector dada una picadura por un mosquito susceptible a un humano infeccioso</span></span>
+<span><span class="va">Lv</span>       <span class="op">&lt;-</span> <span class="fl">10</span>        <span class="co"># Esperanza de vida de los mosquitos (en días)</span></span>
+<span><span class="va">Lh</span>       <span class="op">&lt;-</span> <span class="fl">50</span> <span class="op">*</span> <span class="fl">365</span>  <span class="co"># Esperanza de vida de los humanos (en días)</span></span>
+<span><span class="va">Iph</span>      <span class="op">&lt;-</span> <span class="fl">7</span>         <span class="co"># Periodo infeccioso en humanos (en días)</span></span>
+<span><span class="va">IP</span>       <span class="op">&lt;-</span> <span class="fl">6</span>         <span class="co"># Periodo infeccioso en vectores (en días)</span></span>
+<span><span class="va">EIP</span>      <span class="op">&lt;-</span> <span class="fl">8.4</span>       <span class="co"># Período extrínseco de incubación en mosquitos adultos</span></span>
+<span><span class="va">muv</span>      <span class="op">&lt;-</span> <span class="fl">1</span><span class="op">/</span><span class="va">Lv</span>      <span class="co"># Tasa per capita de mortalidad del vector (1/Lv)</span></span>
+<span><span class="va">muh</span>      <span class="op">&lt;-</span> <span class="fl">1</span><span class="op">/</span><span class="va">Lh</span>      <span class="co"># Tasa per capita de mortalidad del hospedador (1/Lh)</span></span>
+<span><span class="va">alphav</span>   <span class="op">&lt;-</span> <span class="va">muv</span>       <span class="co"># Tasa per capita de natalidad del vector</span></span>
+<span><span class="va">alphah</span>   <span class="op">&lt;-</span> <span class="va">muh</span>       <span class="co"># Tasa per capita de natalidad del hospedador</span></span>
+<span><span class="va">gamma</span>    <span class="op">&lt;-</span> <span class="fl">1</span><span class="op">/</span><span class="va">Iph</span>     <span class="co"># Tasa de recuperación en humanos</span></span>
+<span><span class="va">delta</span>    <span class="op">&lt;-</span> <span class="fl">1</span><span class="op">/</span><span class="va">EIP</span>     <span class="co"># Tasa extrínseca de incubación</span></span>
+<span></span>
+<span></span>
+<span></span>
+<span><span class="co"># Tamaño de la población</span></span>
+<span><span class="va">Nh</span>       <span class="op">&lt;-</span> <span class="fl">100000</span>   <span class="co"># Número de humanos</span></span>
+<span><span class="va">m</span>        <span class="op">&lt;-</span> <span class="fl">2</span>         <span class="co"># Proporción vector a humano</span></span>
+<span><span class="va">Nv</span>       <span class="op">&lt;-</span> <span class="va">m</span> <span class="op">*</span> <span class="va">Nh</span>    <span class="co"># Número de vectores</span></span>
+<span><span class="va">R0</span>       <span class="op">&lt;-</span> <span class="fl">3</span>         <span class="co"># Número reproductivo</span></span>
+<span><span class="va">b</span>        <span class="op">&lt;-</span> <span class="fu">sqrt</span><span class="op">(</span><span class="op">(</span><span class="va">R0</span> <span class="op">*</span> <span class="va">muv</span><span class="op">*</span><span class="op">(</span><span class="va">muv</span><span class="op">+</span><span class="va">delta</span><span class="op">)</span> <span class="op">*</span> <span class="op">(</span><span class="va">muh</span><span class="op">+</span><span class="va">gamma</span><span class="op">)</span><span class="op">)</span> <span class="op">/</span></span>
+<span>                   <span class="op">(</span><span class="va">m</span> <span class="op">*</span> <span class="va">ph</span> <span class="op">*</span> <span class="va">pv</span> <span class="op">*</span> <span class="va">delta</span><span class="op">)</span><span class="op">)</span> <span class="co"># tasa de picadura</span></span>
+<span></span>
+<span><span class="va">betah</span>    <span class="op">&lt;-</span> <span class="va">ph</span><span class="op">*</span><span class="va">b</span>     <span class="co"># Coeficiente de transmisión del mosquito al humano</span></span>
+<span><span class="va">betav</span>    <span class="op">&lt;-</span> <span class="va">pv</span><span class="op">*</span><span class="va">b</span>     <span class="co"># Coeficiente de transmisión del humano al mosquito</span></span>
+<span></span>
+<span><span class="va">TIME</span>     <span class="op">&lt;-</span> <span class="fl">100</span>       <span class="co"># Número de años a simular</span></span></code></pre>
+</div>
 <hr>
-<br></section><section id="taller"><h2 class="section-heading"><a href="taller.html">Taller Zika (Parte B): construyendo un modelo matemático simple para Zika.</a></h2>
-<hr class="half-width"></section></section>
+<br><h3 id="ZIKAB-headingInstructor2">
+<a href="ZIKAB.html#headingInstructor2">Instructor Note</a><a class="anchor" aria-label="anchor" href="#ZIKAB-headingInstructor2"></a>
+</h3>
+<div class="codewrapper sourceCode" id="cb6">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">arbovmodel</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">t</span>, <span class="va">x</span>, <span class="va">params</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  </span>
+<span>  <span class="va">Sh</span> <span class="op">&lt;-</span> <span class="va">x</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>    <span class="co"># Humanos susceptibles</span></span>
+<span>  <span class="va">Ih</span> <span class="op">&lt;-</span> <span class="va">x</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span>    <span class="co"># Humanos infecciosos </span></span>
+<span>  <span class="va">Rh</span> <span class="op">&lt;-</span> <span class="va">x</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span>    <span class="co"># Humanos recuperados</span></span>
+<span>  <span class="va">Sv</span> <span class="op">&lt;-</span> <span class="va">x</span><span class="op">[</span><span class="fl">4</span><span class="op">]</span>    <span class="co"># Vectores susceptibles</span></span>
+<span>  <span class="va">Ev</span> <span class="op">&lt;-</span> <span class="va">x</span><span class="op">[</span><span class="fl">5</span><span class="op">]</span>    <span class="co"># Vectores expuestos</span></span>
+<span>  <span class="va">Iv</span> <span class="op">&lt;-</span> <span class="va">x</span><span class="op">[</span><span class="fl">6</span><span class="op">]</span>    <span class="co"># Vectores infecciosos</span></span>
+<span>  </span>
+<span>  <span class="fu">with</span><span class="op">(</span><span class="fu">as.list</span><span class="op">(</span><span class="va">params</span><span class="op">)</span>, <span class="co"># entorno local para evaluar derivados</span></span>
+<span>       <span class="op">{</span></span>
+<span>         <span class="co"># Humanos</span></span>
+<span>         <span class="va">dSh</span>   <span class="op">&lt;-</span>  <span class="va">alphah</span> <span class="op">*</span> <span class="va">Nh</span> <span class="op">-</span> <span class="va">betah</span> <span class="op">*</span> <span class="op">(</span><span class="va">Iv</span><span class="op">/</span><span class="va">Nh</span><span class="op">)</span> <span class="op">*</span> <span class="va">Sh</span> <span class="op">-</span> <span class="va">muh</span> <span class="op">*</span> <span class="va">Sh</span></span>
+<span>         <span class="va">dIh</span>   <span class="op">&lt;-</span>  <span class="va">betah</span> <span class="op">*</span> <span class="op">(</span><span class="va">Iv</span><span class="op">/</span><span class="va">Nh</span><span class="op">)</span> <span class="op">*</span> <span class="va">Sh</span>  <span class="op">-</span> <span class="op">(</span><span class="va">gamma</span> <span class="op">+</span> <span class="va">muh</span><span class="op">)</span> <span class="op">*</span> <span class="va">Ih</span></span>
+<span>         <span class="va">dRh</span>   <span class="op">&lt;-</span>  <span class="va">gamma</span> <span class="op">*</span> <span class="va">Ih</span>  <span class="op">-</span> <span class="va">muh</span> <span class="op">*</span> <span class="va">Rh</span></span>
+<span>         </span>
+<span>         <span class="co"># Vectores</span></span>
+<span>         <span class="va">dSv</span>   <span class="op">&lt;-</span>  <span class="va">alphav</span> <span class="op">*</span> <span class="va">Nv</span> <span class="op">-</span> <span class="va">betav</span> <span class="op">*</span> <span class="op">(</span><span class="va">Ih</span><span class="op">/</span><span class="va">Nh</span><span class="op">)</span> <span class="op">*</span> <span class="va">Sv</span> <span class="op">-</span> <span class="va">muv</span> <span class="op">*</span> <span class="va">Sv</span> </span>
+<span>         <span class="va">dEv</span>   <span class="op">&lt;-</span>  <span class="va">betav</span> <span class="op">*</span> <span class="op">(</span><span class="va">Ih</span><span class="op">/</span><span class="va">Nh</span><span class="op">)</span> <span class="op">*</span> <span class="va">Sv</span> <span class="op">-</span> <span class="op">(</span><span class="va">delta</span> <span class="op">+</span> <span class="va">muv</span><span class="op">)</span><span class="op">*</span> <span class="va">Ev</span></span>
+<span>         <span class="va">dIv</span>   <span class="op">&lt;-</span>  <span class="va">delta</span> <span class="op">*</span> <span class="va">Ev</span> <span class="op">-</span> <span class="va">muv</span> <span class="op">*</span> <span class="va">Iv</span></span>
+<span>         </span>
+<span>         <span class="va">dx</span>    <span class="op">&lt;-</span> <span class="fu">c</span><span class="op">(</span><span class="va">dSh</span>, <span class="va">dIh</span>, <span class="va">dRh</span>, <span class="va">dSv</span>, <span class="va">dEv</span>, <span class="va">dIv</span><span class="op">)</span></span>
+<span>         <span class="fu">list</span><span class="op">(</span><span class="va">dx</span><span class="op">)</span></span>
+<span>       <span class="op">}</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">}</span></span></code></pre>
+</div>
+<hr>
+<br><h3 id="ZIKAB-headingInstructor3">
+<a href="ZIKAB.html#headingInstructor3">Instructor Note</a><a class="anchor" aria-label="anchor" href="#ZIKAB-headingInstructor3"></a>
+</h3>
+<div class="codewrapper sourceCode" id="cb8">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># ----------- Resuelva el modelo</span></span>
+<span><span class="co">#Tiempo</span></span>
+<span><span class="va">times</span>  <span class="op">&lt;-</span> <span class="fu">seq</span><span class="op">(</span><span class="fl">1</span>, <span class="fl">365</span> <span class="op">*</span> <span class="va">TIME</span> , by <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
+<span><span class="co"># Especifique los parámetros</span></span>
+<span><span class="va">params</span> <span class="op">&lt;-</span> <span class="fu">c</span><span class="op">(</span></span>
+<span>  muv      <span class="op">=</span> <span class="va">muv</span>,     </span>
+<span>  muh      <span class="op">=</span> <span class="va">muh</span>, </span>
+<span>  alphav   <span class="op">=</span> <span class="va">alphav</span>,</span>
+<span>  alphah   <span class="op">=</span> <span class="va">alphah</span>,</span>
+<span>  gamma    <span class="op">=</span> <span class="va">gamma</span>,   </span>
+<span>  delta    <span class="op">=</span> <span class="va">delta</span>,   </span>
+<span>  betav    <span class="op">=</span> <span class="va">betav</span>,       </span>
+<span>  betah    <span class="op">=</span> <span class="va">betah</span>,   </span>
+<span>  Nh       <span class="op">=</span> <span class="va">Nh</span>,      </span>
+<span>  Nv       <span class="op">=</span> <span class="va">Nv</span></span>
+<span><span class="op">)</span></span>
+<span><span class="co"># Condiciones iniciales del sistema</span></span>
+<span><span class="va">xstart</span><span class="op">&lt;-</span> <span class="fu">c</span><span class="op">(</span>Sh <span class="op">=</span> <span class="va">Nh</span> ,      <span class="co"># Número inicial de Sh en T0</span></span>
+<span>           Ih <span class="op">=</span> <span class="fl">0</span>,        <span class="co"># Número inicial de Ih en T0</span></span>
+<span>           Rh <span class="op">=</span> <span class="fl">0</span>,        <span class="co"># Número inicial de Rh en T0</span></span>
+<span>           Sv <span class="op">=</span> <span class="va">Nv</span><span class="op">-</span><span class="fl">1</span>,     <span class="co"># Número inicial de Sv en T0</span></span>
+<span>           Ev <span class="op">=</span> <span class="fl">0</span>,        <span class="co"># Número inicial de Ev en T0</span></span>
+<span>           Iv <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>        <span class="co"># Número inicial de Iv en TO</span></span>
+<span><span class="co"># Resuelva las ecuaciones</span></span>
+<span><span class="va">out</span> <span class="op">&lt;-</span> <span class="fu">as.data.frame</span><span class="op">(</span><span class="fu">ode</span><span class="op">(</span>y      <span class="op">=</span> <span class="va">xstart</span>,     <span class="co"># Condiciones iniciales</span></span>
+<span>                         times  <span class="op">=</span> <span class="va">times</span>,      <span class="co"># Tiempo</span></span>
+<span>                         fun    <span class="op">=</span> <span class="va">arbovmodel</span>, <span class="co"># Modelo</span></span>
+<span>                         parms  <span class="op">=</span> <span class="va">params</span><span class="op">)</span><span class="op">)</span>    <span class="co"># Parámetros</span></span></code></pre>
+</div>
+<hr>
+<br><h3 id="ZIKAB-headingInstructor4">
+<a href="ZIKAB.html#headingInstructor4">Instructor Note</a><a class="anchor" aria-label="anchor" href="#ZIKAB-headingInstructor4"></a>
+</h3>
+<div class="codewrapper sourceCode" id="cb10">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Cree las opciones de tiempo a mostrar </span></span>
+<span><span class="va">out</span><span class="op">$</span><span class="va">years</span> <span class="op">&lt;-</span> <span class="va">out</span><span class="op">$</span><span class="va">time</span> <span class="op">/</span> <span class="fl">365</span></span>
+<span><span class="va">out</span><span class="op">$</span><span class="va">weeks</span> <span class="op">&lt;-</span> <span class="va">out</span><span class="op">$</span><span class="va">time</span> <span class="op">/</span> <span class="fl">7</span></span></code></pre>
+</div>
+<hr>
+<br></section></section>
 </div>
     </main>
 </div>
