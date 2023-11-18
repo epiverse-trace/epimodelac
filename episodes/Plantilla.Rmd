@@ -18,6 +18,17 @@ teaching: 90
 exercises: 8
 ---
 
+
+:::::::::::::::::::::::::::::::::::::: questions 
+
+
+::::::::::::::::::::::::::::::::::::::::::::::::
+
+::::::::::::::::::::::::::::::::::::: objectives
+
+
+::::::::::::::::::::::::::::::::::::::::::::::::
+
 ## Introducción (Sección 1)
 
 Aquí se espera que usted comparta información sobre un problema de salud pública. La metodología es de resolución de casos.
@@ -131,4 +142,9 @@ Este documento ha sido diseñado por NOMBRE_DE_AUTORES para el Curso Internacion
 
 - NOMBRE_DE_AUTORES_Y_COLABORADORES
 
+::::::::::::::::::::::::::::::::::::: keypoints 
+
+Normas del curso
+
+::::::::::::::::::::::::::::::::::::::::::::::::
 

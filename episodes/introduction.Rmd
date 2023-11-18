@@ -4,6 +4,16 @@ teaching: 5
 exercises: 0
 ---
 
+:::::::::::::::::::::::::::::::::::::: questions 
+
+
+::::::::::::::::::::::::::::::::::::::::::::::::
+
+::::::::::::::::::::::::::::::::::::: objectives
+
+
+::::::::::::::::::::::::::::::::::::::::::::::::
+
 El ‘Curso Internacional: Análisis de Brotes y Modelamiento en Salud Pública, Bogotá 2023’ se llevará a cabo del 4 al 8 de diciembre de 2023 en Bogotá, Colombia. Este evento es liderado por la Pontificia Universidad Javeriana en el marco del proyecto Epiverse-TRACE-LAC y cuenta con el apoyo de la Universidad de los Andes, el London School of Hygiene and Tropical Medicine, data.org, el Centro Internacional de Investigaciones para el Desarrollo (IDRC) de Canadá, la Secretaría de Salud de Bogotá, el Instituto Nacional de Salud (INS), el Field Epidemiology Training Program (FETP), la Red de Programas de Epidemiología de Campo en América del Sur (REDSUR), el Imperial College de Londres y la Universidad de Sussex. 
 
 
