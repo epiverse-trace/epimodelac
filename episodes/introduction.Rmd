@@ -6,11 +6,18 @@ exercises: 0
 
 :::::::::::::::::::::::::::::::::::::: questions 
 
+- ¿Cómo construir un modelo simplificado de zika?
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
 ::::::::::::::::::::::::::::::::::::: objectives
 
+Al final de este taller usted podrá:
+
+-	Aplicar conceptos como parámetros, $R_0$ e inmunidad de rebaño, aprendidos en la sesión A del taller.
+- Traducir fórmulas matemáticas de las interacciones entre los parámetros del modelo a código de R.
+-	Realizar un modelo simple en R para una enfermedad transmitida por vector
+-	Discutir cambios en las proyecciones del modelo cuando se instauran diferentes estrategias de control de la infección.
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
