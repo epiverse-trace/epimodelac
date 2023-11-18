@@ -1,10 +1,10 @@
 ---
-title: 'introduction'
-teaching: 10
-exercises: 2
+title: 'Bienvenida'
+teaching: 5
+exercises: 0
 ---
 
-:::::::::::::::::::::::::::::::::::::: questions 
+:::::::::::::::::::::::::::::::::::::: Preguntas 
 
 - How do you write a lesson using R Markdown and `{sandpaper}`?
 
