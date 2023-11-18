@@ -1,5 +1,5 @@
 ---
-title: 'Taller Zika (Parte B): construyendo un modelo matemático simple para Zika.'
+title: "Taller Zika (Parte B): construyendo un modelo matematico simple para Zika."
 author: "Zulma Cucunubá, Pierre Nouvellet & José M. Velasco-España"
 date: '2022-10-24'
 output:
@@ -27,18 +27,20 @@ exercises: 8
 
 :::::::::::::::::::::::::::::::::::::: questions 
 
-¿Cómo construir un modelo simplificado de zika?
+- ¿Cómo construir un modelo simplificado de zika?
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
 ::::::::::::::::::::::::::::::::::::: objectives
 
+Objetivos 
+
 Al final de este taller usted podrá:
 
--	Aplicar conceptos como parámetros, $R_0$ e inmunidad de rebaño, aprendidos en la sesión A del taller.
-- Traducir fórmulas matemáticas de las interacciones entre los parámetros del modelo a código de R.
+-	Aplicar conceptos como parámetros, $R_0$ e inmunidad de rebaño, aprendidos en la sesión A del taller
+- Traducir fórmulas matemáticas de las interacciones entre los parámetros del modelo a código de R
 -	Realizar un modelo simple en R para una enfermedad transmitida por vector
--	Discutir cambios en las proyecciones del modelo cuando se instauran diferentes estrategias de control de la infección.
+-	Discutir cambios en las proyecciones del modelo cuando se instauran diferentes estrategias de control de la infección
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
@@ -46,14 +48,6 @@ Al final de este taller usted podrá:
 
 En este taller usted aplicará los conceptos básicos del **modelamiento de Enfermedades Transmitidas por Vectores (ETV)** mediante el uso del programa R con énfasis en el funcionamiento de los métodos, utilizando como ejemplo un modelo básico de infección por un arbovirus, el virus del Zika.
 
-## 2. Agenda
-
-Contexto e instrucciones: 20 mins
-Puntos 4, 5 y 6: Conceptos básicos (5 mins + 10 de socialización)
-Puntos 7, 8, 9 y 10: Conceptualización del modelo (10 mins + 10 mins)
-Punto 11:   Elaboración de ecuaciones (5 mins + 10 mins)
-Puntos 12 y 13: Tabla de parámetros (5 mins)
-Discusión final: 15 mins
 
 ## 3. Conceptos básicos a desarrollar
 
@@ -90,8 +84,6 @@ library(cowplot) # Cargando el paquete gridExtra para unir gráficos.
 
 Ahora se usarán los parámetros que discutimos en la parte A del taller. Si aún no los tiene, estos se pueden encontrar en la guía de aprendizaje de la parte A del taller.
 
-::::::::::::::::::::::::::::::::::::: Challenge
-
 Busque los valores de los parámetros del modelo y diligéncielos en el recuadro de abajo. Tenga en cuenta que todos los parámetros usados tienen la misma unidad de tiempo (días).
 
 
@@ -120,45 +112,8 @@ betah    <-        # Coeficiente de transmisión del mosquito al humano
 betav    <-        # Coeficiente de transmisión del humano al mosquito
 TIME     <-        # Número de años que se va a simular 
 ```
-:::::::::::::::::::::::::::::::::
 
 
-:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: instructor
-
-
-```r
-# Parámetros
-ph       <- 0.7       # Probabilidad de transmisión del vector al hospedador dada una picadura por un mosquito infeccioso a un humano susceptible
-pv       <- 0.7       # Probabilidad de transmisión del hospedador al vector dada una picadura por un mosquito susceptible a un humano infeccioso
-Lv       <- 10        # Esperanza de vida de los mosquitos (en días)
-Lh       <- 50 * 365  # Esperanza de vida de los humanos (en días)
-Iph      <- 7         # Periodo infeccioso en humanos (en días)
-IP       <- 6         # Periodo infeccioso en vectores (en días)
-EIP      <- 8.4       # Período extrínseco de incubación en mosquitos adultos
-muv      <- 1/Lv      # Tasa per capita de mortalidad del vector (1/Lv)
-muh      <- 1/Lh      # Tasa per capita de mortalidad del hospedador (1/Lh)
-alphav   <- muv       # Tasa per capita de natalidad del vector
-alphah   <- muh       # Tasa per capita de natalidad del hospedador
-gamma    <- 1/Iph     # Tasa de recuperación en humanos
-delta    <- 1/EIP     # Tasa extrínseca de incubación
-
-
-
-# Tamaño de la población
-Nh       <- 100000   # Número de humanos
-m        <- 2         # Proporción vector a humano
-Nv       <- m * Nh    # Número de vectores
-R0       <- 3         # Número reproductivo
-b        <- sqrt((R0 * muv*(muv+delta) * (muh+gamma)) /
-                   (m * ph * pv * delta)) # tasa de picadura
-
-betah    <- ph*b     # Coeficiente de transmisión del mosquito al humano
-betav    <- pv*b     # Coeficiente de transmisión del humano al mosquito
-
-TIME     <- 100       # Número de años a simular
-```
-
-::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
 
 ## 7. Ecuaciones del modelo
@@ -203,7 +158,6 @@ ode(y      = # Condiciones iniciales,
 )
 ```
 
-::::::::::::::::::::::::::::::::::::: Challenge
 En esta sección se empezará por crear la función _(argumento fun)_, para ello es necesario traducir las ecuaciones del modelo a R. Abajo encontrará la función ya construida, por favor reemplace los parámetros faltantes (Cambie *PAR* por el parámetro correspondiente) en las  ecuaciones:
 
 
@@ -235,40 +189,9 @@ arbovmodel <- function(t, x, params) {
   )
 }
 ```
-:::::::::::::::::::::::::::::::::
-
-:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: instructor
 
 
-```r
-arbovmodel <- function(t, x, params) {
-  
-  Sh <- x[1]    # Humanos susceptibles
-  Ih <- x[2]    # Humanos infecciosos 
-  Rh <- x[3]    # Humanos recuperados
-  Sv <- x[4]    # Vectores susceptibles
-  Ev <- x[5]    # Vectores expuestos
-  Iv <- x[6]    # Vectores infecciosos
-  
-  with(as.list(params), # entorno local para evaluar derivados
-       {
-         # Humanos
-         dSh   <-  alphah * Nh - betah * (Iv/Nh) * Sh - muh * Sh
-         dIh   <-  betah * (Iv/Nh) * Sh  - (gamma + muh) * Ih
-         dRh   <-  gamma * Ih  - muh * Rh
-         
-         # Vectores
-         dSv   <-  alphav * Nv - betav * (Ih/Nh) * Sv - muv * Sv 
-         dEv   <-  betav * (Ih/Nh) * Sv - (delta + muv)* Ev
-         dIv   <-  delta * Ev - muv * Iv
-         
-         dx    <- c(dSh, dIh, dRh, dSv, dEv, dIv)
-         list(dx)
-       }
-  )
-}
-```
-::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
 
 ## 10. Resuelva el Sistema
 
@@ -278,7 +201,6 @@ En esta sección se crearán los tres argumentos faltantes para usar la función
 
 -   Los ARGUMENTOS de la función **ode** en el paquete **deSolve**.
 
-::::::::::::::::::::::::::::::::::::: Challenge
 
 ```r
 # Secuencia temporal (times)
@@ -309,45 +231,9 @@ out <- as.data.frame(ode(y      = ARGUMENTO?,   # COMPLETE Y COMENTE
                          fun    = ARGUMENTO?,   # COMPLETE Y COMENTE
                          parms  = ARGUMENTO?))  # COMPLETE Y COMENTE
 ```
-:::::::::::::::::::::::::::::::::
 
 
-:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: instructor
 
-
-```r
-# ----------- Resuelva el modelo
-#Tiempo
-times  <- seq(1, 365 * TIME , by = 1)
-# Especifique los parámetros
-params <- c(
-  muv      = muv,     
-  muh      = muh, 
-  alphav   = alphav,
-  alphah   = alphah,
-  gamma    = gamma,   
-  delta    = delta,   
-  betav    = betav,       
-  betah    = betah,   
-  Nh       = Nh,      
-  Nv       = Nv
-)
-# Condiciones iniciales del sistema
-xstart<- c(Sh = Nh ,      # Número inicial de Sh en T0
-           Ih = 0,        # Número inicial de Ih en T0
-           Rh = 0,        # Número inicial de Rh en T0
-           Sv = Nv-1,     # Número inicial de Sv en T0
-           Ev = 0,        # Número inicial de Ev en T0
-           Iv = 1)        # Número inicial de Iv en TO
-# Resuelva las ecuaciones
-out <- as.data.frame(ode(y      = xstart,     # Condiciones iniciales
-                         times  = times,      # Tiempo
-                         fun    = arbovmodel, # Modelo
-                         parms  = params))    # Parámetros
-```
-::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-
-::::::::::::::::::::::::::::::::::::: Challenge
 ## 11. Resultados
 
 Para tener una visualización más significativa de los resultados, convierta las unidades de tiempo *días* en *años* y en *semanas*.
@@ -358,17 +244,7 @@ Para tener una visualización más significativa de los resultados, convierta la
 out$years <- 
 out$weeks <- 
 ```
-:::::::::::::::::::::::::::::::::
 
-:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: instructor
-
-
-```r
-# Cree las opciones de tiempo a mostrar 
-out$years <- out$time / 365
-out$weeks <- out$time / 7
-```
-::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
 
 ### 11.1 Comportamiento General (Población humana)
@@ -395,7 +271,7 @@ p4h <- ggplot(data = out, aes(y = Rh, x = years)) +
 plot_grid(p1h, p2h, p3h, p4h, ncol = 2)
 ```
 
-<img src="fig/ZIKAB-rendered-p1-1.png" style="display: block; margin: auto;" />
+<img src="fig/taller-rendered-p1-1.png" style="display: block; margin: auto;" />
 
 ### 11.2 Comportamiento General (Población de vectores)
 
@@ -421,7 +297,7 @@ p4v <- ggplot(data = out, aes(y = Iv, x = years)) +
 plot_grid(p1v, p2v, p3v, p4v, ncol = 2)
 ```
 
-<img src="fig/ZIKAB-rendered-p2-1.png" style="display: block; margin: auto;" />
+<img src="fig/taller-rendered-p2-1.png" style="display: block; margin: auto;" />
 
 ### 11.3 Proporción
 
@@ -447,7 +323,7 @@ p3 <- ggplot(data = out, aes(y = Rh/(Sh+Ih+Rh), x = years)) +
 plot_grid(p1, p2, p3, ncol = 2) 
 ```
 
-<img src="fig/ZIKAB-rendered-p3-1.png" style="display: block; margin: auto;" />
+<img src="fig/taller-rendered-p3-1.png" style="display: block; margin: auto;" />
 
 ### 11.4 La primera epidemia
 
@@ -466,7 +342,7 @@ p2e <- ggplot(dat, aes(y = Rh, x = weeks)) +
 plot_grid(p1e, p2e)
 ```
 
-<img src="fig/ZIKAB-rendered-p4-1.png" style="display: block; margin: auto;" />
+<img src="fig/taller-rendered-p4-1.png" style="display: block; margin: auto;" />
 
 
 ### 11.5 Algunos aspectos por discutir
@@ -486,7 +362,6 @@ Ahora, utilizando este modelo básico, por grupos modelar el impacto de las sigu
 
 Para cada intervención:  
 a) Indique en qué parte del modelo haría los cambios.
-
 b) De acuerdo a la literatura que explique estas intervenciones y describa cómo parametrizará el modelo. ¿Todas estas intervenciones son viables en la actualidad? 
 
 
