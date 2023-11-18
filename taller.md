@@ -1,5 +1,5 @@
 ---
-title: "Taller Zika (Parte B): construyendo un modelo matematico simple para Zika."
+title: "Taller Zika (Parte B): construyendo un modelo matemático simple para Zika."
 author: "Zulma Cucunubá, Pierre Nouvellet & José M. Velasco-España"
 date: '2022-10-24'
 output:
@@ -48,6 +48,14 @@ Al final de este taller usted podrá:
 
 En este taller usted aplicará los conceptos básicos del **modelamiento de Enfermedades Transmitidas por Vectores (ETV)** mediante el uso del programa R con énfasis en el funcionamiento de los métodos, utilizando como ejemplo un modelo básico de infección por un arbovirus, el virus del Zika.
 
+## 2. Agenda
+
+Contexto e instrucciones: 20 mins
+Puntos 4, 5 y 6: Conceptos básicos (5 mins + 10 de socialización)
+Puntos 7, 8, 9 y 10: Conceptualización del modelo (10 mins + 10 mins)
+Punto 11:   Elaboración de ecuaciones (5 mins + 10 mins)
+Puntos 12 y 13: Tabla de parámetros (5 mins)
+Discusión final: 15 mins
 
 ## 3. Conceptos básicos a desarrollar
 

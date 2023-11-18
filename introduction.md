@@ -29,74 +29,48 @@ En esta página encontrará los talleres del día 2 del curso al día 5.
 
 :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: instructor
 
-Inline instructor notes can help inform instructors of timing challenges
-associated with the lessons. They appear in the "Instructor View"
+
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
 ::::::::::::::::::::::::::::::::::::: challenge 
 
-## Challenge 1: Can you do it?
+## Recomendaciones para antes del curso
 
-What is the output of this command?
+Instale Latex (Aquí tutorial)
+
+Instale RTools (Aquí tutorial)
+
+Instale estas dependencias de R
+
 
 ```r
-paste("This", "new", "lesson", "looks", "good")
+library(deSolve)   # Paquete deSolve para resolver las ecuaciones diferenciales
+library(tidyverse) # Paquetes ggplot2 y dplyr de tidyverse
+library(cowplot) # Paquete gridExtra para unir gráficos.
 ```
+
 
 :::::::::::::::::::::::: solution 
-
-## Output
- 
-```output
-[1] "This new lesson looks good"
-```
 
 :::::::::::::::::::::::::::::::::
 
 
-## Challenge 2: how do you nest solutions within challenge blocks?
+## Noticias
+
+Estimado participante
+
+¡Ya está disponible una nueva unidad del curso virtual en ciencia de datos en salud pública y modelamiento de enfermedades infecciosas! Esta nueva unidad tiene contenido sobre los conceptos básicos para entender las epidemias y pandemias. En esta unidad de Introducción a la Teoría Epidémica podrá encontrar nuevos recursos como videos, interactivos y lecturas. Recuerde que cada semana habilitaremos nuevas unidades y nuevos recursos de aprendizaje. 
+
+Si no ha podido acceder a la plataforma, adjunto encontrará el paso a paso para realizar la inscripción en el programa. El plazo de inscripción al curso es hoy 17 de noviembre de 2023 a las 11:00pm (GMT-5). Si tiene algún problema para el ingreso o la inscripción al curso o la plataforma por favor escríbanos a  tracelac@javeriana.edu.co o gomezblaura@javeriana.edu.co
 
 :::::::::::::::::::::::: solution 
 
-You can add a line with at least three colons and a `solution` tag.
 
 :::::::::::::::::::::::::::::::::
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
-## Figures
 
-You can include figures generated from R Markdown:
-
-
-```r
-pie(
-  c(Sky = 78, "Sunny side of pyramid" = 17, "Shady side of pyramid" = 5), 
-  init.angle = 315, 
-  col = c("deepskyblue", "yellow", "yellow3"), 
-  border = FALSE
-)
-```
-
-<div class="figure" style="text-align: center">
-<img src="fig/introduction-rendered-pyramid-1.png" alt="pie chart illusion of a pyramid"  />
-<p class="caption">Sun arise each and every morning</p>
-</div>
-Or you can use pandoc markdown for static figures with the following syntax:
-
-`![optional caption that appears below the figure](figure url){alt='alt text for
-accessibility purposes'}`
-
-![You belong in The Carpentries!](https://raw.githubusercontent.com/carpentries/logo/master/Badge_Carpentries.svg){alt='Blue Carpentries hex person logo with no text.'}
-
-## Math
-
-One of our episodes contains $\LaTeX$ equations when describing how to create
-dynamic reports with {knitr}, so we now use mathjax to describe this:
-
-`$\alpha = \dfrac{1}{(1 - \beta)^2}$` becomes: $\alpha = \dfrac{1}{(1 - \beta)^2}$
-
-Cool, right?
 
 ::::::::::::::::::::::::::::::::::::: keypoints 
 
