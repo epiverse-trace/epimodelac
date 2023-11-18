@@ -1,39 +1,31 @@
 ---
-title: 'introduction'
+title: 'Bienvenida'
 teaching: 10
 exercises: 2
 ---
 
 :::::::::::::::::::::::::::::::::::::: questions 
 
-- How do you write a lesson using R Markdown and `{sandpaper}`?
+-
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
 ::::::::::::::::::::::::::::::::::::: objectives
 
-- Explain how to use markdown with the new lesson template
-- Demonstrate how to include pieces of code, figures, and nested challenge blocks
+
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
 ## Introduction
 
-This is a lesson created via The Carpentries Workbench. It is written in
-[Pandoc-flavored Markdown][pandoc] for static files (with extension `.md`) and
-[R Markdown][r-markdown] for dynamic files that can render code into output
-(with extension `.Rmd`). Please refer to the [Introduction to The Carpentries
-Workbench][carpentries-workbench] for full documentation.
+El ‘Curso Internacional: Análisis de Brotes y Modelamiento en Salud Pública, Bogotá 2023’ se llevará a cabo del 4 al 8 de diciembre de 2023 en Bogotá, Colombia. Este evento es liderado por la Pontificia Universidad Javeriana en el marco del proyecto Epiverse-TRACE-LAC y cuenta con el apoyo de la Universidad de los Andes, el London School of Hygiene and Tropical Medicine, data.org, el Centro Internacional de Investigaciones para el Desarrollo (IDRC) de Canadá, la Secretaría de Salud de Bogotá, el Instituto Nacional de Salud (INS), el Field Epidemiology Training Program (FETP), la Red de Programas de Epidemiología de Campo en América del Sur (REDSUR), el Imperial College de Londres y la Universidad de Sussex. 
 
-What you need to know is that there are three sections required for a valid
-Carpentries lesson template:
 
- 1. `questions` are displayed at the beginning of the episode to prime the
-    learner for the content.
- 2. `objectives` are the learning objectives for an episode displayed with
-    the questions.
- 3. `keypoints` are displayed at the end of the episode to reinforce the
-    objectives.
+Este curso presencial de 5 días tiene como objetivo fortalecer la capacidad de análisis y modelamiento de brotes de enfermedades infecciosas en la región de América Latina y el Caribe, mediante el uso de herramientas de alta calidad, de código abierto e interoperables que ayuden en la toma de decisiones en salud pública. El curso está dirigido a 80 profesionales de la salud y otras áreas de STEM que buscan mejorar sus habilidades dentro del ecosistema de ciencia de datos y salud pública para responder a futuras crisis de salud.
+
+Para más información consulte: [Epimodelac](https://epimodelac.com/)
+
+En esta página encontrará los talleres del día 2 del curso al día 5. 
 
 :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: instructor
 
