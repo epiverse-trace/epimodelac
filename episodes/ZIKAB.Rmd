@@ -32,7 +32,7 @@ full_version <- TRUE
 
 :::::::::::::::::::::::::::::::::::::: questions 
 
-¿Cómo construir un modelo simplificado de zika?
+- ¿Cómo construir un modelo simplificado de zika?
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
