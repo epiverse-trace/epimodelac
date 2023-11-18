@@ -22,14 +22,6 @@ authors:
 teaching: 90
 exercises: 8
 ---
-
-```{r options, include = FALSE, message = FALSE, warning = FALSE, error = FALSE}
-#Versión última modificación 21/10/2022
-library(knitr)
-opts_chunk$set(collapse = TRUE)
-full_version <- TRUE
-```
-
 :::::::::::::::::::::::::::::::::::::: questions 
 
 - ¿Cómo construir un modelo simplificado de zika?
@@ -46,6 +38,14 @@ Al final de este taller usted podrá:
 -	Discutir cambios en las proyecciones del modelo cuando se instauran diferentes estrategias de control de la infección.
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
+
+
+```{r options, include = FALSE, message = FALSE, warning = FALSE, error = FALSE}
+#Versión última modificación 21/10/2022
+library(knitr)
+opts_chunk$set(collapse = TRUE)
+full_version <- TRUE
+```
 
 ## 1. Introducción
 

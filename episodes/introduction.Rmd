@@ -4,7 +4,7 @@ teaching: 5
 exercises: 0
 ---
 
-:::::::::::::::::::::::::::::::::::::: questions 
+:::::::::::::::::::::::::::::::::::::: questions
 
 - ¿Cómo construir un modelo simplificado de zika?
 
