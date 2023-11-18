@@ -61,7 +61,6 @@ contact: 'team@carpentries.org'
 episodes:
 - introduction.Rmd
 - ZIKAB.Rmd
-- Plantilla.Rmd
 
 # Information for Learners
 learners:

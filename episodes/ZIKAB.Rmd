@@ -23,8 +23,9 @@ teaching: 90
 exercises: 8
 ---
 :::::::::::::::::::::::::::::::::::::: questions 
-
+ 
 - ¿Cómo construir un modelo simplificado de zika?
+ 
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
