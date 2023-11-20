@@ -27,6 +27,7 @@ require(pak)
 pak::pak("reconhub/epitrix")
 install.packages("BiocManager", repos = "https://cloud.r-project.org")
 library(epitrix)
+BiocManager::install("BiocVersion")
 ```
 
 :::::::::::::::::::::::::::::::::::::: questions 
