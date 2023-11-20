@@ -85,11 +85,11 @@
   Lesson Title
 </div>
 
-<aside class="col-md-12 lesson-progress"><div style="width: 0%" class="percentage">
-    0%
+<aside class="col-md-12 lesson-progress"><div style="width: 53%" class="percentage">
+    53%
   </div>
   <div class="progress incubator">
-    <div class="progress-bar incubator" role="progressbar" style="width: 0%" aria-valuenow="0" aria-label="Lesson Progress" aria-valuemin="0" aria-valuemax="100">
+    <div class="progress-bar incubator" role="progressbar" style="width: 53%" aria-valuenow="53" aria-label="Lesson Progress" aria-valuemin="0" aria-valuemax="100">
     </div>
   </div>
 </aside><div class="container">
@@ -143,13 +143,31 @@
   </div><!--/div.accordion-item-->
 </div><!--/div.accordion-flush-->
 
+<div class="accordion accordion-flush" id="accordionFlush2">
+  <div class="accordion-item">
+    <div class="accordion-header" id="flush-heading2">
+        <a href="introduction.html">1. Bienvenida</a>
+    </div><!--/div.accordion-header-->
+        
+  </div><!--/div.accordion-item-->
+</div><!--/div.accordion-flush-->
+
+<div class="accordion accordion-flush" id="accordionFlush3">
+  <div class="accordion-item">
+    <div class="accordion-header" id="flush-heading3">
+        <a href="taller.html">2. Taller Zika (Parte B): construyendo un modelo matemático simple para Zika.</a>
+    </div><!--/div.accordion-header-->
+        
+  </div><!--/div.accordion-item-->
+</div><!--/div.accordion-flush-->
+
 <div class="accordion accordion-flush" id="accordionFlushcurrent">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-headingcurrent">
       <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapsecurrent" aria-expanded="true" aria-controls="flush-collapsecurrent">
         <span class="visually-hidden">Current Chapter</span>
         <span class="current-chapter">
-        1. Taller Zika (Parte B): construyendo un modelo matemático simple para Zika.
+        3. Taller Zika (Parte B): construyendo un modelo matemático simple para Zika.
         </span>
       </button>
     </div><!--/div.accordion-header-->
@@ -216,14 +234,14 @@
         <!-- START: inst/pkgdown/templates/content-instructor.html -->
   <div class="col-xl-8 col-lg-12 primary-content">
     <nav class="lesson-content mx-md-4" aria-label="Previous and Next Chapter"><!-- content for small screens --><div class="d-block d-sm-block d-md-none">
-        <a class="chapter-link" href="../instructor/index.html"><i aria-hidden="true" class="small-arrow" data-feather="arrow-left"></i>Previous</a>
+        <a class="chapter-link" href="../instructor/taller.html"><i aria-hidden="true" class="small-arrow" data-feather="arrow-left"></i>Previous</a>
         <a class="chapter-link float-end" href="../instructor/index.html">Next<i aria-hidden="true" class="small-arrow" data-feather="arrow-right"></i></a>
       </div>
       <!-- content for large screens -->
       <div class="d-none d-sm-none d-md-block">
-        <a class="chapter-link" href="../instructor/index.html" rel="prev">
+        <a class="chapter-link" href="../instructor/taller.html" rel="prev">
           <i aria-hidden="true" class="small-arrow" data-feather="arrow-left"></i>
-          Home
+          Previous: Taller Zika (Parte
         </a>
         <a class="chapter-link float-end" href="../instructor/index.html" rel="next">
           Home
@@ -232,7 +250,7 @@
       </div>
       <hr></nav><main id="main-content" class="main-content"><div class="container lesson-content">
         <h1>Taller Zika (Parte B): construyendo un modelo matemático simple para Zika.</h1>
-        <p> Last updated on 2023-11-18 | 
+        <p> Last updated on 2023-11-20 | 
         
         <a href="https://github.com/Joskerus/Nuevoformato/edit/main/episodes/ZIKAB.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
         
@@ -253,23 +271,24 @@
 <div class="card-body">
 <div class="inner">
 <h3 class="card-title">Questions</h3>
-<p>¿Cómo construir un modelo simplificado de zika?</p>
-</div>
+<ul><li>¿Cómo construir un modelo simplificado de zika?</li>
+</ul></div>
 </div>
 </div>
 <div class="col-md-8">
 <div class="card-body">
 <div class="inner bordered">
 <h3 class="card-title">Objectives</h3>
+<p>Objetivos</p>
 <p>Al final de este taller usted podrá:</p>
 <ul><li>Aplicar conceptos como parámetros, <span class="math inline">\(R_0\)</span> e inmunidad de rebaño, aprendidos en
-la sesión A del taller.</li>
+la sesión A del taller</li>
 <li>Traducir fórmulas matemáticas de las interacciones entre los
-parámetros del modelo a código de R.</li>
+parámetros del modelo a código de R</li>
 <li>Realizar un modelo simple en R para una enfermedad transmitida por
 vector</li>
 <li>Discutir cambios en las proyecciones del modelo cuando se instauran
-diferentes estrategias de control de la infección.</li>
+diferentes estrategias de control de la infección</li>
 </ul></div>
 </div>
 </div>
@@ -372,7 +391,7 @@ tienen la misma unidad de tiempo (días).</p>
   Instructor Note
   </h3>
 </button>
-<div id="collapseInstructor1" class="accordion-collapse collapse" aria-labelledby="headingInstructor1" data-bs-parent="#accordionInstructor1">
+<div id="collapseInstructor1" class="accordion-collapse collapse" data-bs-parent="#accordionInstructor1" aria-labelledby="headingInstructor1">
 <div class="accordion-body">
 <div class="codewrapper sourceCode" id="cb3">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -507,7 +526,7 @@ correspondiente) en las ecuaciones:</p>
   Instructor Note
   </h3>
 </button>
-<div id="collapseInstructor2" class="accordion-collapse collapse" aria-labelledby="headingInstructor2" data-bs-parent="#accordionInstructor2">
+<div id="collapseInstructor2" class="accordion-collapse collapse" data-bs-parent="#accordionInstructor2" aria-labelledby="headingInstructor2">
 <div class="accordion-body">
 <div class="codewrapper sourceCode" id="cb6">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -594,7 +613,7 @@ código para:</p>
   Instructor Note
   </h3>
 </button>
-<div id="collapseInstructor3" class="accordion-collapse collapse" aria-labelledby="headingInstructor3" data-bs-parent="#accordionInstructor3">
+<div id="collapseInstructor3" class="accordion-collapse collapse" data-bs-parent="#accordionInstructor3" aria-labelledby="headingInstructor3">
 <div class="accordion-body">
 <div class="codewrapper sourceCode" id="cb8">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -654,7 +673,7 @@ convierta las unidades de tiempo <em>días</em> en <em>años</em> y en
   Instructor Note
   </h3>
 </button>
-<div id="collapseInstructor4" class="accordion-collapse collapse" aria-labelledby="headingInstructor4" data-bs-parent="#accordionInstructor4">
+<div id="collapseInstructor4" class="accordion-collapse collapse" data-bs-parent="#accordionInstructor4" aria-labelledby="headingInstructor4">
 <div class="accordion-body">
 <div class="codewrapper sourceCode" id="cb10">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -827,14 +846,14 @@ any links that you are not going to use.
 </div>
 </section></div> <!-- / div.lesson-content -->
     </main><!-- / main#main-content.main-content --><nav class="bottom-pagination mx-md-4" aria-label="Previous and Next Chapter"><div class="d-block d-sm-block d-md-none">
-        <a class="chapter-link" href="../instructor/index.html"><i aria-hidden="true" class="small-arrow" data-feather="arrow-left"></i>Previous</a>
+        <a class="chapter-link" href="../instructor/taller.html"><i aria-hidden="true" class="small-arrow" data-feather="arrow-left"></i>Previous</a>
         <a class="chapter-link float-end" href="../instructor/index.html">Next<i aria-hidden="true" class="small-arrow" data-feather="arrow-right"></i></a>
       </div>
       <!-- content for large screens -->
       <div class="d-none d-sm-none d-md-block">
-        <a class="chapter-link" href="../instructor/index.html" rel="prev">
+        <a class="chapter-link" href="../instructor/taller.html" rel="prev">
           <i aria-hidden="true" class="small-arrow" data-feather="arrow-left"></i>
-          Home
+          Previous: Taller Zika (Parte
         </a>
         <a class="chapter-link float-end" href="../instructor/index.html" rel="next">
           Home
@@ -884,8 +903,8 @@ any links that you are not going to use.
   "url": "https://Joskerus.github.io/Nuevoformato/instructor/ZIKAB.html",
   "identifier": "https://Joskerus.github.io/Nuevoformato/instructor/ZIKAB.html",
   "dateCreated": "2023-11-10",
-  "dateModified": "2023-11-18",
-  "datePublished": "2023-11-18"
+  "dateModified": "2023-11-20",
+  "datePublished": "2023-11-20"
 }
 
   </script><script>
