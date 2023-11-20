@@ -25,7 +25,7 @@ require(epicontacts) # para análisis de contactos epidemiológicos
 require(EpiEstim) # para estimar R(t)
 require(pak)
 pak::pak("reconhub/epitrix")
-install.packages("BiocManager", repos = "https://cloud.r-project.org")}
+install.packages("BiocManager", repos = "https://cloud.r-project.org")
 library(epitrix)
 ```
 
