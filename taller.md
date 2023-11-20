@@ -50,11 +50,16 @@ En este taller usted aplicará los conceptos básicos del **modelamiento de Enfe
 
 ## 2. Agenda
 
-Contexto e instrucciones: 20 mins
-Puntos 4, 5 y 6: Conceptos básicos (5 mins + 10 de socialización)
-Puntos 7, 8, 9 y 10: Conceptualización del modelo (10 mins + 10 mins)
-Punto 11:   Elaboración de ecuaciones (5 mins + 10 mins)
-Puntos 12 y 13: Tabla de parámetros (5 mins)
+Contexto e instrucciones: 20 mins 
+
+Puntos 4, 5 y 6: Conceptos básicos (5 mins + 10 de socialización) 
+
+Puntos 7, 8, 9 y 10: Conceptualización del modelo (10 mins + 10 mins) 
+
+Punto 11:   Elaboración de ecuaciones (5 mins + 10 mins) 
+
+Puntos 12 y 13: Tabla de parámetros (5 mins) 
+
 Discusión final: 15 mins
 
 ## 3. Conceptos básicos a desarrollar
