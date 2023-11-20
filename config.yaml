@@ -61,6 +61,7 @@ contact: 'team@carpentries.org'
 episodes:
 - introduction.Rmd
 - ZIKAB.Rmd
+- TallerEbola.Rmd
 
 # Information for Learners
 learners:
