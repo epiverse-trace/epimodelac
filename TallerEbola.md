@@ -1152,7 +1152,7 @@ hist(intervalo_serial_observado, breaks = 0:30,
 
 La distribución gamma se utiliza comúnmente en epidemiología por varias razones, especialmente cuando se trata de modelar el tiempo entre eventos que son inherentemente positivos y continuos, como los intervalos de tiempo entre la infección y la aparición de síntomas (intervalo de incubación) o entre la aparición de síntomas en casos primarios y secundarios (intervalo serial). La distribución gamma es elegida por su capacidad para ajustarse a la naturaleza de los datos y por su flexibilidad matemática, lo que la hace una herramienta poderosa en el análisis y modelado de datos epidemiológicos. Sin embargo, pueden usarse otras opciones como: Exponencial, Weibull, Log-normal, Poisson, Binomial negativa, Beta, entre otras.
 
-Esto puede realizarse empleando la función `fit_disc_gamma` del paquete `incidence`.
+Esto puede realizarse empleando la función `fit_disc_gamma` del paquete `epitrix`.
 
 Realice un ajuste de la distribución gamma a los datos del intervalo serial observado y compare la distribución ajustada con los datos.
 
