@@ -50,12 +50,13 @@ En este taller usted aplicará los conceptos básicos del **modelamiento de Enfe
 
 ## 2. Agenda
 
-Contexto e instrucciones: 20 mins
-Puntos 4, 5 y 6: Conceptos básicos (5 mins + 10 de socialización)
-Puntos 7, 8, 9 y 10: Conceptualización del modelo (10 mins + 10 mins)
-Punto 11:   Elaboración de ecuaciones (5 mins + 10 mins)
-Puntos 12 y 13: Tabla de parámetros (5 mins)
-Discusión final: 15 mins
+-   Instrucciones (5 mins) 
+-   Desarrollo taller Zika Parte B  (45 mins con acompañamiento de monitores) 
+-   Revisión grupal del código (10 mins) 
+-   Revisión de resultados (20 mins) 
+-   Descanso (25 mins) 
+-   Discusión  final (60 mins)
+
 
 ## 3. Conceptos básicos a desarrollar
 
@@ -66,18 +67,19 @@ En esta práctica se desarrollarán los siguientes conceptos:
 -   Evaluación de un modelo dinámico
 -   Parametrización de intervenciones de control (fumigación, mosquiteros y vacunación) para una ETV
 
+
 ## 4. Paquetes requeridos
 
 Cargue los paquetes necesarios ingresando en R los siguientes comandos:
 
 
 ```r
-library(deSolve)   # Cargando el paquete deSolve para resolver las ecuaciones diferenciales
-library(tidyverse) # Cargando paquetes ggplot2 y dplyr de tidyverse
-library(cowplot) # Cargando el paquete gridExtra para unir gráficos.
+library(deSolve)   # Paquete deSolve para resolver las ecuaciones diferenciales
+library(tidyverse) # Paquetes ggplot2 y dplyr de tidyverse
+library(cowplot) # Paquete gridExtra para unir gráficos.
 ```
 
-- Si desea puede tomar notas en el script de R, para esto se recomienda usar el símbolo _#_ después de cada línea de código (ver ejemplo arriba).
+- Si desea puede tomar notas en el script de R, para esto se recomienda usar el símbolo _#_ después de cada línea de código (ver ejemplo arriba). O podría utilizar un archivo Rmd para tener un aspecto similar al del taller.
 
 ## 5. Compartimentos del modelo básico de Zika
 
@@ -92,7 +94,7 @@ library(cowplot) # Cargando el paquete gridExtra para unir gráficos.
 
 Ahora se usarán los parámetros que discutimos en la parte A del taller. Si aún no los tiene, estos se pueden encontrar en la guía de aprendizaje de la parte A del taller.
 
-::::::::::::::::::::::::::::::::::::: Challenge
+::::::::::::::::::::::::::::::::::::: challenge  
 
 Busque los valores de los parámetros del modelo y diligéncielos en el recuadro de abajo. Tenga en cuenta que todos los parámetros usados tienen la misma unidad de tiempo (días).
 
@@ -197,7 +199,7 @@ $$ R_0 = \frac{mb^2 p_h p_v \delta}{\mu_v (\mu_v+\delta)(\mu_h+\gamma)} $$
 Es hora de hacer el modelo en R. Para lograrlo se usará la función _ode_ del paquete _desolve_. Para el ejercicio se emplearán 4 argumentos de la función _ode_: el primero son las condiciones iniciales del modelo _(argumento y)_, el segundo es la secuencia temporal donde se ejecutará el modelo _(argumento times)_, el tercero es una función que contiene las ecuaciones diferenciales que entrarán al sistema _(argumento fun)_ y por último un vector que contiene los parámetros con los que se calculará el sistema _(argumento parms)_. 
 
 ```r
-#No la copie a R sólo tiene fines ilustrativos.
+# NO la copie a R sólo tiene fines ilustrativos.
 ode(y      = # Condiciones iniciales,
     times  = # Tiempo,
     fun    = # Modelo o función que lo contenga,
@@ -205,7 +207,8 @@ ode(y      = # Condiciones iniciales,
 )
 ```
 
-::::::::::::::::::::::::::::::::::::: Challenge
+::::::::::::::::::::::::::::::::::::: challenge  
+
 En esta sección se empezará por crear la función _(argumento fun)_, para ello es necesario traducir las ecuaciones del modelo a R. Abajo encontrará la función ya construida, por favor reemplace los parámetros faltantes (Cambie *PAR* por el parámetro correspondiente) en las  ecuaciones:
 
 
@@ -280,7 +283,7 @@ En esta sección se crearán los tres argumentos faltantes para usar la función
 
 -   Los ARGUMENTOS de la función **ode** en el paquete **deSolve**.
 
-::::::::::::::::::::::::::::::::::::: Challenge
+::::::::::::::::::::::::::::::::::::: challenge  
 
 ```r
 # Secuencia temporal (times)
@@ -349,7 +352,7 @@ out <- as.data.frame(ode(y      = xstart,     # Condiciones iniciales
 ```
 ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
-::::::::::::::::::::::::::::::::::::: Challenge
+::::::::::::::::::::::::::::::::::::: challenge 
 ## 11. Resultados
 
 Para tener una visualización más significativa de los resultados, convierta las unidades de tiempo *días* en *años* y en *semanas*.
@@ -373,8 +376,8 @@ out$weeks <- out$time / 7
 ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
 
-### 11.1 Comportamiento General (Población humana)
-
+### 11.1 Comportamiento General (Población humana) 
+ 
 
 ```r
 # Revise el comportamiento general del modelo para 100 años
@@ -399,8 +402,8 @@ plot_grid(p1h, p2h, p3h, p4h, ncol = 2)
 
 <img src="fig/ZIKAB-rendered-p1-1.png" style="display: block; margin: auto;" />
 
-### 11.2 Comportamiento General (Población de vectores)
-
+### 11.2 Comportamiento General (Población de vectores) 
+ 
 
 ```r
 # Revise el comportamiento general del modelo
@@ -425,10 +428,10 @@ plot_grid(p1v, p2v, p3v, p4v, ncol = 2)
 
 <img src="fig/ZIKAB-rendered-p2-1.png" style="display: block; margin: auto;" />
 
-### 11.3 Proporción
-
-Por favor dé una mirada más cuidadosa a las proporciones y discútalas
-
+### 11.3 Proporción 
+ 
+Por favor dé una mirada más cuidadosa a las proporciones y discútalas 
+ 
 
 ```r
 p1 <- ggplot(data = out, aes(y = Sh/(Sh+Ih+Rh), x = years)) +
@@ -451,8 +454,8 @@ plot_grid(p1, p2, p3, ncol = 2)
 
 <img src="fig/ZIKAB-rendered-p3-1.png" style="display: block; margin: auto;" />
 
-### 11.4 La primera epidemia
-
+### 11.4 La primera epidemia 
+ 
 
 ```r
 # Revise la primera epidemia
@@ -471,8 +474,8 @@ plot_grid(p1e, p2e)
 <img src="fig/ZIKAB-rendered-p4-1.png" style="display: block; margin: auto;" />
 
 
-### 11.5 Algunos aspectos por discutir
-
+### 11.5 Algunos aspectos por discutir 
+ 
 -   ¿Qué tan sensible es el modelo a cambios en el $R_0$?
 -   ¿Qué razones hay (según el modelo) para el intervalo de tiempo entre estas epidemias simuladas?
 -   ¿Cómo se puede calcular la tasa de ataque?
