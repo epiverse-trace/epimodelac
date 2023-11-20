@@ -85,11 +85,11 @@
   Lesson Title
 </div>
 
-<aside class="col-md-12 lesson-progress"><div style="width: 53%" class="percentage">
-    53%
+<aside class="col-md-12 lesson-progress"><div style="width: 11%" class="percentage">
+    11%
   </div>
   <div class="progress incubator">
-    <div class="progress-bar incubator" role="progressbar" style="width: 53%" aria-valuenow="53" aria-label="Lesson Progress" aria-valuemin="0" aria-valuemax="100">
+    <div class="progress-bar incubator" role="progressbar" style="width: 11%" aria-valuenow="11" aria-label="Lesson Progress" aria-valuemin="0" aria-valuemax="100">
     </div>
   </div>
 </aside><div class="container">
@@ -152,22 +152,13 @@
   </div><!--/div.accordion-item-->
 </div><!--/div.accordion-flush-->
 
-<div class="accordion accordion-flush" id="accordionFlush3">
-  <div class="accordion-item">
-    <div class="accordion-header" id="flush-heading3">
-        <a href="taller.html">2. Taller Zika (Parte B): construyendo un modelo matemático simple para Zika.</a>
-    </div><!--/div.accordion-header-->
-        
-  </div><!--/div.accordion-item-->
-</div><!--/div.accordion-flush-->
-
 <div class="accordion accordion-flush" id="accordionFlushcurrent">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-headingcurrent">
       <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapsecurrent" aria-expanded="true" aria-controls="flush-collapsecurrent">
         <span class="visually-hidden">Current Chapter</span>
         <span class="current-chapter">
-        3. Taller Zika (Parte B): construyendo un modelo matemático simple para Zika.
+        2. Taller Zika (Parte B): construyendo un modelo matemático simple para Zika.
         </span>
       </button>
     </div><!--/div.accordion-header-->
@@ -234,14 +225,14 @@
         <!-- START: inst/pkgdown/templates/content-instructor.html -->
   <div class="col-xl-8 col-lg-12 primary-content">
     <nav class="lesson-content mx-md-4" aria-label="Previous and Next Chapter"><!-- content for small screens --><div class="d-block d-sm-block d-md-none">
-        <a class="chapter-link" href="../instructor/taller.html"><i aria-hidden="true" class="small-arrow" data-feather="arrow-left"></i>Previous</a>
+        <a class="chapter-link" href="../instructor/introduction.html"><i aria-hidden="true" class="small-arrow" data-feather="arrow-left"></i>Previous</a>
         <a class="chapter-link float-end" href="../instructor/index.html">Next<i aria-hidden="true" class="small-arrow" data-feather="arrow-right"></i></a>
       </div>
       <!-- content for large screens -->
       <div class="d-none d-sm-none d-md-block">
-        <a class="chapter-link" href="../instructor/taller.html" rel="prev">
+        <a class="chapter-link" href="../instructor/introduction.html" rel="prev">
           <i aria-hidden="true" class="small-arrow" data-feather="arrow-left"></i>
-          Previous: Taller Zika (Parte
+          Previous: Bienvenida
         </a>
         <a class="chapter-link float-end" href="../instructor/index.html" rel="next">
           Home
@@ -303,12 +294,14 @@ funcionamiento de los métodos, utilizando como ejemplo un modelo básico
 de infección por un arbovirus, el virus del Zika.</p>
 </section><section id="agenda"><h2 class="section-heading">2. Agenda<a class="anchor" aria-label="anchor" href="#agenda"></a>
 </h2>
-<hr class="half-width"><p>Contexto e instrucciones: 20 mins Puntos 4, 5 y 6: Conceptos básicos
-(5 mins + 10 de socialización) Puntos 7, 8, 9 y 10: Conceptualización
-del modelo (10 mins + 10 mins) Punto 11: Elaboración de ecuaciones (5
-mins + 10 mins) Puntos 12 y 13: Tabla de parámetros (5 mins) Discusión
-final: 15 mins</p>
-</section><section id="conceptos-básicos-a-desarrollar"><h2 class="section-heading">3. Conceptos básicos a desarrollar<a class="anchor" aria-label="anchor" href="#conceptos-b%C3%A1sicos-a-desarrollar"></a>
+<hr class="half-width"><ul><li>Instrucciones (5 mins)</li>
+<li>Desarrollo taller Zika Parte B (45 mins con acompañamiento de
+monitores)</li>
+<li>Revisión grupal del código (10 mins)</li>
+<li>Revisión de resultados (20 mins)</li>
+<li>Descanso (25 mins)</li>
+<li>Discusión final (60 mins)</li>
+</ul></section><section id="conceptos-básicos-a-desarrollar"><h2 class="section-heading">3. Conceptos básicos a desarrollar<a class="anchor" aria-label="anchor" href="#conceptos-b%C3%A1sicos-a-desarrollar"></a>
 </h2>
 <hr class="half-width"><p>En esta práctica se desarrollarán los siguientes conceptos:</p>
 <ul><li>Modelo SIR para ETV Zika</li>
@@ -324,13 +317,14 @@ comandos:</p>
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw">library</span><span class="op">(</span><span class="va">deSolve</span><span class="op">)</span>   <span class="co"># Cargando el paquete deSolve para resolver las ecuaciones diferenciales</span></span>
-<span><span class="kw">library</span><span class="op">(</span><span class="va">tidyverse</span><span class="op">)</span> <span class="co"># Cargando paquetes ggplot2 y dplyr de tidyverse</span></span>
-<span><span class="kw">library</span><span class="op">(</span><span class="va">cowplot</span><span class="op">)</span> <span class="co"># Cargando el paquete gridExtra para unir gráficos.</span></span></code></pre>
+<code class="sourceCode R"><span><span class="kw">library</span><span class="op">(</span><span class="va">deSolve</span><span class="op">)</span>   <span class="co"># Paquete deSolve para resolver las ecuaciones diferenciales</span></span>
+<span><span class="kw">library</span><span class="op">(</span><span class="va">tidyverse</span><span class="op">)</span> <span class="co"># Paquetes ggplot2 y dplyr de tidyverse</span></span>
+<span><span class="kw">library</span><span class="op">(</span><span class="va">cowplot</span><span class="op">)</span> <span class="co"># Paquete gridExtra para unir gráficos.</span></span></code></pre>
 </div>
 <ul><li>Si desea puede tomar notas en el script de R, para esto se
 recomienda usar el símbolo <em>#</em> después de cada línea de código
-(ver ejemplo arriba).</li>
+(ver ejemplo arriba). O podría utilizar un archivo Rmd para tener un
+aspecto similar al del taller.</li>
 </ul></section><section id="compartimentos-del-modelo-básico-de-zika"><h2 class="section-heading">5. Compartimentos del modelo básico de Zika<a class="anchor" aria-label="anchor" href="#compartimentos-del-modelo-b%C3%A1sico-de-zika"></a>
 </h2>
 <hr class="half-width"><ul><li>
@@ -352,7 +346,14 @@ susceptibles</li>
 <hr class="half-width"><p>Ahora se usarán los parámetros que discutimos en la parte A del
 taller. Si aún no los tiene, estos se pueden encontrar en la guía de
 aprendizaje de la parte A del taller.</p>
-<div class="Challenge">
+<div id="discussion1" class="callout discussion">
+<div class="callout-square">
+<i class="callout-icon" data-feather="message-circle"></i>
+</div>
+<div class="callout-inner">
+<h3 class="callout-title">Challenge<a class="anchor" aria-label="anchor" href="#discussion1"></a>
+</h3>
+<div class="callout-content">
 <p>Busque los valores de los parámetros del modelo y diligéncielos en el
 recuadro de abajo. Tenga en cuenta que todos los parámetros usados
 tienen la misma unidad de tiempo (días).</p>
@@ -383,6 +384,8 @@ tienen la misma unidad de tiempo (días).</p>
 <span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>TIME     <span class="ot">&lt;-</span>        <span class="co"># Número de años que se va a simular </span></span></code></pre>
 </div>
 </div>
+</div>
+</div>
 <div id="accordionInstructor1" class="accordion instructor-note accordion-flush">
 <div class="accordion-item">
 <button class="accordion-button instructor-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseInstructor1" aria-expanded="false" aria-controls="collapseInstructor1">
@@ -391,7 +394,7 @@ tienen la misma unidad de tiempo (días).</p>
   Instructor Note
   </h3>
 </button>
-<div id="collapseInstructor1" class="accordion-collapse collapse" data-bs-parent="#accordionInstructor1" aria-labelledby="headingInstructor1">
+<div id="collapseInstructor1" class="accordion-collapse collapse" aria-labelledby="headingInstructor1" data-bs-parent="#accordionInstructor1">
 <div class="accordion-body">
 <div class="codewrapper sourceCode" id="cb3">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -473,14 +476,21 @@ sistema <em>(argumento parms)</em>.</p>
 <div class="codewrapper sourceCode" id="cb4">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode r" tabindex="0"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co">#No la copie a R sólo tiene fines ilustrativos.</span></span>
+<pre class="sourceCode r" tabindex="0"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># NO la copie a R sólo tiene fines ilustrativos.</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ode</span>(<span class="at">y      =</span> <span class="co"># Condiciones iniciales,</span></span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">times  =</span> <span class="co"># Tiempo,</span></span>
 <span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">fun    =</span> <span class="co"># Modelo o función que lo contenga,</span></span>
 <span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">parms  =</span> <span class="co"># Parámetros</span></span>
 <span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>)</span></code></pre>
 </div>
-<div class="Challenge">
+<div id="discussion2" class="callout discussion">
+<div class="callout-square">
+<i class="callout-icon" data-feather="message-circle"></i>
+</div>
+<div class="callout-inner">
+<h3 class="callout-title">Challenge<a class="anchor" aria-label="anchor" href="#discussion2"></a>
+</h3>
+<div class="callout-content">
 <p>En esta sección se empezará por crear la función <em>(argumento
 fun)</em>, para ello es necesario traducir las ecuaciones del modelo a
 R. Abajo encontrará la función ya construida, por favor reemplace los
@@ -518,6 +528,8 @@ correspondiente) en las ecuaciones:</p>
 <span><span class="op">}</span></span></code></pre>
 </div>
 </div>
+</div>
+</div>
 <div id="accordionInstructor2" class="accordion instructor-note accordion-flush">
 <div class="accordion-item">
 <button class="accordion-button instructor-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseInstructor2" aria-expanded="false" aria-controls="collapseInstructor2">
@@ -526,7 +538,7 @@ correspondiente) en las ecuaciones:</p>
   Instructor Note
   </h3>
 </button>
-<div id="collapseInstructor2" class="accordion-collapse collapse" data-bs-parent="#accordionInstructor2" aria-labelledby="headingInstructor2">
+<div id="collapseInstructor2" class="accordion-collapse collapse" aria-labelledby="headingInstructor2" data-bs-parent="#accordionInstructor2">
 <div class="accordion-body">
 <div class="codewrapper sourceCode" id="cb6">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -572,7 +584,14 @@ código para:</p>
 <ul><li><p>Los VALORES de las condiciones iniciales del sistema.</p></li>
 <li><p>Los ARGUMENTOS de la función <strong>ode</strong> en el paquete
 <strong>deSolve</strong>.</p></li>
-</ul><div class="Challenge">
+</ul><div id="discussion3" class="callout discussion">
+<div class="callout-square">
+<i class="callout-icon" data-feather="message-circle"></i>
+</div>
+<div class="callout-inner">
+<h3 class="callout-title">Challenge<a class="anchor" aria-label="anchor" href="#discussion3"></a>
+</h3>
+<div class="callout-content">
 <div class="codewrapper sourceCode" id="cb7">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
@@ -605,6 +624,8 @@ código para:</p>
 <span id="cb7-27"><a href="#cb7-27" aria-hidden="true" tabindex="-1"></a>                         <span class="at">parms  =</span> ARGUMENTO?))  <span class="co"># COMPLETE Y COMENTE</span></span></code></pre>
 </div>
 </div>
+</div>
+</div>
 <div id="accordionInstructor3" class="accordion instructor-note accordion-flush">
 <div class="accordion-item">
 <button class="accordion-button instructor-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseInstructor3" aria-expanded="false" aria-controls="collapseInstructor3">
@@ -613,7 +634,7 @@ código para:</p>
   Instructor Note
   </h3>
 </button>
-<div id="collapseInstructor3" class="accordion-collapse collapse" data-bs-parent="#accordionInstructor3" aria-labelledby="headingInstructor3">
+<div id="collapseInstructor3" class="accordion-collapse collapse" aria-labelledby="headingInstructor3" data-bs-parent="#accordionInstructor3">
 <div class="accordion-body">
 <div class="codewrapper sourceCode" id="cb8">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -652,8 +673,14 @@ código para:</p>
 </div>
 </div>
 </div>
-</section><div class="section level2 Challenge">
-<h2 id="resultados">11. Resultados<a class="anchor" aria-label="anchor" href="#resultados"></a></h2>
+<div id="resultados" class="callout discussion">
+<div class="callout-square">
+<i class="callout-icon" data-feather="message-circle"></i>
+</div>
+<div id="resultados" class="callout-inner">
+<h3 class="callout-title">11. Resultados<a class="anchor" aria-label="anchor" href="#resultados"></a>
+</h3>
+<div class="callout-content">
 <p>Para tener una visualización más significativa de los resultados,
 convierta las unidades de tiempo <em>días</em> en <em>años</em> y en
 <em>semanas</em>.</p>
@@ -665,6 +692,8 @@ convierta las unidades de tiempo <em>días</em> en <em>años</em> y en
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>out<span class="sc">$</span>weeks <span class="ot">&lt;-</span> </span></code></pre>
 </div>
 </div>
+</div>
+</div>
 <div id="accordionInstructor4" class="accordion instructor-note accordion-flush">
 <div class="accordion-item">
 <button class="accordion-button instructor-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseInstructor4" aria-expanded="false" aria-controls="collapseInstructor4">
@@ -673,7 +702,7 @@ convierta las unidades de tiempo <em>días</em> en <em>años</em> y en
   Instructor Note
   </h3>
 </button>
-<div id="collapseInstructor4" class="accordion-collapse collapse" data-bs-parent="#accordionInstructor4" aria-labelledby="headingInstructor4">
+<div id="collapseInstructor4" class="accordion-collapse collapse" aria-labelledby="headingInstructor4" data-bs-parent="#accordionInstructor4">
 <div class="accordion-body">
 <div class="codewrapper sourceCode" id="cb10">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -804,7 +833,7 @@ a) Indique en qué parte del modelo haría los cambios.</p>
 describa cómo parametrizará el modelo. ¿Todas estas intervenciones son
 viables en la actualidad?</li>
 </ol></div>
-<section id="sobre-este-documento"><h2 class="section-heading">Sobre este documento<a class="anchor" aria-label="anchor" href="#sobre-este-documento"></a>
+</section><section id="sobre-este-documento"><h2 class="section-heading">Sobre este documento<a class="anchor" aria-label="anchor" href="#sobre-este-documento"></a>
 </h2>
 <hr class="half-width"><div class="section level3">
 <h3 id="contribuciones">Contribuciones<a class="anchor" aria-label="anchor" href="#contribuciones"></a></h3>
@@ -846,14 +875,14 @@ any links that you are not going to use.
 </div>
 </section></div> <!-- / div.lesson-content -->
     </main><!-- / main#main-content.main-content --><nav class="bottom-pagination mx-md-4" aria-label="Previous and Next Chapter"><div class="d-block d-sm-block d-md-none">
-        <a class="chapter-link" href="../instructor/taller.html"><i aria-hidden="true" class="small-arrow" data-feather="arrow-left"></i>Previous</a>
+        <a class="chapter-link" href="../instructor/introduction.html"><i aria-hidden="true" class="small-arrow" data-feather="arrow-left"></i>Previous</a>
         <a class="chapter-link float-end" href="../instructor/index.html">Next<i aria-hidden="true" class="small-arrow" data-feather="arrow-right"></i></a>
       </div>
       <!-- content for large screens -->
       <div class="d-none d-sm-none d-md-block">
-        <a class="chapter-link" href="../instructor/taller.html" rel="prev">
+        <a class="chapter-link" href="../instructor/introduction.html" rel="prev">
           <i aria-hidden="true" class="small-arrow" data-feather="arrow-left"></i>
-          Previous: Taller Zika (Parte
+          Previous: Bienvenida
         </a>
         <a class="chapter-link float-end" href="../instructor/index.html" rel="next">
           Home
