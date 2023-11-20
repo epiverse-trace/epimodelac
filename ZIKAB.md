@@ -19,12 +19,12 @@ authors:
 - Zulma Cucunuba
 - Pierre Nouvellet
 - José M. Velasco-España
-teaching: 90
-exercises: 8
+teaching: 80
+exercises: 4
 ---
 :::::::::::::::::::::::::::::::::::::: questions 
 
-## Pregunta introductoria 
+### Pregunta introductoria 
 
 - ¿Cómo construir un modelo simplificado de zika?
 
@@ -32,7 +32,7 @@ exercises: 8
 
 ::::::::::::::::::::::::::::::::::::: objectives
 
-## Objetivos 
+# Objetivos 
 
 Al final de este taller usted podrá:
 
@@ -539,11 +539,11 @@ Contribuciones son bienvenidas vía [pull requests](https://github.com/reconhub/
 
 ## Puntos clave 
 
-Revise si al final de esta lección aprendió estos conceptos:
+Revise si al final de esta lección adquirió estas competencias:
 
--   Modelo SIR para ETV Zika
--   Parametrización de un modelo dinámico
--   Evaluación de un modelo dinámico
--   Parametrización de intervenciones de control (fumigación, mosquiteros y vacunación) para una ETV
+-	Aplicar conceptos como parámetros, $R_0$ e inmunidad de rebaño, aprendidos en la sesión A del taller
+- Traducir fórmulas matemáticas de las interacciones entre los parámetros del modelo a código de R
+-	Realizar un modelo simple en R para una enfermedad transmitida por vector
+-	Discutir cambios en las proyecciones del modelo cuando se instauran diferentes estrategias de control de la infección
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
