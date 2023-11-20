@@ -24,13 +24,15 @@ exercises: 8
 ---
 :::::::::::::::::::::::::::::::::::::: questions 
 
+## Pregunta introductoria 
+
 - ¿Cómo construir un modelo simplificado de zika?
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
 ::::::::::::::::::::::::::::::::::::: objectives
 
-Objetivos 
+## Objetivos 
 
 Al final de este taller usted podrá:
 
@@ -96,6 +98,8 @@ Ahora se usarán los parámetros que discutimos en la parte A del taller. Si aú
 
 ::::::::::::::::::::::::::::::::::::: challenge  
 
+## Desafío 1 
+ 
 Busque los valores de los parámetros del modelo y diligéncielos en el recuadro de abajo. Tenga en cuenta que todos los parámetros usados tienen la misma unidad de tiempo (días).
 
 
@@ -129,6 +133,8 @@ TIME     <-        # Número de años que se va a simular
 
 :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: instructor
 
+## Solución 1 
+ 
 
 ```r
 # Parámetros
@@ -209,6 +215,9 @@ ode(y      = # Condiciones iniciales,
 
 ::::::::::::::::::::::::::::::::::::: challenge  
 
+
+## Desafío 2 
+ 
 En esta sección se empezará por crear la función _(argumento fun)_, para ello es necesario traducir las ecuaciones del modelo a R. Abajo encontrará la función ya construida, por favor reemplace los parámetros faltantes (Cambie *PAR* por el parámetro correspondiente) en las  ecuaciones:
 
 
@@ -244,6 +253,8 @@ arbovmodel <- function(t, x, params) {
 
 :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: instructor
 
+## Solución 2 
+ 
 
 ```r
 arbovmodel <- function(t, x, params) {
@@ -283,7 +294,10 @@ En esta sección se crearán los tres argumentos faltantes para usar la función
 
 -   Los ARGUMENTOS de la función **ode** en el paquete **deSolve**.
 
-::::::::::::::::::::::::::::::::::::: challenge  
+::::::::::::::::::::::::::::::::::::: challenge   
+
+## Desafío 3 
+ 
 
 ```r
 # Secuencia temporal (times)
@@ -318,7 +332,8 @@ out <- as.data.frame(ode(y      = ARGUMENTO?,   # COMPLETE Y COMENTE
 
 
 :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: instructor
-
+## Solución 3 
+ 
 
 ```r
 # ----------- Resuelva el modelo
@@ -351,9 +366,13 @@ out <- as.data.frame(ode(y      = xstart,     # Condiciones iniciales
                          parms  = params))    # Parámetros
 ```
 ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+ 
+## 11. Resultados 
 
 ::::::::::::::::::::::::::::::::::::: challenge 
-## 11. Resultados
+
+## Desafío 4 
+ 
 
 Para tener una visualización más significativa de los resultados, convierta las unidades de tiempo *días* en *años* y en *semanas*.
 
@@ -367,6 +386,8 @@ out$weeks <-
 
 :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: instructor
 
+## Solución 4 
+ 
 
 ```r
 # Cree las opciones de tiempo a mostrar 
@@ -515,6 +536,8 @@ Contribuciones son bienvenidas vía [pull requests](https://github.com/reconhub/
 
 
 ::::::::::::::::::::::::::::::::::::: keypoints 
+
+## Puntos clave 
 
 Revise si al final de esta lección aprendió estos conceptos:
 
