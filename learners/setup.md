@@ -11,8 +11,6 @@ Para más información consulte: [Epimodelac](https://epimodelac.com/)
 
 En esta página encontrará los talleres del día 2 del curso al día 5. 
 
-::::::::::::::::::::::::::::::::::::: Challenge
-
 ## Recomendaciones para antes del curso
 
 Instale Latex (Aquí tutorial)
@@ -27,7 +25,6 @@ library(tidyverse) # Paquetes ggplot2 y dplyr de tidyverse
 library(cowplot) # Paquete gridExtra para unir gráficos.
 ```
 
-:::::::::::::::::::::::::::::::::
 
 
 ## Noticias
@@ -38,18 +35,9 @@ Estimado participante
 
 Si no ha podido acceder a la plataforma, adjunto encontrará el paso a paso para realizar la inscripción en el programa. El plazo de inscripción al curso es hoy 17 de noviembre de 2023 a las 11:00pm (GMT-5). Si tiene algún problema para el ingreso o la inscripción al curso o la plataforma por favor escríbanos a  tracelac@javeriana.edu.co o gomezblaura@javeriana.edu.co 
 
-:::::::::::::::::::::::::::::::::
-::::::::::::::::::::::::::::::::::::::::::::::::
-
-
-
-
-
-::::::::::::::::::::::::::::::::::::: keypoints 
 
 Normas del curso
 
-::::::::::::::::::::::::::::::::::::::::::::::::
 
 
 ## Data Sets
