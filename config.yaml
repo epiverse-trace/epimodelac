@@ -60,7 +60,6 @@ contact: 'team@carpentries.org'
 # Order of episodes in your lesson
 episodes:
 - introduction.Rmd
-- taller.Rmd
 - ZIKAB.Rmd
 
 # Information for Learners
