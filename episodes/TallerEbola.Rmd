@@ -117,7 +117,7 @@ En esta práctica se desarrollarán los siguientes conceptos:
 
 - Incidencia
 
-# 1. Preparación {#sección-1}
+## 1. Preparación {#sección-1}
 
 
 #### Preparación previa
@@ -153,12 +153,12 @@ Se le ha proporcionado la siguiente base de datos de casos (directorio_casos) y 
 Para leer en R, descargue estos archivos y use la función `read_xlsx` del paquete `readxl` para importar los datos y la función `read_rds` de `tidyverse`. Cada grupo de datos importados creará una tabla de datos almacenada como el objeto `tibble.`
 
 ```{r echo=TRUE, message=FALSE, warning=FALSE, comment=""}
-directorio_casos <- read_rds("data/directorio_casos.rds")
+directorio_casos <- read_rds("files/directorio_casos.rds")
 ```
 
 
 ```{r echo=TRUE, message=FALSE, warning=FALSE,comment=""}
-contactos <- read_excel("data/contactos_20140701.xlsx", na = c("", "NA"))
+contactos <- read_excel("files/contactos_20140701.xlsx", na = c("", "NA"))
 ```
 
 
@@ -198,10 +198,10 @@ En el caso del directorio de casos encuentra:
 
 Note que las fechas ya están en formato fecha (`Date`).
 
-# 2. CFR {#sección-2}
+## 2. CFR {#sección-2}
 
 
-#### Probabilidad de muerte en los casos reportados (`CFR`)
+### Probabilidad de muerte en los casos reportados (`CFR`)
 
 ```{r echo=TRUE, message=FALSE, warning=FALSE,comment=""}
 table(directorio_casos$desenlace, useNA = "ifany")
@@ -299,9 +299,9 @@ tasa_letalidad_con_CI
 ```
 ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
-# 3. Incidencia {#sección-3}
+## 3. Incidencia {#sección-3}
 
-## 3.1. Curva de incidencia diaria {#sección-3.1}
+### 3.1. Curva de incidencia diaria {#sección-3.1}
 
 El paquete `incidence` es de gran utilidad para el análisis epidemiológico de datos de incidencia de enfermedades infecciosas, dado que permite calcular la incidencia a partir del intervalo temporal suministrado (por ejemplo, diario, semanal). Dentro de este paquete esta la función `incidence` la cual puede usar varios argumentos: 
 
@@ -372,7 +372,7 @@ La naturaleza errática de las barras, con picos altos seguidos por periodos de 
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
-## 3.2. Cálculo de la incidencia semanal {#sección-3.2}
+### 3.2. Cálculo de la incidencia semanal {#sección-3.2}
 
 Teniendo en cuenta lo aprendido durante la incidencia diaria cree una variable para incidencia semanal, interprete el resultado y haga una gráfica. Para escoger la fecha que utilizará como última fecha en el tercer argumento ¿Qué fecha sería la más adecuada? Tenga en cuenta que la fecha debe ser posterior al evento.
 
@@ -416,7 +416,7 @@ plot(incidencia_semanal, border = "black")
 
 De acuerdo a lo aprendido interprete la gráfica. ¿Qué observa? ¿Los datos se comportan diferente? ¿Es lo que esperaba? ¿Logra observar tendencias?
 
-# 4. Tasa de crecimiento {#sección-4}
+## 4. Tasa de crecimiento {#sección-4}
 
 ### 4.1. Modelo log-lineal {#sección-4.1}
 
@@ -774,7 +774,7 @@ cat("Intervalo de confianza del tiempo de duplicación (95%):", tiempo_duplicaci
 
 Si no lo recuerda vuelva por pistas a la sección [Ajuste un modelo log-lineal a los datos de incidencia semanal](#interpretación-del-modelo)
 
-# 5. Rastreo de contactos {#sección-5}
+## 5. Rastreo de contactos {#sección-5}
 
 Una de las grandes utilidades de tener datos como un directorio de casos y una lista de contactos, es la posibilidad de generar una red de rastreo de contactos.
 
@@ -836,9 +836,9 @@ directorio_casos %>% filter(id_caso == "3f1aaf")
 
 La función `Match` evita esta busqueda manual.
  
-# 6. Intervalo serial y Rt {#sección-6}
+## 6. Intervalo serial y Rt {#sección-6}
 
-## 6.1. Estimación del intervalo serial (SI) {#sección-6.1}
+### 6.1. Estimación del intervalo serial (SI) {#sección-6.1}
 
 ¿Qué es el intervalo serial?
 
@@ -910,7 +910,7 @@ points(0:60, distribucion_gamma$d(0:60), col = "#9933ff", type = "l", lty = 2)
 ```
 
 
-## 6.2. Estimación de la transmisibilidad variable en el tiempo, R(t) {#sección-6.2}
+### 6.2. Estimación de la transmisibilidad variable en el tiempo, R(t) {#sección-6.2}
 
 Cuando la suposición de que ($R$) es constante en el tiempo se vuelve insostenible, una alternativa es estimar la transmisibilidad variable en el tiempo utilizando el número de reproducción instantánea ($R_t$). Este enfoque, introducido por Cori et al. (2013),  se implementa en el paquete `EpiEstim.` Estima ($R_t$) para ventanas de tiempo personalizadas (el valor predeterminado es una sucesión de ventanas de tiempo deslizantes), utilizando la probabilidad de Poisson.  A continuación, estimamos la transmisibilidad para ventanas de tiempo deslizantes de 1 semana (el valor predeterminado de `estimate_R`):
 
