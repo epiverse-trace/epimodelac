@@ -14,6 +14,18 @@ editor_options:
 teaching: 90
 exercises: 4
 ---
+```{r set_up, include=FALSE}
+require(ggplot2)
+require(tidyverse) # contiene ggplot2, dplyr, tidyr, readr, purrr, tibble
+require(readxl) # para leer archivos Excel
+require(binom) # para intervalos de confianza binomiales
+require(knitr) # para crear tablas bonitas con kable()
+require(incidence) # para calcular incidencia y ajustar modelos
+require(epicontacts) # para análisis de contactos epidemiológicos
+require(EpiEstim) # para estimar R(t)
+install.packages("epitrix")
+install.packages("sodium")
+```
 
 :::::::::::::::::::::::::::::::::::::: questions 
 
@@ -118,15 +130,15 @@ Puede descargar la carpeta con los datos y el proyecto desde [Carpetas de datos]
 
 Cargue las librerías necesarias para el análisis epidemiológico y para análisis de incidencia y contactos. Los datos serán manipulados con tidyverse que es una colección de paquetes para la ciencia de datos.
 
-```{r message=FALSE, warning=FALSE, comment=""}
+```{r eval=FALSE, message=FALSE, warning=FALSE, comment=""}
 library(tidyverse) # contiene ggplot2, dplyr, tidyr, readr, purrr, tibble
 library(readxl) # para leer archivos Excel
 library(binom) # para intervalos de confianza binomiales
 library(knitr) # para crear tablas bonitas con kable()
 library(incidence) # para calcular incidencia y ajustar modelos
 library(epicontacts) # para análisis de contactos epidemiológicos
-library(epitrix) # para ajustar distribuciones
 library(EpiEstim) # para estimar R(t)
+library(epitrix) #para ajustar la distribución del modelo
 ```
 
 
@@ -279,7 +291,8 @@ tasa_letalidad_con_CI
 ## Solución 2  
 
 ```{r, include = full_version}
-tasa_letalidad_con_CI <- binom.confint(numero_muertes, numero_con_resultado_conocido, method = "exact") %>%
+tasa_letalidad_con_CI <- binom.confint(numero_muertes, 
+                                       numero_con_resultado_conocido, method = "exact") %>%
   kable(caption = "**tasa de letalidad con intervalos de confianza**")
 
 tasa_letalidad_con_CI
