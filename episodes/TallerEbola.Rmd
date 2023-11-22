@@ -51,33 +51,17 @@ full_version <- TRUE
 
 ## Tiempos de ejecución
 
-Explicación del taller (5 minutos)
+Explicación del taller (10 minutos)
 
-Realizar taller (100 minutos taller + 5 minutos imprevistos)
+Realizar taller (100 minutos taller)
 
-- [1. Preparación (3 minutos ejecución + 3 minutos solución)](#sección-1)
+- [1. Preparación (5 minutos ejecución + 5 minutos solución)](#sección-1)
 
-- [2. CFR (3 minutos explicación + 5 minutos ejecución + 2 minutos solución)](#sección-2)
+- [2. CFR (5 minutos explicación + 5 minutos ejecución + 5 minutos solución)](#sección-2)
 
-- [3. Incidencia (4 minutos de explicación + 9 minutos de ejecución + 7 minutos solución y reflexión)](#sección-3)
-  
-  - [3.1. Curva de incidencia diaria (3min ejecución + 4min reflexión)](#sección-3.1)
-  
-  - [3.2. Cálculo de la incidencia semanal (6 minutos ejecución + 3 minutos de reflexión)](#sección-3.2)
+- [3. Incidencia y 4. Tiempo de duplicación (10 minutos de explicación + 15 minutos de ejecución + 20 minutos solución y reflexión)](#sección-3)  
 
-- [4. Tasa de crecimiento (3 minutos de explicación + 18 minutos lectura y ejecución + 14 minutos reflexión)](#sección-4)
-
-  - [4.1. Modelo log-lineal  (5 minutos lectura + 6 minutos de reflexión)](#sección-4.1)
-
-  - [4.2. Modelo log-lineal con datos truncados (5 minutos lectura + 5 minutos ejecución y reflexión)](#sección-4.2)
-
-  - [4.3. Tasa de crecimiento y tiempo de duplicación: extracción de datos (5 minutos lectura y ejecución + 6 minutos solución y reflexión)](#sección-4.3)
-  
-- [6. Intervalo serial y Rt (5 minutos explicación + 7 minutos lectura y ejecución + 8 minutos reflexión)](#sección-6)
-
-  - [6.1. Estimación del intervalo serial (SI)](#sección-6.1)
-  
-  - [6.2. Estimación de la transmisibilidad variable en el tiempo, R(t)](#sección-6.2)
+- [5. Tiempo reproductivo instantáneo Rt (10 minutos explicación + 10 minutos lectura y ejecución + 10 minutos reflexión)](#sección-6)
 
 Discusión 30 minutos
 
