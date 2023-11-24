@@ -37,7 +37,7 @@ Al final de este taller usted podrá:
 
 - Estimar e interpretar el número de reproducción instantáneo de la epidemia
 
-- Estimar la tasa de letalidad (CFR) 
+- Estimar la probabilidad de muerte en los casos reportados (CFR) 
 
 - Calcular y graficar la incidencia
 
@@ -134,7 +134,7 @@ contactos <- read_excel("files/contactos_20140701.xlsx", na = c("", "NA"))
 
 #### Estructura de los datos
 
-Explore la estructura de los datos. Para esto puede utilizar `glimpse` de `tidyverse` el cual nos proporciona una visión rápida y legible de la estructura interna de nuestros conjuntos de datos.
+Explore la estructura de los datos. Para esto puede utilizar la función `glimpse` de `tidyverse` la cual nos proporciona una visión rápida y legible de la estructura interna de nuestros conjuntos de datos.
 
 
 ```r
@@ -150,7 +150,7 @@ $ fuente     <chr> "otro", "otro", "otro", "otro", "funeral", "otro", "funeral�
 ```
 
 
-Como puede observar contactos tiene 3 columnas (variables) y 60 filas de datos. En un rápido vistazo puede observar que la columna fuente (fuente del contagio) puede contener entre sus valores otro o funeral. Así como que las tres variables están en formato `caracter`.
+Como puede observar contactos tiene 3 columnas (variables) y 60 filas de datos. En un rápido vistazo puede observar que la columna `fuente` (fuente del contagio) puede contener entre sus valores otro o funeral. Así como que las tres variables están en formato de caracter (`chr`).
 
 
 ```r
@@ -193,12 +193,12 @@ En el caso del directorio de casos encuentra:
 
 - Y las variables longitud y latitud
 
-Note que las fechas ya están en formato fecha (`Date`).
+Note que las fechas ya están en formato fecha (`date`).
 
 ## 2. CFR {#sección-2}
 
 
-### Probabilidad de muerte en los casos reportados (`CFR`, por Case Fatality Ratio)
+### Probabilidad de muerte en los casos reportados (`CFR`, por *Case Fatality Ratio*)
 
 
 ```r
@@ -282,7 +282,7 @@ CFR_con_CI
 ```
 
 
-Table: **tasa de letalidad con intervalos de confianza**
+Table: **CFR con intervalos de confianza**
 
 |method |  x|   n|      mean|     lower|     upper|
 |:------|--:|---:|---------:|---------:|---------:|
@@ -297,14 +297,14 @@ Table: **tasa de letalidad con intervalos de confianza**
 ```r
 CFR_con_CI <- binom.confint(numero_muertes, 
                                        numero_casos_resultado_conocido, method = "exact") %>%
-  kable(caption = "**tasa de letalidad con intervalos de confianza**")
+  kable(caption = "**CFR con intervalos de confianza**")
 
 CFR_con_CI
 ```
 
 
 
-Table: **tasa de letalidad con intervalos de confianza**
+Table: **CFR con intervalos de confianza**
 
 |method |  x|   n|      mean|     lower|     upper|
 |:------|--:|---:|---------:|---------:|---------:|
@@ -315,23 +315,24 @@ Table: **tasa de letalidad con intervalos de confianza**
 
 ### 3.1. Curva de incidencia diaria {#sección-3.1}
 
-El paquete `incidence` es de gran utilidad para el análisis epidemiológico de datos de incidencia de enfermedades infecciosas, dado que permite calcular la incidencia a partir del intervalo temporal suministrado (por ejemplo, diario, semanal). Dentro de este paquete esta la función `incidence` la cual tiene varios argumentos: 
+El paquete `incidence` es de gran utilidad para el análisis epidemiológico de datos de incidencia de enfermedades infecciosas, dado que permite calcular la incidencia a partir del intervalo temporal suministrado (e.g. diario o semanal). Dentro de este paquete esta la función `incidence` la cual tiene varios argumentos: 
 
 1. `dates` contiene una variable con fechas que representan cuándo ocurrieron eventos individuales, como por ejemplo la fecha de inicio de los síntomas de una enfermedad en un conjunto de pacientes. 
 
-2. `interval` es un intervalo de tiempo fijo por el que se quiere calcula la incidencia. Por ejemplo, `interval = 365` para un año. Si no se especifica, por defecto es diario. 
+2. `interval` es un intervalo de tiempo fijo por el que se quiere calcular la incidencia. Por ejemplo, `interval = 365` para un año. Si no se especifica, por defecto es diario. 
 
-3. `last_date` fecha donde se establecerá un limite temporal para los datos. Por ejemplo, última fecha de hospitalización. Para este tercer argumento, podemos incluir la opción `max` y la opción  `na.rm`. La primera para obtener la última fecha de una variable y la segunda para ignorar los `NA` en caso de que existan. 
+3. `last_date` fecha donde se establecerá un limite temporal para los datos. Por ejemplo, la última fecha de hospitalización. Para este tercer argumento, podemos incluir la opción `max` y la opción  `na.rm`. La primera para obtener la última fecha de una variable y la segunda para ignorar los `NA` en caso de que existan. 
 
 
 Por ejemplo, se podría escribir `last_date = max(base_de_datos$vector_ultima_fecha, na.rm = TRUE)`
 
 Con esta información la función agrupa los casos según el intervalo de tiempo especificado y cuenta el número de eventos (como casos de enfermedad) que ocurrieron dentro de cada intervalo.
+
 ::::::::::::::::::::::::::::::::::::: challenge  
 
 ## Desafío 3  
 
-Calcule la incidencia diaria usando únicamente el primer argumento de la función `incidence` ¿Qué fecha sería la más adecuada? Tenga en cuenta que se esperaría sea la que pueda dar mejor información, menor cantidad de `NA`.
+Calcule la incidencia diaria usando únicamente el primer argumento de la función `incidence` ¿Qué fecha sería la más adecuada? Tenga en cuenta que se espera que esta sea la que pueda dar mejor información, es decir la menor cantidad de `NA`s.
 
 
 ```r
@@ -340,7 +341,7 @@ incidencia_diaria
 ```
 :::::::::::::::::::::::::::::::::
 
- El resultado es un objeto de incidencia que contiene el recuento de casos para cada intervalo de tiempo, lo que facilita su visualización y análisis posterior. Como puede observar la función produjo los siguientes datos: 
+El resultado es un objeto de incidencia que contiene el recuento de casos para cada intervalo de tiempo, lo que facilita su visualización y análisis posterior. Como puede observar la función produjo los siguientes datos: 
 
 
 ```{.output}
@@ -378,7 +379,7 @@ $cumulative: FALSE
 ```
 ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
-Como resultado de la función se produjo un objeto tipo lista. Este objeto arroja estos datos: tiene `166 casos` contemplados entre los días `2014-04-07` al `2014-06-29` para un total de `84 días`, se menciona que el intervalo es de `1 día`, dado que no se utilizo este parámetro quedo por defecto. Finalmente se menciona "`cumulative`: `FALSE`" lo que quiere decir que no se esta haciendo el acumulado de la incidencia. Son únicamente los casos de ese intervalo, es decir, de ese día en especifico.
+Como resultado de la función se produjo un objeto tipo lista. Este objeto arroja estos datos: `166 casos` contemplados entre los días `2014-04-07` al `2014-06-29` para un total de `84 días`; se menciona que el intervalo es de `1 día`, dado que no se utilizo este parámetro quedo por defecto. Finalmente se menciona "`cumulative`: `FALSE`" lo que quiere decir que no se esta haciendo el acumulado de la incidencia, es decir que los casos corresponden a los del intervalo `interval: 1 day`, es decir a los casos nuevos cada día en específico.
 
 
 Ahora haga una gráfica de la incidencia diaria. 
@@ -476,7 +477,7 @@ plot(incidencia_semanal, border = "black")
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
-Compare la gráfica de incidencia diaria con la de incidencia semanal. ¿Qué observa? ¿Los datos se comportan diferente? ¿Es lo que esperaba? ¿Logra observar tendencias?
+Compare la gráfica de incidencia diaria con la de incidencia semanal. ¿Qué observa? ¿Los datos se comportan diferente? ¿Es lo que esperaba? ¿Logra observar alguna tendencia?
 
 ## 4. Tasa de crecimiento {#sección-4}
 
@@ -546,7 +547,7 @@ $info: list containing the following items:
 
 ## Solución 
 
-`$model`: Indica que se ha realizado una regresión del logaritmo de la incidencia en función del tiempo. Esto implica que la relación entre el tiempo y la incidencia de la enfermedad ha sido modelada como una función logarítmica para entender mejor las tendencias de crecimiento.
+`$model`: Indica que se ha realizado una regresión logarítmica de la incidencia en función del tiempo. Esto implica que la relación entre el tiempo y la incidencia de la enfermedad ha sido modelada como una función lineal en escalá logarítmica en la incidencia con el fin de entender mejor las tendencias de crecimiento.
 
 
 `$info`: Contiene varios componentes importantes del análisis:
@@ -582,7 +583,7 @@ El intervalo de confianza del `95%` para la tasa de crecimiento diaria está ent
 
 `$pred`: Contiene las predicciones de incidencia observada. Incluye las fechas, la escala de tiempo en días desde el inicio del brote, los valores ajustados (predicciones), los límites inferior y superior del intervalo de confianza para las predicciones.
 
-Si quiere conocer un poco más de este componente puede explorarlo con esta función.
+Si quiere conocer un poco más de este componente puede explorarlo con la función `glimpse`.
 
 
 ```r
@@ -592,15 +593,15 @@ glimpse(ajuste_modelo$info$pred)
 :::::::::::::::::::::::::::::::::
 ::::::::::::::::::::::::::::::::::::::::::::::::
  
-Antes de continuar ¿Porqué considera más adecuado usar una gráfica semanal para buscar un ajuste de los datos?
+Antes de continuar ¿Considera más adecuado usar una gráfica semanal para buscar un ajuste de los datos? ¿Por qué?
 
-¿Porqué calcular la tasa de crecimiento diaria con el ajuste semanal y no con el ajuste diario?
+¿Es preferible calcular la tasa de crecimiento diaria con el ajuste semanal y no con el ajuste diario?
 
 :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: instructor
 
 ## Ideas para responder:
 
-La tasa de crecimiento diaria se calcula utilizando el ajuste de la incidencia semanal en lugar de la incidencia diaria debido a que los datos diarios pueden ser muy volátiles en los primeros días de la curva exponencial. Esto puede suceder por varias razones:
+Es preferible estimar tasa de crecimiento diaria utilizando el ajuste de la incidencia semanal en lugar de la incidencia diaria debido a que los datos diarios pueden ser muy volátiles en los primeros días de la curva exponencial. Esto puede suceder por varias razones:
 
 - Las fluctuaciones naturales, ciclos de informes, retrasos en el reporte y los errores de medición, que pueden no reflejar cambios reales en la transmisión de la enfermedad. 
 
@@ -680,7 +681,7 @@ summary(as.numeric(directorio_casos$fecha_de_hospitalizacion - directorio_casos$
    0.00    1.00    2.00    3.53    5.00   22.00 
 ```
 
-Al restar la fecha de hopsitalización a la fecha de inicio de síntomas podría haber valores negativos. ¿Cual cree que es su significado?
+Al restar la fecha de hopsitalización a la fecha de inicio de síntomas podría haber valores negativos. ¿Cual cree que sea su significado? ¿Ocurre en este caso?
 
 
 Para evitar el sesgo debido a rezagos en la notificación, se pueden truncar los datos de incidencia. Pruebe descartar las últimas dos semanas. Este procedimiento permite concentrarse en el periodo en que los datos son más completos para un análisis más fiable.
@@ -710,7 +711,7 @@ Ahora utilizando los datos truncados `incidencia_semanal_truncada` vuelva a ajus
 
 ## Desafío 6  
 
-Primero monte el modelo
+Primero ajuste el modelo
 
 ```{.output}
 <incidence_fit object>
@@ -776,7 +777,7 @@ $info: list containing the following items:
 
 ## Desafío 7  
 
-Ahora grafique el modelo.
+Ahora, grafique el modelo.
 <img src="fig/TallerEbola-rendered-unnamed-chunk-30-1.png" style="display: block; margin: auto;" />
 :::::::::::::::::::::::::::::::::
 
@@ -838,16 +839,16 @@ Multiple R-squared:  0.8339,	Adjusted R-squared:  0.8131
 F-statistic: 40.16 on 1 and 8 DF,  p-value: 0.0002237
 ```
 
-El modelo muestra que hay una relación significativa entre el tiempo (`dates.x`) y la incidencia de la enfermedad, con la enfermedad mostrando un crecimiento exponencial a lo largo del tiempo. 
+El modelo muestra que hay una relación significativa (`R-squared: 0.8131`) entre el tiempo (`dates.x`) y la incidencia de la enfermedad, por lo que concluimos que la enfermedad muestra un crecimiento exponencial a lo largo del tiempo. 
 
 ### 4.3. Tasa de crecimiento y tasa de duplicación: extracción de datos {#sección-4.3}
 
 #### Estimacion de la tasa de crecimiento 
 
 
-Para estimar la tasa de crecimiento de una epidemia utilizando un modelo log-lineal, se necesita realizar un ajuste de regresión a los datos de incidencia. Dado que ya tiene un objeto de incidencia truncado y ajustado un modelo log-lineal, puede proceder a calcular la tasa de crecimiento diaria y el tiempo de duplicación de la epidemia.
+Para estimar la tasa de crecimiento de una epidemia utilizando un modelo log-lineal es necesario realizar un ajuste de regresión a los datos de incidencia. Dado que ya tiene un objeto de incidencia truncado y un modelo log-lineal ajustado, puede proceder a calcular la tasa de crecimiento diaria y el tiempo de duplicación de la epidemia.
 
-El modelo log-lineal ajustado proporcionará los coeficientes necesarios para estos cálculos. El coeficiente asociado con el tiempo (la pendiente de la regresión) se puede interpretar como la tasa de crecimiento diaria cuando el tiempo está en días.
+El modelo log-lineal proporcionará los coeficientes necesarios para estos cálculos. Note que el coeficiente asociado con el tiempo (la pendiente de la regresión) se puede interpretar como la tasa de crecimiento diaria cuando el tiempo se expresa en días.
 
 Con el modelo ajustado truncado, es hora de realizar la estimación de la tasa de crecimiento. Estos datos los puede encontrar en el objeto ajuste modelo semana, que tiene los datos ajustados de incidencia semanal truncada. 
 
@@ -896,7 +897,7 @@ Intervalo de confianza de la tasa de crecimiento diaria (95%): 0.03323024 0.0712
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
-Si no lo recuerda vuelva por pistas a la sección [Ajuste un modelo log-lineal a los datos de incidencia semanal](#interpretación-del-modelo)
+Si no lo recuerda, vuelva por pistas a la sección [Ajuste un modelo log-lineal a los datos de incidencia semanal](#interpretación-del-modelo)
 
 
 Ahora que ya ha obtenido la tasa de crecimiento diaria y sus intervalos de confianza, puede pasar a estimar el tiempo de duplicación.
@@ -905,7 +906,7 @@ Ahora que ya ha obtenido la tasa de crecimiento diaria y sus intervalos de confi
 #### Estimacion del tiempo de duplicación
 
 
-Esta información también la encontrará calculada y lista para utilizar el objeto `ajuste_modelo_semanal`, que tiene los datos ajustados de incidencia semanal truncada. 
+Esta información también la encontrará calculada y lista para utilizar en el objeto `ajuste_modelo_semanal`, que tiene los datos ajustados de incidencia semanal truncada. 
 
 ::::::::::::::::::::::::::::::::::::: challenge  
 
@@ -915,7 +916,7 @@ Por favor escriba el código para obtener los siguientes valores:
 
 
 ```{.output}
-El tiempo de duplicación de la epidemia en días es: 13.2684 
+El tiempo de duplicación de la epidemia es 13.2684 días
 ```
 
 ```{.output}
@@ -931,11 +932,11 @@ Intervalo de confianza del tiempo de duplicación (95%): 9.728286 20.85893
 ```r
 # Estimación del tiempo de duplicación en días
 tiempo_duplicacion_dias <- ajuste_modelo_semanal$info$doubling
-cat("El tiempo de duplicación de la epidemia en días es:", tiempo_duplicacion_dias, "\n")
+cat("El tiempo de duplicación de la epidemia es", tiempo_duplicacion_dias, "días\n")
 ```
 
 ```{.output}
-El tiempo de duplicación de la epidemia en días es: 13.2684 
+El tiempo de duplicación de la epidemia es 13.2684 días
 ```
 
 ```r
@@ -960,7 +961,7 @@ El intervalo serial en epidemiología se refiere al tiempo que transcurre entre 
 
 Este intervalo es importante porque ayuda a entender qué tan rápido se está propagando una enfermedad y a diseñar estrategias de control como el rastreo de contactos y la cuarentena. Si el intervalo serial es corto, puede significar que la enfermedad se propaga rápidamente y que es necesario actuar con urgencia para contenerla. Si es largo, puede haber más tiempo para intervenir antes de que la enfermedad se disemine ampliamente.
 
-Para este brote de ébola asumiremos que el intervalo serial tiene una `media` de `8.7 días` con una `desviación estándar` de `6.1 días` que proviene de una distribución `gamma.` En la práctica del día 4 estudiaremos cómo estimar el intervalo serial.
+Para este brote de ébola asumiremos que el intervalo serial está descrito por una distribución Gamma de media (`mean_si`) de `8.7 días` y con una desviación estándar (`std_si`) de `6.1 días`. En la práctica del día 4 estudiaremos cómo estimar el intervalo serial.
 
 
 ```r
@@ -971,7 +972,7 @@ std_si <-  6.1
 
 ### 6.2. Estimación de la transmisibilidad variable en el tiempo, R(t) {#sección-6.2}
 
-Cuando la suposición de que ($R$) es constante en el tiempo se vuelve insostenible, una alternativa es estimar la transmisibilidad variable en el tiempo utilizando el número de reproducción instantánea ($R_t$). Este enfoque, introducido por Cori et al. (2013),  se implementa en el paquete `EpiEstim.` Estima ($R_t$) para ventanas de tiempo personalizadas (el valor predeterminado es una sucesión de ventanas de tiempo deslizantes), utilizando la probabilidad de Poisson.  A continuación, estimamos la transmisibilidad para ventanas de tiempo deslizantes de 1 semana (el valor predeterminado de `estimate_R`):
+Cuando la suposición de que ($R$) es constante en el tiempo se vuelve insostenible, una alternativa es estimar la transmisibilidad variable en el tiempo utilizando el número de reproducción instantánea ($R_t$). Este enfoque, introducido por Cori et al. (2013),  se implementa en el paquete `EpiEstim`, el cual estima el $R_t$ para ventanas de tiempo personalizadas (el valor predeterminado es una sucesión de ventanas de tiempo deslizantes), utilizando la una distribución de Poisson.  A continuación, estimamos la transmisibilidad para ventanas de tiempo deslizantes de 1 semana (el valor predeterminado de `estimate_R`):
 
 ***
 
@@ -1007,7 +1008,7 @@ tail(estimacion_rt$R[, c("t_start", "t_end", "Median(R)",
 ```
 
 
-Grafique la estimación de $R$ sobre el tiempo:
+Grafique la estimación de $R$ como función del tiempo:
 
 
 ```r
@@ -1054,16 +1055,15 @@ Cambios menores y adaptación a español:
 
 Revise si al final de esta lección adquirió estas competencias:
 
+
+- Estimar la probabilidad de muerte en los casos reportados (CFR) 
+
 - Identificar los parámetros necesarios en casos de  transmisión de enfermedades infecciosas de persona a persona. 
 
 - Estimar e interpretar la tasa de crecimiento y el tiempo en que se duplica la epidemia. 
 
-- Estimar el intervalo serial a partir de los datos pareados de individuos infectantes/ individuos infectados.
+- Calcular y graficar la incidencia
 
 - Estimar e interpretar el número de reproducción instantáneo de la epidemia
-
-- Estimar la tasa de letalidad (CFR) 
-
-- Calcular y graficar la incidencia
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
