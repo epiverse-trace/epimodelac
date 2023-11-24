@@ -53,7 +53,7 @@ full_version <- TRUE
 
 ## 1. Introducción
 
-En este taller usted aplicará los conceptos básicos del **modelamiento de Enfermedades Transmitidas por Vectores (ETV)** mediante el uso del programa R con énfasis en el funcionamiento de los métodos, utilizando como ejemplo un modelo básico de infección por un arbovirus, el virus del Zika.
+En este taller usted aplicará los conceptos básicos del **modelamiento de Enfermedades Transmitidas por Vectores (ETV)** mediante el uso del lenguaje R con énfasis en el funcionamiento de los métodos, utilizando como ejemplo un modelo básico de infección por un arbovirus: el virus del Zika.
 
 ## 2. Agenda
 
@@ -85,7 +85,7 @@ library(tidyverse) # Paquetes ggplot2 y dplyr de tidyverse
 library(cowplot) # Paquete gridExtra para unir gráficos.
 ```
 
-- Si desea puede tomar notas en el script de R, para esto se recomienda usar el símbolo _#_ después de cada línea de código (ver ejemplo arriba). O podría utilizar un archivo Rmd para tener un aspecto similar al del taller.
+- Si desea puede tomar notas en el script de R, para esto se recomienda usar el símbolo de comentario _#_ después de cada línea de código (ver ejemplo arriba). O podría utilizar un archivo Rmd para tener un aspecto similar al del taller.
 
 ## 5. Compartimentos del modelo básico de Zika
 
@@ -176,7 +176,7 @@ TIME     <- 100       # Número de años a simular
 
 ## 7. Ecuaciones del modelo
 
-Para este modelo emplearemos las siguientes ecuaciones diferenciales.
+Para este modelo emplearemos las siguientes ecuaciones diferenciales:
 
 ### 7.1 Humanos
 
@@ -205,7 +205,8 @@ $$ R_0 = \frac{mb^2 p_h p_v \delta}{\mu_v (\mu_v+\delta)(\mu_h+\gamma)} $$
 
 ## 9. Modelo en R
 
-Es hora de hacer el modelo en R. Para lograrlo se usará la función _ode_ del paquete _desolve_. Para el ejercicio se emplearán 4 argumentos de la función _ode_: el primero son las condiciones iniciales del modelo _(argumento y)_, el segundo es la secuencia temporal donde se ejecutará el modelo _(argumento times)_, el tercero es una función que contiene las ecuaciones diferenciales que entrarán al sistema _(argumento fun)_ y por último un vector que contiene los parámetros con los que se calculará el sistema _(argumento parms)_. 
+Es hora de implementar el modelo en R. Para lograrlo, usaremos la función `ode` del paquete _desolve_. Para el ejercicio se emplearán 4 argumentos de la función esta función: el primero son las condiciones iniciales del modelo (argumento `y`); el segundo es la secuencia temporal donde se ejecutará el modelo (argumento `times`); el tercero es una función que contiene las ecuaciones diferenciales que entrarán al sistema (argumento `fun`); por último un vector que contiene los parámetros con los que se calculará el sistema (argumento `parms`). 
+
 ```{r, eval = FALSE}
 # NO la copie a R sólo tiene fines ilustrativos.
 ode(y      = # Condiciones iniciales,
@@ -220,7 +221,7 @@ ode(y      = # Condiciones iniciales,
 
 ## Desafío 2 
  
-En esta sección se empezará por crear la función _(argumento fun)_, para ello es necesario traducir las ecuaciones del modelo a R. Abajo encontrará la función ya construida, por favor reemplace los parámetros faltantes (Cambie *PAR* por el parámetro correspondiente) en las  ecuaciones:
+En esta sección se empezará por crear la función (argumento `fun`), para ello es necesario traducir las ecuaciones del modelo a R. Abajo encontrará la función ya construida, por favor reemplace los parámetros faltantes (Cambie *PAR* por los parámetro correspondientes) en las  ecuaciones:
 
 ```{r, eval = FALSE}
 arbovmodel <- function(t, x, params) {
@@ -288,11 +289,11 @@ arbovmodel <- function(t, x, params) {
 
 ## 10. Resuelva el Sistema
 
-En esta sección se crearán los tres argumentos faltantes para usar la función _ode_ y se creará un _data frame_ con los resultados de la función _ode_. Por favor complete y comente el código para:
+En esta sección se crearán los tres argumentos faltantes para usar la función `ode` y se creará un objeto de clase `data.frame` con los resultados de la función `ode`. Por favor complete y comente el código para:
 
 -   Los VALORES de las condiciones iniciales del sistema.
 
--   Los ARGUMENTOS de la función **ode** en el paquete **deSolve**.
+-   Los ARGUMENTOS de la función **`ode`** en el paquete **deSolve**.
 
 ::::::::::::::::::::::::::::::::::::: challenge   
 
@@ -372,7 +373,7 @@ out <- as.data.frame(ode(y      = xstart,     # Condiciones iniciales
 ## Desafío 4 
  
 
-Para tener una visualización más significativa de los resultados, convierta las unidades de tiempo *días* en *años* y en *semanas*.
+Para tener una visualización más significativa de los resultados, convierta las unidades de tiempo de *días* a *años* y a *semanas*.
 
 ```{r eval = FALSE}
 # Cree las opciones de tiempo para años y semanas 
@@ -392,6 +393,7 @@ out$weeks <- out$time / 7
 ```
 ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
+Observe el comportamiento del modelo en distintas escalas de tiempo (semanas y años):
 
 ### 11.1 Comportamiento General (Población humana) 
  
@@ -487,18 +489,17 @@ plot_grid(p1e, p2e)
 
 ### 11.6 Modele una o más intervenciones de control
 
-
-Ahora, utilizando este modelo básico, por grupos modelar el impacto de las siguientes intervenciones.
+Ahora, utilizando este modelo básico, modelar por grupos el impacto de las siguientes intervenciones:
 
 1.  Grupo 1. Fumigación contra mosquitos
 2.  Grupo 2. Mosquiteros/angeos
 3.  Grupo 3. Vacunación que previene frente a infecciones
 
-Para cada intervención:  
+Para cada intervención: 
+
 a) Indique en qué parte del modelo haría los cambios.
 
 b) De acuerdo a la literatura que explique estas intervenciones y describa cómo parametrizará el modelo. ¿Todas estas intervenciones son viables en la actualidad? 
-
 
 
 ## Sobre este documento
