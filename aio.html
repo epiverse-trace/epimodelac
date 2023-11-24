@@ -364,7 +364,7 @@ pública para responder a futuras crisis de salud.</p>
   Show me the solution
   </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
 <div class="accordion-body">
 
 </div>
@@ -402,7 +402,7 @@ curso o la plataforma por favor escríbanos a <a href="mailto:tracelac@javeriana
   Show me the solution
   </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
 <div class="accordion-body">
 
 </div>
@@ -1508,9 +1508,9 @@ diferentes estrategias de control de la infección</li>
 <hr class="half-width">
 <p>En este taller usted aplicará los conceptos básicos del
 <strong>modelamiento de Enfermedades Transmitidas por Vectores
-(ETV)</strong> mediante el uso del programa R con énfasis en el
+(ETV)</strong> mediante el uso del lenguaje R con énfasis en el
 funcionamiento de los métodos, utilizando como ejemplo un modelo básico
-de infección por un arbovirus, el virus del Zika.</p>
+de infección por un arbovirus: el virus del Zika.</p>
 </section><section id="agenda"><h2 class="section-heading">2. Agenda<a class="anchor" aria-label="anchor" href="#agenda"></a>
 </h2>
 <hr class="half-width">
@@ -1547,9 +1547,9 @@ comandos:</p>
 </div>
 <ul>
 <li>Si desea puede tomar notas en el script de R, para esto se
-recomienda usar el símbolo <em>#</em> después de cada línea de código
-(ver ejemplo arriba). O podría utilizar un archivo Rmd para tener un
-aspecto similar al del taller.</li>
+recomienda usar el símbolo de comentario <em>#</em> después de cada
+línea de código (ver ejemplo arriba). O podría utilizar un archivo Rmd
+para tener un aspecto similar al del taller.</li>
 </ul></section><section id="compartimentos-del-modelo-básico-de-zika"><h2 class="section-heading">5. Compartimentos del modelo básico de Zika<a class="anchor" aria-label="anchor" href="#compartimentos-del-modelo-b%C3%A1sico-de-zika"></a>
 </h2>
 <hr class="half-width">
@@ -1619,7 +1619,7 @@ tienen la misma unidad de tiempo (días).</p>
 </h2>
 <hr class="half-width">
 <p>Para este modelo emplearemos las siguientes ecuaciones
-diferenciales.</p>
+diferenciales:</p>
 <div class="section level3">
 <h3 id="humanos">7.1 Humanos<a class="anchor" aria-label="anchor" href="#humanos"></a>
 </h3>
@@ -1650,15 +1650,15 @@ I_v\]</span></p>
 </section><section id="modelo-en-r"><h2 class="section-heading">9. Modelo en R<a class="anchor" aria-label="anchor" href="#modelo-en-r"></a>
 </h2>
 <hr class="half-width">
-<p>Es hora de hacer el modelo en R. Para lograrlo se usará la función
-<em>ode</em> del paquete <em>desolve</em>. Para el ejercicio se
-emplearán 4 argumentos de la función <em>ode</em>: el primero son las
-condiciones iniciales del modelo <em>(argumento y)</em>, el segundo es
-la secuencia temporal donde se ejecutará el modelo <em>(argumento
-times)</em>, el tercero es una función que contiene las ecuaciones
-diferenciales que entrarán al sistema <em>(argumento fun)</em> y por
-último un vector que contiene los parámetros con los que se calculará el
-sistema <em>(argumento parms)</em>.</p>
+<p>Es hora de implementar el modelo en R. Para lograrlo, usaremos la
+función <code>ode</code> del paquete <em>desolve</em>. Para el ejercicio
+se emplearán 4 argumentos de la función esta función: el primero son las
+condiciones iniciales del modelo (argumento <code>y</code>); el segundo
+es la secuencia temporal donde se ejecutará el modelo (argumento
+<code>times</code>); el tercero es una función que contiene las
+ecuaciones diferenciales que entrarán al sistema (argumento
+<code>fun</code>); por último un vector que contiene los parámetros con
+los que se calculará el sistema (argumento <code>parms</code>).</p>
 <div class="codewrapper sourceCode" id="cb4">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
@@ -1677,11 +1677,11 @@ sistema <em>(argumento parms)</em>.</p>
 <h3 class="callout-title">Desafío 2<a class="anchor" aria-label="anchor" href="#desaf%C3%ADo-2"></a>
 </h3>
 <div class="callout-content">
-<p>En esta sección se empezará por crear la función <em>(argumento
-fun)</em>, para ello es necesario traducir las ecuaciones del modelo a
-R. Abajo encontrará la función ya construida, por favor reemplace los
-parámetros faltantes (Cambie <em>PAR</em> por el parámetro
-correspondiente) en las ecuaciones:</p>
+<p>En esta sección se empezará por crear la función (argumento
+<code>fun</code>), para ello es necesario traducir las ecuaciones del
+modelo a R. Abajo encontrará la función ya construida, por favor
+reemplace los parámetros faltantes (Cambie <em>PAR</em> por los
+parámetro correspondientes) en las ecuaciones:</p>
 <div class="codewrapper sourceCode" id="cb5">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
@@ -1721,13 +1721,13 @@ correspondiente) en las ecuaciones:</p>
 </h2>
 <hr class="half-width">
 <p>En esta sección se crearán los tres argumentos faltantes para usar la
-función <em>ode</em> y se creará un <em>data frame</em> con los
-resultados de la función <em>ode</em>. Por favor complete y comente el
-código para:</p>
+función <code>ode</code> y se creará un objeto de clase
+<code>data.frame</code> con los resultados de la función
+<code>ode</code>. Por favor complete y comente el código para:</p>
 <ul>
 <li><p>Los VALORES de las condiciones iniciales del sistema.</p></li>
-<li><p>Los ARGUMENTOS de la función <strong>ode</strong> en el paquete
-<strong>deSolve</strong>.</p></li>
+<li><p>Los ARGUMENTOS de la función <strong><code>ode</code></strong> en
+el paquete <strong>deSolve</strong>.</p></li>
 </ul>
 <div id="desafío-3" class="callout discussion">
 <div class="callout-square">
@@ -1784,7 +1784,7 @@ código para:</p>
 </h3>
 <div class="callout-content">
 <p>Para tener una visualización más significativa de los resultados,
-convierta las unidades de tiempo <em>días</em> en <em>años</em> y en
+convierta las unidades de tiempo de <em>días</em> a <em>años</em> y a
 <em>semanas</em>.</p>
 <div class="codewrapper sourceCode" id="cb9">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -1797,6 +1797,8 @@ convierta las unidades de tiempo <em>días</em> en <em>años</em> y en
 </div>
 </div>
 
+<p>Observe el comportamiento del modelo en distintas escalas de tiempo
+(semanas y años):</p>
 <div class="section level3">
 <h3 id="comportamiento-general-población-humana">11.1 Comportamiento General (Población humana)<a class="anchor" aria-label="anchor" href="#comportamiento-general-poblaci%C3%B3n-humana"></a>
 </h3>
@@ -1915,19 +1917,19 @@ estas epidemias simuladas?</li>
 <div class="section level3">
 <h3 id="modele-una-o-más-intervenciones-de-control">11.6 Modele una o más intervenciones de control<a class="anchor" aria-label="anchor" href="#modele-una-o-m%C3%A1s-intervenciones-de-control"></a>
 </h3>
-<p>Ahora, utilizando este modelo básico, por grupos modelar el impacto
-de las siguientes intervenciones.</p>
+<p>Ahora, utilizando este modelo básico, modelar por grupos el impacto
+de las siguientes intervenciones:</p>
 <ol style="list-style-type: decimal">
 <li>Grupo 1. Fumigación contra mosquitos</li>
 <li>Grupo 2. Mosquiteros/angeos</li>
 <li>Grupo 3. Vacunación que previene frente a infecciones</li>
 </ol>
-<p>Para cada intervención:<br>
-a) Indique en qué parte del modelo haría los cambios.</p>
-<ol start="2" style="list-style-type: lower-alpha">
-<li>De acuerdo a la literatura que explique estas intervenciones y
+<p>Para cada intervención:</p>
+<ol style="list-style-type: lower-alpha">
+<li><p>Indique en qué parte del modelo haría los cambios.</p></li>
+<li><p>De acuerdo a la literatura que explique estas intervenciones y
 describa cómo parametrizará el modelo. ¿Todas estas intervenciones son
-viables en la actualidad?</li>
+viables en la actualidad?</p></li>
 </ol>
 </div>
 </section><section id="sobre-este-documento"><h2 class="section-heading">Sobre este documento<a class="anchor" aria-label="anchor" href="#sobre-este-documento"></a>
