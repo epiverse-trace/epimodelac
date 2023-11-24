@@ -595,7 +595,45 @@ $info: list containing the following items:
 <br></section><section id="ZIKAB"><h2 class="section-heading"><a href="ZIKAB.html">Taller Día 3 - Construyendo un modelo matemático simple para Zika.</a></h2>
 <hr class="half-width">
 <h3 id="ZIKAB-headingInstructor1">
-<a href="ZIKAB.html#headingInstructor1">Solución 2</a><a class="anchor" aria-label="anchor" href="#ZIKAB-headingInstructor1"></a>
+<a href="ZIKAB.html#headingInstructor1">Solución 1</a><a class="anchor" aria-label="anchor" href="#ZIKAB-headingInstructor1"></a>
+</h3>
+<div class="codewrapper sourceCode" id="cb3">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Parámetros</span></span>
+<span><span class="va">ph</span>       <span class="op">&lt;-</span> <span class="fl">0.7</span>       <span class="co"># Probabilidad de transmisión del vector al hospedador dada una picadura por un mosquito infeccioso a un humano susceptible</span></span>
+<span><span class="va">pv</span>       <span class="op">&lt;-</span> <span class="fl">0.7</span>       <span class="co"># Probabilidad de transmisión del hospedador al vector dada una picadura por un mosquito susceptible a un humano infeccioso</span></span>
+<span><span class="va">Lv</span>       <span class="op">&lt;-</span> <span class="fl">10</span>        <span class="co"># Esperanza de vida de los mosquitos (en días)</span></span>
+<span><span class="va">Lh</span>       <span class="op">&lt;-</span> <span class="fl">50</span> <span class="op">*</span> <span class="fl">365</span>  <span class="co"># Esperanza de vida de los humanos (en días)</span></span>
+<span><span class="va">Iph</span>      <span class="op">&lt;-</span> <span class="fl">7</span>         <span class="co"># Periodo infeccioso en humanos (en días)</span></span>
+<span><span class="va">IP</span>       <span class="op">&lt;-</span> <span class="fl">6</span>         <span class="co"># Periodo infeccioso en vectores (en días)</span></span>
+<span><span class="va">EIP</span>      <span class="op">&lt;-</span> <span class="fl">8.4</span>       <span class="co"># Período extrínseco de incubación en mosquitos adultos</span></span>
+<span><span class="va">muv</span>      <span class="op">&lt;-</span> <span class="fl">1</span><span class="op">/</span><span class="va">Lv</span>      <span class="co"># Tasa per capita de mortalidad del vector (1/Lv)</span></span>
+<span><span class="va">muh</span>      <span class="op">&lt;-</span> <span class="fl">1</span><span class="op">/</span><span class="va">Lh</span>      <span class="co"># Tasa per capita de mortalidad del hospedador (1/Lh)</span></span>
+<span><span class="va">alphav</span>   <span class="op">&lt;-</span> <span class="va">muv</span>       <span class="co"># Tasa per capita de natalidad del vector</span></span>
+<span><span class="va">alphah</span>   <span class="op">&lt;-</span> <span class="va">muh</span>       <span class="co"># Tasa per capita de natalidad del hospedador</span></span>
+<span><span class="va">gamma</span>    <span class="op">&lt;-</span> <span class="fl">1</span><span class="op">/</span><span class="va">Iph</span>     <span class="co"># Tasa de recuperación en humanos</span></span>
+<span><span class="va">delta</span>    <span class="op">&lt;-</span> <span class="fl">1</span><span class="op">/</span><span class="va">EIP</span>     <span class="co"># Tasa extrínseca de incubación</span></span>
+<span></span>
+<span></span>
+<span></span>
+<span><span class="co"># Tamaño de la población</span></span>
+<span><span class="va">Nh</span>       <span class="op">&lt;-</span> <span class="fl">100000</span>   <span class="co"># Número de humanos</span></span>
+<span><span class="va">m</span>        <span class="op">&lt;-</span> <span class="fl">2</span>         <span class="co"># Proporción vector a humano</span></span>
+<span><span class="va">Nv</span>       <span class="op">&lt;-</span> <span class="va">m</span> <span class="op">*</span> <span class="va">Nh</span>    <span class="co"># Número de vectores</span></span>
+<span><span class="va">R0</span>       <span class="op">&lt;-</span> <span class="fl">3</span>         <span class="co"># Número reproductivo</span></span>
+<span><span class="va">b</span>        <span class="op">&lt;-</span> <span class="fu">sqrt</span><span class="op">(</span><span class="op">(</span><span class="va">R0</span> <span class="op">*</span> <span class="va">muv</span><span class="op">*</span><span class="op">(</span><span class="va">muv</span><span class="op">+</span><span class="va">delta</span><span class="op">)</span> <span class="op">*</span> <span class="op">(</span><span class="va">muh</span><span class="op">+</span><span class="va">gamma</span><span class="op">)</span><span class="op">)</span> <span class="op">/</span></span>
+<span>                   <span class="op">(</span><span class="va">m</span> <span class="op">*</span> <span class="va">ph</span> <span class="op">*</span> <span class="va">pv</span> <span class="op">*</span> <span class="va">delta</span><span class="op">)</span><span class="op">)</span> <span class="co"># tasa de picadura</span></span>
+<span></span>
+<span><span class="va">betah</span>    <span class="op">&lt;-</span> <span class="va">ph</span><span class="op">*</span><span class="va">b</span>     <span class="co"># Coeficiente de transmisión del mosquito al humano</span></span>
+<span><span class="va">betav</span>    <span class="op">&lt;-</span> <span class="va">pv</span><span class="op">*</span><span class="va">b</span>     <span class="co"># Coeficiente de transmisión del humano al mosquito</span></span>
+<span></span>
+<span><span class="va">TIME</span>     <span class="op">&lt;-</span> <span class="fl">100</span>       <span class="co"># Número de años a simular</span></span></code></pre>
+</div>
+<hr>
+<br><h3 id="ZIKAB-headingInstructor2">
+<a href="ZIKAB.html#headingInstructor2">Solución 2</a><a class="anchor" aria-label="anchor" href="#ZIKAB-headingInstructor2"></a>
 </h3>
 <div class="codewrapper sourceCode" id="cb6">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -629,8 +667,8 @@ $info: list containing the following items:
 <span><span class="op">}</span></span></code></pre>
 </div>
 <hr>
-<br><h3 id="ZIKAB-headingInstructor2">
-<a href="ZIKAB.html#headingInstructor2">Solución 3</a><a class="anchor" aria-label="anchor" href="#ZIKAB-headingInstructor2"></a>
+<br><h3 id="ZIKAB-headingInstructor3">
+<a href="ZIKAB.html#headingInstructor3">Solución 3</a><a class="anchor" aria-label="anchor" href="#ZIKAB-headingInstructor3"></a>
 </h3>
 <div class="codewrapper sourceCode" id="cb8">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -666,8 +704,8 @@ $info: list containing the following items:
 <span>                         parms  <span class="op">=</span> <span class="va">params</span><span class="op">)</span><span class="op">)</span>    <span class="co"># Parámetros</span></span></code></pre>
 </div>
 <hr>
-<br><h3 id="ZIKAB-headingInstructor3">
-<a href="ZIKAB.html#headingInstructor3">Solución 4</a><a class="anchor" aria-label="anchor" href="#ZIKAB-headingInstructor3"></a>
+<br><h3 id="ZIKAB-headingInstructor4">
+<a href="ZIKAB.html#headingInstructor4">Solución 4</a><a class="anchor" aria-label="anchor" href="#ZIKAB-headingInstructor4"></a>
 </h3>
 <div class="codewrapper sourceCode" id="cb10">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
