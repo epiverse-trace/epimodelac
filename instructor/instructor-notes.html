@@ -340,13 +340,12 @@ any links that you are not going to use.
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">CFR_con_CI</span> <span class="op">&lt;-</span> <span class="fu">binom.confint</span><span class="op">(</span><span class="va">numero_muertes</span>, </span>
 <span>                                       <span class="va">numero_casos_resultado_conocido</span>, method <span class="op">=</span> <span class="st">"exact"</span><span class="op">)</span> <span class="op">%&gt;%</span></span>
-<span>  <span class="fu">kable</span><span class="op">(</span>caption <span class="op">=</span> <span class="st">"**tasa de letalidad con intervalos de confianza**"</span><span class="op">)</span></span>
+<span>  <span class="fu">kable</span><span class="op">(</span>caption <span class="op">=</span> <span class="st">"**CFR con intervalos de confianza**"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">CFR_con_CI</span></span></code></pre>
 </div>
 <table class="table">
-<caption><strong>tasa de letalidad con intervalos de
-confianza</strong></caption>
+<caption><strong>CFR con intervalos de confianza</strong></caption>
 <thead><tr class="header">
 <th align="left">method</th>
 <th align="right">x</th>
@@ -435,10 +434,10 @@ $cumulative: FALSE</code></pre>
 <br><h3 id="TallerEbola-headingInstructor6">
 <a href="TallerEbola.html#headingInstructor6">Ideas para responder:</a><a class="anchor" aria-label="anchor" href="#TallerEbola-headingInstructor6"></a>
 </h3>
-<p>La tasa de crecimiento diaria se calcula utilizando el ajuste de la
-incidencia semanal en lugar de la incidencia diaria debido a que los
-datos diarios pueden ser muy volátiles en los primeros días de la curva
-exponencial. Esto puede suceder por varias razones:</p>
+<p>Es preferible estimar tasa de crecimiento diaria utilizando el ajuste
+de la incidencia semanal en lugar de la incidencia diaria debido a que
+los datos diarios pueden ser muy volátiles en los primeros días de la
+curva exponencial. Esto puede suceder por varias razones:</p>
 <ul>
 <li><p>Las fluctuaciones naturales, ciclos de informes, retrasos en el
 reporte y los errores de medición, que pueden no reflejar cambios reales
@@ -571,12 +570,12 @@ $info: list containing the following items:
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Estimación del tiempo de duplicación en días</span></span>
 <span><span class="va">tiempo_duplicacion_dias</span> <span class="op">&lt;-</span> <span class="va">ajuste_modelo_semanal</span><span class="op">$</span><span class="va">info</span><span class="op">$</span><span class="va">doubling</span></span>
-<span><span class="fu">cat</span><span class="op">(</span><span class="st">"El tiempo de duplicación de la epidemia en días es:"</span>, <span class="va">tiempo_duplicacion_dias</span>, <span class="st">"\n"</span><span class="op">)</span></span></code></pre>
+<span><span class="fu">cat</span><span class="op">(</span><span class="st">"El tiempo de duplicación de la epidemia es"</span>, <span class="va">tiempo_duplicacion_dias</span>, <span class="st">"días\n"</span><span class="op">)</span></span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="output" tabindex="0"><code>El tiempo de duplicación de la epidemia en días es: 13.2684 </code></pre>
+<pre class="output" tabindex="0"><code>El tiempo de duplicación de la epidemia es 13.2684 días</code></pre>
 </div>
 <div class="codewrapper sourceCode" id="cb54">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
