@@ -135,6 +135,7 @@ library(ggplot2)
 library(loo)
 library(patchwork)
 library(rstan)
+require(quicksim)
 ```
 
 ## 5. Data
