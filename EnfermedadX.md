@@ -126,7 +126,7 @@ devtools::install_github("thibautjombart/quicksim")
 
 ```{.output}
 ── R CMD build ─────────────────────────────────────────────────────────────────
-* checking for file ‘/tmp/RtmphPLcwO/remotes3a42978659d/thibautjombart-quicksim-3bbb93c/DESCRIPTION’ ... OK
+* checking for file ‘/tmp/RtmpU96TBa/remotes3a9a18984821/thibautjombart-quicksim-3bbb93c/DESCRIPTION’ ... OK
 * preparing ‘quicksim’:
 * checking DESCRIPTION meta-information ... OK
 * checking for LF line-endings in source and make files and shell scripts
@@ -152,7 +152,7 @@ The following package(s) will be updated:
 - spatial   [7.3-15 -> 7.3-17]
 
 # Downloading packages -------------------------------------------------------
-- Downloading Matrix from CRAN ...              OK [2.7 Mb in 0.11s]
+- Downloading Matrix from CRAN ...              OK [2.7 Mb in 0.13s]
 - Downloading boot from CRAN ...                OK [231.3 Kb]
 - Downloading cluster from CRAN ...             OK [360.5 Kb]
 - Downloading nlme from CRAN ...                OK [817.2 Kb]
@@ -169,10 +169,10 @@ These packages will be installed into "~/work/Nuevoformato/Nuevoformato/renv/pro
 
 # Installing packages --------------------------------------------------------
 - Installing Matrix ...                         OK [built from source and cached in 1.4m]
-- Installing boot ...                           OK [built from source and cached in 3.4s]
-- Installing cluster ...                        OK [built from source and cached in 4.5s]
+- Installing boot ...                           OK [built from source and cached in 3.3s]
+- Installing cluster ...                        OK [built from source and cached in 4.6s]
 - Installing nlme ...                           OK [built from source and cached in 12s]
-- Installing spatial ...                        OK [built from source and cached in 1.7s]
+- Installing spatial ...                        OK [built from source and cached in 1.8s]
 Successfully installed 5 packages in 1.8 minutes.
 
 The following loaded package(s) have been updated:
@@ -323,6 +323,30 @@ attr(,"type")
 [1] "source"
 attr(,"url")
 [1] "https://cran.rstudio.com/src/contrib"
+```
+
+```r
+library(RColorBrewer)
+```
+
+```{.error}
+Error in library(RColorBrewer): there is no package called 'RColorBrewer'
+```
+
+```r
+library(labeling)
+```
+
+```{.error}
+Error in library(labeling): there is no package called 'labeling'
+```
+
+```r
+library(visNetwork)
+```
+
+```{.error}
+Error in library(visNetwork): there is no package called 'visNetwork'
 ```
 
 ## 5. Data
@@ -664,10 +688,10 @@ Inference for Stan model: anon_model.
 post-warmup draws per chain=2000, total post-warmup draws=8000.
 
         mean se_mean    sd  2.5%   25%   50%   75% 97.5% n_eff Rhat
-par[1] 1.978   0.004 0.355 1.340 1.729 1.958 2.205 2.726  9838    1
-par[2] 0.324   0.001 0.066 0.208 0.278 0.320 0.367 0.466  9877    1
+par[1] 1.979   0.003 0.358 1.345 1.729 1.959 2.210 2.751 11500    1
+par[2] 0.324   0.001 0.066 0.209 0.279 0.320 0.366 0.466 11038    1
 
-Samples were drawn using NUTS(diag_e) at Mon Nov 27 23:00:31 2023.
+Samples were drawn using NUTS(diag_e) at Mon Nov 27 23:45:46 2023.
 For each parameter, n_eff is a crude measure of effective sample size,
 and Rhat is the potential scale reduction factor on split chains (at 
 convergence, Rhat=1).
@@ -694,10 +718,10 @@ Inference for Stan model: anon_model.
 post-warmup draws per chain=2000, total post-warmup draws=8000.
 
         mean se_mean    sd  2.5%   25%   50%   75% 97.5% n_eff Rhat
-par[1] 1.530   0.001 0.114 1.307 1.454 1.530 1.605 1.754 10424    1
-par[2] 0.802   0.001 0.084 0.659 0.742 0.796 0.852 0.991  9002    1
+par[1] 1.530   0.001 0.114 1.304 1.458 1.531 1.604 1.752  9545    1
+par[2] 0.802   0.001 0.085 0.658 0.743 0.795 0.854 0.992  9096    1
 
-Samples were drawn using NUTS(diag_e) at Mon Nov 27 23:00:36 2023.
+Samples were drawn using NUTS(diag_e) at Mon Nov 27 23:45:52 2023.
 For each parameter, n_eff is a crude measure of effective sample size,
 and Rhat is the potential scale reduction factor on split chains (at 
 convergence, Rhat=1).
@@ -724,10 +748,10 @@ Inference for Stan model: anon_model.
 post-warmup draws per chain=2000, total post-warmup draws=8000.
 
         mean se_mean    sd  2.5%   25%   50%   75% 97.5% n_eff Rhat
-par[1] 1.375   0.002 0.148 1.091 1.273 1.372 1.471 1.676  9423    1
-par[2] 6.945   0.008 0.761 5.573 6.416 6.910 7.433 8.535  8967    1
+par[1] 1.376   0.001 0.145 1.104 1.275 1.372 1.473 1.667  9578    1
+par[2] 6.964   0.008 0.772 5.563 6.445 6.920 7.444 8.617  8993    1
 
-Samples were drawn using NUTS(diag_e) at Mon Nov 27 23:00:26 2023.
+Samples were drawn using NUTS(diag_e) at Mon Nov 27 23:45:41 2023.
 For each parameter, n_eff is a crude measure of effective sample size,
 and Rhat is the potential scale reduction factor on split chains (at 
 convergence, Rhat=1).
@@ -755,9 +779,9 @@ waic
 ```
 
 ```{.output}
-          weibull     gamma lognormal
-Estimate 278.1172 276.19793 272.79751
-SE        12.0134  13.44198  13.85064
+           weibull     gamma lognormal
+Estimate 278.05230 276.03790 272.84391
+SE        11.95065  13.41144  13.84606
 ```
 
 ```r
@@ -777,7 +801,7 @@ loo_w[1]
 
 ```{.output}
 Estimate 
-278.1429 
+ 278.079 
 ```
 
 ```r
@@ -790,7 +814,7 @@ loo_g[1]
 
 ```{.output}
 Estimate 
-276.2105 
+ 276.051 
 ```
 
 ```r
@@ -803,7 +827,7 @@ loo_l[1]
 
 ```{.output}
 Estimate 
-  272.81 
+272.8609 
 ```
 
 #### **7.1.5. Report the results**
@@ -839,9 +863,9 @@ res_means
 
 ```{.output}
        weibull    gamma lognormal
-2.5%  5.171486 4.997763  5.041121
-50%   6.333825 6.118330  6.347538
-97.5% 7.824477 7.548574  8.526789
+2.5%  5.161145 5.046648  5.028113
+50%   6.336114 6.119921  6.350198
+97.5% 7.904030 7.507649  8.468438
 ```
 
 ```r
@@ -852,9 +876,9 @@ res_sds
 
 ```{.output}
        weibull    gamma lognormal
-2.5%  3.672954 3.420055  3.999080
-50%   4.643507 4.368914  5.941463
-97.5% 6.346862 5.794153 10.252055
+2.5%  3.706111 3.438474  3.999164
+50%   4.652575 4.368117  5.938115
+97.5% 6.357392 5.842798 10.230584
 ```
 
 ```r
@@ -869,9 +893,9 @@ print(cens_w_percentiles)
 
 ```{.output}
           0.025      0.05      0.5     0.95    0.975     0.99
-2.5%  0.2167391 0.4119855 4.124092 12.50933 14.43952 16.65268
-50%   0.4729074 0.7914590 5.290479 15.34562 17.85269 20.98046
-97.5% 0.8437560 1.2979553 6.626586 19.98831 23.83735 28.85799
+2.5%  0.2219304 0.4188307 4.118222 12.57045 14.48528 16.79526
+50%   0.4748413 0.7945659 5.304486 15.36656 17.87451 21.02283
+97.5% 0.8462669 1.2939396 6.674100 20.10784 23.95447 28.80038
 ```
 
 ```r
@@ -883,9 +907,9 @@ print(cens_g_percentiles)
 
 ```{.output}
           0.025      0.05      0.5     0.95    0.975     0.99
-2.5%  0.3300548 0.5643607 4.063719 11.78694 13.76142 16.25333
-50%   0.7173989 1.0598666 5.105386 14.59228 17.16790 20.49716
-97.5% 1.1820705 1.6085662 6.333694 18.68394 22.26091 26.90332
+2.5%  0.3298824 0.5601164 4.098639 11.88139 13.87100 16.36158
+50%   0.7179322 1.0591013 5.109924 14.59126 17.16692 20.47132
+97.5% 1.1883605 1.6155715 6.281089 18.75998 22.36984 27.09745
 ```
 
 ```r
@@ -896,10 +920,10 @@ print(cens_ln_percentiles)
 ```
 
 ```{.output}
-          0.025      0.05      0.5     0.95    0.975     0.99
-2.5%  0.6203652 0.8386476 3.694139 12.63647 15.68313 20.14884
-50%   0.9714863 1.2497716 4.617854 17.03449 21.87760 29.28610
-97.5% 1.3582786 1.6905280 5.778920 25.45546 34.27201 48.87872
+          0.025     0.05      0.5     0.95    0.975     0.99
+2.5%  0.6196552 0.835817 3.682436 12.62303 15.65650 20.10058
+50%   0.9744100 1.250631 4.622896 17.05283 21.90028 29.30222
+97.5% 1.3580655 1.689137 5.765197 25.42268 34.29450 48.79517
 ```
 
 For each model, find these items for the estimated incubation period in the output above and write them below.
