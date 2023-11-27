@@ -49,7 +49,7 @@ FIXME: place any data you want learners to use in `episodes/data` and then use
 -->
 Download the [data zip file](https://example.com/FIXME) and unzip it to your Desktop
 
-## Software Setup
+## Instalación del Software
 
 ::::::::::::::::::::::::::::::::::::::: discussion
 

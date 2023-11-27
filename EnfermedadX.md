@@ -120,6 +120,321 @@ library(ggplot2)
 library(loo)
 library(patchwork)
 library(rstan)
+devtools::install_github("thibautjombart/quicksim")
+```
+
+```{.output}
+── R CMD build ─────────────────────────────────────────────────────────────────
+* checking for file ‘/tmp/RtmpLsKwrH/remotes3a027b183568/thibautjombart-quicksim-3bbb93c/DESCRIPTION’ ... OK
+* preparing ‘quicksim’:
+* checking DESCRIPTION meta-information ... OK
+* checking for LF line-endings in source and make files and shell scripts
+* checking for empty or unneeded directories
+Omitted ‘LazyData’ from DESCRIPTION
+* building ‘quicksim_0.0.1.tar.gz’
+```
+
+```r
+sandpaper::update_cache()
+```
+
+```{.output}
+- Querying repositories for available source packages ... Done!
+- Checking for updated packages ... Done!
+The following package(s) will be updated:
+
+# CRAN -----------------------------------------------------------------------
+- boot        [1.3-28 -> 1.3-28.1]
+- cluster     [2.1.4 -> 2.1.5]
+- Matrix      [1.6-2 -> 1.6-3]
+- nlme        [3.1-163 -> 3.1-164]
+- spatial     [7.3-15 -> 7.3-17]
+
+# GitHub ---------------------------------------------------------------------
+- sandpaper   [epiverse-trace/sandpaper@translate-spanish: f0fc4dfb -> 15f1dffa]
+
+# Downloading packages -------------------------------------------------------
+- Downloading Matrix from CRAN ...              OK [2.7 Mb]
+- Downloading boot from CRAN ...                OK [231.3 Kb in 0.2s]
+- Downloading cluster from CRAN ...             OK [360.5 Kb]
+- Downloading nlme from CRAN ...                OK [817.2 Kb]
+- Downloading sandpaper from GitHub ...         OK [768.1 Kb in 0.71s]
+- Downloading pegboard from GitHub ...          OK [486.3 Kb in 0.66s]
+- Downloading tinkr from GitHub ...             OK [101.2 Kb in 0.6s]
+- Downloading spatial from CRAN ...             OK [43.6 Kb in 0.17s]
+Successfully downloaded 8 packages in 8 seconds.
+
+The following package(s) will be installed:
+- boot      [1.3-28.1]
+- cluster   [2.1.5]
+- Matrix    [1.6-3]
+- nlme      [3.1-164]
+- pegboard  [carpentries/pegboard@main]
+- sandpaper [epiverse-trace/sandpaper@translate-spanish]
+- spatial   [7.3-17]
+- tinkr     [ropensci/tinkr@main]
+These packages will be installed into "~/work/Nuevoformato/Nuevoformato/renv/profiles/lesson-requirements/renv/library/R-4.3/x86_64-pc-linux-gnu".
+
+# Installing packages --------------------------------------------------------
+- Installing Matrix ...                         OK [built from source and cached in 1.4m]
+- Installing boot ...                           OK [built from source and cached in 3.3s]
+- Installing cluster ...                        OK [built from source and cached in 4.5s]
+- Installing nlme ...                           OK [built from source and cached in 12s]
+- Installing tinkr ...                          OK [built from source and cached in 1.5s]
+- Installing pegboard ...                       OK [built from source and cached in 3.6s]
+- Installing sandpaper ...                      OK [built from source and cached in 3.9s]
+- Installing spatial ...                        OK [built from source and cached in 1.8s]
+Successfully installed 8 packages in 2 minutes.
+
+The following loaded package(s) have been updated:
+- Matrix
+Restart your R session to use the new versions.
+
+The following package(s) will be updated in the lockfile:
+
+# CRAN -----------------------------------------------------------------------
+- Matrix      [1.6-2 -> 1.6-3]
+- nlme        [3.1-163 -> 3.1-164]
+
+# GitHub ---------------------------------------------------------------------
+- pegboard    [ref: HEAD -> main]
+- sandpaper   [epiverse-trace/sandpaper@translate-spanish: f0fc4dfb -> 15f1dffa]
+- tinkr       [ref: HEAD -> main]
+
+- Lockfile written to "~/work/Nuevoformato/Nuevoformato/renv/profiles/lesson-requirements/renv.lock".
+```
+
+```{.output}
+$Matrix
+$Matrix$Package
+[1] "Matrix"
+
+$Matrix$Version
+[1] "1.6-3"
+
+$Matrix$OS_type
+[1] NA
+
+$Matrix$NeedsCompilation
+[1] "yes"
+
+$Matrix$Repository
+[1] "CRAN"
+
+$Matrix$Source
+[1] "Repository"
+
+$Matrix$Path
+[1] "/home/runner/.local/share/renv/source/repository/Matrix/Matrix_1.6-3.tar.gz"
+
+attr(,"type")
+[1] "source"
+attr(,"url")
+[1] "https://cran.rstudio.com/src/contrib"
+
+$boot
+$boot$Package
+[1] "boot"
+
+$boot$Version
+[1] "1.3-28.1"
+
+$boot$OS_type
+[1] NA
+
+$boot$NeedsCompilation
+[1] "no"
+
+$boot$Repository
+[1] "CRAN"
+
+$boot$Source
+[1] "Repository"
+
+$boot$Path
+[1] "/home/runner/.local/share/renv/source/repository/boot/boot_1.3-28.1.tar.gz"
+
+attr(,"type")
+[1] "source"
+attr(,"url")
+[1] "https://cran.rstudio.com/src/contrib"
+
+$cluster
+$cluster$Package
+[1] "cluster"
+
+$cluster$Version
+[1] "2.1.5"
+
+$cluster$OS_type
+[1] NA
+
+$cluster$NeedsCompilation
+[1] "yes"
+
+$cluster$Repository
+[1] "CRAN"
+
+$cluster$Source
+[1] "Repository"
+
+$cluster$Path
+[1] "/home/runner/.local/share/renv/source/repository/cluster/cluster_2.1.5.tar.gz"
+
+attr(,"type")
+[1] "source"
+attr(,"url")
+[1] "https://cran.rstudio.com/src/contrib"
+
+$nlme
+$nlme$Package
+[1] "nlme"
+
+$nlme$Version
+[1] "3.1-164"
+
+$nlme$OS_type
+[1] NA
+
+$nlme$NeedsCompilation
+[1] "yes"
+
+$nlme$Repository
+[1] "CRAN"
+
+$nlme$Source
+[1] "Repository"
+
+$nlme$Path
+[1] "/home/runner/.local/share/renv/source/repository/nlme/nlme_3.1-164.tar.gz"
+
+attr(,"type")
+[1] "source"
+attr(,"url")
+[1] "https://cran.rstudio.com/src/contrib"
+
+$tinkr
+$tinkr$Package
+[1] "tinkr"
+
+$tinkr$Version
+[1] "0.2.0"
+
+$tinkr$Source
+[1] "GitHub"
+
+$tinkr$RemoteType
+[1] "github"
+
+$tinkr$RemoteHost
+[1] "api.github.com"
+
+$tinkr$RemoteUsername
+[1] "ropensci"
+
+$tinkr$RemoteRepo
+[1] "tinkr"
+
+$tinkr$RemoteRef
+[1] "main"
+
+$tinkr$RemoteSha
+[1] "a5dd3ddfa235d4a3eb6df78c885d68410ba161c8"
+
+$tinkr$Path
+[1] "/home/runner/.local/share/renv/source/github/tinkr/tinkr_a5dd3ddfa235d4a3eb6df78c885d68410ba161c8.tar.gz"
+
+
+$pegboard
+$pegboard$Package
+[1] "pegboard"
+
+$pegboard$Version
+[1] "0.7.3"
+
+$pegboard$Source
+[1] "GitHub"
+
+$pegboard$RemoteType
+[1] "github"
+
+$pegboard$RemoteHost
+[1] "api.github.com"
+
+$pegboard$RemoteUsername
+[1] "carpentries"
+
+$pegboard$RemoteRepo
+[1] "pegboard"
+
+$pegboard$RemoteRef
+[1] "main"
+
+$pegboard$RemoteSha
+[1] "1bc5753e917d515c3d888ce6cc013c0a680eacfc"
+
+$pegboard$Path
+[1] "/home/runner/.local/share/renv/source/github/pegboard/pegboard_1bc5753e917d515c3d888ce6cc013c0a680eacfc.tar.gz"
+
+
+$sandpaper
+$sandpaper$Package
+[1] "sandpaper"
+
+$sandpaper$Version
+[1] "0.14.1.9000"
+
+$sandpaper$Source
+[1] "GitHub"
+
+$sandpaper$RemoteUsername
+[1] "epiverse-trace"
+
+$sandpaper$RemoteRepo
+[1] "sandpaper"
+
+$sandpaper$RemoteSubdir
+NULL
+
+$sandpaper$RemoteRef
+[1] "translate-spanish"
+
+$sandpaper$RemoteSha
+[1] "15f1dffa92492e70b1b3a4432246981ef5ddda27"
+
+$sandpaper$RemoteHost
+[1] "api.github.com"
+
+$sandpaper$Path
+[1] "/home/runner/.local/share/renv/source/github/sandpaper/sandpaper_15f1dffa92492e70b1b3a4432246981ef5ddda27.tar.gz"
+
+
+$spatial
+$spatial$Package
+[1] "spatial"
+
+$spatial$Version
+[1] "7.3-17"
+
+$spatial$OS_type
+[1] NA
+
+$spatial$NeedsCompilation
+[1] "yes"
+
+$spatial$Repository
+[1] "CRAN"
+
+$spatial$Source
+[1] "Repository"
+
+$spatial$Path
+[1] "/home/runner/.local/share/renv/source/repository/spatial/spatial_7.3-17.tar.gz"
+
+attr(,"type")
+[1] "source"
+attr(,"url")
+[1] "https://cran.rstudio.com/src/contrib"
 ```
 
 ## 5. Data
@@ -260,7 +575,9 @@ plot(i) +
   theme(legend.position = "none")
 ```
 
-<img src="fig/EnfermedadX-rendered-epi curve-1.png" style="display: block; margin: auto;" />
+```{.error}
+Error in loadNamespace(x): there is no package called 'labeling'
+```
 
 It looks like the epidemic might still be growing.
 
@@ -291,8 +608,9 @@ x <- make_epicontacts(linelist = linelist,
 plot(x)
 ```
 
-<!--html_preserve--><div id="htmlwidget-4c98e28226fa72382cb4" style="width:90%;height:700px;" class="visNetwork html-widget"></div>
-<script type="application/json" data-for="htmlwidget-4c98e28226fa72382cb4">{"x":{"nodes":{"id":[1,2,4,5,6,8,9,10,11,12,15,16,19,21,22,23,25,28,29,30,31,32,33,34,36,37,38,41,42,43,44,45,46,47,51,52,53,54,55,57,59,60,61,63,64,65,66,68,69,70,71,73,74,78,79,80,81,83,86,88,89,90,92,96,98,99,100,102,103,105,106,107,108,111,113,114,115,117,119,120,121,122,125,127,128,129,133,136,138,141,142,144,149,152,153,154,156,158,159,160,161,162,164,165,166],"date_onset":["2023-10-01","2023-10-03","2023-10-10","2023-10-11","2023-10-12","2023-10-13","2023-10-15","2023-10-16","2023-10-16","2023-10-18","2023-10-20","2023-10-21","2023-10-24","2023-10-24","2023-10-25","2023-10-26","2023-10-28","2023-10-30","2023-10-30","2023-10-30","2023-10-31","2023-11-03","2023-11-03","2023-11-03","2023-11-04","2023-11-04","2023-11-05","2023-11-06","2023-11-06","2023-11-06","2023-11-06","2023-11-07","2023-11-07","2023-11-07","2023-11-08","2023-11-09","2023-11-10","2023-11-10","2023-11-10","2023-11-11","2023-11-12","2023-11-12","2023-11-12","2023-11-12","2023-11-13","2023-11-13","2023-11-13","2023-11-14","2023-11-14","2023-11-14","2023-11-14","2023-11-15","2023-11-15","2023-11-16","2023-11-16","2023-11-16","2023-11-16","2023-11-17","2023-11-17","2023-11-18","2023-11-18","2023-11-18","2023-11-18","2023-11-20","2023-11-20","2023-11-20","2023-11-20","2023-11-20","2023-11-21","2023-11-21","2023-11-21","2023-11-21","2023-11-22","2023-11-22","2023-11-23","2023-11-23","2023-11-23","2023-11-24","2023-11-25","2023-11-25","2023-11-25","2023-11-25","2023-11-26","2023-11-26","2023-11-26","2023-11-26","2023-11-26","2023-11-27","2023-11-27","2023-11-27","2023-11-27","2023-11-28","2023-11-29","2023-11-29","2023-11-29","2023-11-29","2023-11-29","2023-11-30","2023-11-30","2023-11-30","2023-11-30","2023-11-30","2023-11-30","2023-11-30","2023-11-30"],"sex":["M","F","F","F","F","M","F","M","F","M","M","F","M","M","M","M","M","F","F","M","M","M","M","M","F","M","M","F","F","M","F","M","M","F","M","M","F","M","M","M","M","F","F","M","M","M","F","M","M","F","M","M","F","M","M","F","F","M","F","M","M","F","F","M","M","M","F","F","M","M","M","M","M","F","F","M","M","F","M","F","F","F","M","M","M","M","M","M","F","M","F","M","F","M","M","F","F","F","M","F","M","F","M","M","F"],"age":[34,38,37,33,34,35,36,42,39,33,39,39,33,33,32,36,36,34,32,31,38,35,38,30,38,35,34,38,42,35,32,29,32,36,38,28,34,34,27,33,41,38,35,37,42,36,37,33,35,42,31,40,34,32,34,33,34,37,34,42,35,34,41,36,24,35,39,39,43,33,38,34,33,37,37,37,31,27,38,36,38,36,39,31,37,33,37,34,39,40,36,47,34,36,31,22,35,35,37,31,38,38,40,37,36],"exposure":["Close, skin-to-skin contact","Close, skin-to-skin contact",null,null,"Close, skin-to-skin contact",null,null,null,"Close, skin-to-skin contact",null,null,"Close, skin-to-skin contact","Close, skin-to-skin contact","Close, skin-to-skin contact","Close, skin-to-skin contact",null,"Close, skin-to-skin contact",null,"Close, skin-to-skin contact","Close, skin-to-skin contact","Close, skin-to-skin contact","Close, skin-to-skin contact","Close, skin-to-skin contact","Close, skin-to-skin contact",null,"Close, skin-to-skin contact",null,null,"Close, skin-to-skin contact","Close, skin-to-skin contact","Close, skin-to-skin contact",null,"Close, skin-to-skin contact",null,null,null,"Close, skin-to-skin contact","Close, skin-to-skin contact",null,null,"Close, skin-to-skin contact","Close, skin-to-skin contact","Close, skin-to-skin contact","Close, skin-to-skin contact",null,"Close, skin-to-skin contact",null,null,null,"Close, skin-to-skin contact","Close, skin-to-skin contact","Close, skin-to-skin contact",null,"Close, skin-to-skin contact","Close, skin-to-skin contact","Close, skin-to-skin contact","Close, skin-to-skin contact",null,"Close, skin-to-skin contact","Close, skin-to-skin contact","Close, skin-to-skin contact",null,"Close, skin-to-skin contact","Close, skin-to-skin contact","Close, skin-to-skin contact","Close, skin-to-skin contact","Close, skin-to-skin contact","Close, skin-to-skin contact","Close, skin-to-skin contact","Close, skin-to-skin contact","Close, skin-to-skin contact","Close, skin-to-skin contact","Close, skin-to-skin contact","Close, skin-to-skin contact","Close, skin-to-skin contact",null,"Close, skin-to-skin contact",null,"Close, skin-to-skin contact","Close, skin-to-skin contact",null,"Close, skin-to-skin contact","Close, skin-to-skin contact","Close, skin-to-skin contact",null,"Close, skin-to-skin contact",null,"Close, skin-to-skin contact",null,"Close, skin-to-skin contact","Close, skin-to-skin contact","Close, skin-to-skin contact","Close, skin-to-skin contact",null,"Close, skin-to-skin contact","Close, skin-to-skin contact","Close, skin-to-skin contact","Close, skin-to-skin contact",null,"Close, skin-to-skin contact","Close, skin-to-skin contact",null,null,null,"Close, skin-to-skin contact"],"exposure_start":[null,"2023-09-29","2023-09-25","2023-10-05","2023-10-10","2023-10-08","2023-10-13","2023-10-04","2023-10-03","2023-10-11","2023-10-13","2023-10-19","2023-10-20","2023-10-05","2023-10-20","2023-10-14","2023-10-26","2023-10-27","2023-10-24","2023-10-17","2023-10-30","2023-11-02","2023-10-27","2023-10-30","2023-10-29","2023-10-25","2023-11-01","2023-11-03","2023-11-03","2023-11-01","2023-11-03","2023-11-05","2023-10-18","2023-10-30","2023-11-02",null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],"exposure_end":[null,"2023-09-29","2023-09-27","2023-10-05","2023-10-10","2023-10-08","2023-10-13","2023-10-04","2023-10-03","2023-10-11","2023-10-14","2023-10-20","2023-10-20","2023-10-05","2023-10-20","2023-10-15","2023-10-26","2023-10-27","2023-10-25","2023-10-17","2023-10-30","2023-11-02","2023-10-27","2023-10-30","2023-10-30","2023-10-25","2023-11-01","2023-11-03","2023-11-03","2023-11-03","2023-11-04","2023-11-05","2023-10-19","2023-10-30","2023-11-04",null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],"label":["1","2","4","5","6","8","9","10","11","12","15","16","19","21","22","23","25","28","29","30","31","32","33","34","36","37","38","41","42","43","44","45","46","47","51","52","53","54","55","57","59","60","61","63","64","65","66","68","69","70","71","73","74","78","79","80","81","83","86","88","89","90","92","96","98","99","100","102","103","105","106","107","108","111","113","114","115","117","119","120","121","122","125","127","128","129","133","136","138","141","142","144","149","152","153","154","156","158","159","160","161","162","164","165","166"],"title":["<p> id: 1<br>date_onset: 2023-10-01<br>sex: M<br>age: 34<br>exposure: Close, skin-to-skin contact<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 2<br>date_onset: 2023-10-03<br>sex: F<br>age: 38<br>exposure: Close, skin-to-skin contact<br>exposure_start: 2023-09-29<br>exposure_end: 2023-09-29 <\/p>","<p> id: 4<br>date_onset: 2023-10-10<br>sex: F<br>age: 37<br>exposure: NA<br>exposure_start: 2023-09-25<br>exposure_end: 2023-09-27 <\/p>","<p> id: 5<br>date_onset: 2023-10-11<br>sex: F<br>age: 33<br>exposure: NA<br>exposure_start: 2023-10-05<br>exposure_end: 2023-10-05 <\/p>","<p> id: 6<br>date_onset: 2023-10-12<br>sex: F<br>age: 34<br>exposure: Close, skin-to-skin contact<br>exposure_start: 2023-10-10<br>exposure_end: 2023-10-10 <\/p>","<p> id: 8<br>date_onset: 2023-10-13<br>sex: M<br>age: 35<br>exposure: NA<br>exposure_start: 2023-10-08<br>exposure_end: 2023-10-08 <\/p>","<p> id: 9<br>date_onset: 2023-10-15<br>sex: F<br>age: 36<br>exposure: NA<br>exposure_start: 2023-10-13<br>exposure_end: 2023-10-13 <\/p>","<p> id: 10<br>date_onset: 2023-10-16<br>sex: M<br>age: 42<br>exposure: NA<br>exposure_start: 2023-10-04<br>exposure_end: 2023-10-04 <\/p>","<p> id: 11<br>date_onset: 2023-10-16<br>sex: F<br>age: 39<br>exposure: Close, skin-to-skin contact<br>exposure_start: 2023-10-03<br>exposure_end: 2023-10-03 <\/p>","<p> id: 12<br>date_onset: 2023-10-18<br>sex: M<br>age: 33<br>exposure: NA<br>exposure_start: 2023-10-11<br>exposure_end: 2023-10-11 <\/p>","<p> id: 15<br>date_onset: 2023-10-20<br>sex: M<br>age: 39<br>exposure: NA<br>exposure_start: 2023-10-13<br>exposure_end: 2023-10-14 <\/p>","<p> id: 16<br>date_onset: 2023-10-21<br>sex: F<br>age: 39<br>exposure: Close, skin-to-skin contact<br>exposure_start: 2023-10-19<br>exposure_end: 2023-10-20 <\/p>","<p> id: 19<br>date_onset: 2023-10-24<br>sex: M<br>age: 33<br>exposure: Close, skin-to-skin contact<br>exposure_start: 2023-10-20<br>exposure_end: 2023-10-20 <\/p>","<p> id: 21<br>date_onset: 2023-10-24<br>sex: M<br>age: 33<br>exposure: Close, skin-to-skin contact<br>exposure_start: 2023-10-05<br>exposure_end: 2023-10-05 <\/p>","<p> id: 22<br>date_onset: 2023-10-25<br>sex: M<br>age: 32<br>exposure: Close, skin-to-skin contact<br>exposure_start: 2023-10-20<br>exposure_end: 2023-10-20 <\/p>","<p> id: 23<br>date_onset: 2023-10-26<br>sex: M<br>age: 36<br>exposure: NA<br>exposure_start: 2023-10-14<br>exposure_end: 2023-10-15 <\/p>","<p> id: 25<br>date_onset: 2023-10-28<br>sex: M<br>age: 36<br>exposure: Close, skin-to-skin contact<br>exposure_start: 2023-10-26<br>exposure_end: 2023-10-26 <\/p>","<p> id: 28<br>date_onset: 2023-10-30<br>sex: F<br>age: 34<br>exposure: NA<br>exposure_start: 2023-10-27<br>exposure_end: 2023-10-27 <\/p>","<p> id: 29<br>date_onset: 2023-10-30<br>sex: F<br>age: 32<br>exposure: Close, skin-to-skin contact<br>exposure_start: 2023-10-24<br>exposure_end: 2023-10-25 <\/p>","<p> id: 30<br>date_onset: 2023-10-30<br>sex: M<br>age: 31<br>exposure: Close, skin-to-skin contact<br>exposure_start: 2023-10-17<br>exposure_end: 2023-10-17 <\/p>","<p> id: 31<br>date_onset: 2023-10-31<br>sex: M<br>age: 38<br>exposure: Close, skin-to-skin contact<br>exposure_start: 2023-10-30<br>exposure_end: 2023-10-30 <\/p>","<p> id: 32<br>date_onset: 2023-11-03<br>sex: M<br>age: 35<br>exposure: Close, skin-to-skin contact<br>exposure_start: 2023-11-02<br>exposure_end: 2023-11-02 <\/p>","<p> id: 33<br>date_onset: 2023-11-03<br>sex: M<br>age: 38<br>exposure: Close, skin-to-skin contact<br>exposure_start: 2023-10-27<br>exposure_end: 2023-10-27 <\/p>","<p> id: 34<br>date_onset: 2023-11-03<br>sex: M<br>age: 30<br>exposure: Close, skin-to-skin contact<br>exposure_start: 2023-10-30<br>exposure_end: 2023-10-30 <\/p>","<p> id: 36<br>date_onset: 2023-11-04<br>sex: F<br>age: 38<br>exposure: NA<br>exposure_start: 2023-10-29<br>exposure_end: 2023-10-30 <\/p>","<p> id: 37<br>date_onset: 2023-11-04<br>sex: M<br>age: 35<br>exposure: Close, skin-to-skin contact<br>exposure_start: 2023-10-25<br>exposure_end: 2023-10-25 <\/p>","<p> id: 38<br>date_onset: 2023-11-05<br>sex: M<br>age: 34<br>exposure: NA<br>exposure_start: 2023-11-01<br>exposure_end: 2023-11-01 <\/p>","<p> id: 41<br>date_onset: 2023-11-06<br>sex: F<br>age: 38<br>exposure: NA<br>exposure_start: 2023-11-03<br>exposure_end: 2023-11-03 <\/p>","<p> id: 42<br>date_onset: 2023-11-06<br>sex: F<br>age: 42<br>exposure: Close, skin-to-skin contact<br>exposure_start: 2023-11-03<br>exposure_end: 2023-11-03 <\/p>","<p> id: 43<br>date_onset: 2023-11-06<br>sex: M<br>age: 35<br>exposure: Close, skin-to-skin contact<br>exposure_start: 2023-11-01<br>exposure_end: 2023-11-03 <\/p>","<p> id: 44<br>date_onset: 2023-11-06<br>sex: F<br>age: 32<br>exposure: Close, skin-to-skin contact<br>exposure_start: 2023-11-03<br>exposure_end: 2023-11-04 <\/p>","<p> id: 45<br>date_onset: 2023-11-07<br>sex: M<br>age: 29<br>exposure: NA<br>exposure_start: 2023-11-05<br>exposure_end: 2023-11-05 <\/p>","<p> id: 46<br>date_onset: 2023-11-07<br>sex: M<br>age: 32<br>exposure: Close, skin-to-skin contact<br>exposure_start: 2023-10-18<br>exposure_end: 2023-10-19 <\/p>","<p> id: 47<br>date_onset: 2023-11-07<br>sex: F<br>age: 36<br>exposure: NA<br>exposure_start: 2023-10-30<br>exposure_end: 2023-10-30 <\/p>","<p> id: 51<br>date_onset: 2023-11-08<br>sex: M<br>age: 38<br>exposure: NA<br>exposure_start: 2023-11-02<br>exposure_end: 2023-11-04 <\/p>","<p> id: 52<br>date_onset: 2023-11-09<br>sex: M<br>age: 28<br>exposure: NA<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 53<br>date_onset: 2023-11-10<br>sex: F<br>age: 34<br>exposure: Close, skin-to-skin contact<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 54<br>date_onset: 2023-11-10<br>sex: M<br>age: 34<br>exposure: Close, skin-to-skin contact<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 55<br>date_onset: 2023-11-10<br>sex: M<br>age: 27<br>exposure: NA<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 57<br>date_onset: 2023-11-11<br>sex: M<br>age: 33<br>exposure: NA<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 59<br>date_onset: 2023-11-12<br>sex: M<br>age: 41<br>exposure: Close, skin-to-skin contact<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 60<br>date_onset: 2023-11-12<br>sex: F<br>age: 38<br>exposure: Close, skin-to-skin contact<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 61<br>date_onset: 2023-11-12<br>sex: F<br>age: 35<br>exposure: Close, skin-to-skin contact<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 63<br>date_onset: 2023-11-12<br>sex: M<br>age: 37<br>exposure: Close, skin-to-skin contact<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 64<br>date_onset: 2023-11-13<br>sex: M<br>age: 42<br>exposure: NA<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 65<br>date_onset: 2023-11-13<br>sex: M<br>age: 36<br>exposure: Close, skin-to-skin contact<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 66<br>date_onset: 2023-11-13<br>sex: F<br>age: 37<br>exposure: NA<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 68<br>date_onset: 2023-11-14<br>sex: M<br>age: 33<br>exposure: NA<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 69<br>date_onset: 2023-11-14<br>sex: M<br>age: 35<br>exposure: NA<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 70<br>date_onset: 2023-11-14<br>sex: F<br>age: 42<br>exposure: Close, skin-to-skin contact<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 71<br>date_onset: 2023-11-14<br>sex: M<br>age: 31<br>exposure: Close, skin-to-skin contact<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 73<br>date_onset: 2023-11-15<br>sex: M<br>age: 40<br>exposure: Close, skin-to-skin contact<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 74<br>date_onset: 2023-11-15<br>sex: F<br>age: 34<br>exposure: NA<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 78<br>date_onset: 2023-11-16<br>sex: M<br>age: 32<br>exposure: Close, skin-to-skin contact<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 79<br>date_onset: 2023-11-16<br>sex: M<br>age: 34<br>exposure: Close, skin-to-skin contact<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 80<br>date_onset: 2023-11-16<br>sex: F<br>age: 33<br>exposure: Close, skin-to-skin contact<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 81<br>date_onset: 2023-11-16<br>sex: F<br>age: 34<br>exposure: Close, skin-to-skin contact<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 83<br>date_onset: 2023-11-17<br>sex: M<br>age: 37<br>exposure: NA<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 86<br>date_onset: 2023-11-17<br>sex: F<br>age: 34<br>exposure: Close, skin-to-skin contact<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 88<br>date_onset: 2023-11-18<br>sex: M<br>age: 42<br>exposure: Close, skin-to-skin contact<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 89<br>date_onset: 2023-11-18<br>sex: M<br>age: 35<br>exposure: Close, skin-to-skin contact<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 90<br>date_onset: 2023-11-18<br>sex: F<br>age: 34<br>exposure: NA<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 92<br>date_onset: 2023-11-18<br>sex: F<br>age: 41<br>exposure: Close, skin-to-skin contact<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 96<br>date_onset: 2023-11-20<br>sex: M<br>age: 36<br>exposure: Close, skin-to-skin contact<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 98<br>date_onset: 2023-11-20<br>sex: M<br>age: 24<br>exposure: Close, skin-to-skin contact<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 99<br>date_onset: 2023-11-20<br>sex: M<br>age: 35<br>exposure: Close, skin-to-skin contact<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 100<br>date_onset: 2023-11-20<br>sex: F<br>age: 39<br>exposure: Close, skin-to-skin contact<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 102<br>date_onset: 2023-11-20<br>sex: F<br>age: 39<br>exposure: Close, skin-to-skin contact<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 103<br>date_onset: 2023-11-21<br>sex: M<br>age: 43<br>exposure: Close, skin-to-skin contact<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 105<br>date_onset: 2023-11-21<br>sex: M<br>age: 33<br>exposure: Close, skin-to-skin contact<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 106<br>date_onset: 2023-11-21<br>sex: M<br>age: 38<br>exposure: Close, skin-to-skin contact<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 107<br>date_onset: 2023-11-21<br>sex: M<br>age: 34<br>exposure: Close, skin-to-skin contact<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 108<br>date_onset: 2023-11-22<br>sex: M<br>age: 33<br>exposure: Close, skin-to-skin contact<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 111<br>date_onset: 2023-11-22<br>sex: F<br>age: 37<br>exposure: Close, skin-to-skin contact<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 113<br>date_onset: 2023-11-23<br>sex: F<br>age: 37<br>exposure: Close, skin-to-skin contact<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 114<br>date_onset: 2023-11-23<br>sex: M<br>age: 37<br>exposure: NA<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 115<br>date_onset: 2023-11-23<br>sex: M<br>age: 31<br>exposure: Close, skin-to-skin contact<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 117<br>date_onset: 2023-11-24<br>sex: F<br>age: 27<br>exposure: NA<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 119<br>date_onset: 2023-11-25<br>sex: M<br>age: 38<br>exposure: Close, skin-to-skin contact<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 120<br>date_onset: 2023-11-25<br>sex: F<br>age: 36<br>exposure: Close, skin-to-skin contact<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 121<br>date_onset: 2023-11-25<br>sex: F<br>age: 38<br>exposure: NA<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 122<br>date_onset: 2023-11-25<br>sex: F<br>age: 36<br>exposure: Close, skin-to-skin contact<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 125<br>date_onset: 2023-11-26<br>sex: M<br>age: 39<br>exposure: Close, skin-to-skin contact<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 127<br>date_onset: 2023-11-26<br>sex: M<br>age: 31<br>exposure: Close, skin-to-skin contact<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 128<br>date_onset: 2023-11-26<br>sex: M<br>age: 37<br>exposure: NA<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 129<br>date_onset: 2023-11-26<br>sex: M<br>age: 33<br>exposure: Close, skin-to-skin contact<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 133<br>date_onset: 2023-11-26<br>sex: M<br>age: 37<br>exposure: NA<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 136<br>date_onset: 2023-11-27<br>sex: M<br>age: 34<br>exposure: Close, skin-to-skin contact<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 138<br>date_onset: 2023-11-27<br>sex: F<br>age: 39<br>exposure: NA<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 141<br>date_onset: 2023-11-27<br>sex: M<br>age: 40<br>exposure: Close, skin-to-skin contact<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 142<br>date_onset: 2023-11-27<br>sex: F<br>age: 36<br>exposure: Close, skin-to-skin contact<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 144<br>date_onset: 2023-11-28<br>sex: M<br>age: 47<br>exposure: Close, skin-to-skin contact<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 149<br>date_onset: 2023-11-29<br>sex: F<br>age: 34<br>exposure: Close, skin-to-skin contact<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 152<br>date_onset: 2023-11-29<br>sex: M<br>age: 36<br>exposure: NA<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 153<br>date_onset: 2023-11-29<br>sex: M<br>age: 31<br>exposure: Close, skin-to-skin contact<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 154<br>date_onset: 2023-11-29<br>sex: F<br>age: 22<br>exposure: Close, skin-to-skin contact<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 156<br>date_onset: 2023-11-29<br>sex: F<br>age: 35<br>exposure: Close, skin-to-skin contact<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 158<br>date_onset: 2023-11-30<br>sex: F<br>age: 35<br>exposure: Close, skin-to-skin contact<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 159<br>date_onset: 2023-11-30<br>sex: M<br>age: 37<br>exposure: NA<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 160<br>date_onset: 2023-11-30<br>sex: F<br>age: 31<br>exposure: Close, skin-to-skin contact<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 161<br>date_onset: 2023-11-30<br>sex: M<br>age: 38<br>exposure: Close, skin-to-skin contact<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 162<br>date_onset: 2023-11-30<br>sex: F<br>age: 38<br>exposure: NA<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 164<br>date_onset: 2023-11-30<br>sex: M<br>age: 40<br>exposure: NA<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 165<br>date_onset: 2023-11-30<br>sex: M<br>age: 37<br>exposure: NA<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 166<br>date_onset: 2023-11-30<br>sex: F<br>age: 36<br>exposure: Close, skin-to-skin contact<br>exposure_start: NA<br>exposure_end: NA <\/p>"],"color":["#CCDDFF","#C4DCF7","#BDDBEF","#B6DAE7","#AFD9E0","#A8D8D8","#A0D7D0","#99D6C9","#92D5C1","#8BD4B9","#84D3B1","#7CD2AA","#7ED0A6","#89CEA7","#95CBA8","#A0C8A9","#ACC6AB","#B8C3AC","#C3C0AD","#CFBEAE","#DABBAF","#E6B8B0","#F2B5B1","#FDB3B2","#F7B1B4","#F0B0B5","#E8AFB6","#E0ADB7","#D8ACB8","#D0ABBA","#C8AABB","#C0A8BC","#B8A7BD","#B1A6BE","#A9A4C0","#A6A5BB","#AEA8AA","#B6AC9A","#BEAF89","#C6B378","#CEB667","#D5B957","#DDBD46","#E5C035","#EDC425","#F5C714","#FDCB03","#FFC808","#FFC513","#FFC11E","#FFBD29","#FFB934","#FFB540","#FFB14B","#FFAD56","#FFA961","#FFA56C","#FFA277","#FEA080","#F9A982","#F5B184","#F0B986","#ECC289","#E7CA8B","#E3D28D","#DFDB8F","#DAE391","#D6EB93","#D1F396","#CDFC98","#CDF99B","#CEF19E","#D0E8A1","#D2E0A5","#D3D8A8","#D5CFAB","#D6C7AE","#D8BFB2","#DAB6B5","#DBAEB8","#DDA6BC","#DF9FBE","#E2A3BB","#E4A7B8","#E7ABB4","#EAAFB1","#EDB2AE","#EFB6AA","#F2BAA7","#F5BEA4","#F8C2A1","#FBC69D","#FDCA9A","#FCCC9B","#F8CCA0","#F3CCA4","#EFCCA9","#EBCCAD","#E6CCB2","#E2CCB6","#DECCBB","#D9CCBF","#D5CCC4","#D1CCC8","#CDCDCD"],"borderWidth":[2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2]},"edges":{"from":[1,1,5,4,6,12,9,15,2,22,22,25,25,29,16,31,34,25,36,30,38,41,28,44,41,23,45,45,37,31,42,54,47,61,54,46,79,68,80,60,74,71,70,88,83,64,63,34,113,69,90,108,113,80,73,107,70,78,64,105,55,108,113,103,128,156,99,128,89,92,106,103],"to":[2,5,8,10,11,16,19,21,23,25,30,32,33,34,36,38,42,43,46,51,52,53,55,57,59,61,65,66,69,70,78,79,80,81,83,86,90,92,96,98,100,102,107,111,114,115,117,119,120,121,122,125,127,129,133,136,138,141,142,144,149,152,153,154,158,159,160,161,162,164,165,166],"primary_onset_date":["2023-10-01","2023-10-01","2023-10-11","2023-10-10","2023-10-12","2023-10-18","2023-10-15","2023-10-20","2023-10-03","2023-10-25","2023-10-25","2023-10-28","2023-10-28","2023-10-30","2023-10-21","2023-10-31","2023-11-03","2023-10-28","2023-11-04","2023-10-30","2023-11-05","2023-11-06","2023-10-30","2023-11-06","2023-11-06","2023-10-26","2023-11-07","2023-11-07","2023-11-04","2023-10-31","2023-11-06","2023-11-10","2023-11-07","2023-11-12","2023-11-10","2023-11-07","2023-11-16","2023-11-14","2023-11-16","2023-11-12","2023-11-15","2023-11-14","2023-11-14","2023-11-18","2023-11-17","2023-11-13","2023-11-12","2023-11-03","2023-11-23","2023-11-14","2023-11-18","2023-11-22","2023-11-23","2023-11-16","2023-11-15","2023-11-21","2023-11-14","2023-11-16","2023-11-13","2023-11-21","2023-11-10","2023-11-22","2023-11-23","2023-11-21","2023-11-26","2023-11-29","2023-11-20","2023-11-26","2023-11-18","2023-11-18","2023-11-21","2023-11-21"],"secondary_onset_date":["2023-10-03","2023-10-11","2023-10-13","2023-10-16","2023-10-16","2023-10-21","2023-10-24","2023-10-24","2023-10-26","2023-10-28","2023-10-30","2023-11-03","2023-11-03","2023-11-03","2023-11-04","2023-11-05","2023-11-06","2023-11-06","2023-11-07","2023-11-08","2023-11-09","2023-11-10","2023-11-10","2023-11-11","2023-11-12","2023-11-12","2023-11-13","2023-11-13","2023-11-14","2023-11-14","2023-11-16","2023-11-16","2023-11-16","2023-11-16","2023-11-17","2023-11-17","2023-11-18","2023-11-18","2023-11-20","2023-11-20","2023-11-20","2023-11-20","2023-11-21","2023-11-22","2023-11-23","2023-11-23","2023-11-24","2023-11-25","2023-11-25","2023-11-25","2023-11-25","2023-11-26","2023-11-26","2023-11-26","2023-11-26","2023-11-27","2023-11-27","2023-11-27","2023-11-27","2023-11-28","2023-11-29","2023-11-29","2023-11-29","2023-11-29","2023-11-30","2023-11-30","2023-11-30","2023-11-30","2023-11-30","2023-11-30","2023-11-30","2023-11-30"],"width":[3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3],"arrows":["to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to"]},"nodesToDataframe":true,"edgesToDataframe":true,"options":{"width":"100%","height":"100%","nodes":{"shape":"dot"},"manipulation":{"enabled":false},"physics":{"stabilization":false}},"groups":null,"width":"90%","height":"700px","idselection":{"enabled":false,"style":"width: 150px; height: 26px","useLabels":true,"main":"Select by id"},"byselection":{"enabled":true,"style":"width: 150px; height: 26px","multiple":false,"hideColor":"rgba(200,200,200,0.5)","highlight":false,"variable":"id","main":"Select by id","values":[1,2,4,5,6,8,9,10,11,12,15,16,19,21,22,23,25,28,29,30,31,32,33,34,36,37,38,41,42,43,44,45,46,47,51,52,53,54,55,57,59,60,61,63,64,65,66,68,69,70,71,73,74,78,79,80,81,83,86,88,89,90,92,96,98,99,100,102,103,105,106,107,108,111,113,114,115,117,119,120,121,122,125,127,128,129,133,136,138,141,142,144,149,152,153,154,156,158,159,160,161,162,164,165,166]},"main":null,"submain":null,"footer":null,"background":"rgba(0, 0, 0, 0)","legend":{"width":0.2,"useGroups":false,"position":"left","ncol":1,"stepX":100,"stepY":100,"zoom":true},"highlight":{"enabled":true,"hoverNearest":false,"degree":1,"algorithm":"all","hideColor":"rgba(200,200,200,0.5)","labelOnly":true},"collapse":{"enabled":false,"fit":false,"resetHighlight":true,"clusterOptions":null,"keepCoord":true,"labelSuffix":"(cluster)"},"opts_manipulation":{"datacss":"table.legend_table {\n  font-size: 11px;\n  border-width:1px;\n  border-color:#d3d3d3;\n  border-style:solid;\n}\ntable.legend_table td {\n  border-width:1px;\n  border-color:#d3d3d3;\n  border-style:solid;\n  padding: 2px;\n}\ndiv.table_content {\n  width:80px;\n  text-align:center;\n}\ndiv.table_description {\n  width:100px;\n}\n\n.operation {\n  font-size:20px;\n}\n\n.network-popUp {\n  display:none;\n  z-index:299;\n  width:250px;\n  /*height:150px;*/\n  background-color: #f9f9f9;\n  border-style:solid;\n  border-width:1px;\n  border-color: #0d0d0d;\n  padding:10px;\n  text-align: center;\n  position:fixed;\n  top:50%;  \n  left:50%;  \n  margin:-100px 0 0 -100px;  \n\n}","addNodeCols":["id","label"],"editNodeCols":["id","label"],"tab_add_node":"<span id=\"addnode-operation\" class = \"operation\">node<\/span> <br><table style=\"margin:auto;\"><tr><td>id<\/td><td><input id=\"addnode-id\"  type= \"text\" value=\"new value\"><\/td><\/tr><tr><td>label<\/td><td><input id=\"addnode-label\"  type= \"text\" value=\"new value\"><\/td><\/tr><\/table><input type=\"button\" value=\"save\" id=\"addnode-saveButton\"><\/button><input type=\"button\" value=\"cancel\" id=\"addnode-cancelButton\"><\/button>","tab_edit_node":"<span id=\"editnode-operation\" class = \"operation\">node<\/span> <br><table style=\"margin:auto;\"><tr><td>id<\/td><td><input id=\"editnode-id\"  type= \"text\" value=\"new value\"><\/td><\/tr><tr><td>label<\/td><td><input id=\"editnode-label\"  type= \"text\" value=\"new value\"><\/td><\/tr><\/table><input type=\"button\" value=\"save\" id=\"editnode-saveButton\"><\/button><input type=\"button\" value=\"cancel\" id=\"editnode-cancelButton\"><\/button>"},"iconsRedraw":true},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
+```{.error}
+Error in loadNamespace(x): there is no package called 'visNetwork'
+```
 
 Describe the clusters. Do you see any potential superspreading events (where one cases spreads the pathogen to many other cases)?
 
@@ -458,10 +776,10 @@ Inference for Stan model: anon_model.
 post-warmup draws per chain=2000, total post-warmup draws=8000.
 
         mean se_mean    sd  2.5%   25%   50%   75% 97.5% n_eff Rhat
-par[1] 1.980   0.003 0.364 1.344 1.720 1.956 2.213 2.756 11151    1
-par[2] 0.325   0.001 0.068 0.207 0.277 0.320 0.368 0.470 11659    1
+par[1] 1.980   0.003 0.355 1.347 1.733 1.959 2.205 2.736 11928    1
+par[2] 0.325   0.001 0.066 0.206 0.279 0.321 0.365 0.464 12416    1
 
-Samples were drawn using NUTS(diag_e) at Sat Nov 25 18:22:24 2023.
+Samples were drawn using NUTS(diag_e) at Mon Nov 27 20:33:11 2023.
 For each parameter, n_eff is a crude measure of effective sample size,
 and Rhat is the potential scale reduction factor on split chains (at 
 convergence, Rhat=1).
@@ -471,7 +789,9 @@ convergence, Rhat=1).
 rstan::traceplot(fit$gamma, pars = c("par[1]","par[2]")) 
 ```
 
-<img src="fig/EnfermedadX-rendered-convergence gamma-1.png" style="display: block; margin: auto;" />
+```{.error}
+Error in loadNamespace(x): there is no package called 'labeling'
+```
 
 #### **7.1.2.2. Convergence for log normal**
 
@@ -486,10 +806,10 @@ Inference for Stan model: anon_model.
 post-warmup draws per chain=2000, total post-warmup draws=8000.
 
         mean se_mean    sd  2.5%   25%   50%   75% 97.5% n_eff Rhat
-par[1] 1.530   0.001 0.114 1.307 1.454 1.529 1.607 1.752  9743    1
-par[2] 0.802   0.001 0.085 0.654 0.742 0.795 0.853 0.990  9553    1
+par[1] 1.527   0.001 0.114 1.305 1.449 1.528 1.605 1.748  9437    1
+par[2] 0.801   0.001 0.084 0.653 0.743 0.794 0.853 0.986 10064    1
 
-Samples were drawn using NUTS(diag_e) at Sat Nov 25 18:22:29 2023.
+Samples were drawn using NUTS(diag_e) at Mon Nov 27 20:33:16 2023.
 For each parameter, n_eff is a crude measure of effective sample size,
 and Rhat is the potential scale reduction factor on split chains (at 
 convergence, Rhat=1).
@@ -499,7 +819,9 @@ convergence, Rhat=1).
 rstan::traceplot(fit$lognormal, pars = c("par[1]","par[2]")) 
 ```
 
-<img src="fig/EnfermedadX-rendered-convergence lognormal-1.png" style="display: block; margin: auto;" />
+```{.error}
+Error in loadNamespace(x): there is no package called 'labeling'
+```
 
 #### **7.1.2.3. Convergence for weibull**
 
@@ -514,10 +836,10 @@ Inference for Stan model: anon_model.
 post-warmup draws per chain=2000, total post-warmup draws=8000.
 
         mean se_mean    sd  2.5%   25%   50%   75% 97.5% n_eff Rhat
-par[1] 1.374   0.002 0.147 1.098 1.274 1.372 1.471 1.679  8858    1
-par[2] 6.951   0.008 0.771 5.534 6.405 6.918 7.447 8.563  8822    1
+par[1] 1.377   0.002 0.148 1.101 1.274 1.373 1.475 1.674  8366    1
+par[2] 6.957   0.009 0.766 5.563 6.439 6.918 7.447 8.556  7788    1
 
-Samples were drawn using NUTS(diag_e) at Sat Nov 25 18:22:19 2023.
+Samples were drawn using NUTS(diag_e) at Mon Nov 27 20:33:05 2023.
 For each parameter, n_eff is a crude measure of effective sample size,
 and Rhat is the potential scale reduction factor on split chains (at 
 convergence, Rhat=1).
@@ -527,7 +849,9 @@ convergence, Rhat=1).
 rstan::traceplot(fit$weibull, pars = c("par[1]","par[2]")) 
 ```
 
-<img src="fig/EnfermedadX-rendered-convergence weibull-1.png" style="display: block; margin: auto;" />
+```{.error}
+Error in loadNamespace(x): there is no package called 'labeling'
+```
 
 #### **7.1.3. Compute model comparison criteria**
 
@@ -543,9 +867,9 @@ waic
 ```
 
 ```{.output}
-          weibull     gamma lognormal
-Estimate 278.1269 276.09802 272.85010
-SE        11.9816  13.42051  13.84262
+           weibull     gamma lognormal
+Estimate 278.12689 276.03711 272.86964
+SE        11.97855  13.41435  13.89652
 ```
 
 ```r
@@ -565,7 +889,7 @@ loo_w[1]
 
 ```{.output}
 Estimate 
-278.1566 
+278.1506 
 ```
 
 ```r
@@ -578,7 +902,7 @@ loo_g[1]
 
 ```{.output}
 Estimate 
-276.1188 
+ 276.051 
 ```
 
 ```r
@@ -591,7 +915,7 @@ loo_l[1]
 
 ```{.output}
 Estimate 
-272.8674 
+272.8864 
 ```
 
 #### **7.1.5. Report the results**
@@ -627,9 +951,9 @@ res_means
 
 ```{.output}
        weibull    gamma lognormal
-2.5%  5.170669 5.062121  5.045619
-50%   6.342766 6.126234  6.352484
-97.5% 7.850934 7.500145  8.416546
+2.5%  5.155672 5.037565  5.015979
+50%   6.338212 6.117993  6.314868
+97.5% 7.840421 7.533457  8.367028
 ```
 
 ```r
@@ -640,9 +964,9 @@ res_sds
 
 ```{.output}
        weibull    gamma lognormal
-2.5%  3.684054 3.434770  3.996661
-50%   4.657801 4.364611  5.937318
-97.5% 6.364717 5.834201 10.167466
+2.5%  3.691421 3.442785  3.976302
+50%   4.651408 4.361625  5.899566
+97.5% 6.318466 5.838473 10.085066
 ```
 
 ```r
@@ -657,9 +981,9 @@ print(cens_w_percentiles)
 
 ```{.output}
           0.025      0.05      0.5     0.95    0.975     0.99
-2.5%  0.2219427 0.4188145 4.118272 12.52120 14.41361 16.66984
-50%   0.4722998 0.7908790 5.295841 15.37918 17.90652 21.05056
-97.5% 0.8456238 1.2963507 6.635022 20.05165 23.99252 29.05998
+2.5%  0.2230663 0.4210438 4.126403 12.50715 14.41409 16.69194
+50%   0.4745278 0.7936531 5.304743 15.37220 17.88993 21.01055
+97.5% 0.8477323 1.3023279 6.638572 20.02322 23.80254 28.77649
 ```
 
 ```r
@@ -671,9 +995,9 @@ print(cens_g_percentiles)
 
 ```{.output}
           0.025      0.05      0.5     0.95    0.975     0.99
-2.5%  0.3308360 0.5671041 4.110047 11.86920 13.86697 16.36722
-50%   0.7146542 1.0548335 5.108790 14.60094 17.16988 20.47761
-97.5% 1.1866589 1.6170377 6.250661 18.70023 22.33927 27.05160
+2.5%  0.3383939 0.5776613 4.094771 11.87582 13.85353 16.38866
+50%   0.7180994 1.0595000 5.103429 14.57934 17.14443 20.44568
+97.5% 1.1806549 1.5994168 6.293317 18.74995 22.34732 27.06053
 ```
 
 ```r
@@ -685,9 +1009,9 @@ print(cens_ln_percentiles)
 
 ```{.output}
           0.025      0.05      0.5     0.95    0.975     0.99
-2.5%  0.6160634 0.8336365 3.694421 12.59517 15.67557 20.12174
-50%   0.9741899 1.2543316 4.614982 17.07851 21.93266 29.32990
-97.5% 1.3644079 1.6967794 5.765250 25.25766 34.08309 48.47358
+2.5%  0.6211857 0.8364007 3.687951 12.56879 15.61443 20.00232
+50%   0.9719476 1.2469350 4.608337 16.96076 21.77375 29.14629
+97.5% 1.3703315 1.6979796 5.740855 25.20463 33.99364 48.21918
 ```
 
 For each model, find these items for the estimated incubation period in the output above and write them below.
@@ -739,7 +1063,13 @@ gamma_ggplot <- ggplot(df, aes(x=inc_day)) +
   theme_bw(base_size = 11)+
   labs(x="Incubation period (days)", y = "Proportion")+
   ggtitle("Gamma")
+```
 
+```{.error}
+Error in loadNamespace(x): there is no package called 'RColorBrewer'
+```
+
+```r
 weibul_ggplot <- ggplot(df, aes(x=inc_day)) +
   stat_ecdf(geom = "step")+ 
   xlim(c(0, 30))+
@@ -748,7 +1078,13 @@ weibul_ggplot <- ggplot(df, aes(x=inc_day)) +
   theme_bw(base_size = 11)+
   labs(x="Incubation period (days)", y = "Proportion")+
   ggtitle("Weibull")
+```
 
+```{.error}
+Error in loadNamespace(x): there is no package called 'RColorBrewer'
+```
+
+```r
 lognorm_ggplot <- ggplot(df, aes(x=inc_day)) +
   stat_ecdf(geom = "step")+ 
   xlim(c(0, 30))+
@@ -757,11 +1093,19 @@ lognorm_ggplot <- ggplot(df, aes(x=inc_day)) +
   theme_bw(base_size = 11)+
   labs(x="Incubation period (days)", y = "Proportion")+
   ggtitle("Log normal")
+```
 
+```{.error}
+Error in loadNamespace(x): there is no package called 'RColorBrewer'
+```
+
+```r
 (lognorm_ggplot|gamma_ggplot|weibul_ggplot) + plot_annotation(tag_levels = 'A') 
 ```
 
-<img src="fig/EnfermedadX-rendered-plot ip-1.png" style="display: block; margin: auto;" />
+```{.error}
+Error in eval(expr, envir, enclos): object 'lognorm_ggplot' not found
+```
 
 In the plots above, the black line is the empirical cumulative distribution (the data), while the blue curve is the fitted probability distribution with the 95% credible intervals. Make sure that the blue curve lays on top of the black line.
 
@@ -1342,7 +1686,9 @@ ggplot()+
 	) 
 ```
 
-<img src="fig/EnfermedadX-rendered-plot dist-1.png" style="display: block; margin: auto;" />
+```{.error}
+Error in loadNamespace(x): there is no package called 'labeling'
+```
 
 Let's calculate the WAIC and LOOIC. `coarseDataTools` does not have a built-in way to do this, so we need to calculate the likelihood from the MCMC chains and use the `loo` R package.
 
