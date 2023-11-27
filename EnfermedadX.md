@@ -7,6 +7,7 @@ teaching: 90
 exercises: 8
 ---
 
+
 :::::::::::::::::::::::::::::::::::::: questions 
  
 - ¿Cómo responder ante un brote de una enfermedad desconocida?
@@ -125,7 +126,7 @@ devtools::install_github("thibautjombart/quicksim")
 
 ```{.output}
 ── R CMD build ─────────────────────────────────────────────────────────────────
-* checking for file ‘/tmp/RtmpLsKwrH/remotes3a027b183568/thibautjombart-quicksim-3bbb93c/DESCRIPTION’ ... OK
+* checking for file ‘/tmp/RtmphPLcwO/remotes3a42978659d/thibautjombart-quicksim-3bbb93c/DESCRIPTION’ ... OK
 * preparing ‘quicksim’:
 * checking DESCRIPTION meta-information ... OK
 * checking for LF line-endings in source and make files and shell scripts
@@ -144,47 +145,35 @@ sandpaper::update_cache()
 The following package(s) will be updated:
 
 # CRAN -----------------------------------------------------------------------
-- boot        [1.3-28 -> 1.3-28.1]
-- cluster     [2.1.4 -> 2.1.5]
-- Matrix      [1.6-2 -> 1.6-3]
-- nlme        [3.1-163 -> 3.1-164]
-- spatial     [7.3-15 -> 7.3-17]
-
-# GitHub ---------------------------------------------------------------------
-- sandpaper   [epiverse-trace/sandpaper@translate-spanish: f0fc4dfb -> 15f1dffa]
+- boot      [1.3-28 -> 1.3-28.1]
+- cluster   [2.1.4 -> 2.1.5]
+- Matrix    [1.6-2 -> 1.6-3]
+- nlme      [3.1-163 -> 3.1-164]
+- spatial   [7.3-15 -> 7.3-17]
 
 # Downloading packages -------------------------------------------------------
-- Downloading Matrix from CRAN ...              OK [2.7 Mb]
-- Downloading boot from CRAN ...                OK [231.3 Kb in 0.2s]
+- Downloading Matrix from CRAN ...              OK [2.7 Mb in 0.11s]
+- Downloading boot from CRAN ...                OK [231.3 Kb]
 - Downloading cluster from CRAN ...             OK [360.5 Kb]
 - Downloading nlme from CRAN ...                OK [817.2 Kb]
-- Downloading sandpaper from GitHub ...         OK [768.1 Kb in 0.71s]
-- Downloading pegboard from GitHub ...          OK [486.3 Kb in 0.66s]
-- Downloading tinkr from GitHub ...             OK [101.2 Kb in 0.6s]
-- Downloading spatial from CRAN ...             OK [43.6 Kb in 0.17s]
-Successfully downloaded 8 packages in 8 seconds.
+- Downloading spatial from CRAN ...             OK [43.6 Kb]
+Successfully downloaded 5 packages in 1.1 seconds.
 
 The following package(s) will be installed:
-- boot      [1.3-28.1]
-- cluster   [2.1.5]
-- Matrix    [1.6-3]
-- nlme      [3.1-164]
-- pegboard  [carpentries/pegboard@main]
-- sandpaper [epiverse-trace/sandpaper@translate-spanish]
-- spatial   [7.3-17]
-- tinkr     [ropensci/tinkr@main]
+- boot    [1.3-28.1]
+- cluster [2.1.5]
+- Matrix  [1.6-3]
+- nlme    [3.1-164]
+- spatial [7.3-17]
 These packages will be installed into "~/work/Nuevoformato/Nuevoformato/renv/profiles/lesson-requirements/renv/library/R-4.3/x86_64-pc-linux-gnu".
 
 # Installing packages --------------------------------------------------------
 - Installing Matrix ...                         OK [built from source and cached in 1.4m]
-- Installing boot ...                           OK [built from source and cached in 3.3s]
+- Installing boot ...                           OK [built from source and cached in 3.4s]
 - Installing cluster ...                        OK [built from source and cached in 4.5s]
 - Installing nlme ...                           OK [built from source and cached in 12s]
-- Installing tinkr ...                          OK [built from source and cached in 1.5s]
-- Installing pegboard ...                       OK [built from source and cached in 3.6s]
-- Installing sandpaper ...                      OK [built from source and cached in 3.9s]
-- Installing spatial ...                        OK [built from source and cached in 1.8s]
-Successfully installed 8 packages in 2 minutes.
+- Installing spatial ...                        OK [built from source and cached in 1.7s]
+Successfully installed 5 packages in 1.8 minutes.
 
 The following loaded package(s) have been updated:
 - Matrix
@@ -193,13 +182,8 @@ Restart your R session to use the new versions.
 The following package(s) will be updated in the lockfile:
 
 # CRAN -----------------------------------------------------------------------
-- Matrix      [1.6-2 -> 1.6-3]
-- nlme        [3.1-163 -> 3.1-164]
-
-# GitHub ---------------------------------------------------------------------
-- pegboard    [ref: HEAD -> main]
-- sandpaper   [epiverse-trace/sandpaper@translate-spanish: f0fc4dfb -> 15f1dffa]
-- tinkr       [ref: HEAD -> main]
+- Matrix   [1.6-2 -> 1.6-3]
+- nlme     [3.1-163 -> 3.1-164]
 
 - Lockfile written to "~/work/Nuevoformato/Nuevoformato/renv/profiles/lesson-requirements/renv.lock".
 ```
@@ -312,102 +296,6 @@ attr(,"type")
 [1] "source"
 attr(,"url")
 [1] "https://cran.rstudio.com/src/contrib"
-
-$tinkr
-$tinkr$Package
-[1] "tinkr"
-
-$tinkr$Version
-[1] "0.2.0"
-
-$tinkr$Source
-[1] "GitHub"
-
-$tinkr$RemoteType
-[1] "github"
-
-$tinkr$RemoteHost
-[1] "api.github.com"
-
-$tinkr$RemoteUsername
-[1] "ropensci"
-
-$tinkr$RemoteRepo
-[1] "tinkr"
-
-$tinkr$RemoteRef
-[1] "main"
-
-$tinkr$RemoteSha
-[1] "a5dd3ddfa235d4a3eb6df78c885d68410ba161c8"
-
-$tinkr$Path
-[1] "/home/runner/.local/share/renv/source/github/tinkr/tinkr_a5dd3ddfa235d4a3eb6df78c885d68410ba161c8.tar.gz"
-
-
-$pegboard
-$pegboard$Package
-[1] "pegboard"
-
-$pegboard$Version
-[1] "0.7.3"
-
-$pegboard$Source
-[1] "GitHub"
-
-$pegboard$RemoteType
-[1] "github"
-
-$pegboard$RemoteHost
-[1] "api.github.com"
-
-$pegboard$RemoteUsername
-[1] "carpentries"
-
-$pegboard$RemoteRepo
-[1] "pegboard"
-
-$pegboard$RemoteRef
-[1] "main"
-
-$pegboard$RemoteSha
-[1] "1bc5753e917d515c3d888ce6cc013c0a680eacfc"
-
-$pegboard$Path
-[1] "/home/runner/.local/share/renv/source/github/pegboard/pegboard_1bc5753e917d515c3d888ce6cc013c0a680eacfc.tar.gz"
-
-
-$sandpaper
-$sandpaper$Package
-[1] "sandpaper"
-
-$sandpaper$Version
-[1] "0.14.1.9000"
-
-$sandpaper$Source
-[1] "GitHub"
-
-$sandpaper$RemoteUsername
-[1] "epiverse-trace"
-
-$sandpaper$RemoteRepo
-[1] "sandpaper"
-
-$sandpaper$RemoteSubdir
-NULL
-
-$sandpaper$RemoteRef
-[1] "translate-spanish"
-
-$sandpaper$RemoteSha
-[1] "15f1dffa92492e70b1b3a4432246981ef5ddda27"
-
-$sandpaper$RemoteHost
-[1] "api.github.com"
-
-$sandpaper$Path
-[1] "/home/runner/.local/share/renv/source/github/sandpaper/sandpaper_15f1dffa92492e70b1b3a4432246981ef5ddda27.tar.gz"
-
 
 $spatial
 $spatial$Package
@@ -776,10 +664,10 @@ Inference for Stan model: anon_model.
 post-warmup draws per chain=2000, total post-warmup draws=8000.
 
         mean se_mean    sd  2.5%   25%   50%   75% 97.5% n_eff Rhat
-par[1] 1.980   0.003 0.355 1.347 1.733 1.959 2.205 2.736 11928    1
-par[2] 0.325   0.001 0.066 0.206 0.279 0.321 0.365 0.464 12416    1
+par[1] 1.978   0.004 0.355 1.340 1.729 1.958 2.205 2.726  9838    1
+par[2] 0.324   0.001 0.066 0.208 0.278 0.320 0.367 0.466  9877    1
 
-Samples were drawn using NUTS(diag_e) at Mon Nov 27 20:33:11 2023.
+Samples were drawn using NUTS(diag_e) at Mon Nov 27 23:00:31 2023.
 For each parameter, n_eff is a crude measure of effective sample size,
 and Rhat is the potential scale reduction factor on split chains (at 
 convergence, Rhat=1).
@@ -806,10 +694,10 @@ Inference for Stan model: anon_model.
 post-warmup draws per chain=2000, total post-warmup draws=8000.
 
         mean se_mean    sd  2.5%   25%   50%   75% 97.5% n_eff Rhat
-par[1] 1.527   0.001 0.114 1.305 1.449 1.528 1.605 1.748  9437    1
-par[2] 0.801   0.001 0.084 0.653 0.743 0.794 0.853 0.986 10064    1
+par[1] 1.530   0.001 0.114 1.307 1.454 1.530 1.605 1.754 10424    1
+par[2] 0.802   0.001 0.084 0.659 0.742 0.796 0.852 0.991  9002    1
 
-Samples were drawn using NUTS(diag_e) at Mon Nov 27 20:33:16 2023.
+Samples were drawn using NUTS(diag_e) at Mon Nov 27 23:00:36 2023.
 For each parameter, n_eff is a crude measure of effective sample size,
 and Rhat is the potential scale reduction factor on split chains (at 
 convergence, Rhat=1).
@@ -836,10 +724,10 @@ Inference for Stan model: anon_model.
 post-warmup draws per chain=2000, total post-warmup draws=8000.
 
         mean se_mean    sd  2.5%   25%   50%   75% 97.5% n_eff Rhat
-par[1] 1.377   0.002 0.148 1.101 1.274 1.373 1.475 1.674  8366    1
-par[2] 6.957   0.009 0.766 5.563 6.439 6.918 7.447 8.556  7788    1
+par[1] 1.375   0.002 0.148 1.091 1.273 1.372 1.471 1.676  9423    1
+par[2] 6.945   0.008 0.761 5.573 6.416 6.910 7.433 8.535  8967    1
 
-Samples were drawn using NUTS(diag_e) at Mon Nov 27 20:33:05 2023.
+Samples were drawn using NUTS(diag_e) at Mon Nov 27 23:00:26 2023.
 For each parameter, n_eff is a crude measure of effective sample size,
 and Rhat is the potential scale reduction factor on split chains (at 
 convergence, Rhat=1).
@@ -867,9 +755,9 @@ waic
 ```
 
 ```{.output}
-           weibull     gamma lognormal
-Estimate 278.12689 276.03711 272.86964
-SE        11.97855  13.41435  13.89652
+          weibull     gamma lognormal
+Estimate 278.1172 276.19793 272.79751
+SE        12.0134  13.44198  13.85064
 ```
 
 ```r
@@ -889,7 +777,7 @@ loo_w[1]
 
 ```{.output}
 Estimate 
-278.1506 
+278.1429 
 ```
 
 ```r
@@ -902,7 +790,7 @@ loo_g[1]
 
 ```{.output}
 Estimate 
- 276.051 
+276.2105 
 ```
 
 ```r
@@ -915,7 +803,7 @@ loo_l[1]
 
 ```{.output}
 Estimate 
-272.8864 
+  272.81 
 ```
 
 #### **7.1.5. Report the results**
@@ -951,9 +839,9 @@ res_means
 
 ```{.output}
        weibull    gamma lognormal
-2.5%  5.155672 5.037565  5.015979
-50%   6.338212 6.117993  6.314868
-97.5% 7.840421 7.533457  8.367028
+2.5%  5.171486 4.997763  5.041121
+50%   6.333825 6.118330  6.347538
+97.5% 7.824477 7.548574  8.526789
 ```
 
 ```r
@@ -964,9 +852,9 @@ res_sds
 
 ```{.output}
        weibull    gamma lognormal
-2.5%  3.691421 3.442785  3.976302
-50%   4.651408 4.361625  5.899566
-97.5% 6.318466 5.838473 10.085066
+2.5%  3.672954 3.420055  3.999080
+50%   4.643507 4.368914  5.941463
+97.5% 6.346862 5.794153 10.252055
 ```
 
 ```r
@@ -981,9 +869,9 @@ print(cens_w_percentiles)
 
 ```{.output}
           0.025      0.05      0.5     0.95    0.975     0.99
-2.5%  0.2230663 0.4210438 4.126403 12.50715 14.41409 16.69194
-50%   0.4745278 0.7936531 5.304743 15.37220 17.88993 21.01055
-97.5% 0.8477323 1.3023279 6.638572 20.02322 23.80254 28.77649
+2.5%  0.2167391 0.4119855 4.124092 12.50933 14.43952 16.65268
+50%   0.4729074 0.7914590 5.290479 15.34562 17.85269 20.98046
+97.5% 0.8437560 1.2979553 6.626586 19.98831 23.83735 28.85799
 ```
 
 ```r
@@ -995,9 +883,9 @@ print(cens_g_percentiles)
 
 ```{.output}
           0.025      0.05      0.5     0.95    0.975     0.99
-2.5%  0.3383939 0.5776613 4.094771 11.87582 13.85353 16.38866
-50%   0.7180994 1.0595000 5.103429 14.57934 17.14443 20.44568
-97.5% 1.1806549 1.5994168 6.293317 18.74995 22.34732 27.06053
+2.5%  0.3300548 0.5643607 4.063719 11.78694 13.76142 16.25333
+50%   0.7173989 1.0598666 5.105386 14.59228 17.16790 20.49716
+97.5% 1.1820705 1.6085662 6.333694 18.68394 22.26091 26.90332
 ```
 
 ```r
@@ -1009,9 +897,9 @@ print(cens_ln_percentiles)
 
 ```{.output}
           0.025      0.05      0.5     0.95    0.975     0.99
-2.5%  0.6211857 0.8364007 3.687951 12.56879 15.61443 20.00232
-50%   0.9719476 1.2469350 4.608337 16.96076 21.77375 29.14629
-97.5% 1.3703315 1.6979796 5.740855 25.20463 33.99364 48.21918
+2.5%  0.6203652 0.8386476 3.694139 12.63647 15.68313 20.14884
+50%   0.9714863 1.2497716 4.617854 17.03449 21.87760 29.28610
+97.5% 1.3582786 1.6905280 5.778920 25.45546 34.27201 48.87872
 ```
 
 For each model, find these items for the estimated incubation period in the output above and write them below.
@@ -1695,40 +1583,43 @@ Let's calculate the WAIC and LOOIC. `coarseDataTools` does not have a built-in w
 
 ```r
 # Load likelihood functions from coarseDataTools
-source("Functions/likelihood_function.R")
-```
 
-```{.warning}
-Warning in file(filename, "r", encoding = encoding): cannot open file
-'Functions/likelihood_function.R': No such file or directory
-```
-
-```{.error}
-Error in file(filename, "r", encoding = encoding): cannot open the connection
-```
-
-```r
 compare_gamma <- calc_looic_waic(symp = si_data, symp_si = si_fit_gamma, dist = "G")
 ```
 
-```{.error}
-Error in calc_looic_waic(symp = si_data, symp_si = si_fit_gamma, dist = "G"): could not find function "calc_looic_waic"
+```{.warning}
+Warning: Relative effective sample sizes ('r_eff' argument) not specified.
+For models fit with MCMC, the reported PSIS effective sample sizes and 
+MCSE estimates will be over-optimistic.
 ```
 
 ```r
 compare_lnorm <- calc_looic_waic(symp = si_data, symp_si = si_fit_lnorm, dist = "L")
 ```
 
-```{.error}
-Error in calc_looic_waic(symp = si_data, symp_si = si_fit_lnorm, dist = "L"): could not find function "calc_looic_waic"
+```{.warning}
+Warning: Relative effective sample sizes ('r_eff' argument) not specified.
+For models fit with MCMC, the reported PSIS effective sample sizes and 
+MCSE estimates will be over-optimistic.
+```
+
+```{.warning}
+Warning: Some Pareto k diagnostic values are slightly high. See help('pareto-k-diagnostic') for details.
 ```
 
 ```r
 compare_weibull <- calc_looic_waic(symp = si_data, symp_si = si_fit_weibull, dist = "W")
 ```
 
-```{.error}
-Error in calc_looic_waic(symp = si_data, symp_si = si_fit_weibull, dist = "W"): could not find function "calc_looic_waic"
+```{.warning}
+Warning: 
+2 (2.8%) p_waic estimates greater than 0.4. We recommend trying loo instead.
+```
+
+```{.warning}
+Warning: Relative effective sample sizes ('r_eff' argument) not specified.
+For models fit with MCMC, the reported PSIS effective sample sizes and 
+MCSE estimates will be over-optimistic.
 ```
 
 ```r
@@ -1736,48 +1627,66 @@ Error in calc_looic_waic(symp = si_data, symp_si = si_fit_weibull, dist = "W"): 
 compare_gamma[["waic"]]$estimates
 ```
 
-```{.error}
-Error in eval(expr, envir, enclos): object 'compare_gamma' not found
+```{.output}
+             Estimate         SE
+elpd_waic -202.009546  7.0118463
+p_waic       1.936991  0.4409454
+waic       404.019093 14.0236925
 ```
 
 ```r
 compare_lnorm[["waic"]]$estimates
 ```
 
-```{.error}
-Error in eval(expr, envir, enclos): object 'compare_lnorm' not found
+```{.output}
+             Estimate         SE
+elpd_waic -202.215546  7.0178113
+p_waic       1.874728  0.4106866
+waic       404.431092 14.0356226
 ```
 
 ```r
 compare_weibull[["waic"]]$estimates
 ```
 
-```{.error}
-Error in eval(expr, envir, enclos): object 'compare_weibull' not found
+```{.output}
+             Estimate         SE
+elpd_waic -203.941362  6.9020056
+p_waic       2.083623  0.6633186
+waic       407.882723 13.8040112
 ```
 
 ```r
 compare_gamma[["looic"]]$estimates
 ```
 
-```{.error}
-Error in eval(expr, envir, enclos): object 'compare_gamma' not found
+```{.output}
+            Estimate         SE
+elpd_loo -202.015856  7.0144149
+p_loo       1.943301  0.4437589
+looic     404.031713 14.0288297
 ```
 
 ```r
 compare_lnorm[["looic"]]$estimates
 ```
 
-```{.error}
-Error in eval(expr, envir, enclos): object 'compare_lnorm' not found
+```{.output}
+            Estimate         SE
+elpd_loo -202.218954  7.0182826
+p_loo       1.878136  0.4114664
+looic     404.437909 14.0365651
 ```
 
 ```r
 compare_weibull[["looic"]]$estimates
 ```
 
-```{.error}
-Error in eval(expr, envir, enclos): object 'compare_weibull' not found
+```{.output}
+            Estimate         SE
+elpd_loo -203.956018  6.9097884
+p_loo       2.098279  0.6725387
+looic     407.912036 13.8195768
 ```
 
 Which distribution(s) have the lowest WAIC and LOOIC?
