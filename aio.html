@@ -971,7 +971,7 @@ $info: list containing the following items:
   Solución
   </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
 <div class="accordion-body">
 <p><code>$model</code>: Indica que se ha realizado una regresión
 logarítmica de la incidencia en función del tiempo. Esto implica que la
@@ -2186,7 +2186,7 @@ estimate the serial interval</p></li>
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="output" tabindex="0"><code>── R CMD build ─────────────────────────────────────────────────────────────────
-* checking for file ‘/tmp/RtmphPLcwO/remotes3a42978659d/thibautjombart-quicksim-3bbb93c/DESCRIPTION’ ... OK
+* checking for file ‘/tmp/RtmpU96TBa/remotes3a9a18984821/thibautjombart-quicksim-3bbb93c/DESCRIPTION’ ... OK
 * preparing ‘quicksim’:
 * checking DESCRIPTION meta-information ... OK
 * checking for LF line-endings in source and make files and shell scripts
@@ -2215,7 +2215,7 @@ The following package(s) will be updated:
 - spatial   [7.3-15 -&gt; 7.3-17]
 
 # Downloading packages -------------------------------------------------------
-- Downloading Matrix from CRAN ...              OK [2.7 Mb in 0.11s]
+- Downloading Matrix from CRAN ...              OK [2.7 Mb in 0.13s]
 - Downloading boot from CRAN ...                OK [231.3 Kb]
 - Downloading cluster from CRAN ...             OK [360.5 Kb]
 - Downloading nlme from CRAN ...                OK [817.2 Kb]
@@ -2232,10 +2232,10 @@ These packages will be installed into "~/work/Nuevoformato/Nuevoformato/renv/pro
 
 # Installing packages --------------------------------------------------------
 - Installing Matrix ...                         OK [built from source and cached in 1.4m]
-- Installing boot ...                           OK [built from source and cached in 3.4s]
-- Installing cluster ...                        OK [built from source and cached in 4.5s]
+- Installing boot ...                           OK [built from source and cached in 3.3s]
+- Installing cluster ...                        OK [built from source and cached in 4.6s]
 - Installing nlme ...                           OK [built from source and cached in 12s]
-- Installing spatial ...                        OK [built from source and cached in 1.7s]
+- Installing spatial ...                        OK [built from source and cached in 1.8s]
 Successfully installed 5 packages in 1.8 minutes.
 
 The following loaded package(s) have been updated:
@@ -2388,6 +2388,39 @@ attr(,"type")
 attr(,"url")
 [1] "https://cran.rstudio.com/src/contrib"</code></pre>
 </div>
+<div class="codewrapper sourceCode" id="cb6">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw">library</span><span class="op">(</span><span class="va">RColorBrewer</span><span class="op">)</span></span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="error" tabindex="0"><code>Error in library(RColorBrewer): there is no package called 'RColorBrewer'</code></pre>
+</div>
+<div class="codewrapper sourceCode" id="cb8">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw">library</span><span class="op">(</span><span class="va">labeling</span><span class="op">)</span></span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="error" tabindex="0"><code>Error in library(labeling): there is no package called 'labeling'</code></pre>
+</div>
+<div class="codewrapper sourceCode" id="cb10">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw">library</span><span class="op">(</span><span class="va">visNetwork</span><span class="op">)</span></span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="error" tabindex="0"><code>Error in library(visNetwork): there is no package called 'visNetwork'</code></pre>
+</div>
 </div>
 <section id="data"><h2 class="section-heading">5. Data<a class="anchor" aria-label="anchor" href="#data"></a>
 </h2>
@@ -2403,7 +2436,7 @@ per row.</p></li>
 <li><p><code>contacts</code>, a file with contact tracing data which
 contains information about primary and secondary case pairs.</p></li>
 </ul>
-<div class="codewrapper sourceCode" id="cb6">
+<div class="codewrapper sourceCode" id="cb12">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -2457,7 +2490,7 @@ dataset?</em></p></li>
 </tr></tbody>
 </table>
 </div>
-<div class="codewrapper sourceCode" id="cb7">
+<div class="codewrapper sourceCode" id="cb13">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -2475,7 +2508,7 @@ dataset?</em></p></li>
 5  5 2023-10-11   F  33                        &lt;NA&gt;     2023-10-05   2023-10-05
 6  6 2023-10-12   F  34 Close, skin-to-skin contact     2023-10-10   2023-10-10</code></pre>
 </div>
-<div class="codewrapper sourceCode" id="cb9">
+<div class="codewrapper sourceCode" id="cb15">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -2487,7 +2520,7 @@ dataset?</em></p></li>
 </h3>
 <pre class="output" tabindex="0"><code>[1] 166</code></pre>
 </div>
-<div class="codewrapper sourceCode" id="cb11">
+<div class="codewrapper sourceCode" id="cb17">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -2500,7 +2533,7 @@ dataset?</em></p></li>
 <pre class="output" tabindex="0"><code><span>        <span class="va">M</span> </span>
 <span><span class="fl">0.6144578</span> </span></code></pre>
 </div>
-<div class="codewrapper sourceCode" id="cb13">
+<div class="codewrapper sourceCode" id="cb19">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -2513,7 +2546,7 @@ dataset?</em></p></li>
 <pre class="output" tabindex="0"><code>   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
   22.00   33.00   36.00   35.51   38.00   47.00 </code></pre>
 </div>
-<div class="codewrapper sourceCode" id="cb15">
+<div class="codewrapper sourceCode" id="cb21">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -2540,7 +2573,7 @@ Discuss.</p>
 </div>
 <p>Now let’s plot the epidemic curve. Where in the outbreak do you think
 we are (beginning, middle, end)?</p>
-<div class="codewrapper sourceCode" id="cb17">
+<div class="codewrapper sourceCode" id="cb23">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -2582,7 +2615,7 @@ primary case</p></li>
 <li><p><code>secondary_onset_date</code>: symptom onset date of the
 secondary case</p></li>
 </ul>
-<div class="codewrapper sourceCode" id="cb19">
+<div class="codewrapper sourceCode" id="cb25">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -2622,7 +2655,7 @@ and exposure?</p></li>
 <li><p>Calculate the exposure windows. How many cases have a single date
 of exposure?</p></li>
 </ol>
-<div class="codewrapper sourceCode" id="cb21">
+<div class="codewrapper sourceCode" id="cb27">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -2635,7 +2668,7 @@ of exposure?</p></li>
 </h3>
 <pre class="output" tabindex="0"><code>[1] 50</code></pre>
 </div>
-<div class="codewrapper sourceCode" id="cb23">
+<div class="codewrapper sourceCode" id="cb29">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -2655,7 +2688,7 @@ of exposure?</p></li>
 </h3>
 <p>Let’s start by calculating a naive estimate of the incubation
 period.</p>
-<div class="codewrapper sourceCode" id="cb25">
+<div class="codewrapper sourceCode" id="cb31">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -2669,7 +2702,7 @@ period.</p>
 <pre class="output" tabindex="0"><code>   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
    1.00    3.00    4.50    6.38    7.75   20.00 </code></pre>
 </div>
-<div class="codewrapper sourceCode" id="cb27">
+<div class="codewrapper sourceCode" id="cb33">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -2704,7 +2737,7 @@ statistics.</p>
 <strong>7.1.1. Running the model in Stan</strong><a class="anchor" aria-label="anchor" href="#running-the-model-in-stan"></a>
 </h4>
 <p>We will fit all three distributions in this code chunk.</p>
-<div class="codewrapper sourceCode" id="cb29">
+<div class="codewrapper sourceCode" id="cb35">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -2794,7 +2827,7 @@ around the same values (fuzzy caterpillars)?</p></li>
 <h4 id="convergence-for-gamma">
 <strong>7.1.2.1. Convergence for Gamma</strong><a class="anchor" aria-label="anchor" href="#convergence-for-gamma"></a>
 </h4>
-<div class="codewrapper sourceCode" id="cb30">
+<div class="codewrapper sourceCode" id="cb36">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -2808,15 +2841,15 @@ around the same values (fuzzy caterpillars)?</p></li>
 post-warmup draws per chain=2000, total post-warmup draws=8000.
 
         mean se_mean    sd  2.5%   25%   50%   75% 97.5% n_eff Rhat
-par[1] 1.978   0.004 0.355 1.340 1.729 1.958 2.205 2.726  9838    1
-par[2] 0.324   0.001 0.066 0.208 0.278 0.320 0.367 0.466  9877    1
+par[1] 1.979   0.003 0.358 1.345 1.729 1.959 2.210 2.751 11500    1
+par[2] 0.324   0.001 0.066 0.209 0.279 0.320 0.366 0.466 11038    1
 
-Samples were drawn using NUTS(diag_e) at Mon Nov 27 23:00:31 2023.
+Samples were drawn using NUTS(diag_e) at Mon Nov 27 23:45:46 2023.
 For each parameter, n_eff is a crude measure of effective sample size,
 and Rhat is the potential scale reduction factor on split chains (at 
 convergence, Rhat=1).</code></pre>
 </div>
-<div class="codewrapper sourceCode" id="cb32">
+<div class="codewrapper sourceCode" id="cb38">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -2832,7 +2865,7 @@ convergence, Rhat=1).</code></pre>
 <h4 id="convergence-for-log-normal">
 <strong>7.1.2.2. Convergence for log normal</strong><a class="anchor" aria-label="anchor" href="#convergence-for-log-normal"></a>
 </h4>
-<div class="codewrapper sourceCode" id="cb34">
+<div class="codewrapper sourceCode" id="cb40">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -2846,15 +2879,15 @@ convergence, Rhat=1).</code></pre>
 post-warmup draws per chain=2000, total post-warmup draws=8000.
 
         mean se_mean    sd  2.5%   25%   50%   75% 97.5% n_eff Rhat
-par[1] 1.530   0.001 0.114 1.307 1.454 1.530 1.605 1.754 10424    1
-par[2] 0.802   0.001 0.084 0.659 0.742 0.796 0.852 0.991  9002    1
+par[1] 1.530   0.001 0.114 1.304 1.458 1.531 1.604 1.752  9545    1
+par[2] 0.802   0.001 0.085 0.658 0.743 0.795 0.854 0.992  9096    1
 
-Samples were drawn using NUTS(diag_e) at Mon Nov 27 23:00:36 2023.
+Samples were drawn using NUTS(diag_e) at Mon Nov 27 23:45:52 2023.
 For each parameter, n_eff is a crude measure of effective sample size,
 and Rhat is the potential scale reduction factor on split chains (at 
 convergence, Rhat=1).</code></pre>
 </div>
-<div class="codewrapper sourceCode" id="cb36">
+<div class="codewrapper sourceCode" id="cb42">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -2870,7 +2903,7 @@ convergence, Rhat=1).</code></pre>
 <h4 id="convergence-for-weibull">
 <strong>7.1.2.3. Convergence for weibull</strong><a class="anchor" aria-label="anchor" href="#convergence-for-weibull"></a>
 </h4>
-<div class="codewrapper sourceCode" id="cb38">
+<div class="codewrapper sourceCode" id="cb44">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -2884,15 +2917,15 @@ convergence, Rhat=1).</code></pre>
 post-warmup draws per chain=2000, total post-warmup draws=8000.
 
         mean se_mean    sd  2.5%   25%   50%   75% 97.5% n_eff Rhat
-par[1] 1.375   0.002 0.148 1.091 1.273 1.372 1.471 1.676  9423    1
-par[2] 6.945   0.008 0.761 5.573 6.416 6.910 7.433 8.535  8967    1
+par[1] 1.376   0.001 0.145 1.104 1.275 1.372 1.473 1.667  9578    1
+par[2] 6.964   0.008 0.772 5.563 6.445 6.920 7.444 8.617  8993    1
 
-Samples were drawn using NUTS(diag_e) at Mon Nov 27 23:00:26 2023.
+Samples were drawn using NUTS(diag_e) at Mon Nov 27 23:45:41 2023.
 For each parameter, n_eff is a crude measure of effective sample size,
 and Rhat is the potential scale reduction factor on split chains (at 
 convergence, Rhat=1).</code></pre>
 </div>
-<div class="codewrapper sourceCode" id="cb40">
+<div class="codewrapper sourceCode" id="cb46">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -2913,7 +2946,7 @@ leave-one-out-information criterion (LOOIC) to compare model fits. The
 best fitting model is the model with the lowest WAIC or LOOIC. We will
 also summarize the distributions and make some plots.</p>
 <p>Which model has the best fit?</p>
-<div class="codewrapper sourceCode" id="cb42">
+<div class="codewrapper sourceCode" id="cb48">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -2924,11 +2957,11 @@ also summarize the distributions and make some plots.</p>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="output" tabindex="0"><code>          weibull     gamma lognormal
-Estimate 278.1172 276.19793 272.79751
-SE        12.0134  13.44198  13.85064</code></pre>
+<pre class="output" tabindex="0"><code>           weibull     gamma lognormal
+Estimate 278.05230 276.03790 272.84391
+SE        11.95065  13.41144  13.84606</code></pre>
 </div>
-<div class="codewrapper sourceCode" id="cb44">
+<div class="codewrapper sourceCode" id="cb50">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -2949,9 +2982,9 @@ SE        12.0134  13.44198  13.85064</code></pre>
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="output" tabindex="0"><code><span><span class="va">Estimate</span> </span>
-<span><span class="fl">278.1429</span> </span></code></pre>
+<span> <span class="fl">278.079</span> </span></code></pre>
 </div>
-<div class="codewrapper sourceCode" id="cb46">
+<div class="codewrapper sourceCode" id="cb52">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -2965,9 +2998,9 @@ SE        12.0134  13.44198  13.85064</code></pre>
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="output" tabindex="0"><code><span><span class="va">Estimate</span> </span>
-<span><span class="fl">276.2105</span> </span></code></pre>
+<span> <span class="fl">276.051</span> </span></code></pre>
 </div>
-<div class="codewrapper sourceCode" id="cb48">
+<div class="codewrapper sourceCode" id="cb54">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -2981,7 +3014,7 @@ SE        12.0134  13.44198  13.85064</code></pre>
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="output" tabindex="0"><code><span><span class="va">Estimate</span> </span>
-<span>  <span class="fl">272.81</span> </span></code></pre>
+<span><span class="fl">272.8609</span> </span></code></pre>
 </div>
 </div>
 <div class="section level4">
@@ -2994,7 +3027,7 @@ percentiles tells us about the most likely time symptom onset could
 occur, and the full distribution can be used as an input in mathematical
 or statistical models, like for forecasting (Lessler et al. 2009).</p>
 <p>Let’s get the summary statistics</p>
-<div class="codewrapper sourceCode" id="cb50">
+<div class="codewrapper sourceCode" id="cb56">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -3024,11 +3057,11 @@ or statistical models, like for forecasting (Lessler et al. 2009).</p>
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="output" tabindex="0"><code>       weibull    gamma lognormal
-2.5%  5.171486 4.997763  5.041121
-50%   6.333825 6.118330  6.347538
-97.5% 7.824477 7.548574  8.526789</code></pre>
+2.5%  5.161145 5.046648  5.028113
+50%   6.336114 6.119921  6.350198
+97.5% 7.904030 7.507649  8.468438</code></pre>
 </div>
-<div class="codewrapper sourceCode" id="cb52">
+<div class="codewrapper sourceCode" id="cb58">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -3040,11 +3073,11 @@ or statistical models, like for forecasting (Lessler et al. 2009).</p>
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="output" tabindex="0"><code>       weibull    gamma lognormal
-2.5%  3.672954 3.420055  3.999080
-50%   4.643507 4.368914  5.941463
-97.5% 6.346862 5.794153 10.252055</code></pre>
+2.5%  3.706111 3.438474  3.999164
+50%   4.652575 4.368117  5.938115
+97.5% 6.357392 5.842798 10.230584</code></pre>
 </div>
-<div class="codewrapper sourceCode" id="cb54">
+<div class="codewrapper sourceCode" id="cb60">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -3060,11 +3093,11 @@ or statistical models, like for forecasting (Lessler et al. 2009).</p>
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="output" tabindex="0"><code>          0.025      0.05      0.5     0.95    0.975     0.99
-2.5%  0.2167391 0.4119855 4.124092 12.50933 14.43952 16.65268
-50%   0.4729074 0.7914590 5.290479 15.34562 17.85269 20.98046
-97.5% 0.8437560 1.2979553 6.626586 19.98831 23.83735 28.85799</code></pre>
+2.5%  0.2219304 0.4188307 4.118222 12.57045 14.48528 16.79526
+50%   0.4748413 0.7945659 5.304486 15.36656 17.87451 21.02283
+97.5% 0.8462669 1.2939396 6.674100 20.10784 23.95447 28.80038</code></pre>
 </div>
-<div class="codewrapper sourceCode" id="cb56">
+<div class="codewrapper sourceCode" id="cb62">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -3077,11 +3110,11 @@ or statistical models, like for forecasting (Lessler et al. 2009).</p>
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="output" tabindex="0"><code>          0.025      0.05      0.5     0.95    0.975     0.99
-2.5%  0.3300548 0.5643607 4.063719 11.78694 13.76142 16.25333
-50%   0.7173989 1.0598666 5.105386 14.59228 17.16790 20.49716
-97.5% 1.1820705 1.6085662 6.333694 18.68394 22.26091 26.90332</code></pre>
+2.5%  0.3298824 0.5601164 4.098639 11.88139 13.87100 16.36158
+50%   0.7179322 1.0591013 5.109924 14.59126 17.16692 20.47132
+97.5% 1.1883605 1.6155715 6.281089 18.75998 22.36984 27.09745</code></pre>
 </div>
-<div class="codewrapper sourceCode" id="cb58">
+<div class="codewrapper sourceCode" id="cb64">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -3093,10 +3126,10 @@ or statistical models, like for forecasting (Lessler et al. 2009).</p>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="output" tabindex="0"><code>          0.025      0.05      0.5     0.95    0.975     0.99
-2.5%  0.6203652 0.8386476 3.694139 12.63647 15.68313 20.14884
-50%   0.9714863 1.2497716 4.617854 17.03449 21.87760 29.28610
-97.5% 1.3582786 1.6905280 5.778920 25.45546 34.27201 48.87872</code></pre>
+<pre class="output" tabindex="0"><code>          0.025     0.05      0.5     0.95    0.975     0.99
+2.5%  0.6196552 0.835817 3.682436 12.62303 15.65650 20.10058
+50%   0.9744100 1.250631 4.622896 17.05283 21.90028 29.30222
+97.5% 1.3580655 1.689137 5.765197 25.42268 34.29450 48.79517</code></pre>
 </div>
 <p>For each model, find these items for the estimated incubation period
 in the output above and write them below.</p>
@@ -3112,7 +3145,7 @@ for gamma distribution)</p></li>
 <h4 id="plot-the-results">
 <strong>7.1.5. Plot the results</strong><a class="anchor" aria-label="anchor" href="#plot-the-results"></a>
 </h4>
-<div class="codewrapper sourceCode" id="cb60">
+<div class="codewrapper sourceCode" id="cb66">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -3157,7 +3190,7 @@ for gamma distribution)</p></li>
 </h3>
 <pre class="error" tabindex="0"><code>Error in loadNamespace(x): there is no package called 'RColorBrewer'</code></pre>
 </div>
-<div class="codewrapper sourceCode" id="cb62">
+<div class="codewrapper sourceCode" id="cb68">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -3175,7 +3208,7 @@ for gamma distribution)</p></li>
 </h3>
 <pre class="error" tabindex="0"><code>Error in loadNamespace(x): there is no package called 'RColorBrewer'</code></pre>
 </div>
-<div class="codewrapper sourceCode" id="cb64">
+<div class="codewrapper sourceCode" id="cb70">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -3193,7 +3226,7 @@ for gamma distribution)</p></li>
 </h3>
 <pre class="error" tabindex="0"><code>Error in loadNamespace(x): there is no package called 'RColorBrewer'</code></pre>
 </div>
-<div class="codewrapper sourceCode" id="cb66">
+<div class="codewrapper sourceCode" id="cb72">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -3232,7 +3265,7 @@ maximum.</p></li>
 <div class="section level3">
 <h3 id="naive-estimate">8.1. Naive estimate<a class="anchor" aria-label="anchor" href="#naive-estimate"></a>
 </h3>
-<div class="codewrapper sourceCode" id="cb68">
+<div class="codewrapper sourceCode" id="cb74">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -3245,7 +3278,7 @@ maximum.</p></li>
 <pre class="output" tabindex="0"><code>   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
   1.000   4.000   6.000   7.625  10.000  23.000 </code></pre>
 </div>
-<div class="codewrapper sourceCode" id="cb70">
+<div class="codewrapper sourceCode" id="cb76">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -3275,7 +3308,7 @@ prior distributions, which can be found in the package documentation
 <div class="section level4">
 <h4 id="preparing-the-data">8.2.1. Preparing the data<a class="anchor" aria-label="anchor" href="#preparing-the-data"></a>
 </h4>
-<div class="codewrapper sourceCode" id="cb71">
+<div class="codewrapper sourceCode" id="cb77">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -3298,7 +3331,7 @@ prior distributions, which can be found in the package documentation
 </h4>
 <p>Let’s fit the gamma distribution to the serial interval data
 first.</p>
-<div class="codewrapper sourceCode" id="cb72">
+<div class="codewrapper sourceCode" id="cb78">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -3377,7 +3410,7 @@ The Metropolis acceptance rate was 0.55500
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@</code></pre>
 </div>
 <p>Let’s look at the results.</p>
-<div class="codewrapper sourceCode" id="cb74">
+<div class="codewrapper sourceCode" id="cb80">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -3390,7 +3423,7 @@ The Metropolis acceptance rate was 0.55500
 <pre class="output" tabindex="0"><code>
 Gelman-Rubin MCMC convergence diagnostic was successful.</code></pre>
 </div>
-<div class="codewrapper sourceCode" id="cb76">
+<div class="codewrapper sourceCode" id="cb82">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -3401,7 +3434,7 @@ Gelman-Rubin MCMC convergence diagnostic was successful.</code></pre>
 </h3>
 <pre class="output" tabindex="0"><code>[1] TRUE</code></pre>
 </div>
-<div class="codewrapper sourceCode" id="cb78">
+<div class="codewrapper sourceCode" id="cb84">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -3421,7 +3454,7 @@ p95   15.878 13.741 18.944
 p99   21.127 18.015 26.043
 Note: please check that the MCMC converged on the target distribution by running multiple chains. MCMC samples are available in the mcmc slot (e.g. my.fit@mcmc) </code></pre>
 </div>
-<div class="codewrapper sourceCode" id="cb80">
+<div class="codewrapper sourceCode" id="cb86">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -3459,7 +3492,7 @@ Note: please check that the MCMC converged on the target distribution by running
 <pre class="output" tabindex="0"><code>  mean_mean mean_l_ci mean_u_ci  sd_mean  sd_l_ci  sd_u_ci
 1  7.658723   6.65395  8.707372 4.386498 3.602425 5.481316</code></pre>
 </div>
-<div class="codewrapper sourceCode" id="cb82">
+<div class="codewrapper sourceCode" id="cb88">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -3480,7 +3513,7 @@ Note: please check that the MCMC converged on the target distribution by running
 <pre class="output" tabindex="0"><code>  shape_mean shape_l_ci shape_u_ci scale_mean scale_l_ci scale_u_ci
 1   3.104917   2.201138   4.136793   2.528536   1.831139   3.645062</code></pre>
 </div>
-<div class="codewrapper sourceCode" id="cb84">
+<div class="codewrapper sourceCode" id="cb90">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -3494,7 +3527,7 @@ Note: please check that the MCMC converged on the target distribution by running
 </h4>
 <p>Now let’s fit a log normal distribution to the serial interval
 data.</p>
-<div class="codewrapper sourceCode" id="cb85">
+<div class="codewrapper sourceCode" id="cb91">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -3570,7 +3603,7 @@ The Metropolis acceptance rate was 0.56875
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@</code></pre>
 </div>
 <p>Let’s check the results.</p>
-<div class="codewrapper sourceCode" id="cb87">
+<div class="codewrapper sourceCode" id="cb93">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -3629,7 +3662,7 @@ The Metropolis acceptance rate was 0.56875
 </h4>
 <p>Finally, let’s fit a Weibull distribution to the serial interval
 data.</p>
-<div class="codewrapper sourceCode" id="cb88">
+<div class="codewrapper sourceCode" id="cb94">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -3705,7 +3738,7 @@ The Metropolis acceptance rate was 0.55375
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@</code></pre>
 </div>
 <p>Now we’ll check the results.</p>
-<div class="codewrapper sourceCode" id="cb90">
+<div class="codewrapper sourceCode" id="cb96">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -3718,7 +3751,7 @@ The Metropolis acceptance rate was 0.55375
 <pre class="output" tabindex="0"><code>
 Gelman-Rubin MCMC convergence diagnostic was successful.</code></pre>
 </div>
-<div class="codewrapper sourceCode" id="cb92">
+<div class="codewrapper sourceCode" id="cb98">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -3729,7 +3762,7 @@ Gelman-Rubin MCMC convergence diagnostic was successful.</code></pre>
 </h3>
 <pre class="output" tabindex="0"><code>[1] TRUE</code></pre>
 </div>
-<div class="codewrapper sourceCode" id="cb94">
+<div class="codewrapper sourceCode" id="cb100">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -3749,7 +3782,7 @@ p95   15.878 13.957 18.927
 p99   20.191 17.560 24.681
 Note: please check that the MCMC converged on the target distribution by running multiple chains. MCMC samples are available in the mcmc slot (e.g. my.fit@mcmc) </code></pre>
 </div>
-<div class="codewrapper sourceCode" id="cb96">
+<div class="codewrapper sourceCode" id="cb102">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -3787,7 +3820,7 @@ Note: please check that the MCMC converged on the target distribution by running
 <pre class="output" tabindex="0"><code>  mean_mean mean_l_ci mean_u_ci  sd_mean  sd_l_ci  sd_u_ci
 1  7.693916  6.677548  8.809715 4.463549 3.797158 5.456492</code></pre>
 </div>
-<div class="codewrapper sourceCode" id="cb98">
+<div class="codewrapper sourceCode" id="cb104">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -3808,7 +3841,7 @@ Note: please check that the MCMC converged on the target distribution by running
 <pre class="output" tabindex="0"><code>  shape_mean shape_l_ci shape_u_ci scale_mean scale_l_ci scale_u_ci
 1   1.792317    1.50812   2.090071   8.638298   7.481234   9.943215</code></pre>
 </div>
-<div class="codewrapper sourceCode" id="cb100">
+<div class="codewrapper sourceCode" id="cb106">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -3821,7 +3854,7 @@ Note: please check that the MCMC converged on the target distribution by running
 </h4>
 <p>Now we will plot the three fitted distributions. Make sure the
 distributions fit the serial interval data well.</p>
-<div class="codewrapper sourceCode" id="cb101">
+<div class="codewrapper sourceCode" id="cb107">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -3864,7 +3897,7 @@ distributions fit the serial interval data well.</p>
 not have a built-in way to do this, so we need to calculate the
 likelihood from the MCMC chains and use the <code>loo</code> R
 package.</p>
-<div class="codewrapper sourceCode" id="cb103">
+<div class="codewrapper sourceCode" id="cb109">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -3879,7 +3912,7 @@ package.</p>
 For models fit with MCMC, the reported PSIS effective sample sizes and 
 MCSE estimates will be over-optimistic.</code></pre>
 </div>
-<div class="codewrapper sourceCode" id="cb105">
+<div class="codewrapper sourceCode" id="cb111">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -3897,7 +3930,7 @@ MCSE estimates will be over-optimistic.</code></pre>
 </h3>
 <pre class="warning" tabindex="0"><code>Warning: Some Pareto k diagnostic values are slightly high. See help('pareto-k-diagnostic') for details.</code></pre>
 </div>
-<div class="codewrapper sourceCode" id="cb108">
+<div class="codewrapper sourceCode" id="cb114">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -3916,7 +3949,7 @@ MCSE estimates will be over-optimistic.</code></pre>
 For models fit with MCMC, the reported PSIS effective sample sizes and 
 MCSE estimates will be over-optimistic.</code></pre>
 </div>
-<div class="codewrapper sourceCode" id="cb111">
+<div class="codewrapper sourceCode" id="cb117">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -3931,7 +3964,7 @@ elpd_waic -202.009546  7.0118463
 p_waic       1.936991  0.4409454
 waic       404.019093 14.0236925</code></pre>
 </div>
-<div class="codewrapper sourceCode" id="cb113">
+<div class="codewrapper sourceCode" id="cb119">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -3945,7 +3978,7 @@ elpd_waic -202.215546  7.0178113
 p_waic       1.874728  0.4106866
 waic       404.431092 14.0356226</code></pre>
 </div>
-<div class="codewrapper sourceCode" id="cb115">
+<div class="codewrapper sourceCode" id="cb121">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -3959,7 +3992,7 @@ elpd_waic -203.941362  6.9020056
 p_waic       2.083623  0.6633186
 waic       407.882723 13.8040112</code></pre>
 </div>
-<div class="codewrapper sourceCode" id="cb117">
+<div class="codewrapper sourceCode" id="cb123">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -3973,7 +4006,7 @@ elpd_loo -202.015856  7.0144149
 p_loo       1.943301  0.4437589
 looic     404.031713 14.0288297</code></pre>
 </div>
-<div class="codewrapper sourceCode" id="cb119">
+<div class="codewrapper sourceCode" id="cb125">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -3987,7 +4020,7 @@ elpd_loo -202.218954  7.0182826
 p_loo       1.878136  0.4114664
 looic     404.437909 14.0365651</code></pre>
 </div>
-<div class="codewrapper sourceCode" id="cb121">
+<div class="codewrapper sourceCode" id="cb127">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
