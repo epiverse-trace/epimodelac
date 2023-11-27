@@ -135,7 +135,8 @@ library(ggplot2)
 library(loo)
 library(patchwork)
 library(rstan)
-require(quicksim)
+devtools::install_github("thibautjombart/quicksim")
+sandpaper::update_cache()
 ```
 
 ## 5. Data
