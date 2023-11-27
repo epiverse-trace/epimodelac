@@ -79,4 +79,6 @@ profiles:
 # sandpaper and varnish versions) should live
 varnish: epiverse-trace/varnish@tracelactheme
 
+sandpaper: epiverse-trace/sandpaper@translate-spanish
+
 
