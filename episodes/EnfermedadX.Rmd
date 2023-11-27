@@ -328,6 +328,9 @@ library(patchwork)
 library(rstan)
 devtools::install_github("thibautjombart/quicksim")
 sandpaper::update_cache()
+library(RColorBrewer)
+library(labeling)
+library(visNetwork)
 ```
 
 ## 5. Data
