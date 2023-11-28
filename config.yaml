@@ -61,7 +61,7 @@ contact: 'team@carpentries.org'
 episodes:
 - TallerEbola.Rmd
 - ZIKAB.Rmd
-- EnfermedadX.Rmd
+#- EnfermedadX.Rmd
 
 # Information for Learners
 learners:
