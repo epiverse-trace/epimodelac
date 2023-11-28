@@ -1511,24 +1511,6 @@
       ],
       "Hash": "c446b30cb33ec125ff02588b60660ccb"
     },
-    "pegboard": {
-      "Package": "pegboard",
-      "Version": "0.7.1",
-      "Source": "Repository",
-      "Repository": "https://carpentries.r-universe.dev",
-      "Requirements": [
-        "R6",
-        "commonmark",
-        "fs",
-        "glue",
-        "purrr",
-        "tinkr",
-        "xml2",
-        "xslt",
-        "yaml"
-      ],
-      "Hash": "08f1f437a3293020cd1d7b1c97f4070c"
-    },
     "pillar": {
       "Package": "pillar",
       "Version": "1.6.2",
@@ -2035,38 +2017,6 @@
         "xml2"
       ],
       "Hash": "bb099886deffecd6f9b298b7d4492943"
-    },
-    "sandpaper": {
-      "Package": "sandpaper",
-      "Version": "0.14.1",
-      "Source": "Repository",
-      "Repository": "https://carpentries.r-universe.dev",
-      "Requirements": [
-        "assertthat",
-        "callr",
-        "cli",
-        "commonmark",
-        "desc",
-        "fs",
-        "gert",
-        "gh",
-        "glue",
-        "knitr",
-        "pegboard",
-        "pkgdown",
-        "renv",
-        "rlang",
-        "rmarkdown",
-        "rprojroot",
-        "rstudioapi",
-        "servr",
-        "tools",
-        "usethis",
-        "utils",
-        "whisker",
-        "yaml"
-      ],
-      "Hash": "e5f5436367456394b882d2a50c4f9c92"
     },
     "sass": {
       "Package": "sass",
