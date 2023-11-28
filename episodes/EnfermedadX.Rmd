@@ -8,7 +8,6 @@ exercises: 8
 ---
 ```{r include=FALSE}
 
-update.packages(checkBuilt = TRUE)
 ## calculates the DIC likelihood by integration
 diclik <- function(par1, par2, EL, ER, SL, SR, dist){
 	
@@ -346,7 +345,7 @@ There are two items of interest:
 
 -   `contacts`, a file with contact tracing data which contains information about primary and secondary case pairs.
 
-```{r load dat, echo=TRUE}
+```{r load dat, echo=TRUE, warning=FALSE}
 # Group 1
 dat <- readRDS("data/practical_data_group1.RDS")
 linelist <- dat$linelist
@@ -395,7 +394,7 @@ Let's start with the `linelist`. These data were collected as part of routine ep
 +----------------------------------------------------------------------+
 :::
 
-```{r data exploration}
+```{r data exploration, warning=FALSE}
 # Inspect data
 head(linelist)
 # Q1
@@ -448,7 +447,7 @@ The contact tracing data has 4 variables:
 
 -   `secondary_onset_date`: symptom onset date of the secondary case
 
-```{r contacts}
+```{r contacts, warning=FALSE}
 
 x <- make_epicontacts(linelist = linelist,
                        contacts = contacts,
@@ -489,7 +488,7 @@ table(ip$exposure_window)
 
 Let's start by calculating a naive estimate of the incubation period.
 
-```{r naive}
+```{r naive, warning=FALSE}
 # Max incubation period 
 ip$max_ip <- ip$date_onset - ip$exposure_start
 summary(as.numeric(ip$max_ip))
@@ -512,7 +511,7 @@ Remember we are mainly interested in considering three probability distributions
 
 We will fit all three distributions in this code chunk.
 
-```{r correct ip}
+```{r correct ip, warning=FALSE}
 # Prepare data
 earliest_exposure <- as.Date(min(ip$exposure_start))
 
@@ -619,7 +618,7 @@ Let's compute the widely applicable information criterion (WAIC) and leave-one-o
 
 Which model has the best fit?
 
-```{r looic and waic ip, warning=FALSE, message=FALSE}
+```{r looic and waic ip, warning=FALSE, echo=TRUE, warning=FALSE}
 # Compute WAIC for all three models
 waic <- mapply(function(z) waic(extract_log_lik(z))$estimates[3,], fit)
 waic
@@ -657,7 +656,7 @@ The right tail of the incubation period distribution is important for designing 
 
 Let's get the summary statistics
 
-```{r reporting res}
+```{r reporting res, echo=TRUE, warning=FALSE}
 # We need to convert the parameters of the distributions to the mean and standard deviation delay
 
 # In Stan, the parameters of the distributions are:
@@ -869,7 +868,7 @@ seed = mcmc_control$seed)
 
 Let's look at the results.
 
-```{r gamma check res}
+```{r gamma check res, echo=TRUE, warning=FALSE}
 
 # Check convergence of MCMC chains 
 converg_diag <- check_cdt_samples_convergence(si_fit@samples)
@@ -927,7 +926,7 @@ gamma_rate <- 1 / si_fit@ests['scale',][1]
 
 Now let's fit a log normal distribution to the serial interval data.
 
-```{r log normal}
+```{r log normal, echo=TRUE, warning=FALSE}
 # We will run the model for 4000 iterations with the first 1000 samples discarded as burnin
 n_mcmc_samples <- 3000 # number of samples to draw from the posterior (after the burnin)
 
@@ -964,7 +963,7 @@ seed = mcmc_control$seed)
 
 Let's check the results.
 
-```{r log normal res, results=FALSE}
+```{r log normal res, echo=TRUE, warning=FALSE}
 # Check convergence of MCMC chains
 converg_diag <- check_cdt_samples_convergence(si_fit@samples)
 converg_diag
@@ -1020,7 +1019,7 @@ lognorm_sdlog <- si_fit@ests['sdlog',][1]
 
 Finally, let's fit a Weibull distribution to the serial interval data.
 
-```{r weibull}
+```{r weibull, echo=TRUE, warning=FALSE}
 # We will run the model for 4000 iterations with the first 1000 samples discarded as burnin
 n_mcmc_samples <- 3000 # number of samples to draw from the posterior (after the burnin)
 
@@ -1057,7 +1056,7 @@ seed = mcmc_control$seed)
 
 Now we'll check the results.
 
-```{r weibull check res}
+```{r weibull check res, echo=TRUE, warning=FALSE}
 # Check convergence
 converg_diag <- check_cdt_samples_convergence(si_fit@samples)
 converg_diag
