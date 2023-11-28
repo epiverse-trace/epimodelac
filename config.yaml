@@ -59,10 +59,8 @@ contact: 'team@carpentries.org'
 
 # Order of episodes in your lesson
 episodes:
-- introduction.Rmd
 - TallerEbola.Rmd
 - ZIKAB.Rmd
-- EnfermedadX.Rmd
 
 # Information for Learners
 learners:
@@ -79,6 +77,6 @@ profiles:
 # sandpaper and varnish versions) should live
 varnish: epiverse-trace/varnish@tracelactheme
 
-sandpaper: epiverse-trace/sandpaper@translate-spanish
-
+sandpaper: 'epiverse-trace/sandpaper#1'
+lang: es
 
