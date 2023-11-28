@@ -31,22 +31,7 @@
       "Package": "EpiEstim",
       "Version": "2.2-4",
       "Source": "Repository",
-      "Repository": "CRAN",
-      "Requirements": [
-        "R",
-        "coarseDataTools",
-        "coda",
-        "fitdistrplus",
-        "ggplot2",
-        "grDevices",
-        "graphics",
-        "gridExtra",
-        "incidence",
-        "reshape2",
-        "scales",
-        "stats"
-      ],
-      "Hash": "aeb8c10e5965a419755eb6dd42a3656d"
+      "Repository": "CRAN"
     },
     "MASS": {
       "Package": "MASS",
@@ -1962,25 +1947,9 @@
     },
     "rstan": {
       "Package": "rstan",
-      "Version": "2.21.7",
+      "Version": "2.32.3",
       "Source": "Repository",
-      "Repository": "CRAN",
-      "Requirements": [
-        "BH",
-        "R",
-        "Rcpp",
-        "RcppEigen",
-        "RcppParallel",
-        "StanHeaders",
-        "ggplot2",
-        "gridExtra",
-        "inline",
-        "loo",
-        "methods",
-        "pkgbuild",
-        "stats4"
-      ],
-      "Hash": "62745645aadeb276b67ddb9f0993cfeb"
+      "Repository": "CRAN"
     },
     "rstudioapi": {
       "Package": "rstudioapi",
