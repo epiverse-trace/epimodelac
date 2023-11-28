@@ -761,6 +761,7 @@ Este intervalo es importante porque ayuda a entender qué tan rápido se está p
 Para este brote de ébola asumiremos que el intervalo serial está descrito por una distribución Gamma de media (`mean_si`) de `8.7 días` y con una desviación estándar (`std_si`) de `6.1 días`. En la práctica del día 4 estudiaremos cómo estimar el intervalo serial.
 
 ```{r echo=TRUE, message=FALSE}
+# Parametros de la distribución gamma para el invertavlo serial
 mean_si <- 8.7
 std_si <-  6.1
 ```
@@ -772,16 +773,16 @@ Cuando la suposición de que ($R$) es constante en el tiempo se vuelve insosteni
 
 ***
 
-```{r echo=TRUE, message=FALSE, warning=FALSE, comment=""}
-configuracion_rt <- make_config(mean_si = mean_si, # Media de la distribución SI
-                                std_si = std_si,   # Desviación estándar de la distribución SI 
-                                t_start = 2,     # Día de inicio de la ventana de tiempo
+```{r echo=FALSE, eval=FALSE, message=FALSE, warning=FALSE, comment=""}
+configuracion_rt <- make_config(mean_si = mean_si, # Media de la distribución SI 
+                                std_si = std_si,  # Desviación estándar de la distribución SI 
+                                t_start = 2,   # Día de inicio de la ventana de tiempo
                                 t_end = length(incidencia_diaria_truncada$counts)) # Último día de la ventana de tiempo
 ```
 
 
 ```{r echo=TRUE, message=FALSE, warning=FALSE, comment=""}
-config <- make_config(list(mean_si = mean_si, std_si = std_si))  
+config <- make_config(list(mean_si = mean_si, std_si = std_si)) 
 # t_start y t_end se configuran automáticamente para estimar R en ventanas deslizantes para 1 semana de forma predeterminada.
 ```
 
@@ -789,7 +790,7 @@ config <- make_config(list(mean_si = mean_si, std_si = std_si))
 # use estimate_R using method = "parametric_si"
 estimacion_rt <- estimate_R(incidencia_diaria_truncada, method = "parametric_si", 
                             si_data = si_data,
-                            config = configuracion_rt)
+                            config = config)
 # Observamos las estimaciones más recientes de R(t)
 tail(estimacion_rt$R[, c("t_start", "t_end", "Median(R)", 
                          "Quantile.0.025(R)", "Quantile.0.975(R)")])
