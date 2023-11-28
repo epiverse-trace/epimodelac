@@ -2036,38 +2036,6 @@
       ],
       "Hash": "bb099886deffecd6f9b298b7d4492943"
     },
-    "sandpaper": {
-      "Package": "sandpaper",
-      "Version": "0.14.1",
-      "Source": "Repository",
-      "Repository": "https://carpentries.r-universe.dev",
-      "Requirements": [
-        "assertthat",
-        "callr",
-        "cli",
-        "commonmark",
-        "desc",
-        "fs",
-        "gert",
-        "gh",
-        "glue",
-        "knitr",
-        "pegboard",
-        "pkgdown",
-        "renv",
-        "rlang",
-        "rmarkdown",
-        "rprojroot",
-        "rstudioapi",
-        "servr",
-        "tools",
-        "usethis",
-        "utils",
-        "whisker",
-        "yaml"
-      ],
-      "Hash": "e5f5436367456394b882d2a50c4f9c92"
-    },
     "sass": {
       "Package": "sass",
       "Version": "0.4.0",
