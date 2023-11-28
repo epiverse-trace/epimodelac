@@ -1511,24 +1511,6 @@
       ],
       "Hash": "c446b30cb33ec125ff02588b60660ccb"
     },
-    "pegboard": {
-      "Package": "pegboard",
-      "Version": "0.7.1",
-      "Source": "Repository",
-      "Repository": "https://carpentries.r-universe.dev",
-      "Requirements": [
-        "R6",
-        "commonmark",
-        "fs",
-        "glue",
-        "purrr",
-        "tinkr",
-        "xml2",
-        "xslt",
-        "yaml"
-      ],
-      "Hash": "08f1f437a3293020cd1d7b1c97f4070c"
-    },
     "pillar": {
       "Package": "pillar",
       "Version": "1.6.2",
