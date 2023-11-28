@@ -965,6 +965,7 @@ Para este brote de ébola asumiremos que el intervalo serial está descrito por 
 
 
 ```r
+# Parametros de la distribución gamma para el invertavlo serial
 mean_si <- 8.7
 std_si <-  6.1
 ```
@@ -977,17 +978,11 @@ Cuando la suposición de que ($R$) es constante en el tiempo se vuelve insosteni
 ***
 
 
-```r
-configuracion_rt <- make_config(mean_si = mean_si, # Media de la distribución SI
-                                std_si = std_si,   # Desviación estándar de la distribución SI 
-                                t_start = 2,     # Día de inicio de la ventana de tiempo
-                                t_end = length(incidencia_diaria_truncada$counts)) # Último día de la ventana de tiempo
-```
 
 
 
 ```r
-config <- make_config(list(mean_si = mean_si, std_si = std_si))  
+config <- make_config(list(mean_si = mean_si, std_si = std_si)) 
 # t_start y t_end se configuran automáticamente para estimar R en ventanas deslizantes para 1 semana de forma predeterminada.
 ```
 
@@ -996,15 +991,20 @@ config <- make_config(list(mean_si = mean_si, std_si = std_si))
 # use estimate_R using method = "parametric_si"
 estimacion_rt <- estimate_R(incidencia_diaria_truncada, method = "parametric_si", 
                             si_data = si_data,
-                            config = configuracion_rt)
+                            config = config)
 # Observamos las estimaciones más recientes de R(t)
 tail(estimacion_rt$R[, c("t_start", "t_end", "Median(R)", 
                          "Quantile.0.025(R)", "Quantile.0.975(R)")])
 ```
 
 ```{.output}
-  t_start t_end Median(R) Quantile.0.025(R) Quantile.0.975(R)
-1       2    70  1.262905            1.0483          1.504981
+   t_start t_end Median(R) Quantile.0.025(R) Quantile.0.975(R)
+58      59    65 1.3232376         0.8678734          1.915598
+59      60    66 1.4452407         0.9718974          2.052028
+60      61    67 1.2485008         0.8188557          1.807404
+61      62    68 1.0102544         0.6354205          1.509855
+62      63    69 0.8433989         0.5092505          1.299324
+63      64    70 1.0276327         0.6538923          1.522448
 ```
 
 
