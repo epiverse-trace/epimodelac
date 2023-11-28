@@ -8,6 +8,7 @@ exercises: 8
 ---
 ```{r include=FALSE}
 
+update.packages(checkBuilt = TRUE)
 ## calculates the DIC likelihood by integration
 diclik <- function(par1, par2, EL, ER, SL, SR, dist){
 	
