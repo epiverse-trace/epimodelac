@@ -289,8 +289,11 @@ epidemia.</p></li>
 <section id="tiempos-de-ejecución"><h2 class="section-heading">Tiempos de ejecución<a class="anchor" aria-label="anchor" href="#tiempos-de-ejecuci%C3%B3n"></a>
 </h2>
 <hr class="half-width"><p>Explicación del taller (10 minutos)</p>
-<p>Realizar taller (100 minutos taller)</p>
-<p>Discusión 30 minutos</p>
+<p>Realización del taller (100 minutos taller)</p>
+<ul><li><p>Parte 1: Estructura de datos y CFR (15 min)</p></li>
+<li><p>Parte 2: Incidencia y tasa de crecimiento (45 min)</p></li>
+<li><p>Parte 3: Rt (40 min)</p></li>
+</ul><p>Discusión 30 minutos</p>
 </section><section id="introducción"><h2 class="section-heading">Introducción<a class="anchor" aria-label="anchor" href="#introducci%C3%B3n"></a>
 </h2>
 <hr class="half-width"><p>Un nuevo brote de virus del Ébola (EVE) en un país ficticio de África
@@ -316,7 +319,7 @@ desde <a href="https://drive.google.com/drive/folders/1T0uZ2FNhwFAnFcCNxfLX8V6Ir
 de datos</a> . Ahí mismo encontrará un archivo .R para instalar las
 dependencias necesarias para este taller.</p>
 <p>Recuerde abrir el archivo <code>RProject</code> denominado
-<code>Taller parametros.Rproj</code> antes de empezar a trabajar. Este
+<code>Taller-Brotes-Ebola.Rproj</code> antes de empezar a trabajar. Este
 paso no solo le ayudará a cumplir con las buenas prácticas de
 programación en R, sino también a mantener un directorio organizado,
 permitiendo un desarrollo exitoso del taller.</p>
@@ -340,13 +343,13 @@ para la ciencia de datos.</p>
 </div>
 <div class="section level4">
 <h4 id="cargue-de-bases-de-datos">Cargue de bases de datos<a class="anchor" aria-label="anchor" href="#cargue-de-bases-de-datos"></a></h4>
-<p>Se le ha proporcionado la siguiente base de datos de casos
-<code>casos</code>:</p>
-<p><code>casos</code>: una base de datos de casos que contiene
-información de casos hasta el 1 de julio de 2014; y</p>
-<p>Para leer en R este archivo, use la función <code>read_rds</code> de
-<code>tidyverse</code>. Se creará una tabla de datos almacenada como el
-objeto <code>tibble.</code></p>
+<p>Se le ha proporcionado la siguiente base de datos:</p>
+<ul><li>
+<code>casos</code>: una base de datos de casos que contiene
+información de casos hasta el 1 de julio de 2014.</li>
+</ul><p>Para leer en R este archivo, utilice la función <code>read_rds</code>
+de <code>tidyverse</code>. Se creará una tabla de datos almacenada como
+objeto de clase <code>tibble.</code></p>
 <div class="codewrapper sourceCode" id="cb2">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
@@ -357,7 +360,7 @@ objeto <code>tibble.</code></p>
 <div class="section level4">
 <h4 id="estructura-de-los-datos">Estructura de los datos<a class="anchor" aria-label="anchor" href="#estructura-de-los-datos"></a></h4>
 <p>Explore la estructura de los datos. Para esto puede utilizar la
-función <code>glimpse</code> de <code>tidyverse</code> la cual nos
+función <code>glimpse</code> de <code>tidyverse</code>, la cual nos
 proporciona una visión rápida y legible de la estructura interna de
 nuestro conjunto de datos.</p>
 <div class="codewrapper sourceCode" id="cb3">
@@ -386,19 +389,19 @@ $ latitud                  &lt;dbl&gt; 8.473514, 8.464927, 8.483356, 8.464776, 8
 <p>Como puede observar contactos tiene 11 columnas (variables) y 166
 filas de datos. En un rápido vistazo puede observar el tipo de las
 variables por ejemplo, la columna <code>desenlace</code> tiene formato
-carácter (<code>chr</code>) y contiene entre sus valores “recuperación”
-o “muerte”.</p>
-<p>Además encuentra estas variables:</p>
-<ul><li><p>El identificador <code>id_caso</code> al igual que en
-contactos</p></li>
+carácter (<code>chr</code>) y contiene entre sus valores
+<code>"Recuperación"</code> o <code>"Muerte"</code>.</p>
+<p>Además, puede encontrar estas variables:</p>
+<ul><li><p>El identificador <code>id_caso</code></p></li>
 <li><p>La generación de infectados (cuantas infecciones secundarias
 desde la fuente hasta el sujeto han ocurrido)</p></li>
 <li><p>La fecha de infección</p></li>
 <li><p>La fecha de inicio de síntomas</p></li>
 <li><p>La fecha de hospitalización</p></li>
-<li><p>La fecha del desenlace que como se puede observar en la siguiente
-variable puede tener entre sus opciones NA (no hay información hasta ese
-momento o no hay registro), recuperación y muerte</p></li>
+<li><p>La fecha del desenlace que, como se puede observar, en la
+siguiente variable puede tener entre sus opciones <code>NA</code> (no
+hay información hasta ese momento o no hay registro), recuperación y
+muerte</p></li>
 <li><p>La variable género que puede ser <code>f</code> de femenino o
 <code>m</code> de masculino</p></li>
 <li><p>El lugar de hospitalización, en la variable hospital</p></li>
@@ -435,14 +438,16 @@ por <em>Case Fatality Ratio</em>)<a class="anchor" aria-label="anchor" href="#pr
 <p>Calcule la probabilidad de muerte en los casos reportados
 (<code>CFR</code>) tomando el número de muertes y el número de casos con
 desenlace final conocido del objeto casos. Esta vez se calculará el
-<code>CFR</code> con el método <code>Naive</code>, Los cálculos
-<code>Naive</code> tienen el problema de que pueden tener sesgos.
-Hablaremos de estos sesgos en profundidad en el día 4.</p>
+<code>CFR</code> con el método <em>Naive</em>. Los cálculos
+<em>Naive</em> (<em>inocentes</em>) tienen el problema de que pueden
+presentar sesgos, por lo que no deberían ser utilizados para informar
+decisiones de salud pública. Hablaremos de estos sesgos en profundidad
+en el día 4.</p>
 <p>Durante este taller se le presentarán algunos retos, para los cuales
-obtendrá algunas pistas, por ejemplo en el presente reto le presenta una
-pista, la cual es un fragmento del código que usted debe completar para
-alcanzar la solución. En los espacios donde dice <code>COMPLETE</code>
-por favor diligencie el código faltante.</p>
+obtendrá algunas pistas, por ejemplo en el presente reto se le presenta
+una pista, la cual es un fragmento del código que usted debe completar
+para alcanzar la solución. En los espacios donde dice
+<code>COMPLETE</code> por favor diligencie el código faltante.</p>
 <div class="codewrapper sourceCode" id="cb7">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
@@ -479,7 +484,7 @@ por favor diligencie el código faltante.</p>
   Solución 1
   </h3>
 </button>
-<div id="collapseInstructor1" class="accordion-collapse collapse" aria-labelledby="headingInstructor1" data-bs-parent="#accordionInstructor1">
+<div id="collapseInstructor1" class="accordion-collapse collapse" data-bs-parent="#accordionInstructor1" aria-labelledby="headingInstructor1">
 <div class="accordion-body">
 <div class="codewrapper sourceCode" id="cb10">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -502,17 +507,17 @@ por favor diligencie el código faltante.</p>
 </div>
 </div>
 </div>
-<p>Para acompañar el calculo del CFR se pueden emplear sus intervalos de
-confianza para lo cual se puede usar la función
+<p>Para complementar el calculo del CFR se pueden calcular sus
+intervalos de confianza por medio de la función
 <code>binom.confint</code>. La función <code>binom.confint</code> se
 utiliza para calcular intervalos de confianza para una proporción en una
-distribución binomial, que es por ejemplo cuando tenemos el total de
-infecciones con desenlace final conocido (recuperado o muerte). Esta
-función pide tres argumentos: 1) el número de muertes; 2) el número
-total de casos con desenlace final conocido, sin importar que hayan
-muerto o se hayan recuperado, pero no cuenta los datos con
-<code>NA</code>; 3) el método que se utilizará para calcular los
-intervalos de confianza, en este caso “<code>exact</code>” (método
+distribución binomial, que corresponde, por ejemplo, a cuando tenemos el
+total de infecciones con desenlace final conocido (recuperado o muerte).
+Esta función pide tres argumentos: 1) el número de muertes y 2) el
+número total de casos con desenlace final conocido, es decir sin
+importar que hayan muerto o se hayan recuperado, pero sin cuenta los
+datos con <code>NA</code>; 3) el método que se utilizará para calcular
+los intervalos de confianza, en este caso “<code>exact</code>” (método
 Clopper-Pearson).</p>
 <div id="desafío-2" class="callout challenge">
 <div class="callout-square">
@@ -547,7 +552,7 @@ función <code>binom.confint</code>. Y obtenga este resultado.</p>
   Pista
   </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
 <div class="accordion-body">
 <p>Recuerde diligenciar los espacios donde dice <code>COMPLETE</code>. Y
 obtenga este resultado</p>
@@ -572,7 +577,7 @@ obtenga este resultado</p>
   Solución 2
   </h3>
 </button>
-<div id="collapseInstructor2" class="accordion-collapse collapse" aria-labelledby="headingInstructor2" data-bs-parent="#accordionInstructor2">
+<div id="collapseInstructor2" class="accordion-collapse collapse" data-bs-parent="#accordionInstructor2" aria-labelledby="headingInstructor2">
 <div class="accordion-body">
 <div class="codewrapper sourceCode" id="cb13">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -610,16 +615,16 @@ obtenga este resultado</p>
 análisis epidemiológico de datos de incidencia de enfermedades
 infecciosas, dado que permite calcular la incidencia a partir del
 intervalo temporal suministrado (e.g. diario o semanal). Dentro de este
-paquete esta la función <code>incidence</code> la cual tiene varios
-argumentos:</p>
+paquete esta la función <code>incidence</code> la cuenta con los
+siguientes argumentos:</p>
 <ol style="list-style-type: decimal"><li><p><code>dates</code> contiene una variable con fechas que
 representan cuándo ocurrieron eventos individuales, como por ejemplo la
 fecha de inicio de los síntomas de una enfermedad en un conjunto de
 pacientes.</p></li>
 <li><p><code>interval</code> es un intervalo de tiempo fijo por el que
 se quiere calcular la incidencia. Por ejemplo,
-<code>interval = 365</code> para un año. Si no se especifica, por
-defecto es diario.</p></li>
+<code>interval = 365</code> para un año. Si no se especifica, el valor
+por defecto es diario.</p></li>
 <li><p><code>last_date</code> fecha donde se establecerá un limite
 temporal para los datos. Por ejemplo, la última fecha de
 hospitalización. Para este tercer argumento, podemos incluir la opción
@@ -653,10 +658,11 @@ información, es decir la menor cantidad de <code>NA</code>s.</p>
 </div>
 </div>
 </div>
-<p>El resultado es un objeto de incidencia que contiene el recuento de
-casos para cada intervalo de tiempo, lo que facilita su visualización y
-análisis posterior. Como puede observar la función produjo los
-siguientes datos:</p>
+<p>El resultado es un objeto de clase incidencia
+(<code>incidence</code>) que contiene el recuento de casos para cada
+intervalo de tiempo, lo que facilita su visualización y análisis
+posterior. Como puede observar la función produjo los siguientes
+datos:</p>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
@@ -678,7 +684,7 @@ $cumulative: FALSE</code></pre>
   Solución 3
   </h3>
 </button>
-<div id="collapseInstructor3" class="accordion-collapse collapse" aria-labelledby="headingInstructor3" data-bs-parent="#accordionInstructor3">
+<div id="collapseInstructor3" class="accordion-collapse collapse" data-bs-parent="#accordionInstructor3" aria-labelledby="headingInstructor3">
 <div class="accordion-body">
 <div class="codewrapper sourceCode" id="cb16">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -708,12 +714,12 @@ $cumulative: FALSE</code></pre>
 objeto arroja estos datos: <code>166 casos</code> contemplados entre los
 días <code>2014-04-07</code> al <code>2014-06-29</code> para un total de
 <code>84 días</code>; se menciona que el intervalo es de
-<code>1 día</code>, dado que no se utilizo este parámetro quedo por
-defecto. Finalmente se menciona “<code>cumulative</code>:
-<code>FALSE</code>” lo que quiere decir que no se esta haciendo el
-acumulado de la incidencia, es decir que los casos corresponden a los
-del intervalo <code>interval: 1 day</code>, es decir a los casos nuevos
-cada día en específico.</p>
+<code>1 día</code>, dado que no se utilizo específico explicitamente el
+parámetro por lo cual quedó su valor por defecto. Finalmente se menciona
+“<code>cumulative : FALSE</code>” lo que quiere decir que no se esta
+haciendo el acumulado de la incidencia, es decir que los casos
+corresponden a los del intervalo <code>interval: 1 day</code>, es decir
+a los casos nuevos cada día en específico.</p>
 <p>Ahora haga una gráfica de la incidencia diaria.</p>
 <div class="codewrapper sourceCode" id="cb18">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -744,7 +750,7 @@ pesar de la curva creciente?</p>
   Ideas discusión:
   </h3>
 </button>
-<div id="collapseInstructor4" class="accordion-collapse collapse" aria-labelledby="headingInstructor4" data-bs-parent="#accordionInstructor4">
+<div id="collapseInstructor4" class="accordion-collapse collapse" data-bs-parent="#accordionInstructor4" aria-labelledby="headingInstructor4">
 <div class="accordion-body">
 <p>Usualmente el inicio de la transmisión en la fase exponencial, y
 dependiendo el periodo de incubación y el intervalo serial, se van a ver
@@ -761,9 +767,10 @@ casos.</p>
 <p>Teniendo en cuenta lo aprendido con respecto a la incidencia diaria,
 cree una variable para incidencia semanal. Luego, interprete el
 resultado y haga una gráfica. Para escoger la fecha que utilizará como
-última fecha en el tercer argumento de la función <code>incidence</code>
-¿Qué fecha sería la más adecuada? Tenga en cuenta que la fecha debe ser
-posterior a la fecha que se haya escogido como el primer argumento.</p>
+última fecha debe asignarle un valor al argumento <code>last_date</code>
+de la función <code>incidence</code> ¿Qué fecha sería la más adecuada?
+Tenga en cuenta que la fecha debe ser posterior a la fecha que se haya
+escogido como el primer argumento.</p>
 <div id="desafío-4" class="callout discussion">
 <div class="callout-square">
 <i class="callout-icon" data-feather="message-circle"></i>
@@ -804,7 +811,7 @@ $cumulative: FALSE</code></pre>
   Solución 4
   </h3>
 </button>
-<div id="collapseInstructor5" class="accordion-collapse collapse" aria-labelledby="headingInstructor5" data-bs-parent="#accordionInstructor5">
+<div id="collapseInstructor5" class="accordion-collapse collapse" data-bs-parent="#accordionInstructor5" aria-labelledby="headingInstructor5">
 <div class="accordion-body">
 <div class="codewrapper sourceCode" id="cb21">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -860,7 +867,7 @@ exponenciales en los datos.</p>
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span>  <span class="fu">ggplot</span><span class="op">(</span><span class="fu">as.data.frame</span><span class="op">(</span><span class="va">incidencia_semanal</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
+<code class="sourceCode R"><span><span class="fu">ggplot</span><span class="op">(</span><span class="fu">as.data.frame</span><span class="op">(</span><span class="va">incidencia_semanal</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu">geom_point</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">dates</span>, y <span class="op">=</span> <span class="fu">log</span><span class="op">(</span><span class="va">counts</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu">scale_x_incidence</span><span class="op">(</span><span class="va">incidencia_semanal</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">xlab</span><span class="op">(</span><span class="st">"Semana"</span><span class="op">)</span> <span class="op">+</span></span>
@@ -920,7 +927,7 @@ $info: list containing the following items:
   Solución
   </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
 <div class="accordion-body">
 <p><code>$model</code>: Indica que se ha realizado una regresión
 logarítmica de la incidencia en función del tiempo. Esto implica que la
@@ -1013,7 +1020,7 @@ semanal y no con el ajuste diario?</p>
   Ideas para responder:
   </h3>
 </button>
-<div id="collapseInstructor6" class="accordion-collapse collapse" aria-labelledby="headingInstructor6" data-bs-parent="#accordionInstructor6">
+<div id="collapseInstructor6" class="accordion-collapse collapse" data-bs-parent="#accordionInstructor6" aria-labelledby="headingInstructor6">
 <div class="accordion-body">
 <p>Es preferible estimar tasa de crecimiento diaria utilizando el ajuste
 de la incidencia semanal en lugar de la incidencia diaria debido a que
@@ -1067,13 +1074,13 @@ solucionaría?</p>
   Instructor Note
   </h3>
 </button>
-<div id="collapseInstructor7" class="accordion-collapse collapse" aria-labelledby="headingInstructor7" data-bs-parent="#accordionInstructor7">
+<div id="collapseInstructor7" class="accordion-collapse collapse" data-bs-parent="#accordionInstructor7" aria-labelledby="headingInstructor7">
 <div class="accordion-body">
 <p>Si se grafica por fecha de inicio de síntomas mientras el brote está
 creciendo, siempre se va a ver un descenso artificial en la curva de la
-incidencia. Este sólo corresponde al rezago administrativo (del
-diagnóstico y reporte de casos), pero no indica necesariamente una
-reducción de la incidencia real.</p>
+incidencia en fechas recientes. Este descenso sólo corresponde al rezago
+administrativo (del diagnóstico y reporte de casos), pero no indica
+necesariamente una reducción de la incidencia real.</p>
 </div>
 </div>
 </div>
@@ -1175,7 +1182,7 @@ $info: list containing the following items:
   Solución 6
   </h3>
 </button>
-<div id="collapseInstructor8" class="accordion-collapse collapse" aria-labelledby="headingInstructor8" data-bs-parent="#accordionInstructor8">
+<div id="collapseInstructor8" class="accordion-collapse collapse" data-bs-parent="#accordionInstructor8" aria-labelledby="headingInstructor8">
 <div class="accordion-body">
 <div class="codewrapper sourceCode" id="cb37">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -1248,7 +1255,7 @@ logarítmico lineal.</p>
   Solución 7
   </h3>
 </button>
-<div id="collapseInstructor9" class="accordion-collapse collapse" aria-labelledby="headingInstructor9" data-bs-parent="#accordionInstructor9">
+<div id="collapseInstructor9" class="accordion-collapse collapse" data-bs-parent="#accordionInstructor9" aria-labelledby="headingInstructor9">
 <div class="accordion-body">
 <div class="codewrapper sourceCode" id="cb41">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -1344,7 +1351,7 @@ semanal truncada.</p>
   Solución 8
   </h3>
 </button>
-<div id="collapseInstructor10" class="accordion-collapse collapse" aria-labelledby="headingInstructor10" data-bs-parent="#accordionInstructor10">
+<div id="collapseInstructor10" class="accordion-collapse collapse" data-bs-parent="#accordionInstructor10" aria-labelledby="headingInstructor10">
 <div class="accordion-body">
 <div class="codewrapper sourceCode" id="cb46">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -1419,7 +1426,7 @@ datos ajustados de incidencia semanal truncada.</p>
   Solución 9
   </h3>
 </button>
-<div id="collapseInstructor11" class="accordion-collapse collapse" aria-labelledby="headingInstructor11" data-bs-parent="#accordionInstructor11">
+<div id="collapseInstructor11" class="accordion-collapse collapse" data-bs-parent="#accordionInstructor11" aria-labelledby="headingInstructor11">
 <div class="accordion-body">
 <div class="codewrapper sourceCode" id="cb52">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -1457,7 +1464,24 @@ datos de incidencia semanal</a></p>
 </div>
 </section><section id="estimación-de-numero-de-reproduccion"><h2 class="section-heading">5. Estimación de numero de reproduccion<a class="anchor" aria-label="anchor" href="#estimaci%C3%B3n-de-numero-de-reproduccion"></a>
 </h2>
-<hr class="half-width"><div class="section level3">
+<hr class="half-width"><p>Evaluar la velocidad a la que se propaga una infección en una
+población es una tarea importante a la hora de informar la respuesta de
+salud pública a una epidemia.</p>
+<p>Los números de reproducción son métricas típicas para monitorear el
+desarrollo de epidemias y son informativos sobre su velocidad de
+propagación. El <strong>número reproductivo básico</strong> <span class="math inline">\(R_0\)</span>, por ejemplo, mide el número promedio
+de casos secundarios producidos por un individuo infeccioso dada una
+población completamente susceptible. Esta hipótesis suele ser válida
+solo al inicio de una epidemia.</p>
+<p>Para caracterizar el la propagación en tiempo real es más común
+utilizar el <strong>número reproductivo instantáneo</strong> <span class="math inline">\(R_t\)</span>, el cual describe el número promedio
+de casos secundarios generados por un individuo infeccioso en el tiempo
+<span class="math inline">\(t\)</span> dado que no han habido cambios en
+las condiciones actuales.</p>
+<p>En esta sección exploraremos los conceptos necesarios para calcular
+el número reproductivo instantáneo, así como los pasos a seguir para
+estimarlo por medio del paquete de R <a href="https://github.com/mrc-ide/EpiEstim" class="external-link">EpiEstim</a>.</p>
+<div class="section level3">
 <h3 id="intervalo-serial-si">5.1. Intervalo serial (SI)<a class="anchor" aria-label="anchor" href="#intervalo-serial-si"></a></h3>
 <p>¿Qué es el intervalo serial?</p>
 <p>El intervalo serial en epidemiología se refiere al tiempo que
@@ -1483,11 +1507,14 @@ estudiaremos cómo estimar el intervalo serial.</p>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Parametros de la distribución gamma para el invertavlo serial</span></span>
 <span><span class="va">mean_si</span> <span class="op">&lt;-</span> <span class="fl">8.7</span></span>
-<span><span class="va">std_si</span> <span class="op">&lt;-</span>  <span class="fl">6.1</span></span></code></pre>
+<span><span class="va">std_si</span> <span class="op">&lt;-</span>  <span class="fl">6.1</span></span>
+<span></span>
+<span><span class="va">config</span> <span class="op">&lt;-</span> <span class="fu">make_config</span><span class="op">(</span><span class="fu">list</span><span class="op">(</span>mean_si <span class="op">=</span> <span class="va">mean_si</span>, std_si <span class="op">=</span> <span class="va">std_si</span><span class="op">)</span><span class="op">)</span> </span>
+<span><span class="co"># t_start y t_end se configuran automáticamente para estimar R en ventanas deslizantes para 1 semana de forma predeterminada.</span></span></code></pre>
 </div>
 </div>
 <div class="section level3">
-<h3 id="estimación-de-la-transmisibilidad-variable-en-el-tiempo-rt">6.2. Estimación de la transmisibilidad variable en el tiempo,
+<h3 id="estimación-de-la-transmisibilidad-variable-en-el-tiempo-rt">5.2. Estimación de la transmisibilidad variable en el tiempo,
 R(t)<a class="anchor" aria-label="anchor" href="#estimaci%C3%B3n-de-la-transmisibilidad-variable-en-el-tiempo-rt"></a></h3>
 <p>Cuando la suposición de que (<span class="math inline">\(R\)</span>)
 es constante en el tiempo se vuelve insostenible, una alternativa es
@@ -1495,8 +1522,7 @@ estimar la transmisibilidad variable en el tiempo utilizando el número
 de reproducción instantánea (<span class="math inline">\(R_t\)</span>).
 Este enfoque, introducido por Cori et al. (2013), se implementa en el
 paquete <code>EpiEstim</code>, el cual estima el <span class="math inline">\(R_t\)</span> para ventanas de tiempo
-personalizadas (el valor predeterminado es una sucesión de ventanas de
-tiempo deslizantes), utilizando la una distribución de Poisson. A
+personalizadas, utilizando la una distribución de Poisson. A
 continuación, estimamos la transmisibilidad para ventanas de tiempo
 deslizantes de 1 semana (el valor predeterminado de
 <code>estimate_R</code>):</p>
