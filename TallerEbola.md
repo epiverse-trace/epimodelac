@@ -240,7 +240,8 @@ Para acompañar el calculo del CFR se pueden emplear sus intervalos de confianza
 
 ## Desafío 2  
 
-Determine el CFR con sus intervalos de confianza utilizando la función `binom.confint`. 
+Determine el CFR con sus intervalos de confianza utilizando la función `binom.confint`. Y obtenga este resultado. 
+
 
 Table: **CFR con intervalos de confianza**
 
