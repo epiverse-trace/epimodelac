@@ -364,7 +364,7 @@ Ahora haga una gráfica de la incidencia diaria.
 plot(incidencia_diaria, border = "black")
 ```
 
-<img src="fig/TallerEbola-rendered-unnamed-chunk-15-1.png" style="display: block; margin: auto;" />
+<img src="fig/TallerIntroAnaliticaBrotes-rendered-unnamed-chunk-15-1.png" style="display: block; margin: auto;" />
 
 
 En el `Eje X (Fechas)`: Se puede observar fechas van desde el `7 de abril de 2014` hasta una fecha posterior al `21 de junio de 2014`. Estas fechas representan el período de observación del brote.
@@ -414,7 +414,7 @@ $timespan: 85 days
 $cumulative: FALSE
 ```
 
-<img src="fig/TallerEbola-rendered-unnamed-chunk-17-1.png" style="display: block; margin: auto;" />
+<img src="fig/TallerIntroAnaliticaBrotes-rendered-unnamed-chunk-17-1.png" style="display: block; margin: auto;" />
 
 :::::::::::::::::::::::::::::::::
 
@@ -448,7 +448,7 @@ $cumulative: FALSE
 plot(incidencia_semanal, border = "black")
 ```
 
-<img src="fig/TallerEbola-rendered-unnamed-chunk-18-1.png" style="display: block; margin: auto;" />
+<img src="fig/TallerIntroAnaliticaBrotes-rendered-unnamed-chunk-18-1.png" style="display: block; margin: auto;" />
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
@@ -476,7 +476,7 @@ Grafique la incidencia transformada logarítmicamente:
   theme_minimal()
 ```
 
-<img src="fig/TallerEbola-rendered-unnamed-chunk-19-1.png" style="display: block; margin: auto;" />
+<img src="fig/TallerIntroAnaliticaBrotes-rendered-unnamed-chunk-19-1.png" style="display: block; margin: auto;" />
  
   
 #### Ajuste un modelo log-lineal a los datos de incidencia semanal {#interpretación-del-modelo}
@@ -611,7 +611,7 @@ Con `plot`
 plot(incidencia_semanal, fit = ajuste_modelo)
 ```
 
-<img src="fig/TallerEbola-rendered-unnamed-chunk-24-1.png" style="display: block; margin: auto;" />
+<img src="fig/TallerIntroAnaliticaBrotes-rendered-unnamed-chunk-24-1.png" style="display: block; margin: auto;" />
 
 
 Tras ajustar el modelo log-lineal a la incidencia semanal para estimar la tasa de crecimiento de la epidemia el gráfico muestra la curva de ajuste superpuesta a la incidencia semanal observada. 
@@ -752,7 +752,7 @@ El R cuadrado ajustado es: 0.8131106
 
 Ahora utilizando los datos truncados `incidencia_semanal_truncada` vuelva a graficar el modelo logarítmico lineal. 
 
-<img src="fig/TallerEbola-rendered-unnamed-chunk-29-1.png" style="display: block; margin: auto;" />
+<img src="fig/TallerIntroAnaliticaBrotes-rendered-unnamed-chunk-29-1.png" style="display: block; margin: auto;" />
 :::::::::::::::::::::::::::::::::
 
 :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: instructor
@@ -764,7 +764,7 @@ Ahora utilizando los datos truncados `incidencia_semanal_truncada` vuelva a graf
 plot(incidencia_semanal_truncada, fit = ajuste_modelo_truncado)
 ```
 
-<img src="fig/TallerEbola-rendered-unnamed-chunk-30-1.png" style="display: block; margin: auto;" />
+<img src="fig/TallerIntroAnaliticaBrotes-rendered-unnamed-chunk-30-1.png" style="display: block; margin: auto;" />
 ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
 
@@ -975,7 +975,7 @@ Grafique la estimación de $R$ como función del tiempo:
 plot(estimacion_rt, legend = FALSE)
 ```
 
-<img src="fig/TallerEbola-rendered-unnamed-chunk-40-1.png" style="display: block; margin: auto;" />
+<img src="fig/TallerIntroAnaliticaBrotes-rendered-unnamed-chunk-40-1.png" style="display: block; margin: auto;" />
 
 
 ***
