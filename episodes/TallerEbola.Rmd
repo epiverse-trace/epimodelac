@@ -217,7 +217,8 @@ Para acompañar el calculo del CFR se pueden emplear sus intervalos de confianza
 
 ## Desafío 2  
 
-Determine el CFR con sus intervalos de confianza utilizando la función `binom.confint`. 
+Determine el CFR con sus intervalos de confianza utilizando la función `binom.confint`. Y obtenga este resultado. 
+
 ```{r echo=FALSE, message=FALSE, warning=FALSE, comment=""}
 CFR_con_CI <- binom.confint(muertes, casos_desenlace_final_conocido, method = "exact") %>%
   kable(caption = "**CFR con intervalos de confianza**")
