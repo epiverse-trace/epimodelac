@@ -11,7 +11,7 @@
 carpentry: 'incubator'
 
 # Overall title for pages.
-title: 'Lesson Title'
+title: 'Análisis de Brotes y Modelamiento en Salud Pública'
 
 # Date the lesson was created (YYYY-MM-DD, this is empty by default)
 created: '2023-11-10'
@@ -58,21 +58,25 @@ contact: 'team@carpentries.org'
 # - another-learner.md
 
 # Order of episodes in your lesson
-episodes: 
-- introduction.Rmd
+episodes:
+- TallerEbola.Rmd
+- ZIKAB.Rmd
 
 # Information for Learners
-learners: 
+learners:
 
 # Information for Instructors
-instructors: 
+instructors:
 
 # Learner Profiles
-profiles: 
+profiles:
 
 # Customisation ---------------------------------------------
 #
 # This space below is where custom yaml items (e.g. pinning
 # sandpaper and varnish versions) should live
+varnish: epiverse-trace/varnish@tracelactheme
 
+sandpaper: 'epiverse-trace/sandpaper#1'
+lang: es
 

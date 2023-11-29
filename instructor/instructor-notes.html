@@ -277,15 +277,15 @@ any links that you are not going to use.
 <h3 id="TallerEbola-headingInstructor1">
 <a href="TallerEbola.html#headingInstructor1">Solución 1</a><a class="anchor" aria-label="anchor" href="#TallerEbola-headingInstructor1"></a>
 </h3>
-<div class="codewrapper sourceCode" id="cb12">
+<div class="codewrapper sourceCode" id="cb10">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">numero_muertes</span> <span class="op">&lt;-</span> <span class="fu">sum</span><span class="op">(</span><span class="va">directorio_casos</span><span class="op">$</span><span class="va">desenlace</span> <span class="op">%in%</span> <span class="st">"Muerte"</span><span class="op">)</span> </span>
+<code class="sourceCode R"><span><span class="va">muertes</span> <span class="op">&lt;-</span> <span class="fu">sum</span><span class="op">(</span><span class="va">casos</span><span class="op">$</span><span class="va">desenlace</span> <span class="op">%in%</span> <span class="st">"Muerte"</span><span class="op">)</span> </span>
 <span></span>
-<span><span class="va">numero_casos_resultado_conocido</span> <span class="op">&lt;-</span> <span class="fu">sum</span><span class="op">(</span><span class="va">directorio_casos</span><span class="op">$</span><span class="va">desenlace</span> <span class="op">%in%</span> <span class="fu">c</span><span class="op">(</span><span class="st">"Muerte"</span>, <span class="st">"Recuperacion"</span><span class="op">)</span><span class="op">)</span> </span>
+<span><span class="va">casos_desenlace_final_conocido</span> <span class="op">&lt;-</span> <span class="fu">sum</span><span class="op">(</span><span class="va">casos</span><span class="op">$</span><span class="va">desenlace</span> <span class="op">%in%</span> <span class="fu">c</span><span class="op">(</span><span class="st">"Muerte"</span>, <span class="st">"Recuperacion"</span><span class="op">)</span><span class="op">)</span> </span>
 <span></span>
-<span><span class="va">CFR</span> <span class="op">&lt;-</span> <span class="va">numero_muertes</span> <span class="op">/</span> <span class="va">numero_casos_resultado_conocido</span></span>
+<span><span class="va">CFR</span> <span class="op">&lt;-</span> <span class="va">muertes</span> <span class="op">/</span> <span class="va">casos_desenlace_final_conocido</span></span>
 <span></span>
 <span><span class="fu">print</span><span class="op">(</span><span class="va">CFR</span><span class="op">)</span></span></code></pre>
 </div>
@@ -294,64 +294,43 @@ any links that you are not going to use.
 </h3>
 <pre class="output" tabindex="0"><code>[1] 0.5825243</code></pre>
 </div>
-<div class="codewrapper sourceCode" id="cb14">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co">#Otra posible solución.</span></span>
-<span></span>
-<span><span class="co"># numero_muertes &lt;- directorio_casos %&gt;%</span></span>
-<span><span class="co">#   filter(desenlace == "Muerte") %&gt;%</span></span>
-<span><span class="co">#   tally()</span></span>
-<span><span class="co"># </span></span>
-<span><span class="co"># numero_casos_resultado_conocido &lt;- directorio_casos %&gt;%</span></span>
-<span><span class="co">#   filter(desenlace %in% c("Muerte", "Recuperacion")) %&gt;%</span></span>
-<span><span class="co">#   tally()</span></span>
-<span><span class="co"># </span></span>
-<span><span class="co"># CFR &lt;- numero_muertes$n / numero_casos_resultado_conocido$n</span></span></code></pre>
-</div>
 <hr>
 <br><h3 id="TallerEbola-headingInstructor2">
 <a href="TallerEbola.html#headingInstructor2">Solución 2</a><a class="anchor" aria-label="anchor" href="#TallerEbola-headingInstructor2"></a>
 </h3>
-<div class="codewrapper sourceCode" id="cb16">
+<div class="codewrapper sourceCode" id="cb15">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">CFR_con_CI</span> <span class="op">&lt;-</span> <span class="fu">binom.confint</span><span class="op">(</span><span class="va">numero_muertes</span>, </span>
-<span>                                       <span class="va">numero_casos_resultado_conocido</span>, method <span class="op">=</span> <span class="st">"exact"</span><span class="op">)</span> <span class="op">%&gt;%</span></span>
-<span>  <span class="fu">kable</span><span class="op">(</span>caption <span class="op">=</span> <span class="st">"**CFR con intervalos de confianza**"</span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">CFR_con_CI</span></span></code></pre>
+<span>                                       <span class="va">casos_desenlace_final_conocido</span>, method <span class="op">=</span> <span class="st">"exact"</span><span class="op">)</span> <span class="op">%&gt;%</span></span>
+<span>  <span class="fu">kable</span><span class="op">(</span>caption <span class="op">=</span> <span class="st">"**CFR con intervalos de confianza**"</span><span class="op">)</span></span></code></pre>
 </div>
-<table class="table">
-<caption><strong>CFR con intervalos de confianza</strong></caption>
-<thead><tr class="header">
-<th align="left">method</th>
-<th align="right">x</th>
-<th align="right">n</th>
-<th align="right">mean</th>
-<th align="right">lower</th>
-<th align="right">upper</th>
-</tr></thead>
-<tbody><tr class="odd">
-<td align="left">exact</td>
-<td align="right">60</td>
-<td align="right">103</td>
-<td align="right">0.5825243</td>
-<td align="right">0.4812264</td>
-<td align="right">0.6789504</td>
-</tr></tbody>
-</table>
+<div class="codewrapper">
+<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="error" tabindex="0"><code>Error in eval(expr, envir, enclos): object 'numero_muertes' not found</code></pre>
+</div>
+<div class="codewrapper sourceCode" id="cb17">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">CFR_con_CI</span></span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="error" tabindex="0"><code>Error in eval(expr, envir, enclos): object 'CFR_con_CI' not found</code></pre>
+</div>
 <hr>
 <br><h3 id="TallerEbola-headingInstructor3">
 <a href="TallerEbola.html#headingInstructor3">Solución 3</a><a class="anchor" aria-label="anchor" href="#TallerEbola-headingInstructor3"></a>
 </h3>
-<div class="codewrapper sourceCode" id="cb19">
+<div class="codewrapper sourceCode" id="cb21">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">incidencia_diaria</span> <span class="op">&lt;-</span> <span class="fu">incidence</span><span class="op">(</span><span class="va">directorio_casos</span><span class="op">$</span><span class="va">fecha_inicio_sintomas</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">incidencia_diaria</span> <span class="op">&lt;-</span> <span class="fu">incidence</span><span class="op">(</span><span class="va">casos</span><span class="op">$</span><span class="va">fecha_inicio_sintomas</span><span class="op">)</span></span>
 <span><span class="va">incidencia_diaria</span></span></code></pre>
 </div>
 <div class="codewrapper">
@@ -380,13 +359,13 @@ casos.</p>
 <br><h3 id="TallerEbola-headingInstructor5">
 <a href="TallerEbola.html#headingInstructor5">Solución 4</a><a class="anchor" aria-label="anchor" href="#TallerEbola-headingInstructor5"></a>
 </h3>
-<div class="codewrapper sourceCode" id="cb24">
+<div class="codewrapper sourceCode" id="cb26">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">incidencia_semanal</span> <span class="op">&lt;-</span> <span class="fu">incidence</span><span class="op">(</span><span class="va">directorio_casos</span><span class="op">$</span><span class="va">fecha_inicio_sintomas</span>, </span>
+<code class="sourceCode R"><span><span class="va">incidencia_semanal</span> <span class="op">&lt;-</span> <span class="fu">incidence</span><span class="op">(</span><span class="va">casos</span><span class="op">$</span><span class="va">fecha_inicio_sintomas</span>, </span>
 <span>                                interval <span class="op">=</span> <span class="fl">7</span>, </span>
-<span>                                last_date <span class="op">=</span> <span class="fu">max</span><span class="op">(</span><span class="va">directorio_casos</span><span class="op">$</span><span class="va">fecha_de_hospitalizacion</span>,</span>
+<span>                                last_date <span class="op">=</span> <span class="fu">max</span><span class="op">(</span><span class="va">casos</span><span class="op">$</span><span class="va">fecha_de_hospitalizacion</span>,</span>
 <span>                                              na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="va">incidencia_semanal</span></span></code></pre>
 </div>
@@ -404,13 +383,13 @@ $interval: 7 days
 $timespan: 85 days
 $cumulative: FALSE</code></pre>
 </div>
-<div class="codewrapper sourceCode" id="cb26">
+<div class="codewrapper sourceCode" id="cb28">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">plot</span><span class="op">(</span><span class="va">incidencia_semanal</span>, border <span class="op">=</span> <span class="st">"black"</span><span class="op">)</span></span></code></pre>
 </div>
-<figure><img src="../fig/TallerEbola-rendered-unnamed-chunk-19-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><hr>
+<figure><img src="../fig/TallerEbola-rendered-unnamed-chunk-18-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><hr>
 <br><h3 id="TallerEbola-headingInstructor6">
 <a href="TallerEbola.html#headingInstructor6">Ideas para responder:</a><a class="anchor" aria-label="anchor" href="#TallerEbola-headingInstructor6"></a>
 </h3>
@@ -453,7 +432,7 @@ reducción de la incidencia real.</p>
 <br><h3 id="TallerEbola-headingInstructor8">
 <a href="TallerEbola.html#headingInstructor8">Solución 6</a><a class="anchor" aria-label="anchor" href="#TallerEbola-headingInstructor8"></a>
 </h3>
-<div class="codewrapper sourceCode" id="cb39">
+<div class="codewrapper sourceCode" id="cb42">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -488,7 +467,7 @@ $info: list containing the following items:
 <br><h3 id="TallerEbola-headingInstructor9">
 <a href="TallerEbola.html#headingInstructor9">Solución 7</a><a class="anchor" aria-label="anchor" href="#TallerEbola-headingInstructor9"></a>
 </h3>
-<div class="codewrapper sourceCode" id="cb41">
+<div class="codewrapper sourceCode" id="cb44">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -508,11 +487,11 @@ $info: list containing the following items:
 <span>  <span class="fu">ylab</span><span class="op">(</span><span class="st">"Incidencia semanal"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">theme_minimal</span><span class="op">(</span><span class="op">)</span></span></code></pre>
 </div>
-<figure><img src="../fig/TallerEbola-rendered-unnamed-chunk-31-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><hr>
+<figure><img src="../fig/TallerEbola-rendered-unnamed-chunk-30-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><hr>
 <br><h3 id="TallerEbola-headingInstructor10">
 <a href="TallerEbola.html#headingInstructor10">Solución 8</a><a class="anchor" aria-label="anchor" href="#TallerEbola-headingInstructor10"></a>
 </h3>
-<div class="codewrapper sourceCode" id="cb46">
+<div class="codewrapper sourceCode" id="cb49">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -526,7 +505,7 @@ $info: list containing the following items:
 </h3>
 <pre class="output" tabindex="0"><code>La tasa de crecimiento diaria es: 0.05224047 </code></pre>
 </div>
-<div class="codewrapper sourceCode" id="cb48">
+<div class="codewrapper sourceCode" id="cb51">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -544,7 +523,7 @@ $info: list containing the following items:
 <br><h3 id="TallerEbola-headingInstructor11">
 <a href="TallerEbola.html#headingInstructor11">Solución 9</a><a class="anchor" aria-label="anchor" href="#TallerEbola-headingInstructor11"></a>
 </h3>
-<div class="codewrapper sourceCode" id="cb52">
+<div class="codewrapper sourceCode" id="cb55">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -557,7 +536,7 @@ $info: list containing the following items:
 </h3>
 <pre class="output" tabindex="0"><code>El tiempo de duplicación de la epidemia es 13.2684 días</code></pre>
 </div>
-<div class="codewrapper sourceCode" id="cb54">
+<div class="codewrapper sourceCode" id="cb57">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -744,8 +723,8 @@ $info: list containing the following items:
   "url": "https://Joskerus.github.io/Nuevoformato/instructor/instructor-notes.html",
   "identifier": "https://Joskerus.github.io/Nuevoformato/instructor/instructor-notes.html",
   "dateCreated": "2023-11-10",
-  "dateModified": "2023-11-28",
-  "datePublished": "2023-11-28"
+  "dateModified": "2023-11-29",
+  "datePublished": "2023-11-29"
 }
 
   </script><script>
