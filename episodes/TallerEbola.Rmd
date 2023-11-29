@@ -234,12 +234,13 @@ Recuerde diligenciar los espacios donde dice `COMPLETE`. Y obtenga este resultad
 ```{r eval= FALSE, echo=TRUE, message=FALSE, warning=FALSE,comment=""}
 
 CFR_con_CI <- binom.confint(COMPLETE, COMPLETE, method = "COMPLETE") %>%
-  kable(caption = "**¿QUE TITULO LE PONDRÍA?**")
+  kable(caption = "**COMPLETE ¿QUE TITULO LE PONDRÍA?**")
 
 CFR_con_CI
 
 ```
 :::::::::::::::::::::::::::::::::
+::::::::::::::::::::::::::::::::::::::::::::::::
 
 :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: instructor
 
@@ -384,12 +385,11 @@ Para observar mejor las tendencias de crecimiento en el número de casos se pued
 Grafique la incidencia transformada logarítmicamente:
 
 ```{r echo=TRUE, message=FALSE, warning=FALSE, comment=""}
-incidencia_semanal_df <- as.data.frame(incidencia_semanal)
 
-  ggplot(incidencia_semanal_df) + 
+  ggplot(as.data.frame(incidencia_semanal)) + 
   geom_point(aes(x = dates, y = log(counts))) + 
-  scale_x_date(date_breaks = "1 week", date_labels = "%d-%b") +
-  xlab("Fecha") +
+  scale_x_incidence(incidencia_semanal) +
+  xlab("Semana") +
   ylab("Incidencia semanal logarítmica") + 
   theme_minimal()
 ```
