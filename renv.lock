@@ -223,16 +223,6 @@
       ],
       "Hash": "cad6cf7f1d5f6e906700b9d3e718c796"
     },
-    "assertthat": {
-      "Package": "assertthat",
-      "Version": "0.2.1",
-      "Source": "Repository",
-      "Repository": "RSPM",
-      "Requirements": [
-        "tools"
-      ],
-      "Hash": "50c838a310445e954bc13f26f26a6ecf"
-    },
     "aweek": {
       "Package": "aweek",
       "Version": "1.0.3",
@@ -1542,30 +1532,6 @@
       ],
       "Hash": "c5754106c02e8e019941100c81149431"
     },
-    "pegboard": {
-      "Package": "pegboard",
-      "Version": "0.7.3",
-      "Source": "GitHub",
-      "Remotes": "ropensci/tinkr",
-      "RemoteType": "github",
-      "RemoteHost": "api.github.com",
-      "RemoteRepo": "pegboard",
-      "RemoteUsername": "carpentries",
-      "RemoteRef": "HEAD",
-      "RemoteSha": "1bc5753e917d515c3d888ce6cc013c0a680eacfc",
-      "Requirements": [
-        "R6",
-        "commonmark",
-        "fs",
-        "glue",
-        "purrr",
-        "tinkr",
-        "xml2",
-        "xslt",
-        "yaml"
-      ],
-      "Hash": "4262bc350909cf5b7c55c4120914441f"
-    },
     "pillar": {
       "Package": "pillar",
       "Version": "1.9.0",
@@ -2081,44 +2047,6 @@
       ],
       "Hash": "a4a5ac819a467808c60e36e92ddf195e"
     },
-    "sandpaper": {
-      "Package": "sandpaper",
-      "Version": "0.14.1.9000",
-      "Source": "GitHub",
-      "Remotes": "ropensci/tinkr, carpentries/pegboard, carpentries/varnish",
-      "RemoteType": "github",
-      "RemoteHost": "api.github.com",
-      "RemoteRepo": "sandpaper",
-      "RemoteUsername": "epiverse-trace",
-      "RemoteRef": "translate-spanish",
-      "RemoteSha": "15f1dffa92492e70b1b3a4432246981ef5ddda27",
-      "Requirements": [
-        "assertthat",
-        "callr",
-        "cli",
-        "commonmark",
-        "desc",
-        "fs",
-        "gert",
-        "gh",
-        "glue",
-        "knitr",
-        "pegboard",
-        "pkgdown",
-        "renv",
-        "rlang",
-        "rmarkdown",
-        "rprojroot",
-        "rstudioapi",
-        "servr",
-        "tools",
-        "usethis",
-        "utils",
-        "whisker",
-        "yaml"
-      ],
-      "Hash": "aed26e6ed64b8748c805c7c0e5adfafe"
-    },
     "sass": {
       "Package": "sass",
       "Version": "0.4.7",
@@ -2165,20 +2093,6 @@
         "stringr"
       ],
       "Hash": "3838071b66e0c566d55cc26bd6e27bf4"
-    },
-    "servr": {
-      "Package": "servr",
-      "Version": "0.27",
-      "Source": "Repository",
-      "Repository": "RSPM",
-      "Requirements": [
-        "R",
-        "httpuv",
-        "jsonlite",
-        "mime",
-        "xfun"
-      ],
-      "Hash": "f4d1414c2ddc0a34ea27923134ac3c7b"
     },
     "sessioninfo": {
       "Package": "sessioninfo",
@@ -2468,28 +2382,6 @@
       ],
       "Hash": "8548b44f79a35ba1791308b61e6012d7"
     },
-    "tinkr": {
-      "Package": "tinkr",
-      "Version": "0.2.0",
-      "Source": "GitHub",
-      "RemoteType": "github",
-      "RemoteHost": "api.github.com",
-      "RemoteRepo": "tinkr",
-      "RemoteUsername": "ropensci",
-      "RemoteRef": "HEAD",
-      "RemoteSha": "a5dd3ddfa235d4a3eb6df78c885d68410ba161c8",
-      "Requirements": [
-        "R6",
-        "commonmark",
-        "glue",
-        "magrittr",
-        "purrr",
-        "xml2",
-        "xslt",
-        "yaml"
-      ],
-      "Hash": "93662ad9c56a59e47d09d3caeee97eba"
-    },
     "tinytex": {
       "Package": "tinytex",
       "Version": "0.49",
@@ -2714,17 +2606,6 @@
         "processx"
       ],
       "Hash": "6c85f015dee9cc7710ddd20f86881f58"
-    },
-    "xslt": {
-      "Package": "xslt",
-      "Version": "1.4.4",
-      "Source": "Repository",
-      "Repository": "RSPM",
-      "Requirements": [
-        "Rcpp",
-        "xml2"
-      ],
-      "Hash": "e2c9cc5c470a5a3a4c1d458404f1a034"
     },
     "xtable": {
       "Package": "xtable",
