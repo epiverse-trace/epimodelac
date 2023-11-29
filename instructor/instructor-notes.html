@@ -298,35 +298,40 @@ any links that you are not going to use.
 <br><h3 id="TallerEbola-headingInstructor2">
 <a href="TallerEbola.html#headingInstructor2">Solución 2</a><a class="anchor" aria-label="anchor" href="#TallerEbola-headingInstructor2"></a>
 </h3>
-<div class="codewrapper sourceCode" id="cb15">
+<div class="codewrapper sourceCode" id="cb13">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">CFR_con_CI</span> <span class="op">&lt;-</span> <span class="fu">binom.confint</span><span class="op">(</span><span class="va">numero_muertes</span>, </span>
+<code class="sourceCode R"><span><span class="va">CFR_con_CI</span> <span class="op">&lt;-</span> <span class="fu">binom.confint</span><span class="op">(</span><span class="va">muertes</span>, </span>
 <span>                                       <span class="va">casos_desenlace_final_conocido</span>, method <span class="op">=</span> <span class="st">"exact"</span><span class="op">)</span> <span class="op">%&gt;%</span></span>
-<span>  <span class="fu">kable</span><span class="op">(</span>caption <span class="op">=</span> <span class="st">"**CFR con intervalos de confianza**"</span><span class="op">)</span></span></code></pre>
+<span>  <span class="fu">kable</span><span class="op">(</span>caption <span class="op">=</span> <span class="st">"**CFR con intervalos de confianza**"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">CFR_con_CI</span></span></code></pre>
 </div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error in eval(expr, envir, enclos): object 'numero_muertes' not found</code></pre>
-</div>
-<div class="codewrapper sourceCode" id="cb17">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">CFR_con_CI</span></span></code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error in eval(expr, envir, enclos): object 'CFR_con_CI' not found</code></pre>
-</div>
+<table class="table">
+<caption><strong>CFR con intervalos de confianza</strong></caption>
+<thead><tr class="header">
+<th align="left">method</th>
+<th align="right">x</th>
+<th align="right">n</th>
+<th align="right">mean</th>
+<th align="right">lower</th>
+<th align="right">upper</th>
+</tr></thead>
+<tbody><tr class="odd">
+<td align="left">exact</td>
+<td align="right">60</td>
+<td align="right">103</td>
+<td align="right">0.5825243</td>
+<td align="right">0.4812264</td>
+<td align="right">0.6789504</td>
+</tr></tbody>
+</table>
 <hr>
 <br><h3 id="TallerEbola-headingInstructor3">
 <a href="TallerEbola.html#headingInstructor3">Solución 3</a><a class="anchor" aria-label="anchor" href="#TallerEbola-headingInstructor3"></a>
 </h3>
-<div class="codewrapper sourceCode" id="cb21">
+<div class="codewrapper sourceCode" id="cb16">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -359,7 +364,7 @@ casos.</p>
 <br><h3 id="TallerEbola-headingInstructor5">
 <a href="TallerEbola.html#headingInstructor5">Solución 4</a><a class="anchor" aria-label="anchor" href="#TallerEbola-headingInstructor5"></a>
 </h3>
-<div class="codewrapper sourceCode" id="cb26">
+<div class="codewrapper sourceCode" id="cb21">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -383,7 +388,7 @@ $interval: 7 days
 $timespan: 85 days
 $cumulative: FALSE</code></pre>
 </div>
-<div class="codewrapper sourceCode" id="cb28">
+<div class="codewrapper sourceCode" id="cb23">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -432,12 +437,12 @@ reducción de la incidencia real.</p>
 <br><h3 id="TallerEbola-headingInstructor8">
 <a href="TallerEbola.html#headingInstructor8">Solución 6</a><a class="anchor" aria-label="anchor" href="#TallerEbola-headingInstructor8"></a>
 </h3>
-<div class="codewrapper sourceCode" id="cb42">
+<div class="codewrapper sourceCode" id="cb37">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">ajuste_modelo_semanal</span> <span class="op">&lt;-</span> <span class="fu">incidence</span><span class="fu">::</span><span class="fu">fit</span><span class="op">(</span><span class="va">incidencia_semanal_truncada</span><span class="op">)</span></span>
-<span><span class="va">ajuste_modelo_semanal</span></span></code></pre>
+<code class="sourceCode R"><span><span class="va">ajuste_modelo_truncado</span> <span class="op">&lt;-</span> <span class="fu">incidence</span><span class="fu">::</span><span class="fu">fit</span><span class="op">(</span><span class="va">incidencia_semanal_truncada</span><span class="op">)</span></span>
+<span><span class="va">ajuste_modelo_truncado</span></span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -463,40 +468,39 @@ $info: list containing the following items:
 
   $pred: data.frame of incidence predictions (10 rows, 5 columns)</code></pre>
 </div>
+<div class="codewrapper sourceCode" id="cb39">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">AjusteR2modelo</span> <span class="op">&lt;-</span> <span class="fu">summary</span><span class="op">(</span><span class="va">ajuste_modelo_truncado</span><span class="op">$</span><span class="va">model</span><span class="op">)</span><span class="op">$</span><span class="va">adj.r.squared</span> </span>
+<span></span>
+<span><span class="fu">cat</span><span class="op">(</span><span class="st">"El R cuadrado ajustado es:"</span>, <span class="va">AjusteR2modelo</span>, <span class="st">"\n"</span><span class="op">)</span></span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="output" tabindex="0"><code>El R cuadrado ajustado es: 0.8131106 </code></pre>
+</div>
 <hr>
 <br><h3 id="TallerEbola-headingInstructor9">
 <a href="TallerEbola.html#headingInstructor9">Solución 7</a><a class="anchor" aria-label="anchor" href="#TallerEbola-headingInstructor9"></a>
 </h3>
-<div class="codewrapper sourceCode" id="cb44">
+<div class="codewrapper sourceCode" id="cb41">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">ajuste_modelo_semanal_df</span> <span class="op">&lt;-</span> <span class="fu">as.data.frame</span><span class="op">(</span><span class="va">ajuste_modelo_semanal</span><span class="op">$</span><span class="va">info</span><span class="op">$</span><span class="va">pred</span><span class="op">)</span> <span class="co">#Predicciones del modelo</span></span>
-<span></span>
-<span><span class="va">incidencia_semanal_truncada_df</span> <span class="op">&lt;-</span> <span class="fu">as.data.frame</span><span class="op">(</span><span class="va">incidencia_semanal_truncada</span><span class="op">)</span></span>
-<span></span>
-<span></span>
-<span><span class="fu">ggplot</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu">geom_bar</span><span class="op">(</span>data <span class="op">=</span> <span class="va">incidencia_semanal_truncada_df</span>, <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">dates</span>, y <span class="op">=</span> <span class="va">counts</span><span class="op">)</span>,  <span class="co">#Histograma</span></span>
-<span>           stat <span class="op">=</span> <span class="st">"identity"</span>, fill <span class="op">=</span> <span class="st">"grey"</span>, color <span class="op">=</span> <span class="st">"black"</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu">geom_ribbon</span><span class="op">(</span>data <span class="op">=</span> <span class="va">ajuste_modelo_semanal_df</span>, <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">dates</span>, ymin <span class="op">=</span> <span class="va">lwr</span>, ymax <span class="op">=</span> <span class="va">upr</span><span class="op">)</span>, alpha <span class="op">=</span> <span class="fl">0.2</span><span class="op">)</span> <span class="op">+</span> <span class="co">#Intervalo de confianza del ajuste</span></span>
-<span>  <span class="fu">geom_line</span><span class="op">(</span>data <span class="op">=</span> <span class="va">ajuste_modelo_semanal_df</span>, <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">dates</span>, y <span class="op">=</span> <span class="va">fit</span><span class="op">)</span>, <span class="co">#Línea del ajuste</span></span>
-<span>            color <span class="op">=</span> <span class="st">"blue"</span>, size <span class="op">=</span> <span class="fl">1</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu">scale_x_date</span><span class="op">(</span>date_breaks <span class="op">=</span> <span class="st">"1 week"</span>, date_labels <span class="op">=</span> <span class="st">"%d-%b"</span><span class="op">)</span> <span class="op">+</span> <span class="co">#Formato para los ejes</span></span>
-<span>  <span class="fu">xlab</span><span class="op">(</span><span class="st">"Fecha"</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu">ylab</span><span class="op">(</span><span class="st">"Incidencia semanal"</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu">theme_minimal</span><span class="op">(</span><span class="op">)</span></span></code></pre>
+<code class="sourceCode R"><span><span class="fu">plot</span><span class="op">(</span><span class="va">incidencia_semanal_truncada</span>, fit <span class="op">=</span> <span class="va">ajuste_modelo_truncado</span><span class="op">)</span></span></code></pre>
 </div>
 <figure><img src="../fig/TallerEbola-rendered-unnamed-chunk-30-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><hr>
 <br><h3 id="TallerEbola-headingInstructor10">
 <a href="TallerEbola.html#headingInstructor10">Solución 8</a><a class="anchor" aria-label="anchor" href="#TallerEbola-headingInstructor10"></a>
 </h3>
-<div class="codewrapper sourceCode" id="cb49">
+<div class="codewrapper sourceCode" id="cb46">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Estimación de la tasa de crecimiento diaria</span></span>
-<span><span class="va">tasa_crecimiento_diaria</span> <span class="op">&lt;-</span> <span class="va">ajuste_modelo_semanal</span><span class="op">$</span><span class="va">info</span><span class="op">$</span><span class="va">r</span></span>
+<span><span class="va">tasa_crecimiento_diaria</span> <span class="op">&lt;-</span> <span class="va">ajuste_modelo_truncado</span><span class="op">$</span><span class="va">info</span><span class="op">$</span><span class="va">r</span></span>
 <span></span>
 <span><span class="fu">cat</span><span class="op">(</span><span class="st">"La tasa de crecimiento diaria es:"</span>, <span class="va">tasa_crecimiento_diaria</span>, <span class="st">"\n"</span><span class="op">)</span></span></code></pre>
 </div>
@@ -505,12 +509,12 @@ $info: list containing the following items:
 </h3>
 <pre class="output" tabindex="0"><code>La tasa de crecimiento diaria es: 0.05224047 </code></pre>
 </div>
-<div class="codewrapper sourceCode" id="cb51">
+<div class="codewrapper sourceCode" id="cb48">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Intervalo de confianza de la tasa de crecimiento diaria</span></span>
-<span><span class="va">tasa_crecimiento_IC</span> <span class="op">&lt;-</span> <span class="va">ajuste_modelo_semanal</span><span class="op">$</span><span class="va">info</span><span class="op">$</span><span class="va">r.conf</span></span>
+<span><span class="va">tasa_crecimiento_IC</span> <span class="op">&lt;-</span> <span class="va">ajuste_modelo_truncado</span><span class="op">$</span><span class="va">info</span><span class="op">$</span><span class="va">r.conf</span></span>
 <span></span>
 <span><span class="fu">cat</span><span class="op">(</span><span class="st">"Intervalo de confianza de la tasa de crecimiento diaria (95%):"</span>, <span class="va">tasa_crecimiento_IC</span>, <span class="st">"\n"</span><span class="op">)</span></span></code></pre>
 </div>
@@ -523,12 +527,12 @@ $info: list containing the following items:
 <br><h3 id="TallerEbola-headingInstructor11">
 <a href="TallerEbola.html#headingInstructor11">Solución 9</a><a class="anchor" aria-label="anchor" href="#TallerEbola-headingInstructor11"></a>
 </h3>
-<div class="codewrapper sourceCode" id="cb55">
+<div class="codewrapper sourceCode" id="cb52">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Estimación del tiempo de duplicación en días</span></span>
-<span><span class="va">tiempo_duplicacion_dias</span> <span class="op">&lt;-</span> <span class="va">ajuste_modelo_semanal</span><span class="op">$</span><span class="va">info</span><span class="op">$</span><span class="va">doubling</span></span>
+<span><span class="va">tiempo_duplicacion_dias</span> <span class="op">&lt;-</span> <span class="va">ajuste_modelo_truncado</span><span class="op">$</span><span class="va">info</span><span class="op">$</span><span class="va">doubling</span></span>
 <span><span class="fu">cat</span><span class="op">(</span><span class="st">"El tiempo de duplicación de la epidemia es"</span>, <span class="va">tiempo_duplicacion_dias</span>, <span class="st">"días\n"</span><span class="op">)</span></span></code></pre>
 </div>
 <div class="codewrapper">
@@ -536,12 +540,12 @@ $info: list containing the following items:
 </h3>
 <pre class="output" tabindex="0"><code>El tiempo de duplicación de la epidemia es 13.2684 días</code></pre>
 </div>
-<div class="codewrapper sourceCode" id="cb57">
+<div class="codewrapper sourceCode" id="cb54">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Intervalo de confianza del tiempo de duplicación</span></span>
-<span><span class="va">tiempo_duplicacion_IC</span> <span class="op">&lt;-</span> <span class="va">ajuste_modelo_semanal</span><span class="op">$</span><span class="va">info</span><span class="op">$</span><span class="va">doubling.conf</span></span>
+<span><span class="va">tiempo_duplicacion_IC</span> <span class="op">&lt;-</span> <span class="va">ajuste_modelo_truncado</span><span class="op">$</span><span class="va">info</span><span class="op">$</span><span class="va">doubling.conf</span></span>
 <span><span class="fu">cat</span><span class="op">(</span><span class="st">"Intervalo de confianza del tiempo de duplicación (95%):"</span>, <span class="va">tiempo_duplicacion_IC</span>, <span class="st">"\n"</span><span class="op">)</span></span></code></pre>
 </div>
 <div class="codewrapper">
