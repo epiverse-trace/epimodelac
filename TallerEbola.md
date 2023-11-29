@@ -31,15 +31,14 @@ Al final de este taller usted podrá:
 
 - Identificar los parámetros necesarios en casos de  transmisión de enfermedades infecciosas de persona a persona. 
 
+- Estimar la probabilidad de muerte (CFR). 
+
+- Calcular y graficar la incidencia.
+
 - Estimar e interpretar la tasa de crecimiento y el tiempo en que se duplica la epidemia. 
 
-- Estimar el intervalo serial a partir de los datos pareados de individuos infectantes/ individuos infectados.
+- Estimar e interpretar el número de reproducción instantáneo  de la epidemia.
 
-- Estimar e interpretar el número de reproducción instantáneo de la epidemia
-
-- Estimar la probabilidad de muerte en los casos reportados (CFR) 
-
-- Calcular y graficar la incidencia
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
@@ -51,14 +50,6 @@ Al final de este taller usted podrá:
 Explicación del taller (10 minutos)
 
 Realizar taller (100 minutos taller)
-
-- [1. Preparación (5 minutos ejecución + 5 minutos solución)](#sección-1)
-
-- [2. CFR (5 minutos explicación + 5 minutos ejecución + 5 minutos solución)](#sección-2)
-
-- [3. Incidencia y 4. Tiempo de duplicación (10 minutos de explicación + 15 minutos de ejecución + 20 minutos solución y reflexión)](#sección-3)  
-
-- [5. Tiempo reproductivo instantáneo Rt (10 minutos explicación + 10 minutos lectura y ejecución + 10 minutos reflexión)](#sección-6)
 
 Discusión 30 minutos
 
@@ -91,13 +82,14 @@ En esta práctica se desarrollarán los siguientes conceptos:
 
 #### Preparación previa
 
-Antes de comenzar, recuerde crear el proyecto en R `RProject`. Este paso no solo le ayudará a cumplir con las buenas prácticas de programación en R, sino también a mantener un directorio organizado, permitiendo un desarrollo exitoso del taller.
+Antes de comenzar, descargue la carpeta con los datos y el proyecto desde [Carpetas de datos](https://drive.google.com/drive/folders/1T0uZ2FNhwFAnFcCNxfLX8V6Ir3IsJO6y?usp=sharing) . Ahí mismo encontrará un archivo .R para instalar las dependencias necesarias para este taller.
 
-Puede descargar la carpeta con los datos y el proyecto desde [Carpetas de datos](https://drive.google.com/drive/folders/1T0uZ2FNhwFAnFcCNxfLX8V6Ir3IsJO6y?usp=sharing) . Ahí mismo encontrará un archivo .R para instalar las dependencias necesarias para este taller.
+Recuerde abrir el archivo `RProject` denominado `Taller parametros.Rproj` antes de empezar a trabajar. Este paso no solo le ayudará a cumplir con las buenas prácticas de programación en R, sino también a mantener un directorio organizado, permitiendo un desarrollo exitoso del taller.
+
 
 #### Cargue de librerías: 
 
-Cargue las librerías necesarias para el análisis epidemiológico y para análisis de incidencia y contactos. Los datos serán manipulados con tidyverse que es una colección de paquetes para la ciencia de datos.
+Cargue las librerías necesarias para el análisis epidemiológico. Los datos serán manipulados con tidyverse que es una colección de paquetes para la ciencia de datos.
 
 
 ```r
@@ -112,49 +104,25 @@ library(EpiEstim) # para estimar R(t)
 
 #### Cargue de bases de datos
 
-Se le ha proporcionado la siguiente base de datos de casos `directorio_casos` y datos de contacto `contactos`:
+Se le ha proporcionado la siguiente base de datos de casos `casos`:
 
-`directorio_casos`: una base de datos de casos que contiene información de casos hasta el 1 de julio de 2014; y
+`casos`: una base de datos de casos que contiene información de casos hasta el 1 de julio de 2014; y
 
-`contactos_20140701.xlsx`: una lista de contactos reportados por los casos hasta el 1 de julio de 2014. “infectante” indica una fuente potencial de infección y “id_caso” con quién se tuvo el contacto.
-
-Para leer en R, descargue estos archivos y use la función `read_xlsx` del paquete `readxl` para importar los datos y la función `read_rds` de `tidyverse`. Cada grupo de datos importados creará una tabla de datos almacenada como el objeto `tibble.`
+Para leer en R este archivo, use la función `read_rds` de `tidyverse`. Se creará una tabla de datos almacenada como el objeto `tibble.`
 
 
 ```r
-directorio_casos <- read_rds("files/directorio_casos.rds")
-```
-
-
-
-```r
-contactos <- read_excel("files/contactos_20140701.xlsx", na = c("", "NA"))
+casos <- read_rds("files/casos.rds")
 ```
 
 
 #### Estructura de los datos
 
-Explore la estructura de los datos. Para esto puede utilizar la función `glimpse` de `tidyverse` la cual nos proporciona una visión rápida y legible de la estructura interna de nuestros conjuntos de datos.
+Explore la estructura de los datos. Para esto puede utilizar la función `glimpse` de `tidyverse` la cual nos proporciona una visión rápida y legible de la estructura interna de nuestro conjunto de datos.
 
 
 ```r
-glimpse(contactos)
-```
-
-```{.output}
-Rows: 60
-Columns: 3
-$ infectante <chr> "d1fafd", "f5c3d8", "0f58c4", "f5c3d8", "20b688", "2ae019",…
-$ id_caso    <chr> "53371b", "0f58c4", "881bd4", "d58402", "d8a13d", "a3c8b8",…
-$ fuente     <chr> "otro", "otro", "otro", "otro", "funeral", "otro", "funeral…
-```
-
-
-Como puede observar contactos tiene 3 columnas (variables) y 60 filas de datos. En un rápido vistazo puede observar que la columna `fuente` (fuente del contagio) puede contener entre sus valores otro o funeral. Así como que las tres variables están en formato de caracter (`chr`).
-
-
-```r
-glimpse(directorio_casos)
+glimpse(casos)
 ```
 
 ```{.output}
@@ -173,7 +141,9 @@ $ longitud                 <dbl> -13.21799, -13.21491, -13.22804, -13.23112, -�
 $ latitud                  <dbl> 8.473514, 8.464927, 8.483356, 8.464776, 8.452…
 ```
 
-En el caso del directorio de casos encuentra: 
+Como puede observar contactos tiene 11 columnas (variables) y 166 filas de datos. En un rápido vistazo puede observar el tipo de las variables por ejemplo, la columna `desenlace` tiene formato carácter (`chr`) y contiene entre sus valores "recuperación" o "muerte". 
+
+Además encuentra estas variables: 
 
 - El identificador `id_caso` al igual que en contactos 
 
@@ -202,7 +172,7 @@ Note que las fechas ya están en formato fecha (`date`).
 
 
 ```r
-table(directorio_casos$desenlace, useNA = "ifany")
+table(casos$desenlace, useNA = "ifany")
 ```
 
 ```{.output}
@@ -215,15 +185,27 @@ table(directorio_casos$desenlace, useNA = "ifany")
 
 ## Desafío 1  
 
-Calcule la probabilidad de muerte en los casos reportados (`CFR`) tomando el número de muertes y el número de casos con resultado conocido del objeto directorio_casos. 
+Calcule la probabilidad de muerte en los casos reportados (`CFR`) tomando el número de muertes y el número de casos con desenlace final conocido del objeto casos. Esta vez se calculará el `CFR` con el método `Naive`, Los cálculos `Naive` tienen el problema de que pueden tener sesgos. Hablaremos de estos sesgos en profundidad en el día 4. 
+
+Durante este taller se le presentarán algunos retos, para los cuales obtendrá algunas pistas, por ejemplo en el presente reto le presenta una pista, la cual es un fragmento del código que usted debe completar para alcanzar la solución. En los espacios donde dice `COMPLETE` por favor diligencie el código faltante.
 
 
 ```r
-numero_muertes <-  #COMPLETE
+muertes <-  COMPLETE
 
-numero_casos_resultado_conocido <- sum(directorio_casos$desenlace %in% c("Muerte", "Recuperacion")) 
+casos_desenlace_final_conocido <- sum(casos$desenlace %in% c("Muerte", "Recuperacion")) 
 
-CFR <- #COMPLETE / COMPLETE
+CFR <- COMPLETE / COMPLETE
+```
+
+Ejemplo, 
+
+
+```r
+# RETO
+muertes <-  #COMPLETE
+#Solución
+muertes <- sum(casos$desenlace %in% "Muerte") 
 ```
 
 
@@ -238,11 +220,11 @@ CFR <- #COMPLETE / COMPLETE
 
 
 ```r
-numero_muertes <- sum(directorio_casos$desenlace %in% "Muerte") 
+muertes <- sum(casos$desenlace %in% "Muerte") 
 
-numero_casos_resultado_conocido <- sum(directorio_casos$desenlace %in% c("Muerte", "Recuperacion")) 
+casos_desenlace_final_conocido <- sum(casos$desenlace %in% c("Muerte", "Recuperacion")) 
 
-CFR <- numero_muertes / numero_casos_resultado_conocido
+CFR <- muertes / casos_desenlace_final_conocido
 
 print(CFR)
 ```
@@ -250,44 +232,39 @@ print(CFR)
 ```{.output}
 [1] 0.5825243
 ```
-
-```r
-#Otra posible solución.
-
-# numero_muertes <- directorio_casos %>%
-#   filter(desenlace == "Muerte") %>%
-#   tally()
-# 
-# numero_casos_resultado_conocido <- directorio_casos %>%
-#   filter(desenlace %in% c("Muerte", "Recuperacion")) %>%
-#   tally()
-# 
-# CFR <- numero_muertes$n / numero_casos_resultado_conocido$n
-```
  
 ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
-Luego, determine el CFR con sus intervalos de confianza utilizando la función `binom.confint`.
+Para acompañar el calculo del CFR se pueden emplear sus intervalos de confianza para lo cual se puede usar la función `binom.confint`. La función `binom.confint` se utiliza para calcular intervalos de confianza para una proporción en una distribución binomial, que es por ejemplo cuando tenemos el total de infecciones con desenlace final conocido (recuperado o muerte). Esta función pide tres argumentos: 1) el número de muertes; 2) el número total de casos con desenlace final conocido, sin importar que hayan muerto o se hayan recuperado, pero no cuenta los datos con `NA`; 3) el método que se utilizará para calcular los intervalos de confianza, en este caso "`exact`" (método Clopper-Pearson). 
 
-La función `binom.confint` se utiliza para calcular intervalos de confianza para una proporción en una distribución binomial, que es por ejemplo cuando tenemos el total de infecciones con desenlace final conocido (recuperado o muerte). Esta función pide tres argumentos: 1) el número de muertes; 2) el número total de casos con desenlace final conocido, sin importar que hayan muerto o se hayan recuperado, pero no cuenta los datos con `NA`; 3) el método que se utilizará para calcular los intervalos de confianza, en este caso "`exact`" (método Clopper-Pearson).
 ::::::::::::::::::::::::::::::::::::: challenge  
 
 ## Desafío 2  
 
+Determine el CFR con sus intervalos de confianza utilizando la función `binom.confint`. 
+
+```{.error}
+Error in eval(expr, envir, enclos): object 'numero_muertes' not found
+```
+
+```{.error}
+Error in eval(expr, envir, enclos): object 'CFR_con_CI' not found
+```
+:::::::::::::::::::::::: solution 
+
+## Pista 
+
+Recuerde diligenciar los espacios donde dice `COMPLETE`. Y obtenga este resultado
+
+
 ```r
 CFR_con_CI <- binom.confint(COMPLETE, COMPLETE, method = "COMPLETE") %>%
-  kable(caption = "**¿QUE TITULO LE PONDRÍA?**")
+  kable(caption = "**COMPLETE ¿QUE TITULO LE PONDRÍA?**")
 
 CFR_con_CI
 ```
-
-
-Table: **CFR con intervalos de confianza**
-
-|method |  x|   n|      mean|     lower|     upper|
-|:------|--:|---:|---------:|---------:|---------:|
-|exact  | 60| 103| 0.5825243| 0.4812264| 0.6789504|
 :::::::::::::::::::::::::::::::::
+::::::::::::::::::::::::::::::::::::::::::::::::
 
 :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: instructor
 
@@ -296,19 +273,21 @@ Table: **CFR con intervalos de confianza**
 
 ```r
 CFR_con_CI <- binom.confint(numero_muertes, 
-                                       numero_casos_resultado_conocido, method = "exact") %>%
+                                       casos_desenlace_final_conocido, method = "exact") %>%
   kable(caption = "**CFR con intervalos de confianza**")
+```
 
+```{.error}
+Error in eval(expr, envir, enclos): object 'numero_muertes' not found
+```
+
+```r
 CFR_con_CI
 ```
 
-
-
-Table: **CFR con intervalos de confianza**
-
-|method |  x|   n|      mean|     lower|     upper|
-|:------|--:|---:|---------:|---------:|---------:|
-|exact  | 60| 103| 0.5825243| 0.4812264| 0.6789504|
+```{.error}
+Error in eval(expr, envir, enclos): object 'CFR_con_CI' not found
+```
 ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
 ## 3. Incidencia {#sección-3}
@@ -362,7 +341,7 @@ $cumulative: FALSE
 
 
 ```r
-incidencia_diaria <- incidence(directorio_casos$fecha_inicio_sintomas)
+incidencia_diaria <- incidence(casos$fecha_inicio_sintomas)
 incidencia_diaria
 ```
 
@@ -389,7 +368,7 @@ Ahora haga una gráfica de la incidencia diaria.
 plot(incidencia_diaria, border = "black")
 ```
 
-<img src="fig/TallerEbola-rendered-unnamed-chunk-16-1.png" style="display: block; margin: auto;" />
+<img src="fig/TallerEbola-rendered-unnamed-chunk-15-1.png" style="display: block; margin: auto;" />
 
 
 En el `Eje X (Fechas)`: Se puede observar fechas van desde el `7 de abril de 2014` hasta una fecha posterior al `21 de junio de 2014`. Estas fechas representan el período de observación del brote.
@@ -439,7 +418,7 @@ $timespan: 85 days
 $cumulative: FALSE
 ```
 
-<img src="fig/TallerEbola-rendered-unnamed-chunk-18-1.png" style="display: block; margin: auto;" />
+<img src="fig/TallerEbola-rendered-unnamed-chunk-17-1.png" style="display: block; margin: auto;" />
 
 :::::::::::::::::::::::::::::::::
 
@@ -449,9 +428,9 @@ $cumulative: FALSE
 
 
 ```r
-incidencia_semanal <- incidence(directorio_casos$fecha_inicio_sintomas, 
+incidencia_semanal <- incidence(casos$fecha_inicio_sintomas, 
                                 interval = 7, 
-                                last_date = max(directorio_casos$fecha_de_hospitalizacion,
+                                last_date = max(casos$fecha_de_hospitalizacion,
                                               na.rm = TRUE))
 incidencia_semanal
 ```
@@ -473,7 +452,7 @@ $cumulative: FALSE
 plot(incidencia_semanal, border = "black")
 ```
 
-<img src="fig/TallerEbola-rendered-unnamed-chunk-19-1.png" style="display: block; margin: auto;" />
+<img src="fig/TallerEbola-rendered-unnamed-chunk-18-1.png" style="display: block; margin: auto;" />
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
@@ -493,17 +472,15 @@ Grafique la incidencia transformada logarítmicamente:
 
 
 ```r
-incidencia_semanal_df <- as.data.frame(incidencia_semanal)
-
-  ggplot(incidencia_semanal_df) + 
+  ggplot(as.data.frame(incidencia_semanal)) + 
   geom_point(aes(x = dates, y = log(counts))) + 
-  scale_x_date(date_breaks = "1 week", date_labels = "%d-%b") +
-  xlab("Fecha") +
+  scale_x_incidence(incidencia_semanal) +
+  xlab("Semana") +
   ylab("Incidencia semanal logarítmica") + 
   theme_minimal()
 ```
 
-<img src="fig/TallerEbola-rendered-unnamed-chunk-20-1.png" style="display: block; margin: auto;" />
+<img src="fig/TallerEbola-rendered-unnamed-chunk-19-1.png" style="display: block; margin: auto;" />
  
   
 #### Ajuste un modelo log-lineal a los datos de incidencia semanal {#interpretación-del-modelo}
@@ -626,7 +603,7 @@ Dos formas de hacerlo
 plot(incidencia_semanal, fit = ajuste_modelo)
 ```
 
-<img src="fig/TallerEbola-rendered-unnamed-chunk-24-1.png" style="display: block; margin: auto;" />
+<img src="fig/TallerEbola-rendered-unnamed-chunk-23-1.png" style="display: block; margin: auto;" />
 
 
 
@@ -648,7 +625,9 @@ ggplot() +
   theme_minimal()
 ```
 
-<img src="fig/TallerEbola-rendered-unnamed-chunk-25-1.png" style="display: block; margin: auto;" />
+```{.error}
+Error in eval(expr, envir, enclos): object 'incidencia_semanal_df' not found
+```
 
 
 
@@ -673,7 +652,7 @@ Dado que esta epidemia es de ébola y la mayoría de los casos van a ser hospita
 
 
 ```r
-summary(as.numeric(directorio_casos$fecha_de_hospitalizacion - directorio_casos$fecha_inicio_sintomas))
+summary(as.numeric(casos$fecha_de_hospitalizacion - casos$fecha_inicio_sintomas))
 ```
 
 ```{.output}
@@ -778,7 +757,7 @@ $info: list containing the following items:
 ## Desafío 7  
 
 Ahora, grafique el modelo.
-<img src="fig/TallerEbola-rendered-unnamed-chunk-30-1.png" style="display: block; margin: auto;" />
+<img src="fig/TallerEbola-rendered-unnamed-chunk-29-1.png" style="display: block; margin: auto;" />
 :::::::::::::::::::::::::::::::::
 
 :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: instructor
@@ -804,7 +783,7 @@ ggplot() +
   theme_minimal()
 ```
 
-<img src="fig/TallerEbola-rendered-unnamed-chunk-31-1.png" style="display: block; margin: auto;" />
+<img src="fig/TallerEbola-rendered-unnamed-chunk-30-1.png" style="display: block; margin: auto;" />
 ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
 
@@ -1015,7 +994,7 @@ Grafique la estimación de $R$ como función del tiempo:
 plot(estimacion_rt, legend = FALSE)
 ```
 
-<img src="fig/TallerEbola-rendered-unnamed-chunk-41-1.png" style="display: block; margin: auto;" />
+<img src="fig/TallerEbola-rendered-unnamed-chunk-40-1.png" style="display: block; margin: auto;" />
 
 
 ***
