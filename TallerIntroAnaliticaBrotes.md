@@ -49,7 +49,13 @@ Al final de este taller usted podrá:
 
 Explicación del taller (10 minutos)
 
-Realizar taller (100 minutos taller)
+Realización del taller (100 minutos taller)
+
+- Parte 1: Estructura de datos y CFR (15 min)
+
+- Parte 2: Incidencia y tasa de crecimiento (45 min)
+
+- Parte 3: Rt (40 min)
 
 Discusión 30 minutos
 
@@ -84,7 +90,7 @@ En esta práctica se desarrollarán los siguientes conceptos:
 
 Antes de comenzar, descargue la carpeta con los datos y el proyecto desde [Carpetas de datos](https://drive.google.com/drive/folders/1T0uZ2FNhwFAnFcCNxfLX8V6Ir3IsJO6y?usp=sharing) . Ahí mismo encontrará un archivo .R para instalar las dependencias necesarias para este taller.
 
-Recuerde abrir el archivo `RProject` denominado `Taller parametros.Rproj` antes de empezar a trabajar. Este paso no solo le ayudará a cumplir con las buenas prácticas de programación en R, sino también a mantener un directorio organizado, permitiendo un desarrollo exitoso del taller.
+Recuerde abrir el archivo `RProject` denominado `Taller-Brotes-Ebola.Rproj` antes de empezar a trabajar. Este paso no solo le ayudará a cumplir con las buenas prácticas de programación en R, sino también a mantener un directorio organizado, permitiendo un desarrollo exitoso del taller.
 
 
 #### Cargue de librerías: 
@@ -104,11 +110,11 @@ library(EpiEstim) # para estimar R(t)
 
 #### Cargue de bases de datos
 
-Se le ha proporcionado la siguiente base de datos de casos `casos`:
+Se le ha proporcionado la siguiente base de datos:
 
-`casos`: una base de datos de casos que contiene información de casos hasta el 1 de julio de 2014; y
+- `casos`: una base de datos de casos que contiene información de casos hasta el 1 de julio de 2014.
 
-Para leer en R este archivo, use la función `read_rds` de `tidyverse`. Se creará una tabla de datos almacenada como el objeto `tibble.`
+Para leer en R este archivo, utilice la función `read_rds` de `tidyverse`. Se creará una tabla de datos almacenada como objeto de clase `tibble.`
 
 
 ```r
@@ -118,7 +124,7 @@ casos <- read_rds("files/casos.rds")
 
 #### Estructura de los datos
 
-Explore la estructura de los datos. Para esto puede utilizar la función `glimpse` de `tidyverse` la cual nos proporciona una visión rápida y legible de la estructura interna de nuestro conjunto de datos.
+Explore la estructura de los datos. Para esto puede utilizar la función `glimpse` de `tidyverse`, la cual nos proporciona una visión rápida y legible de la estructura interna de nuestro conjunto de datos.
 
 
 ```r
@@ -141,11 +147,11 @@ $ longitud                 <dbl> -13.21799, -13.21491, -13.22804, -13.23112, -�
 $ latitud                  <dbl> 8.473514, 8.464927, 8.483356, 8.464776, 8.452…
 ```
 
-Como puede observar contactos tiene 11 columnas (variables) y 166 filas de datos. En un rápido vistazo puede observar el tipo de las variables por ejemplo, la columna `desenlace` tiene formato carácter (`chr`) y contiene entre sus valores "recuperación" o "muerte". 
+Como puede observar contactos tiene 11 columnas (variables) y 166 filas de datos. En un rápido vistazo puede observar el tipo de las variables por ejemplo, la columna `desenlace` tiene formato carácter (`chr`) y contiene entre sus valores `"Recuperación"` o `"Muerte"`. 
 
-Además encuentra estas variables: 
+Además, puede encontrar estas variables: 
 
-- El identificador `id_caso` al igual que en contactos 
+- El identificador `id_caso`
 
 - La generación de infectados (cuantas infecciones secundarias desde la fuente hasta el sujeto han ocurrido) 
 
@@ -155,7 +161,7 @@ Además encuentra estas variables:
 
 - La fecha de hospitalización 
 
-- La fecha del desenlace que como se puede observar en la siguiente variable puede tener entre sus opciones NA (no hay información hasta ese momento o no hay registro), recuperación y muerte 
+- La fecha del desenlace que, como se puede observar, en la siguiente variable puede tener entre sus opciones `NA` (no hay información hasta ese momento o no hay registro), recuperación y muerte 
 
 - La variable género que puede ser `f` de femenino o `m` de masculino 
 
@@ -184,9 +190,9 @@ table(casos$desenlace, useNA = "ifany")
 
 ## Desafío 1  
 
-Calcule la probabilidad de muerte en los casos reportados (`CFR`) tomando el número de muertes y el número de casos con desenlace final conocido del objeto casos. Esta vez se calculará el `CFR` con el método `Naive`, Los cálculos `Naive` tienen el problema de que pueden tener sesgos. Hablaremos de estos sesgos en profundidad en el día 4. 
+Calcule la probabilidad de muerte en los casos reportados (`CFR`) tomando el número de muertes y el número de casos con desenlace final conocido del objeto casos. Esta vez se calculará el `CFR` con el método *Naive*. Los cálculos *Naive* (*inocentes*) tienen el problema de que pueden presentar sesgos, por lo que no deberían ser utilizados para informar decisiones de salud pública. Hablaremos de estos sesgos en profundidad en el día 4. 
 
-Durante este taller se le presentarán algunos retos, para los cuales obtendrá algunas pistas, por ejemplo en el presente reto le presenta una pista, la cual es un fragmento del código que usted debe completar para alcanzar la solución. En los espacios donde dice `COMPLETE` por favor diligencie el código faltante.
+Durante este taller se le presentarán algunos retos, para los cuales obtendrá algunas pistas, por ejemplo en el presente reto se le presenta una pista, la cual es un fragmento del código que usted debe completar para alcanzar la solución. En los espacios donde dice `COMPLETE` por favor diligencie el código faltante.
 
 
 ```r
@@ -234,7 +240,7 @@ print(CFR)
  
 ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
-Para acompañar el calculo del CFR se pueden emplear sus intervalos de confianza para lo cual se puede usar la función `binom.confint`. La función `binom.confint` se utiliza para calcular intervalos de confianza para una proporción en una distribución binomial, que es por ejemplo cuando tenemos el total de infecciones con desenlace final conocido (recuperado o muerte). Esta función pide tres argumentos: 1) el número de muertes; 2) el número total de casos con desenlace final conocido, sin importar que hayan muerto o se hayan recuperado, pero no cuenta los datos con `NA`; 3) el método que se utilizará para calcular los intervalos de confianza, en este caso "`exact`" (método Clopper-Pearson). 
+Para complementar el calculo del CFR se pueden calcular sus intervalos de confianza por medio de la función `binom.confint`. La función `binom.confint` se utiliza para calcular intervalos de confianza para una proporción en una distribución binomial, que corresponde, por ejemplo, a cuando tenemos el total de infecciones con desenlace final conocido (recuperado o muerte). Esta función pide tres argumentos: 1) el número de muertes y 2) el número total de casos con desenlace final conocido, es decir sin importar que hayan muerto o se hayan recuperado, pero sin cuenta los datos con `NA`; 3) el método que se utilizará para calcular los intervalos de confianza, en este caso "`exact`" (método Clopper-Pearson). 
 
 ::::::::::::::::::::::::::::::::::::: challenge  
 
@@ -290,11 +296,11 @@ Table: **CFR con intervalos de confianza**
 
 ### 3.1. Curva de incidencia diaria 
 
-El paquete `incidence` es de gran utilidad para el análisis epidemiológico de datos de incidencia de enfermedades infecciosas, dado que permite calcular la incidencia a partir del intervalo temporal suministrado (e.g. diario o semanal). Dentro de este paquete esta la función `incidence` la cual tiene varios argumentos: 
+El paquete `incidence` es de gran utilidad para el análisis epidemiológico de datos de incidencia de enfermedades infecciosas, dado que permite calcular la incidencia a partir del intervalo temporal suministrado (e.g. diario o semanal). Dentro de este paquete esta la función `incidence` la cuenta con los siguientes argumentos: 
 
 1. `dates` contiene una variable con fechas que representan cuándo ocurrieron eventos individuales, como por ejemplo la fecha de inicio de los síntomas de una enfermedad en un conjunto de pacientes. 
 
-2. `interval` es un intervalo de tiempo fijo por el que se quiere calcular la incidencia. Por ejemplo, `interval = 365` para un año. Si no se especifica, por defecto es diario. 
+2. `interval` es un intervalo de tiempo fijo por el que se quiere calcular la incidencia. Por ejemplo, `interval = 365` para un año. Si no se especifica, el valor por defecto es diario. 
 
 3. `last_date` fecha donde se establecerá un limite temporal para los datos. Por ejemplo, la última fecha de hospitalización. Para este tercer argumento, podemos incluir la opción `max` y la opción  `na.rm`. La primera para obtener la última fecha de una variable y la segunda para ignorar los `NA` en caso de que existan. 
 
@@ -316,7 +322,7 @@ incidencia_diaria
 ```
 :::::::::::::::::::::::::::::::::
 
-El resultado es un objeto de incidencia que contiene el recuento de casos para cada intervalo de tiempo, lo que facilita su visualización y análisis posterior. Como puede observar la función produjo los siguientes datos: 
+El resultado es un objeto de clase incidencia (`incidence`) que contiene el recuento de casos para cada intervalo de tiempo, lo que facilita su visualización y análisis posterior. Como puede observar la función produjo los siguientes datos: 
 
 
 ```{.output}
@@ -354,7 +360,7 @@ $cumulative: FALSE
 ```
 ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
-Como resultado de la función se produjo un objeto tipo lista. Este objeto arroja estos datos: `166 casos` contemplados entre los días `2014-04-07` al `2014-06-29` para un total de `84 días`; se menciona que el intervalo es de `1 día`, dado que no se utilizo este parámetro quedo por defecto. Finalmente se menciona "`cumulative`: `FALSE`" lo que quiere decir que no se esta haciendo el acumulado de la incidencia, es decir que los casos corresponden a los del intervalo `interval: 1 day`, es decir a los casos nuevos cada día en específico.
+Como resultado de la función se produjo un objeto tipo lista. Este objeto arroja estos datos: `166 casos` contemplados entre los días `2014-04-07` al `2014-06-29` para un total de `84 días`; se menciona que el intervalo es de `1 día`, dado que no se utilizo específico explicitamente el parámetro por lo cual quedó su valor por defecto. Finalmente se menciona "`cumulative : FALSE`" lo que quiere decir que no se esta haciendo el acumulado de la incidencia, es decir que los casos corresponden a los del intervalo `interval: 1 day`, es decir a los casos nuevos cada día en específico.
 
 
 Ahora haga una gráfica de la incidencia diaria. 
@@ -386,7 +392,7 @@ Usualmente el inicio de la transmisión en la fase exponencial, y dependiendo el
 
 ### 3.2. Cálculo de la incidencia semanal 
 
-Teniendo en cuenta lo aprendido con respecto a la incidencia diaria, cree una variable para incidencia semanal. Luego, interprete el resultado y haga una gráfica. Para escoger la fecha que utilizará como última fecha en el tercer argumento de la función `incidence` ¿Qué fecha sería la más adecuada? Tenga en cuenta que la fecha debe ser posterior a la fecha que se haya escogido como el primer argumento.
+Teniendo en cuenta lo aprendido con respecto a la incidencia diaria, cree una variable para incidencia semanal. Luego, interprete el resultado y haga una gráfica. Para escoger la fecha que utilizará como última fecha debe asignarle un valor al argumento `last_date` de la función `incidence` ¿Qué fecha sería la más adecuada? Tenga en cuenta que la fecha debe ser posterior a la fecha que se haya escogido como el primer argumento.
 
 ::::::::::::::::::::::::::::::::::::: challenge  
 
@@ -468,7 +474,7 @@ Grafique la incidencia transformada logarítmicamente:
 
 
 ```r
-  ggplot(as.data.frame(incidencia_semanal)) + 
+ggplot(as.data.frame(incidencia_semanal)) + 
   geom_point(aes(x = dates, y = log(counts))) + 
   scale_x_incidence(incidencia_semanal) +
   xlab("Semana") +
@@ -622,7 +628,7 @@ Al final del gráfico se puede observar que la incidencia semanal disminuye.
 
 :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: instructor
 
-Si se grafica por fecha de inicio de síntomas mientras el brote está creciendo, siempre se va a ver un descenso artificial en la curva de la incidencia. Este sólo corresponde al rezago administrativo (del diagnóstico y reporte de casos), pero no indica necesariamente una reducción de la incidencia real.
+Si se grafica por fecha de inicio de síntomas mientras el brote está creciendo, siempre se va a ver un descenso artificial en la curva de la incidencia en fechas recientes. Este descenso sólo corresponde al rezago administrativo (del diagnóstico y reporte de casos), pero no indica necesariamente una reducción de la incidencia real.
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
@@ -913,6 +919,15 @@ Intervalo de confianza del tiempo de duplicación (95%): 9.728286 20.85893
 Si no lo recuerda vuelva por pistas a la sección [Ajuste un modelo log-lineal a los datos de incidencia semanal](#interpretación-del-modelo)
 
 ## 5. Estimación de numero de reproduccion
+
+Evaluar la velocidad a la que se propaga una infección en una población es una tarea importante a la hora de informar la respuesta de salud pública a una epidemia. 
+
+Los números de reproducción son métricas típicas para monitorear el desarrollo de epidemias y son informativos sobre su velocidad de propagación. El **número reproductivo básico** $R_0$, por ejemplo, mide el número promedio de casos secundarios producidos por un individuo infeccioso dada una población completamente susceptible. Esta hipótesis suele ser válida solo al inicio de una epidemia.
+
+Para caracterizar el la propagación en tiempo real es más común utilizar el **número reproductivo instantáneo** $R_t$, el cual describe el número promedio de casos secundarios generados por un individuo infeccioso en el tiempo $t$ dado que no han habido cambios en las condiciones actuales.
+
+En esta sección exploraremos los conceptos necesarios para calcular el número reproductivo instantáneo, así como los pasos a seguir para estimarlo por medio del paquete de R `{EpiEstim}`.
+
 ### 5.1. Intervalo serial (SI) 
 
 ¿Qué es el intervalo serial?
@@ -928,12 +943,15 @@ Para este brote de ébola asumiremos que el intervalo serial está descrito por 
 # Parametros de la distribución gamma para el invertavlo serial
 mean_si <- 8.7
 std_si <-  6.1
+
+config <- make_config(list(mean_si = mean_si, std_si = std_si)) 
+# t_start y t_end se configuran automáticamente para estimar R en ventanas deslizantes para 1 semana de forma predeterminada.
 ```
 
 
-### 6.2. Estimación de la transmisibilidad variable en el tiempo, R(t) 
+### 5.2. Estimación de la transmisibilidad variable en el tiempo, R(t) 
 
-Cuando la suposición de que ($R$) es constante en el tiempo se vuelve insostenible, una alternativa es estimar la transmisibilidad variable en el tiempo utilizando el número de reproducción instantánea ($R_t$). Este enfoque, introducido por Cori et al. (2013),  se implementa en el paquete `EpiEstim`, el cual estima el $R_t$ para ventanas de tiempo personalizadas (el valor predeterminado es una sucesión de ventanas de tiempo deslizantes), utilizando la una distribución de Poisson.  A continuación, estimamos la transmisibilidad para ventanas de tiempo deslizantes de 1 semana (el valor predeterminado de `estimate_R`):
+Cuando la suposición de que ($R$) es constante en el tiempo se vuelve insostenible, una alternativa es estimar la transmisibilidad variable en el tiempo utilizando el número de reproducción instantánea ($R_t$). Este enfoque, introducido por Cori et al. (2013),  se implementa en el paquete `EpiEstim`, el cual estima el $R_t$ para ventanas de tiempo personalizadas, utilizando la una distribución de Poisson.  A continuación, estimamos la transmisibilidad para ventanas de tiempo deslizantes de 1 semana (el valor predeterminado de `estimate_R`):
 
 ***
 
