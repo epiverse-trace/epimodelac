@@ -227,6 +227,8 @@ CFR_con_CI
 ```
 :::::::::::::::::::::::: solution 
 
+## Pista 
+
 Recuerde diligenciar los espacios donde dice `COMPLETE`. Y obtenga este resultado
 
 ```{r eval= FALSE, echo=TRUE, message=FALSE, warning=FALSE,comment=""}
@@ -238,6 +240,7 @@ CFR_con_CI
 
 ```
 :::::::::::::::::::::::::::::::::
+
 :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: instructor
 
 ## Solución 2  
