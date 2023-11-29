@@ -77,7 +77,7 @@ En esta práctica se desarrollarán los siguientes conceptos:
 
 - Incidencia
 
-## 1. Preparación {#sección-1}
+## 1. Estructura de datos
 
 
 #### Preparación previa
@@ -165,8 +165,7 @@ Además encuentra estas variables:
 
 Note que las fechas ya están en formato fecha (`date`).
 
-## 2. CFR {#sección-2}
-
+## 2. CFR 
 
 ### Probabilidad de muerte en los casos reportados (`CFR`, por *Case Fatality Ratio*)
 
@@ -202,8 +201,8 @@ Ejemplo,
 
 
 ```r
-# RETO
-muertes <-  #COMPLETE
+# Reto
+muertes <-  COMPLETE
 #Solución
 muertes <- sum(casos$desenlace %in% "Muerte") 
 ```
@@ -243,13 +242,11 @@ Para acompañar el calculo del CFR se pueden emplear sus intervalos de confianza
 
 Determine el CFR con sus intervalos de confianza utilizando la función `binom.confint`. 
 
-```{.error}
-Error in eval(expr, envir, enclos): object 'numero_muertes' not found
-```
+Table: **CFR con intervalos de confianza**
 
-```{.error}
-Error in eval(expr, envir, enclos): object 'CFR_con_CI' not found
-```
+|method |  x|   n|      mean|     lower|     upper|
+|:------|--:|---:|---------:|---------:|---------:|
+|exact  | 60| 103| 0.5825243| 0.4812264| 0.6789504|
 :::::::::::::::::::::::: solution 
 
 ## Pista 
@@ -272,27 +269,25 @@ CFR_con_CI
 
 
 ```r
-CFR_con_CI <- binom.confint(numero_muertes, 
+CFR_con_CI <- binom.confint(muertes, 
                                        casos_desenlace_final_conocido, method = "exact") %>%
   kable(caption = "**CFR con intervalos de confianza**")
-```
 
-```{.error}
-Error in eval(expr, envir, enclos): object 'numero_muertes' not found
-```
-
-```r
 CFR_con_CI
 ```
 
-```{.error}
-Error in eval(expr, envir, enclos): object 'CFR_con_CI' not found
-```
+
+
+Table: **CFR con intervalos de confianza**
+
+|method |  x|   n|      mean|     lower|     upper|
+|:------|--:|---:|---------:|---------:|---------:|
+|exact  | 60| 103| 0.5825243| 0.4812264| 0.6789504|
 ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
-## 3. Incidencia {#sección-3}
+## 3. Incidencia 
 
-### 3.1. Curva de incidencia diaria {#sección-3.1}
+### 3.1. Curva de incidencia diaria 
 
 El paquete `incidence` es de gran utilidad para el análisis epidemiológico de datos de incidencia de enfermedades infecciosas, dado que permite calcular la incidencia a partir del intervalo temporal suministrado (e.g. diario o semanal). Dentro de este paquete esta la función `incidence` la cual tiene varios argumentos: 
 
@@ -388,7 +383,7 @@ Usualmente el inicio de la transmisión en la fase exponencial, y dependiendo el
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
-### 3.2. Cálculo de la incidencia semanal {#sección-3.2}
+### 3.2. Cálculo de la incidencia semanal 
 
 Teniendo en cuenta lo aprendido con respecto a la incidencia diaria, cree una variable para incidencia semanal. Luego, interprete el resultado y haga una gráfica. Para escoger la fecha que utilizará como última fecha en el tercer argumento de la función `incidence` ¿Qué fecha sería la más adecuada? Tenga en cuenta que la fecha debe ser posterior a la fecha que se haya escogido como el primer argumento.
 
@@ -458,9 +453,9 @@ plot(incidencia_semanal, border = "black")
 
 Compare la gráfica de incidencia diaria con la de incidencia semanal. ¿Qué observa? ¿Los datos se comportan diferente? ¿Es lo que esperaba? ¿Logra observar alguna tendencia?
 
-## 4. Tasa de crecimiento {#sección-4}
+## 4. Tasa de crecimiento 
 
-### 4.1. Modelo log-lineal {#sección-4.1}
+### 4.1. Modelo log-lineal 
 
 #### Estimación de la tasa de crecimiento mediante un modelo log-lineal
 
@@ -567,6 +562,19 @@ Si quiere conocer un poco más de este componente puede explorarlo con la funci�
 glimpse(ajuste_modelo$info$pred)
 ```
 
+¿El modelo se ajusta bien a los datos? Verifique el $R^2$
+
+
+```r
+AjusteR2modelo <- summary(ajuste_modelo$model)$adj.r.squared
+cat("El R cuadrado ajustado es:", AjusteR2modelo, "\n")
+```
+
+```{.output}
+El R cuadrado ajustado es: 0.7551113 
+```
+
+
 :::::::::::::::::::::::::::::::::
 ::::::::::::::::::::::::::::::::::::::::::::::::
  
@@ -595,40 +603,14 @@ Ejemplo: Algunos fenómenos pueden variar sistemáticamente según el día de la
 
 Grafique la incidencia incluyendo una línea que represente el modelo.
 
-Dos formas de hacerlo
 
-1. Con `plot`
+Con `plot`
 
 ```r
 plot(incidencia_semanal, fit = ajuste_modelo)
 ```
 
-<img src="fig/TallerEbola-rendered-unnamed-chunk-23-1.png" style="display: block; margin: auto;" />
-
-
-
-2. Con `ggplot` 
-
-
-```r
-ajuste_modelo_df <- as.data.frame(ajuste_modelo$info$pred) #Predicciones del modelo
-
-ggplot() +
-  geom_bar(data = incidencia_semanal_df, aes(x = dates, y = counts),  #Histograma
-           stat = "identity", fill = "grey", color = "black") +
-  geom_ribbon(data = ajuste_modelo_df, aes(x = dates, ymin = lwr, ymax = upr), alpha = 0.2) + #Intervalo de confianza del ajuste
-  geom_line(data = ajuste_modelo_df, aes(x = dates, y = fit), #Línea del ajuste
-            color = "blue", size = 1) +
-  scale_x_date(date_breaks = "1 week", date_labels = "%d-%b") + #Formato para los ejes
-  xlab("Fecha") +
-  ylab("Incidencia semanal") +
-  theme_minimal()
-```
-
-```{.error}
-Error in eval(expr, envir, enclos): object 'incidencia_semanal_df' not found
-```
-
+<img src="fig/TallerEbola-rendered-unnamed-chunk-24-1.png" style="display: block; margin: auto;" />
 
 
 Tras ajustar el modelo log-lineal a la incidencia semanal para estimar la tasa de crecimiento de la epidemia el gráfico muestra la curva de ajuste superpuesta a la incidencia semanal observada. 
@@ -643,10 +625,10 @@ Si se grafica por fecha de inicio de síntomas mientras el brote está creciendo
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
-### 4.2. Modelo log-lineal con datos truncados {#sección-4.2}
+### 4.2. Modelo log-lineal con datos truncados 
 
 
-#### Encontrando una fecha límite adecuada para el modelo log-lineal, en función de los rezagos (biológicos y administrativos).
+#### Encuentre una fecha límite adecuada para el modelo log-lineal, en función de los rezagos (biológicos y administrativos).
 
 Dado que esta epidemia es de ébola y la mayoría de los casos van a ser hospitalizados, es muy probable que la mayoría de las notificaciones ocurran en el momento de la hospitalización. De tal manera que podríamos examinar cuánto tiempo transcurre entre la fecha de inicio de síntomas y la fecha de hospitalización para hacernos una idea del rezago para esta epidemia.
 
@@ -660,7 +642,7 @@ summary(as.numeric(casos$fecha_de_hospitalizacion - casos$fecha_inicio_sintomas)
    0.00    1.00    2.00    3.53    5.00   22.00 
 ```
 
-Al restar la fecha de hopsitalización a la fecha de inicio de síntomas podría haber valores negativos. ¿Cual cree que sea su significado? ¿Ocurre en este caso?
+Al restar la fecha de hospitalización a la fecha de inicio de síntomas podría haber valores negativos. ¿Cual cree que sea su significado? ¿Ocurre en este caso?
 
 
 Para evitar el sesgo debido a rezagos en la notificación, se pueden truncar los datos de incidencia. Pruebe descartar las últimas dos semanas. Este procedimiento permite concentrarse en el periodo en que los datos son más completos para un análisis más fiable.
@@ -684,13 +666,14 @@ incidencia_diaria_truncada <- subset(incidencia_diaria,
                         to = fecha_maxima) # eliminamos las últimas dos semanas de datos
 ```
 
-Ahora utilizando los datos truncados `incidencia_semanal_truncada` vuelva a ajustar y a graficar el modelo logarítmico lineal. Puede emplear el método que más le haya gustado.
+
 
 ::::::::::::::::::::::::::::::::::::: challenge  
 
 ## Desafío 6  
 
-Primero ajuste el modelo
+Ahora utilizando los datos truncados `incidencia_semanal_truncada` vuelva a ajustar el modelo logarítmico lineal.
+
 
 ```{.output}
 <incidence_fit object>
@@ -722,8 +705,8 @@ $info: list containing the following items:
 
 
 ```r
-ajuste_modelo_semanal <- incidence::fit(incidencia_semanal_truncada)
-ajuste_modelo_semanal
+ajuste_modelo_truncado <- incidence::fit(incidencia_semanal_truncada)
+ajuste_modelo_truncado
 ```
 
 ```{.output}
@@ -748,15 +731,26 @@ $info: list containing the following items:
 
   $pred: data.frame of incidence predictions (10 rows, 5 columns)
 ```
+
+```r
+AjusteR2modelo <- summary(ajuste_modelo_truncado$model)$adj.r.squared 
+
+cat("El R cuadrado ajustado es:", AjusteR2modelo, "\n")
+```
+
+```{.output}
+El R cuadrado ajustado es: 0.8131106 
+```
 ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
-¿Como interpreta estos resultados?
+¿Como interpreta estos resultados? ¿Compare los $R^2$?
 
 ::::::::::::::::::::::::::::::::::::: challenge  
 
 ## Desafío 7  
 
-Ahora, grafique el modelo.
+Ahora utilizando los datos truncados `incidencia_semanal_truncada` vuelva a graficar el modelo logarítmico lineal. 
+
 <img src="fig/TallerEbola-rendered-unnamed-chunk-29-1.png" style="display: block; margin: auto;" />
 :::::::::::::::::::::::::::::::::
 
@@ -766,21 +760,7 @@ Ahora, grafique el modelo.
 
 
 ```r
-ajuste_modelo_semanal_df <- as.data.frame(ajuste_modelo_semanal$info$pred) #Predicciones del modelo
-
-incidencia_semanal_truncada_df <- as.data.frame(incidencia_semanal_truncada)
-
-
-ggplot() +
-  geom_bar(data = incidencia_semanal_truncada_df, aes(x = dates, y = counts),  #Histograma
-           stat = "identity", fill = "grey", color = "black") +
-  geom_ribbon(data = ajuste_modelo_semanal_df, aes(x = dates, ymin = lwr, ymax = upr), alpha = 0.2) + #Intervalo de confianza del ajuste
-  geom_line(data = ajuste_modelo_semanal_df, aes(x = dates, y = fit), #Línea del ajuste
-            color = "blue", size = 1) +
-  scale_x_date(date_breaks = "1 week", date_labels = "%d-%b") + #Formato para los ejes
-  xlab("Fecha") +
-  ylab("Incidencia semanal") +
-  theme_minimal()
+plot(incidencia_semanal_truncada, fit = ajuste_modelo_truncado)
 ```
 
 <img src="fig/TallerEbola-rendered-unnamed-chunk-30-1.png" style="display: block; margin: auto;" />
@@ -794,7 +774,7 @@ Observe las estadísticas resumidas del ajuste:
 
 
 ```r
-summary(ajuste_modelo_semanal$model)
+summary(ajuste_modelo_truncado$model)
 ```
 
 ```{.output}
@@ -820,7 +800,7 @@ F-statistic: 40.16 on 1 and 8 DF,  p-value: 0.0002237
 
 El modelo muestra que hay una relación significativa (`R-squared: 0.8131`) entre el tiempo (`dates.x`) y la incidencia de la enfermedad, por lo que concluimos que la enfermedad muestra un crecimiento exponencial a lo largo del tiempo. 
 
-### 4.3. Tasa de crecimiento y tasa de duplicación: extracción de datos {#sección-4.3}
+### 4.3. Tasa de crecimiento y tasa de duplicación: extracción de datos 
 
 #### Estimacion de la tasa de crecimiento 
 
@@ -854,7 +834,7 @@ Intervalo de confianza de la tasa de crecimiento diaria (95%): 0.03323024 0.0712
 
 ```r
 # Estimación de la tasa de crecimiento diaria
-tasa_crecimiento_diaria <- ajuste_modelo_semanal$info$r
+tasa_crecimiento_diaria <- ajuste_modelo_truncado$info$r
 
 cat("La tasa de crecimiento diaria es:", tasa_crecimiento_diaria, "\n")
 ```
@@ -865,7 +845,7 @@ La tasa de crecimiento diaria es: 0.05224047
 
 ```r
 # Intervalo de confianza de la tasa de crecimiento diaria
-tasa_crecimiento_IC <- ajuste_modelo_semanal$info$r.conf
+tasa_crecimiento_IC <- ajuste_modelo_truncado$info$r.conf
 
 cat("Intervalo de confianza de la tasa de crecimiento diaria (95%):", tasa_crecimiento_IC, "\n")
 ```
@@ -885,7 +865,7 @@ Ahora que ya ha obtenido la tasa de crecimiento diaria y sus intervalos de confi
 #### Estimacion del tiempo de duplicación
 
 
-Esta información también la encontrará calculada y lista para utilizar en el objeto `ajuste_modelo_semanal`, que tiene los datos ajustados de incidencia semanal truncada. 
+Esta información también la encontrará calculada y lista para utilizar en el objeto `ajuste_modelo_truncado`, que tiene los datos ajustados de incidencia semanal truncada. 
 
 ::::::::::::::::::::::::::::::::::::: challenge  
 
@@ -910,7 +890,7 @@ Intervalo de confianza del tiempo de duplicación (95%): 9.728286 20.85893
 
 ```r
 # Estimación del tiempo de duplicación en días
-tiempo_duplicacion_dias <- ajuste_modelo_semanal$info$doubling
+tiempo_duplicacion_dias <- ajuste_modelo_truncado$info$doubling
 cat("El tiempo de duplicación de la epidemia es", tiempo_duplicacion_dias, "días\n")
 ```
 
@@ -920,7 +900,7 @@ El tiempo de duplicación de la epidemia es 13.2684 días
 
 ```r
 # Intervalo de confianza del tiempo de duplicación
-tiempo_duplicacion_IC <- ajuste_modelo_semanal$info$doubling.conf
+tiempo_duplicacion_IC <- ajuste_modelo_truncado$info$doubling.conf
 cat("Intervalo de confianza del tiempo de duplicación (95%):", tiempo_duplicacion_IC, "\n")
 ```
 
@@ -931,8 +911,8 @@ Intervalo de confianza del tiempo de duplicación (95%): 9.728286 20.85893
 
 Si no lo recuerda vuelva por pistas a la sección [Ajuste un modelo log-lineal a los datos de incidencia semanal](#interpretación-del-modelo)
 
-
-### 6.1. Intervalo serial (SI) {#sección-6.1}
+## 5. Estimación de numero de reproduccion
+### 5.1. Intervalo serial (SI) 
 
 ¿Qué es el intervalo serial?
 
@@ -950,7 +930,7 @@ std_si <-  6.1
 ```
 
 
-### 6.2. Estimación de la transmisibilidad variable en el tiempo, R(t) {#sección-6.2}
+### 6.2. Estimación de la transmisibilidad variable en el tiempo, R(t) 
 
 Cuando la suposición de que ($R$) es constante en el tiempo se vuelve insostenible, una alternativa es estimar la transmisibilidad variable en el tiempo utilizando el número de reproducción instantánea ($R_t$). Este enfoque, introducido por Cori et al. (2013),  se implementa en el paquete `EpiEstim`, el cual estima el $R_t$ para ventanas de tiempo personalizadas (el valor predeterminado es una sucesión de ventanas de tiempo deslizantes), utilizando la una distribución de Poisson.  A continuación, estimamos la transmisibilidad para ventanas de tiempo deslizantes de 1 semana (el valor predeterminado de `estimate_R`):
 
@@ -971,19 +951,19 @@ config <- make_config(list(mean_si = mean_si, std_si = std_si))
 estimacion_rt <- estimate_R(incidencia_diaria_truncada, method = "parametric_si", 
                             si_data = si_data,
                             config = config)
-# Observamos las estimaciones más recientes de R(t)
-tail(estimacion_rt$R[, c("t_start", "t_end", "Median(R)", 
+# Observamos las primeras estimaciones de R(t)
+head(estimacion_rt$R[, c("t_start", "t_end", "Median(R)", 
                          "Quantile.0.025(R)", "Quantile.0.975(R)")])
 ```
 
 ```{.output}
-   t_start t_end Median(R) Quantile.0.025(R) Quantile.0.975(R)
-58      59    65 1.3232376         0.8678734          1.915598
-59      60    66 1.4452407         0.9718974          2.052028
-60      61    67 1.2485008         0.8188557          1.807404
-61      62    68 1.0102544         0.6354205          1.509855
-62      63    69 0.8433989         0.5092505          1.299324
-63      64    70 1.0276327         0.6538923          1.522448
+  t_start t_end Median(R) Quantile.0.025(R) Quantile.0.975(R)
+1       2     8        NA                NA                NA
+2       3     9  2.173592         0.3136801          7.215718
+3       4    10  2.148673         0.3100840          7.132996
+4       5    11  2.060726         0.2973920          6.841036
+5       6    12  1.960940         0.2829915          6.509775
+6       7    13  1.869417         0.2697834          6.205943
 ```
 
 
@@ -1035,14 +1015,14 @@ Cambios menores y adaptación a español:
 Revise si al final de esta lección adquirió estas competencias:
 
 
-- Estimar la probabilidad de muerte en los casos reportados (CFR) 
-
 - Identificar los parámetros necesarios en casos de  transmisión de enfermedades infecciosas de persona a persona. 
+
+- Estimar la probabilidad de muerte (CFR). 
+
+- Calcular y graficar la incidencia.
 
 - Estimar e interpretar la tasa de crecimiento y el tiempo en que se duplica la epidemia. 
 
-- Calcular y graficar la incidencia
-
-- Estimar e interpretar el número de reproducción instantáneo de la epidemia
+- Estimar e interpretar el número de reproducción instantáneo  de la epidemia.
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
