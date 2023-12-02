@@ -4,7 +4,7 @@ title: "Licenses"
 
 ## Instructional Material
 
-The lessons in this repository are developed by Epiverse-TRACE, based on the [lesson template from the Carpentries](https://github.com/carpentries/workbench-template-rmd) (template under CC BY license).
+The tutorials in this repository are developed by Epiverse-TRACE, based on the [lesson template from the Carpentries](https://github.com/carpentries/workbench-template-rmd) (template under CC BY license).
 
 All Epiverse-TRACE
 instructional material is made available under the [Creative Commons
