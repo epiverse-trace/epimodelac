@@ -61,6 +61,8 @@ contact: 'team@carpentries.org'
 episodes:
 - TallerIntroAnaliticaBrotes.Rmd
 - ZIKAB.Rmd
+- EnfermedadX.Rmd
+
 
 # Information for Learners
 learners:
