@@ -181,8 +181,8 @@
         
     <div id="flush-collapsecurrent" class="accordion-collapse collapse show" aria-labelledby="flush-headingcurrent" data-bs-parent="#accordionFlushcurrent">
       <div class="accordion-body">
-        <ul><li><a href="#data">5. Data</a></li>
-<li><a href="#data-exploration">6. Data exploration</a></li>
+        <ul><li><a href="#datos">5. Datos</a></li>
+<li><a href="#exploraci%C3%B3n-de-los-datos">6. Exploración de los datos</a></li>
         </ul></div><!--/div.accordion-body-->
     </div><!--/div.accordion-collapse-->
         
@@ -319,95 +319,99 @@ de contactos y aislamiento y preparar presentación de máximo 10
 mins.</p>
 </div>
 <div class="section level3">
-<h3 id="key-concepts">3. Key Concepts<a class="anchor" aria-label="anchor" href="#key-concepts"></a></h3>
+<h3 id="conceptos-claves">3. Conceptos claves<a class="anchor" aria-label="anchor" href="#conceptos-claves"></a></h3>
 <div class="section level4">
-<h4 id="epidemiological-delays-incubation-period-and-serial-interval"><strong>3.1. Epidemiological delays: incubation period and serial
-interval</strong><a class="anchor" aria-label="anchor" href="#epidemiological-delays-incubation-period-and-serial-interval"></a></h4>
-<p>In epidemiology, delay distributions refer to the <em>time lags</em>
-between two key events during an outbreak. For example: the time between
-the symptoms onset and diagnosis, the time between symptom onset and
-death, among many others.</p>
-<p>Today we will be focusing on two key delays known as the incubation
-period and serial interval. Both are crucial for informing public health
-response.</p>
-<p>The <u><strong>incubation period</strong></u> is the time between
-infection and symptom onset.</p>
-<p>The <u><strong>serial interval</strong></u> is the time between
-symptom onset in a primary and secondary case pair.</p>
-<p>The relationship between these quantities have an impact on whether
-the disease transmits before <u>(<strong>pre-symptomatic
-transmission)</strong></u> or after symptoms <u><strong>(symptomatic
-transmission)</strong></u> have developed in the primary case (Figure
-1).</p>
-<figure><img src="../practicalfig.jpg" class="figure mx-auto d-block"></figure><p>Figure 1. Relationship between the incubation period and serial
-interval on the timing of transmission (<em>Adapted from Nishiura et
+<h4 id="rezagos-epidemiológicos-período-de-incubación-e-intervalo-serial"><strong>3.1. Rezagos epidemiológicos: Período de incubación e
+intervalo serial</strong><a class="anchor" aria-label="anchor" href="#rezagos-epidemiol%C3%B3gicos-per%C3%ADodo-de-incubaci%C3%B3n-e-intervalo-serial"></a></h4>
+<p>En epidemiología, las distribuciones de rezagos se refieren a los
+<em>retrasos temporales</em> entre dos eventos clave durante un brote.
+Por ejemplo: el tiempo entre el inicio de los síntomas y el diagnóstico,
+el tiempo entre la aparición de síntomas y la muerte, entre muchos
+otros.</p>
+<p>Este taller se enfocará en dos rezagos clave conocidos como el
+período de incubación y el intervalo serial. Ambos son cruciales para
+informar la respuesta de salud pública.</p>
+<p>El <u><strong>período de incubación</strong></u> es el tiempo entre
+la infección y la aparición de síntomas.</p>
+<p>El <u><strong>intervalo serial</strong></u> es el tiempo entre la
+aparición de síntomas entre el caso primario y secundario.</p>
+<p>La relación entre estos parámetros tiene un impacto en si la
+enfermedad se transmite antes <u>(<strong>transmisión
+pre-sintomática</strong>)</u> o después de que los síntomas
+<u>(<strong>transmisión sintomática</strong>)</u> se hayan desarrollado
+en el caso primario (Figura 1).</p>
+<figure><img src="../practicalfig.jpg" class="figure mx-auto d-block"></figure><p>Figura 1. Relación entre el período de incubación y el intervalo
+serial en el momento de la transmisión (<em>Adaptado de Nishiura et
 al. 2020)</em></p>
 </div>
 <div class="section level4">
-<h4 id="common-delay-distributions-and-potential-biases">3.2. Common delay distributions and potential biases<a class="anchor" aria-label="anchor" href="#common-delay-distributions-and-potential-biases"></a></h4>
+<h4 id="distribuciones-comunes-de-rezagos-y-posibles-sesgos">3.2. Distribuciones comunes de rezagos y posibles sesgos<a class="anchor" aria-label="anchor" href="#distribuciones-comunes-de-rezagos-y-posibles-sesgos"></a></h4>
 <div class="section level5">
-<h5 id="potential-biases"><strong>3.2.1 Potential biases</strong><a class="anchor" aria-label="anchor" href="#potential-biases"></a></h5>
-<p>When estimating epidemiological delays, it is important to consider
-potential biases:</p>
-<p><u><strong>Censoring</strong></u> means that we know an event
-happened, but we do not know exactly when it happened. Most
-epidemiological data are “doubly censored” because there is uncertainty
-surrounding both primary and secondary event times. Not accounting for
-censoring can lead to biased estimates of the delay’s standard deviation
-(Park et al. in progress).</p>
-<p><u><strong>Right truncation</strong></u> is a type of sampling bias
-related to the data collection process. It arises because only cases
-that have been reported can be observed. Not accounting for right
-truncation during the growth phase of an epidemic can lead to
-underestimation of the mean delay (Park et al. in progress).</p>
-<p><u><strong>Dynamical (or epidemic phase)</strong></u>
-<strong>bias</strong> is another type of sampling bias. It affects
-backward-looking data and is related to the phase of the epidemic:
-during the exponential growth phase, cases that developed symptoms
-recently are over-represented in the observed data, while during the
-declining phase, these cases are underrepresented, leading to the
-estimation of shorter and longer delay intervals, respectively (Park et
-al. in progress).</p>
+<h5 id="sesgos-potenciales"><strong>3.2.1 Sesgos potenciales</strong><a class="anchor" aria-label="anchor" href="#sesgos-potenciales"></a></h5>
+<p>Cuando se estiman rezagos epidemiológicos, es importante considerar
+posibles sesgos:</p>
+<p><u><strong>Censura</strong></u> significa que sabemos que un evento
+ocurrió, pero no sabemos exactamente cuándo sucedió. La mayoría de los
+datos epidemiológicos están “doblemente censurados” debido a la
+incertidumbre que rodea tanto los tiempos de eventos primarios como
+secundarios. No tener en cuenta la censura puede llevar a estimaciones
+sesgadas de la desviación estándar del resago (Park et al. en
+progreso).</p>
+<p><u><strong>Truncamiento a la derecha</strong></u> es un tipo de sesgo
+de muestreo relacionado con el proceso de recolección de datos. Surge
+porque solo se pueden observar los casos que han sido reportados. No
+tener en cuenta el truncamiento a la derecha durante la fase de
+crecimiento de una epidemia puede llevar a una subestimación del rezago
+medio (Park et al. en progreso).</p>
+<p>El sesgo <u><strong>dinámico (o de fase epidémica</strong>)</u> es
+otro tipo de sesgo de muestreo. Afecta a los datos retrospectivos y está
+relacionado con la fase de la epidemia: durante la fase de crecimiento
+exponencial, los casos que desarrollaron síntomas recientemente están
+sobrerrepresentados en los datos observados, mientras que durante la
+fase de declive, estos casos están subrepresentados, lo que lleva a la
+estimación de intervalos de retraso más cortos y más largos,
+respectivamente (Park et al. en progreso).</p>
 </div>
 <div class="section level5">
-<h5 id="delay-distributions"><strong>3.2.2 Delay distributions</strong><a class="anchor" aria-label="anchor" href="#delay-distributions"></a></h5>
-<p>Three common probability distributions used to characterize delays in
-infectious disease epidemiology include the following (Table 1):</p>
-<table style="width:82%;" class="table"><caption>Table 1. Three of the most common probability distributions for
-epidemiological delays.</caption>
-<colgroup><col width="23%"><col width="58%"></colgroup><thead><tr class="header"><th>Distribution</th>
-<th align="center">Parameters</th>
+<h5 id="distribuciones-de-rezagos"><strong>3.2.2 Distribuciones de rezagos</strong><a class="anchor" aria-label="anchor" href="#distribuciones-de-rezagos"></a></h5>
+<p>Tres distribuciones de probabilidad comunes utilizadas para
+caracterizar rezagos en epidemiología de enfermedades infecciosas (Tabla
+1):</p>
+<table style="width:82%;" class="table"><caption>Tabla 1. Tres de las distribuciones de probabilidad más comunes
+para rezagos epidemiológicos.</caption>
+<colgroup><col width="23%"><col width="58%"></colgroup><thead><tr class="header"><th>Distribución</th>
+<th align="center">Parámetros</th>
 </tr></thead><tbody><tr class="odd"><td><strong>Weibull</strong></td>
 <td align="center">
-<code>shape</code> and <code>scale</code>
+<code>shape</code> y <code>scale</code>
 </td>
 </tr><tr class="even"><td><strong>gamma</strong></td>
 <td align="center">
-<code>shape</code> and <code>scale</code>
+<code>shape</code> y <code>scale</code>
 </td>
 </tr><tr class="odd"><td><strong>log normal</strong></td>
 <td align="center">
-<code>log mean</code> and
+<code>log mean</code> y
 <code>log standard deviation</code>
 </td>
 </tr></tbody></table></div>
 </div>
 </div>
 <div class="section level3">
-<h3 id="r-packages-for-the-practical">4. <em>R</em> packages for the practical<a class="anchor" aria-label="anchor" href="#r-packages-for-the-practical"></a></h3>
-<p>We will use the following <code>R</code> packages in this
-practical:</p>
-<ul><li><p><code>dplyr</code> for data handling</p></li>
-<li><p><code>epicontacts</code> to visualize contact tracing
-data</p></li>
-<li><p><code>ggplot2</code> and <code>patchwork</code> for
-plotting</p></li>
-<li><p><code>incidence</code> to visualize epidemic curves</p></li>
-<li><p><code>rstan</code> to estimate the incubation period</p></li>
-<li><p><code>coarseDataTools</code> via <code>EpiEstim</code> to
-estimate the serial interval</p></li>
-</ul><p>Installation instructions for packages:</p>
-<p>To load the packages, type:</p>
+<h3 id="paquetes-de-r-para-la-practica">4. Paquetes de <em>R</em> para la practica<a class="anchor" aria-label="anchor" href="#paquetes-de-r-para-la-practica"></a></h3>
+<p>En esta practica se usarán los siguientes paquetes de
+<code>R</code>:</p>
+<ul><li><p><code>dplyr</code> para manejo de datos</p></li>
+<li><p><code>epicontacts</code> para visualizar los datos de rastreo de
+contactos</p></li>
+<li><p><code>ggplot2</code> y <code>patchwork</code> para
+gráficar</p></li>
+<li><p><code>incidence</code> para visualizar curvas epidemicas</p></li>
+<li><p><code>rstan</code> para estimar el período de incubación</p></li>
+<li><p><code>coarseDataTools</code> via <code>EpiEstim</code> para
+estimar el intervalo serial</p></li>
+</ul><p>Instrucciones de instalación para los paquetes:</p>
+<p>Para cargar los paquetes, escriba:</p>
 <div class="codewrapper sourceCode" id="cb1">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
@@ -423,50 +427,50 @@ estimate the serial interval</p></li>
 <span><span class="kw">library</span><span class="op">(</span><span class="va">rstan</span><span class="op">)</span></span></code></pre>
 </div>
 </div>
-<section id="data"><h2 class="section-heading">5. Data<a class="anchor" aria-label="anchor" href="#data"></a>
+<section id="datos"><h2 class="section-heading">5. Datos<a class="anchor" aria-label="anchor" href="#datos"></a>
 </h2>
-<hr class="half-width"><p>We are going to split into two groups for this practical to tackle
-two unknown diseases with different modes of transmission.</p>
-<p>Let’s load the simulated data, which is saved as a <code>.RDS</code>
-file.</p>
-<p>There are two items of interest:</p>
-<ul><li><p><code>linelist</code>, a file that contains one case of Disease X
-per row.</p></li>
-<li><p><code>contacts</code>, a file with contact tracing data which
-contains information about primary and secondary case pairs.</p></li>
-</ul></section><section id="data-exploration"><h2 class="section-heading">6. Data exploration<a class="anchor" aria-label="anchor" href="#data-exploration"></a>
+<hr class="half-width"><p>Esta práctica está partida en dos grupos para abordar dos
+enfermedades desconocidas con diferentes modos de transmisión.</p>
+<p>Cargue los datos simulados, que están guardados como un archivo
+.RDS.</p>
+<p>Hay dos elementos de interés:</p>
+<ul><li><p><code>linelist</code>, un archivo que contiene una lista de casos
+de la Enfermedad X, un caso por fila.</p></li>
+<li><p><code>contacts</code>, un archivo con datos de rastreo de
+contactos que contiene información sobre pares de casos primarios y
+secundarios.</p></li>
+</ul></section><section id="exploración-de-los-datos"><h2 class="section-heading">6. Exploración de los datos<a class="anchor" aria-label="anchor" href="#exploraci%C3%B3n-de-los-datos"></a>
 </h2>
 <hr class="half-width"><div class="section level4">
-<h4 id="exploring-linelist-data"><strong>6.1. Exploring <code>linelist</code> data</strong><a class="anchor" aria-label="anchor" href="#exploring-linelist-data"></a></h4>
-<p>Let’s start with the <code>linelist</code>. These data were collected
-as part of routine epidemiological surveillance. Each row represents one
-case of Disease X, and there are 7 variables:</p>
-<ul><li><p><code>id</code>: unique case id number</p></li>
-<li><p><code>date_onset</code>: the patient’s symptom onset
-date</p></li>
-<li><p><code>sex</code>: M = male; F = female</p></li>
-<li><p><code>age</code>: the patient’s age in years</p></li>
-<li><p><code>exposure</code>: information about how the patient might
-have been exposed</p></li>
-<li><p><code>exposure_start</code>: earliest date that the patient was
-exposed</p></li>
-<li><p><code>exposure_end</code>: latest date that the patient was
-exposed</p></li>
+<h4 id="exploración-de-los-datos-en-linelist"><strong>6.1. Exploración de los datos en
+<code>linelist</code></strong><a class="anchor" aria-label="anchor" href="#exploraci%C3%B3n-de-los-datos-en-linelist"></a></h4>
+<p>Empiece con <code>linelist</code>. Estos datos fueron recolectado
+como parte de la vigilancia epidemiológica rutinaria. Cada fila
+representa un caso de la Enfermedad X, y hay 7 variables:</p>
+<ul><li><p><code>id</code>: número único de identificación del caso</p></li>
+<li><p><code>date_onset</code>: fecha de inicio de los síntomas del
+paciente</p></li>
+<li><p><code>sex</code>: : M = masculino; F = femenino</p></li>
+<li><p><code>age</code>: edad del paciente en años</p></li>
+<li><p><code>exposure</code>: información sobre cómo el paciente podría
+haber estado expuesto</p></li>
+<li><p><code>exposure_start</code>: primera fecha en que el paciente
+estuvo expuesto</p></li>
+<li><p><code>exposure_end</code>: última fecha en que el paciente estuvo
+expuesto</p></li>
 </ul><div class="alert alert-secondary">
-<table style="width:92%;" class="table"><colgroup><col width="91%"></colgroup><tbody><tr class="odd"><td><div class="alert alert-secondary">
-<p><em>💡 <strong>Questions (1)</strong></em></p>
-<ul><li><p><em>How many cases are in the <code>linelist</code>
-dataset?</em></p></li>
-<li><p><em>What proportion of the cases are female?</em></p></li>
-<li><p><em>What is the age distribution of cases?</em></p></li>
-<li><p><em>What type of exposure information is available?</em></p></li>
-</ul></div></td>
+<table class="table"><colgroup><col width="101%"></colgroup><tbody><tr class="odd"><td>::: {.alert .alert-secondary} | <em>💡 <strong>Preguntas
+(1)</strong></em> | | - <em>¿Cuántos casos hay en los datos de
+<code>linelist</code>?</em> | | - <em>¿Qué proporción de los casos son
+femeninos?</em> | | - <em>¿Cuál es la distribución de edades de los
+casos?</em> | - <em>¿Qué tipo de información sobre la exposición está
+disponible?</em> | ::: |</td>
 </tr></tbody></table></div>
 <div class="codewrapper sourceCode" id="cb2">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># Inspect data</span></span>
+<code class="sourceCode R"><span><span class="co"># Inspecionar los datos</span></span>
 <span><span class="fu">head</span><span class="op">(</span><span class="va">linelist</span><span class="op">)</span></span></code></pre>
 </div>
 <div class="codewrapper">
@@ -484,7 +488,7 @@ dataset?</em></p></li>
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># Q1</span></span>
+<code class="sourceCode R"><span><span class="co"># P1</span></span>
 <span><span class="fu">nrow</span><span class="op">(</span><span class="va">linelist</span><span class="op">)</span></span></code></pre>
 </div>
 <div class="codewrapper">
@@ -496,7 +500,7 @@ dataset?</em></p></li>
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># Q2</span></span>
+<code class="sourceCode R"><span><span class="co"># P2</span></span>
 <span><span class="fu">table</span><span class="op">(</span><span class="va">linelist</span><span class="op">$</span><span class="va">sex</span><span class="op">)</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span><span class="op">/</span><span class="fu">nrow</span><span class="op">(</span><span class="va">linelist</span><span class="op">)</span></span></code></pre>
 </div>
 <div class="codewrapper">
@@ -509,7 +513,7 @@ dataset?</em></p></li>
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co">#Q3</span></span>
+<code class="sourceCode R"><span><span class="co"># P3</span></span>
 <span><span class="fu">summary</span><span class="op">(</span><span class="va">linelist</span><span class="op">$</span><span class="va">age</span><span class="op">)</span></span></code></pre>
 </div>
 <div class="codewrapper">
@@ -522,7 +526,7 @@ dataset?</em></p></li>
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co">#Q4</span></span>
+<code class="sourceCode R"><span><span class="co"># P4</span></span>
 <span><span class="fu">table</span><span class="op">(</span><span class="va">linelist</span><span class="op">$</span><span class="va">exposure</span>, exclude <span class="op">=</span> <span class="cn">F</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">/</span><span class="fu">nrow</span><span class="op">(</span><span class="va">linelist</span><span class="op">)</span></span></code></pre>
 </div>
 <div class="codewrapper">
@@ -532,13 +536,11 @@ dataset?</em></p></li>
                   0.6626506 </code></pre>
 </div>
 <div class="alert alert-secondary">
-<table class="table"><colgroup><col width="100%"></colgroup><tbody><tr class="odd"><td><div class="alert alert-secondary">
-<p><em>💡 <strong>Discuss</strong></em></p>
-<p>Why do you think the exposure information is missing for some
-cases?</p>
-<p>Now let’s plot the epidemic curve. Where in the outbreak do you think
-we are (beginning, middle, end)?</p>
-</div></td>
+<table class="table"><colgroup><col width="100%"></colgroup><tbody><tr class="odd"><td>::: {.alert .alert-secondary} | <em>💡
+<strong>Discusión</strong></em> | ¿Por qué cree que falta la información
+de exposición en algunos casos? | Ahora, grafique la curva epidémica.
+¿En qué parte del brote cree que está (principio, medio, final)? | :::
+|</td>
 </tr></tbody></table></div>
 <div class="codewrapper sourceCode" id="cb12">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -550,29 +552,30 @@ we are (beginning, middle, end)?</p>
 <span>  <span class="fu">scale_fill_manual</span><span class="op">(</span>values <span class="op">=</span> <span class="st">"purple"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">theme</span><span class="op">(</span>legend.position <span class="op">=</span> <span class="st">"none"</span><span class="op">)</span></span></code></pre>
 </div>
-<figure><img src="../fig/EnfermedadX-rendered-epi%20curve-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>It looks like the epidemic might still be growing.</p>
+<figure><img src="../fig/EnfermedadX-rendered-epi%20curve-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>Parece que la epidemía todavía podría esta creciendo.</p>
 </div>
 <div class="section level4">
-<h4 id="exploring-contact-tracing-data"><strong>6.2. Exploring <code>contact tracing</code>
-data</strong><a class="anchor" aria-label="anchor" href="#exploring-contact-tracing-data"></a></h4>
-<p>Now let’s look at the contact tracing data, which were obtained
-through patient interviews. Patients were asked about recent activities
-and interactions to identify possible sources of infection. Primary and
-secondary case pairs were matched if the secondary case named the
-primary case as a contact. We only have information on a subset of the
-cases because not all patients could be contacted for an interview.</p>
-<p>Note that for this exercise, we will assume that the secondary cases
-only had one possible infector. In reality, the potential for a case to
-have multiple possible infectors needs to be assessed.</p>
-<p>The contact tracing data has 4 variables:</p>
-<ul><li><p><code>primary_case_id</code>: unique id number for the primary
-case (infector)</p></li>
-<li><p><code>secondary_case_id</code>: unique id number for the
-secondary case (infectee)</p></li>
-<li><p><code>primary_onset_date</code>: symptom onset date of the
-primary case</p></li>
-<li><p><code>secondary_onset_date</code>: symptom onset date of the
-secondary case</p></li>
+<h4 id="explorando-los-datos-de-rastreo-de-contactos"><strong>6.2. Explorando los datos de
+<code>rastreo de contactos</code></strong><a class="anchor" aria-label="anchor" href="#explorando-los-datos-de-rastreo-de-contactos"></a></h4>
+<p>Ahora vea los datos de rastreo de contactos, que se obtuvieron a
+través de entrevistas a los pacientes. A los pacientes se les preguntó
+sobre actividades e interacciones recientes para identificar posibles
+fuentes de infección. Se emparejaron pares de casos primarios y
+secundarios si el caso secundario nombraba al caso primario como un
+contacto. Solo hay información de un subconjunto de los casos porque no
+todos los pacientes pudieron ser contactados para una entrevista.</p>
+<p>Note que para este ejercicio, se asumirá que los casos secundarios
+solo tenían un posible infectante. En realidad, la posibilidad de que un
+caso tenga múltiples posibles infectantes necesita ser evaluada.</p>
+<p>Los datos de rastreo de contactos tienen 4 variables:</p>
+<ul><li><p><code>primary_case_id</code>: número de identificación único para
+el caso primario (infectante)</p></li>
+<li><p><code>secondary_case_id</code>: número de identificación único
+para el caso secundario (infectado)</p></li>
+<li><p><code>primary_onset_date</code>: fecha de inicio de síntomas del
+caso primario</p></li>
+<li><p><code>secondary_onset_date</code>: fecha de inicio de síntomas
+del caso secundario</p></li>
 </ul><div class="codewrapper sourceCode" id="cb13">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
@@ -581,39 +584,37 @@ secondary case</p></li>
 <span>                       contacts <span class="op">=</span> <span class="va">contacts</span>,</span>
 <span>                       from <span class="op">=</span> <span class="st">"primary_case_id"</span>,</span>
 <span>                       to <span class="op">=</span> <span class="st">"secondary_case_id"</span>,</span>
-<span>                       directed <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="co"># This indicates that contacts are directed (i.e., this draws arrows from primary to secondary cases)</span></span>
+<span>                       directed <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="co"># Esto indica que los contactos son directos (i.e., este gráfico traza una flecha desde los casos primarios a los secundarios)</span></span>
 <span></span>
 <span><span class="fu">plot</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></code></pre>
 </div>
 <!--html_preserve-->
-<div id="htmlwidget-ad54bb0c5b06ddf467ce" class="visNetwork html-widget" style="width:90%;height:700px;">
+<div id="htmlwidget-93177f2f256b3120ce5d" class="visNetwork html-widget" style="width:90%;height:700px;">
 
 </div>
-<script type="application/json" data-for="htmlwidget-ad54bb0c5b06ddf467ce">{"x":{"nodes":{"id":[1,2,4,5,6,8,9,10,11,12,15,16,19,21,22,23,25,28,29,30,31,32,33,34,36,37,38,41,42,43,44,45,46,47,51,52,53,54,55,57,59,60,61,63,64,65,66,68,69,70,71,73,74,78,79,80,81,83,86,88,89,90,92,96,98,99,100,102,103,105,106,107,108,111,113,114,115,117,119,120,121,122,125,127,128,129,133,136,138,141,142,144,149,152,153,154,156,158,159,160,161,162,164,165,166],"date_onset":["2023-10-01","2023-10-03","2023-10-10","2023-10-11","2023-10-12","2023-10-13","2023-10-15","2023-10-16","2023-10-16","2023-10-18","2023-10-20","2023-10-21","2023-10-24","2023-10-24","2023-10-25","2023-10-26","2023-10-28","2023-10-30","2023-10-30","2023-10-30","2023-10-31","2023-11-03","2023-11-03","2023-11-03","2023-11-04","2023-11-04","2023-11-05","2023-11-06","2023-11-06","2023-11-06","2023-11-06","2023-11-07","2023-11-07","2023-11-07","2023-11-08","2023-11-09","2023-11-10","2023-11-10","2023-11-10","2023-11-11","2023-11-12","2023-11-12","2023-11-12","2023-11-12","2023-11-13","2023-11-13","2023-11-13","2023-11-14","2023-11-14","2023-11-14","2023-11-14","2023-11-15","2023-11-15","2023-11-16","2023-11-16","2023-11-16","2023-11-16","2023-11-17","2023-11-17","2023-11-18","2023-11-18","2023-11-18","2023-11-18","2023-11-20","2023-11-20","2023-11-20","2023-11-20","2023-11-20","2023-11-21","2023-11-21","2023-11-21","2023-11-21","2023-11-22","2023-11-22","2023-11-23","2023-11-23","2023-11-23","2023-11-24","2023-11-25","2023-11-25","2023-11-25","2023-11-25","2023-11-26","2023-11-26","2023-11-26","2023-11-26","2023-11-26","2023-11-27","2023-11-27","2023-11-27","2023-11-27","2023-11-28","2023-11-29","2023-11-29","2023-11-29","2023-11-29","2023-11-29","2023-11-30","2023-11-30","2023-11-30","2023-11-30","2023-11-30","2023-11-30","2023-11-30","2023-11-30"],"sex":["M","F","F","F","F","M","F","M","F","M","M","F","M","M","M","M","M","F","F","M","M","M","M","M","F","M","M","F","F","M","F","M","M","F","M","M","F","M","M","M","M","F","F","M","M","M","F","M","M","F","M","M","F","M","M","F","F","M","F","M","M","F","F","M","M","M","F","F","M","M","M","M","M","F","F","M","M","F","M","F","F","F","M","M","M","M","M","M","F","M","F","M","F","M","M","F","F","F","M","F","M","F","M","M","F"],"age":[34,38,37,33,34,35,36,42,39,33,39,39,33,33,32,36,36,34,32,31,38,35,38,30,38,35,34,38,42,35,32,29,32,36,38,28,34,34,27,33,41,38,35,37,42,36,37,33,35,42,31,40,34,32,34,33,34,37,34,42,35,34,41,36,24,35,39,39,43,33,38,34,33,37,37,37,31,27,38,36,38,36,39,31,37,33,37,34,39,40,36,47,34,36,31,22,35,35,37,31,38,38,40,37,36],"exposure":["Close, skin-to-skin contact","Close, skin-to-skin contact",null,null,"Close, skin-to-skin contact",null,null,null,"Close, skin-to-skin contact",null,null,"Close, skin-to-skin contact","Close, skin-to-skin contact","Close, skin-to-skin contact","Close, skin-to-skin contact",null,"Close, skin-to-skin contact",null,"Close, skin-to-skin contact","Close, skin-to-skin contact","Close, skin-to-skin contact","Close, skin-to-skin contact","Close, skin-to-skin contact","Close, skin-to-skin contact",null,"Close, skin-to-skin contact",null,null,"Close, skin-to-skin contact","Close, skin-to-skin contact","Close, skin-to-skin contact",null,"Close, skin-to-skin contact",null,null,null,"Close, skin-to-skin contact","Close, skin-to-skin contact",null,null,"Close, skin-to-skin contact","Close, skin-to-skin contact","Close, skin-to-skin contact","Close, skin-to-skin contact",null,"Close, skin-to-skin contact",null,null,null,"Close, skin-to-skin contact","Close, skin-to-skin contact","Close, skin-to-skin contact",null,"Close, skin-to-skin contact","Close, skin-to-skin contact","Close, skin-to-skin contact","Close, skin-to-skin contact",null,"Close, skin-to-skin contact","Close, skin-to-skin contact","Close, skin-to-skin contact",null,"Close, skin-to-skin contact","Close, skin-to-skin contact","Close, skin-to-skin contact","Close, skin-to-skin contact","Close, skin-to-skin contact","Close, skin-to-skin contact","Close, skin-to-skin contact","Close, skin-to-skin contact","Close, skin-to-skin contact","Close, skin-to-skin contact","Close, skin-to-skin contact","Close, skin-to-skin contact","Close, skin-to-skin contact",null,"Close, skin-to-skin contact",null,"Close, skin-to-skin contact","Close, skin-to-skin contact",null,"Close, skin-to-skin contact","Close, skin-to-skin contact","Close, skin-to-skin contact",null,"Close, skin-to-skin contact",null,"Close, skin-to-skin contact",null,"Close, skin-to-skin contact","Close, skin-to-skin contact","Close, skin-to-skin contact","Close, skin-to-skin contact",null,"Close, skin-to-skin contact","Close, skin-to-skin contact","Close, skin-to-skin contact","Close, skin-to-skin contact",null,"Close, skin-to-skin contact","Close, skin-to-skin contact",null,null,null,"Close, skin-to-skin contact"],"exposure_start":[null,"2023-09-29","2023-09-25","2023-10-05","2023-10-10","2023-10-08","2023-10-13","2023-10-04","2023-10-03","2023-10-11","2023-10-13","2023-10-19","2023-10-20","2023-10-05","2023-10-20","2023-10-14","2023-10-26","2023-10-27","2023-10-24","2023-10-17","2023-10-30","2023-11-02","2023-10-27","2023-10-30","2023-10-29","2023-10-25","2023-11-01","2023-11-03","2023-11-03","2023-11-01","2023-11-03","2023-11-05","2023-10-18","2023-10-30","2023-11-02",null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],"exposure_end":[null,"2023-09-29","2023-09-27","2023-10-05","2023-10-10","2023-10-08","2023-10-13","2023-10-04","2023-10-03","2023-10-11","2023-10-14","2023-10-20","2023-10-20","2023-10-05","2023-10-20","2023-10-15","2023-10-26","2023-10-27","2023-10-25","2023-10-17","2023-10-30","2023-11-02","2023-10-27","2023-10-30","2023-10-30","2023-10-25","2023-11-01","2023-11-03","2023-11-03","2023-11-03","2023-11-04","2023-11-05","2023-10-19","2023-10-30","2023-11-04",null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],"label":["1","2","4","5","6","8","9","10","11","12","15","16","19","21","22","23","25","28","29","30","31","32","33","34","36","37","38","41","42","43","44","45","46","47","51","52","53","54","55","57","59","60","61","63","64","65","66","68","69","70","71","73","74","78","79","80","81","83","86","88","89","90","92","96","98","99","100","102","103","105","106","107","108","111","113","114","115","117","119","120","121","122","125","127","128","129","133","136","138","141","142","144","149","152","153","154","156","158","159","160","161","162","164","165","166"],"title":["<p> id: 1<br>date_onset: 2023-10-01<br>sex: M<br>age: 34<br>exposure: Close, skin-to-skin contact<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 2<br>date_onset: 2023-10-03<br>sex: F<br>age: 38<br>exposure: Close, skin-to-skin contact<br>exposure_start: 2023-09-29<br>exposure_end: 2023-09-29 <\/p>","<p> id: 4<br>date_onset: 2023-10-10<br>sex: F<br>age: 37<br>exposure: NA<br>exposure_start: 2023-09-25<br>exposure_end: 2023-09-27 <\/p>","<p> id: 5<br>date_onset: 2023-10-11<br>sex: F<br>age: 33<br>exposure: NA<br>exposure_start: 2023-10-05<br>exposure_end: 2023-10-05 <\/p>","<p> id: 6<br>date_onset: 2023-10-12<br>sex: F<br>age: 34<br>exposure: Close, skin-to-skin contact<br>exposure_start: 2023-10-10<br>exposure_end: 2023-10-10 <\/p>","<p> id: 8<br>date_onset: 2023-10-13<br>sex: M<br>age: 35<br>exposure: NA<br>exposure_start: 2023-10-08<br>exposure_end: 2023-10-08 <\/p>","<p> id: 9<br>date_onset: 2023-10-15<br>sex: F<br>age: 36<br>exposure: NA<br>exposure_start: 2023-10-13<br>exposure_end: 2023-10-13 <\/p>","<p> id: 10<br>date_onset: 2023-10-16<br>sex: M<br>age: 42<br>exposure: NA<br>exposure_start: 2023-10-04<br>exposure_end: 2023-10-04 <\/p>","<p> id: 11<br>date_onset: 2023-10-16<br>sex: F<br>age: 39<br>exposure: Close, skin-to-skin contact<br>exposure_start: 2023-10-03<br>exposure_end: 2023-10-03 <\/p>","<p> id: 12<br>date_onset: 2023-10-18<br>sex: M<br>age: 33<br>exposure: NA<br>exposure_start: 2023-10-11<br>exposure_end: 2023-10-11 <\/p>","<p> id: 15<br>date_onset: 2023-10-20<br>sex: M<br>age: 39<br>exposure: NA<br>exposure_start: 2023-10-13<br>exposure_end: 2023-10-14 <\/p>","<p> id: 16<br>date_onset: 2023-10-21<br>sex: F<br>age: 39<br>exposure: Close, skin-to-skin contact<br>exposure_start: 2023-10-19<br>exposure_end: 2023-10-20 <\/p>","<p> id: 19<br>date_onset: 2023-10-24<br>sex: M<br>age: 33<br>exposure: Close, skin-to-skin contact<br>exposure_start: 2023-10-20<br>exposure_end: 2023-10-20 <\/p>","<p> id: 21<br>date_onset: 2023-10-24<br>sex: M<br>age: 33<br>exposure: Close, skin-to-skin contact<br>exposure_start: 2023-10-05<br>exposure_end: 2023-10-05 <\/p>","<p> id: 22<br>date_onset: 2023-10-25<br>sex: M<br>age: 32<br>exposure: Close, skin-to-skin contact<br>exposure_start: 2023-10-20<br>exposure_end: 2023-10-20 <\/p>","<p> id: 23<br>date_onset: 2023-10-26<br>sex: M<br>age: 36<br>exposure: NA<br>exposure_start: 2023-10-14<br>exposure_end: 2023-10-15 <\/p>","<p> id: 25<br>date_onset: 2023-10-28<br>sex: M<br>age: 36<br>exposure: Close, skin-to-skin contact<br>exposure_start: 2023-10-26<br>exposure_end: 2023-10-26 <\/p>","<p> id: 28<br>date_onset: 2023-10-30<br>sex: F<br>age: 34<br>exposure: NA<br>exposure_start: 2023-10-27<br>exposure_end: 2023-10-27 <\/p>","<p> id: 29<br>date_onset: 2023-10-30<br>sex: F<br>age: 32<br>exposure: Close, skin-to-skin contact<br>exposure_start: 2023-10-24<br>exposure_end: 2023-10-25 <\/p>","<p> id: 30<br>date_onset: 2023-10-30<br>sex: M<br>age: 31<br>exposure: Close, skin-to-skin contact<br>exposure_start: 2023-10-17<br>exposure_end: 2023-10-17 <\/p>","<p> id: 31<br>date_onset: 2023-10-31<br>sex: M<br>age: 38<br>exposure: Close, skin-to-skin contact<br>exposure_start: 2023-10-30<br>exposure_end: 2023-10-30 <\/p>","<p> id: 32<br>date_onset: 2023-11-03<br>sex: M<br>age: 35<br>exposure: Close, skin-to-skin contact<br>exposure_start: 2023-11-02<br>exposure_end: 2023-11-02 <\/p>","<p> id: 33<br>date_onset: 2023-11-03<br>sex: M<br>age: 38<br>exposure: Close, skin-to-skin contact<br>exposure_start: 2023-10-27<br>exposure_end: 2023-10-27 <\/p>","<p> id: 34<br>date_onset: 2023-11-03<br>sex: M<br>age: 30<br>exposure: Close, skin-to-skin contact<br>exposure_start: 2023-10-30<br>exposure_end: 2023-10-30 <\/p>","<p> id: 36<br>date_onset: 2023-11-04<br>sex: F<br>age: 38<br>exposure: NA<br>exposure_start: 2023-10-29<br>exposure_end: 2023-10-30 <\/p>","<p> id: 37<br>date_onset: 2023-11-04<br>sex: M<br>age: 35<br>exposure: Close, skin-to-skin contact<br>exposure_start: 2023-10-25<br>exposure_end: 2023-10-25 <\/p>","<p> id: 38<br>date_onset: 2023-11-05<br>sex: M<br>age: 34<br>exposure: NA<br>exposure_start: 2023-11-01<br>exposure_end: 2023-11-01 <\/p>","<p> id: 41<br>date_onset: 2023-11-06<br>sex: F<br>age: 38<br>exposure: NA<br>exposure_start: 2023-11-03<br>exposure_end: 2023-11-03 <\/p>","<p> id: 42<br>date_onset: 2023-11-06<br>sex: F<br>age: 42<br>exposure: Close, skin-to-skin contact<br>exposure_start: 2023-11-03<br>exposure_end: 2023-11-03 <\/p>","<p> id: 43<br>date_onset: 2023-11-06<br>sex: M<br>age: 35<br>exposure: Close, skin-to-skin contact<br>exposure_start: 2023-11-01<br>exposure_end: 2023-11-03 <\/p>","<p> id: 44<br>date_onset: 2023-11-06<br>sex: F<br>age: 32<br>exposure: Close, skin-to-skin contact<br>exposure_start: 2023-11-03<br>exposure_end: 2023-11-04 <\/p>","<p> id: 45<br>date_onset: 2023-11-07<br>sex: M<br>age: 29<br>exposure: NA<br>exposure_start: 2023-11-05<br>exposure_end: 2023-11-05 <\/p>","<p> id: 46<br>date_onset: 2023-11-07<br>sex: M<br>age: 32<br>exposure: Close, skin-to-skin contact<br>exposure_start: 2023-10-18<br>exposure_end: 2023-10-19 <\/p>","<p> id: 47<br>date_onset: 2023-11-07<br>sex: F<br>age: 36<br>exposure: NA<br>exposure_start: 2023-10-30<br>exposure_end: 2023-10-30 <\/p>","<p> id: 51<br>date_onset: 2023-11-08<br>sex: M<br>age: 38<br>exposure: NA<br>exposure_start: 2023-11-02<br>exposure_end: 2023-11-04 <\/p>","<p> id: 52<br>date_onset: 2023-11-09<br>sex: M<br>age: 28<br>exposure: NA<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 53<br>date_onset: 2023-11-10<br>sex: F<br>age: 34<br>exposure: Close, skin-to-skin contact<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 54<br>date_onset: 2023-11-10<br>sex: M<br>age: 34<br>exposure: Close, skin-to-skin contact<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 55<br>date_onset: 2023-11-10<br>sex: M<br>age: 27<br>exposure: NA<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 57<br>date_onset: 2023-11-11<br>sex: M<br>age: 33<br>exposure: NA<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 59<br>date_onset: 2023-11-12<br>sex: M<br>age: 41<br>exposure: Close, skin-to-skin contact<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 60<br>date_onset: 2023-11-12<br>sex: F<br>age: 38<br>exposure: Close, skin-to-skin contact<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 61<br>date_onset: 2023-11-12<br>sex: F<br>age: 35<br>exposure: Close, skin-to-skin contact<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 63<br>date_onset: 2023-11-12<br>sex: M<br>age: 37<br>exposure: Close, skin-to-skin contact<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 64<br>date_onset: 2023-11-13<br>sex: M<br>age: 42<br>exposure: NA<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 65<br>date_onset: 2023-11-13<br>sex: M<br>age: 36<br>exposure: Close, skin-to-skin contact<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 66<br>date_onset: 2023-11-13<br>sex: F<br>age: 37<br>exposure: NA<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 68<br>date_onset: 2023-11-14<br>sex: M<br>age: 33<br>exposure: NA<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 69<br>date_onset: 2023-11-14<br>sex: M<br>age: 35<br>exposure: NA<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 70<br>date_onset: 2023-11-14<br>sex: F<br>age: 42<br>exposure: Close, skin-to-skin contact<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 71<br>date_onset: 2023-11-14<br>sex: M<br>age: 31<br>exposure: Close, skin-to-skin contact<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 73<br>date_onset: 2023-11-15<br>sex: M<br>age: 40<br>exposure: Close, skin-to-skin contact<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 74<br>date_onset: 2023-11-15<br>sex: F<br>age: 34<br>exposure: NA<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 78<br>date_onset: 2023-11-16<br>sex: M<br>age: 32<br>exposure: Close, skin-to-skin contact<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 79<br>date_onset: 2023-11-16<br>sex: M<br>age: 34<br>exposure: Close, skin-to-skin contact<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 80<br>date_onset: 2023-11-16<br>sex: F<br>age: 33<br>exposure: Close, skin-to-skin contact<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 81<br>date_onset: 2023-11-16<br>sex: F<br>age: 34<br>exposure: Close, skin-to-skin contact<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 83<br>date_onset: 2023-11-17<br>sex: M<br>age: 37<br>exposure: NA<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 86<br>date_onset: 2023-11-17<br>sex: F<br>age: 34<br>exposure: Close, skin-to-skin contact<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 88<br>date_onset: 2023-11-18<br>sex: M<br>age: 42<br>exposure: Close, skin-to-skin contact<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 89<br>date_onset: 2023-11-18<br>sex: M<br>age: 35<br>exposure: Close, skin-to-skin contact<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 90<br>date_onset: 2023-11-18<br>sex: F<br>age: 34<br>exposure: NA<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 92<br>date_onset: 2023-11-18<br>sex: F<br>age: 41<br>exposure: Close, skin-to-skin contact<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 96<br>date_onset: 2023-11-20<br>sex: M<br>age: 36<br>exposure: Close, skin-to-skin contact<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 98<br>date_onset: 2023-11-20<br>sex: M<br>age: 24<br>exposure: Close, skin-to-skin contact<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 99<br>date_onset: 2023-11-20<br>sex: M<br>age: 35<br>exposure: Close, skin-to-skin contact<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 100<br>date_onset: 2023-11-20<br>sex: F<br>age: 39<br>exposure: Close, skin-to-skin contact<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 102<br>date_onset: 2023-11-20<br>sex: F<br>age: 39<br>exposure: Close, skin-to-skin contact<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 103<br>date_onset: 2023-11-21<br>sex: M<br>age: 43<br>exposure: Close, skin-to-skin contact<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 105<br>date_onset: 2023-11-21<br>sex: M<br>age: 33<br>exposure: Close, skin-to-skin contact<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 106<br>date_onset: 2023-11-21<br>sex: M<br>age: 38<br>exposure: Close, skin-to-skin contact<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 107<br>date_onset: 2023-11-21<br>sex: M<br>age: 34<br>exposure: Close, skin-to-skin contact<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 108<br>date_onset: 2023-11-22<br>sex: M<br>age: 33<br>exposure: Close, skin-to-skin contact<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 111<br>date_onset: 2023-11-22<br>sex: F<br>age: 37<br>exposure: Close, skin-to-skin contact<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 113<br>date_onset: 2023-11-23<br>sex: F<br>age: 37<br>exposure: Close, skin-to-skin contact<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 114<br>date_onset: 2023-11-23<br>sex: M<br>age: 37<br>exposure: NA<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 115<br>date_onset: 2023-11-23<br>sex: M<br>age: 31<br>exposure: Close, skin-to-skin contact<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 117<br>date_onset: 2023-11-24<br>sex: F<br>age: 27<br>exposure: NA<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 119<br>date_onset: 2023-11-25<br>sex: M<br>age: 38<br>exposure: Close, skin-to-skin contact<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 120<br>date_onset: 2023-11-25<br>sex: F<br>age: 36<br>exposure: Close, skin-to-skin contact<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 121<br>date_onset: 2023-11-25<br>sex: F<br>age: 38<br>exposure: NA<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 122<br>date_onset: 2023-11-25<br>sex: F<br>age: 36<br>exposure: Close, skin-to-skin contact<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 125<br>date_onset: 2023-11-26<br>sex: M<br>age: 39<br>exposure: Close, skin-to-skin contact<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 127<br>date_onset: 2023-11-26<br>sex: M<br>age: 31<br>exposure: Close, skin-to-skin contact<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 128<br>date_onset: 2023-11-26<br>sex: M<br>age: 37<br>exposure: NA<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 129<br>date_onset: 2023-11-26<br>sex: M<br>age: 33<br>exposure: Close, skin-to-skin contact<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 133<br>date_onset: 2023-11-26<br>sex: M<br>age: 37<br>exposure: NA<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 136<br>date_onset: 2023-11-27<br>sex: M<br>age: 34<br>exposure: Close, skin-to-skin contact<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 138<br>date_onset: 2023-11-27<br>sex: F<br>age: 39<br>exposure: NA<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 141<br>date_onset: 2023-11-27<br>sex: M<br>age: 40<br>exposure: Close, skin-to-skin contact<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 142<br>date_onset: 2023-11-27<br>sex: F<br>age: 36<br>exposure: Close, skin-to-skin contact<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 144<br>date_onset: 2023-11-28<br>sex: M<br>age: 47<br>exposure: Close, skin-to-skin contact<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 149<br>date_onset: 2023-11-29<br>sex: F<br>age: 34<br>exposure: Close, skin-to-skin contact<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 152<br>date_onset: 2023-11-29<br>sex: M<br>age: 36<br>exposure: NA<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 153<br>date_onset: 2023-11-29<br>sex: M<br>age: 31<br>exposure: Close, skin-to-skin contact<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 154<br>date_onset: 2023-11-29<br>sex: F<br>age: 22<br>exposure: Close, skin-to-skin contact<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 156<br>date_onset: 2023-11-29<br>sex: F<br>age: 35<br>exposure: Close, skin-to-skin contact<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 158<br>date_onset: 2023-11-30<br>sex: F<br>age: 35<br>exposure: Close, skin-to-skin contact<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 159<br>date_onset: 2023-11-30<br>sex: M<br>age: 37<br>exposure: NA<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 160<br>date_onset: 2023-11-30<br>sex: F<br>age: 31<br>exposure: Close, skin-to-skin contact<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 161<br>date_onset: 2023-11-30<br>sex: M<br>age: 38<br>exposure: Close, skin-to-skin contact<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 162<br>date_onset: 2023-11-30<br>sex: F<br>age: 38<br>exposure: NA<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 164<br>date_onset: 2023-11-30<br>sex: M<br>age: 40<br>exposure: NA<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 165<br>date_onset: 2023-11-30<br>sex: M<br>age: 37<br>exposure: NA<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 166<br>date_onset: 2023-11-30<br>sex: F<br>age: 36<br>exposure: Close, skin-to-skin contact<br>exposure_start: NA<br>exposure_end: NA <\/p>"],"color.highlight.background":["#CCDDFF","#C4DCF7","#BDDBEF","#B6DAE7","#AFD9E0","#A8D8D8","#A0D7D0","#99D6C9","#92D5C1","#8BD4B9","#84D3B1","#7CD2AA","#7ED0A6","#89CEA7","#95CBA8","#A0C8A9","#ACC6AB","#B8C3AC","#C3C0AD","#CFBEAE","#DABBAF","#E6B8B0","#F2B5B1","#FDB3B2","#F7B1B4","#F0B0B5","#E8AFB6","#E0ADB7","#D8ACB8","#D0ABBA","#C8AABB","#C0A8BC","#B8A7BD","#B1A6BE","#A9A4C0","#A6A5BB","#AEA8AA","#B6AC9A","#BEAF89","#C6B378","#CEB667","#D5B957","#DDBD46","#E5C035","#EDC425","#F5C714","#FDCB03","#FFC808","#FFC513","#FFC11E","#FFBD29","#FFB934","#FFB540","#FFB14B","#FFAD56","#FFA961","#FFA56C","#FFA277","#FEA080","#F9A982","#F5B184","#F0B986","#ECC289","#E7CA8B","#E3D28D","#DFDB8F","#DAE391","#D6EB93","#D1F396","#CDFC98","#CDF99B","#CEF19E","#D0E8A1","#D2E0A5","#D3D8A8","#D5CFAB","#D6C7AE","#D8BFB2","#DAB6B5","#DBAEB8","#DDA6BC","#DF9FBE","#E2A3BB","#E4A7B8","#E7ABB4","#EAAFB1","#EDB2AE","#EFB6AA","#F2BAA7","#F5BEA4","#F8C2A1","#FBC69D","#FDCA9A","#FCCC9B","#F8CCA0","#F3CCA4","#EFCCA9","#EBCCAD","#E6CCB2","#E2CCB6","#DECCBB","#D9CCBF","#D5CCC4","#D1CCC8","#CDCDCD"],"color.background":["#CCDDFF","#C4DCF7","#BDDBEF","#B6DAE7","#AFD9E0","#A8D8D8","#A0D7D0","#99D6C9","#92D5C1","#8BD4B9","#84D3B1","#7CD2AA","#7ED0A6","#89CEA7","#95CBA8","#A0C8A9","#ACC6AB","#B8C3AC","#C3C0AD","#CFBEAE","#DABBAF","#E6B8B0","#F2B5B1","#FDB3B2","#F7B1B4","#F0B0B5","#E8AFB6","#E0ADB7","#D8ACB8","#D0ABBA","#C8AABB","#C0A8BC","#B8A7BD","#B1A6BE","#A9A4C0","#A6A5BB","#AEA8AA","#B6AC9A","#BEAF89","#C6B378","#CEB667","#D5B957","#DDBD46","#E5C035","#EDC425","#F5C714","#FDCB03","#FFC808","#FFC513","#FFC11E","#FFBD29","#FFB934","#FFB540","#FFB14B","#FFAD56","#FFA961","#FFA56C","#FFA277","#FEA080","#F9A982","#F5B184","#F0B986","#ECC289","#E7CA8B","#E3D28D","#DFDB8F","#DAE391","#D6EB93","#D1F396","#CDFC98","#CDF99B","#CEF19E","#D0E8A1","#D2E0A5","#D3D8A8","#D5CFAB","#D6C7AE","#D8BFB2","#DAB6B5","#DBAEB8","#DDA6BC","#DF9FBE","#E2A3BB","#E4A7B8","#E7ABB4","#EAAFB1","#EDB2AE","#EFB6AA","#F2BAA7","#F5BEA4","#F8C2A1","#FBC69D","#FDCA9A","#FCCC9B","#F8CCA0","#F3CCA4","#EFCCA9","#EBCCAD","#E6CCB2","#E2CCB6","#DECCBB","#D9CCBF","#D5CCC4","#D1CCC8","#CDCDCD"],"color.highlight.border":["black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black"],"color.border":["black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black"],"size":[20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20],"borderWidth":[2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2]},"edges":{"from":[1,1,5,4,6,12,9,15,2,22,22,25,25,29,16,31,34,25,36,30,38,41,28,44,41,23,45,45,37,31,42,54,47,61,54,46,79,68,80,60,74,71,70,88,83,64,63,34,113,69,90,108,113,80,73,107,70,78,64,105,55,108,113,103,128,156,99,128,89,92,106,103],"to":[2,5,8,10,11,16,19,21,23,25,30,32,33,34,36,38,42,43,46,51,52,53,55,57,59,61,65,66,69,70,78,79,80,81,83,86,90,92,96,98,100,102,107,111,114,115,117,119,120,121,122,125,127,129,133,136,138,141,142,144,149,152,153,154,158,159,160,161,162,164,165,166],"primary_onset_date":["2023-10-01","2023-10-01","2023-10-11","2023-10-10","2023-10-12","2023-10-18","2023-10-15","2023-10-20","2023-10-03","2023-10-25","2023-10-25","2023-10-28","2023-10-28","2023-10-30","2023-10-21","2023-10-31","2023-11-03","2023-10-28","2023-11-04","2023-10-30","2023-11-05","2023-11-06","2023-10-30","2023-11-06","2023-11-06","2023-10-26","2023-11-07","2023-11-07","2023-11-04","2023-10-31","2023-11-06","2023-11-10","2023-11-07","2023-11-12","2023-11-10","2023-11-07","2023-11-16","2023-11-14","2023-11-16","2023-11-12","2023-11-15","2023-11-14","2023-11-14","2023-11-18","2023-11-17","2023-11-13","2023-11-12","2023-11-03","2023-11-23","2023-11-14","2023-11-18","2023-11-22","2023-11-23","2023-11-16","2023-11-15","2023-11-21","2023-11-14","2023-11-16","2023-11-13","2023-11-21","2023-11-10","2023-11-22","2023-11-23","2023-11-21","2023-11-26","2023-11-29","2023-11-20","2023-11-26","2023-11-18","2023-11-18","2023-11-21","2023-11-21"],"secondary_onset_date":["2023-10-03","2023-10-11","2023-10-13","2023-10-16","2023-10-16","2023-10-21","2023-10-24","2023-10-24","2023-10-26","2023-10-28","2023-10-30","2023-11-03","2023-11-03","2023-11-03","2023-11-04","2023-11-05","2023-11-06","2023-11-06","2023-11-07","2023-11-08","2023-11-09","2023-11-10","2023-11-10","2023-11-11","2023-11-12","2023-11-12","2023-11-13","2023-11-13","2023-11-14","2023-11-14","2023-11-16","2023-11-16","2023-11-16","2023-11-16","2023-11-17","2023-11-17","2023-11-18","2023-11-18","2023-11-20","2023-11-20","2023-11-20","2023-11-20","2023-11-21","2023-11-22","2023-11-23","2023-11-23","2023-11-24","2023-11-25","2023-11-25","2023-11-25","2023-11-25","2023-11-26","2023-11-26","2023-11-26","2023-11-26","2023-11-27","2023-11-27","2023-11-27","2023-11-27","2023-11-28","2023-11-29","2023-11-29","2023-11-29","2023-11-29","2023-11-30","2023-11-30","2023-11-30","2023-11-30","2023-11-30","2023-11-30","2023-11-30","2023-11-30"],"width":[3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3],"color":["black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black"],"arrows.to":[true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true]},"nodesToDataframe":true,"edgesToDataframe":true,"options":{"width":"100%","height":"100%","nodes":{"shape":"dot"},"manipulation":{"enabled":false},"interaction":{"zoomSpeed":1},"edges":{"arrows":{"to":{"scaleFactor":2}}},"physics":{"stabilization":false}},"groups":null,"width":"90%","height":"700px","idselection":{"enabled":false,"style":"width: 150px; height: 26px","useLabels":true,"main":"Select by id"},"byselection":{"enabled":true,"style":"width: 150px; height: 26px","multiple":false,"hideColor":"rgba(200,200,200,0.5)","highlight":false,"variable":"id","main":"Select by id","values":[1,2,4,5,6,8,9,10,11,12,15,16,19,21,22,23,25,28,29,30,31,32,33,34,36,37,38,41,42,43,44,45,46,47,51,52,53,54,55,57,59,60,61,63,64,65,66,68,69,70,71,73,74,78,79,80,81,83,86,88,89,90,92,96,98,99,100,102,103,105,106,107,108,111,113,114,115,117,119,120,121,122,125,127,128,129,133,136,138,141,142,144,149,152,153,154,156,158,159,160,161,162,164,165,166]},"main":null,"submain":null,"footer":null,"background":"rgba(0, 0, 0, 0)","tooltipStay":300,"tooltipStyle":"position: fixed;visibility:hidden;padding: 5px;white-space: nowrap;font-family: verdana;font-size:14px;font-color:#000000;background-color: #EEEEEE;-moz-border-radius: 3px;-webkit-border-radius: 3px;border-radius: 3px;border: 1px solid #000000;","legend":{"width":0.1,"useGroups":false,"position":"left","ncol":1,"stepX":100,"stepY":100,"zoom":false},"opts_manipulation":{"datacss":"table.legend_table {\n  font-size: 11px;\n  border-width:1px;\n  border-color:#d3d3d3;\n  border-style:solid;\n}\ntable.legend_table td {\n  border-width:1px;\n  border-color:#d3d3d3;\n  border-style:solid;\n  padding: 2px;\n}\ndiv.table_content {\n  width:80px;\n  text-align:center;\n}\ndiv.table_description {\n  width:100px;\n}\n\n.operation {\n  font-size:20px;\n}\n\n.network-popUp {\n  display:none;\n  z-index:299;\n  width:250px;\n  /*height:150px;*/\n  background-color: #f9f9f9;\n  border-style:solid;\n  border-width:1px;\n  border-color: #0d0d0d;\n  padding:10px;\n  text-align: center;\n  position:fixed;\n  top:50%;  \n  left:50%;  \n  margin:-100px 0 0 -100px;  \n\n}","addNodeCols":["id","label"],"editNodeCols":["id","label"],"tab_add_node":"<span id=\"addnode-operation\" class = \"operation\">node<\/span> <br><table style=\"margin:auto;\"><tr><td>id<\/td><td><input id=\"addnode-id\"  type= \"text\" value=\"new value\"><\/td><\/tr><tr><td>label<\/td><td><input id=\"addnode-label\"  type= \"text\" value=\"new value\"><\/td><\/tr><\/table><input type=\"button\" value=\"save\" id=\"addnode-saveButton\"><\/button><input type=\"button\" value=\"cancel\" id=\"addnode-cancelButton\"><\/button>","tab_edit_node":"<span id=\"editnode-operation\" class = \"operation\">node<\/span> <br><table style=\"margin:auto;\"><tr><td>id<\/td><td><input id=\"editnode-id\"  type= \"text\" value=\"new value\"><\/td><\/tr><tr><td>label<\/td><td><input id=\"editnode-label\"  type= \"text\" value=\"new value\"><\/td><\/tr><\/table><input type=\"button\" value=\"save\" id=\"editnode-saveButton\"><\/button><input type=\"button\" value=\"cancel\" id=\"editnode-cancelButton\"><\/button>"},"highlight":{"enabled":true,"hoverNearest":false,"degree":1,"algorithm":"all","hideColor":"rgba(200,200,200,1)","labelOnly":true},"collapse":{"enabled":true,"fit":false,"resetHighlight":true,"clusterOptions":null,"keepCoord":true,"labelSuffix":"(cluster)"},"iconsRedraw":true},"evals":[],"jsHooks":[]}</script><!--/html_preserve--><div class="alert alert-secondary">
-<table class="table"><colgroup><col width="100%"></colgroup><tbody><tr class="odd"><td><div class="alert alert-secondary">
-<p><em>💡 <strong>Questions (2)</strong></em></p>
-<ul><li><p>Describe the clusters.</p></li>
-<li><p>Do you see any potential superspreading events (where one cases
-spreads the pathogen to many other cases)?</p></li>
-</ul></div></td>
+<script type="application/json" data-for="htmlwidget-93177f2f256b3120ce5d">{"x":{"nodes":{"id":[1,2,4,5,6,8,9,10,11,12,15,16,19,21,22,23,25,28,29,30,31,32,33,34,36,37,38,41,42,43,44,45,46,47,51,52,53,54,55,57,59,60,61,63,64,65,66,68,69,70,71,73,74,78,79,80,81,83,86,88,89,90,92,96,98,99,100,102,103,105,106,107,108,111,113,114,115,117,119,120,121,122,125,127,128,129,133,136,138,141,142,144,149,152,153,154,156,158,159,160,161,162,164,165,166],"date_onset":["2023-10-01","2023-10-03","2023-10-10","2023-10-11","2023-10-12","2023-10-13","2023-10-15","2023-10-16","2023-10-16","2023-10-18","2023-10-20","2023-10-21","2023-10-24","2023-10-24","2023-10-25","2023-10-26","2023-10-28","2023-10-30","2023-10-30","2023-10-30","2023-10-31","2023-11-03","2023-11-03","2023-11-03","2023-11-04","2023-11-04","2023-11-05","2023-11-06","2023-11-06","2023-11-06","2023-11-06","2023-11-07","2023-11-07","2023-11-07","2023-11-08","2023-11-09","2023-11-10","2023-11-10","2023-11-10","2023-11-11","2023-11-12","2023-11-12","2023-11-12","2023-11-12","2023-11-13","2023-11-13","2023-11-13","2023-11-14","2023-11-14","2023-11-14","2023-11-14","2023-11-15","2023-11-15","2023-11-16","2023-11-16","2023-11-16","2023-11-16","2023-11-17","2023-11-17","2023-11-18","2023-11-18","2023-11-18","2023-11-18","2023-11-20","2023-11-20","2023-11-20","2023-11-20","2023-11-20","2023-11-21","2023-11-21","2023-11-21","2023-11-21","2023-11-22","2023-11-22","2023-11-23","2023-11-23","2023-11-23","2023-11-24","2023-11-25","2023-11-25","2023-11-25","2023-11-25","2023-11-26","2023-11-26","2023-11-26","2023-11-26","2023-11-26","2023-11-27","2023-11-27","2023-11-27","2023-11-27","2023-11-28","2023-11-29","2023-11-29","2023-11-29","2023-11-29","2023-11-29","2023-11-30","2023-11-30","2023-11-30","2023-11-30","2023-11-30","2023-11-30","2023-11-30","2023-11-30"],"sex":["M","F","F","F","F","M","F","M","F","M","M","F","M","M","M","M","M","F","F","M","M","M","M","M","F","M","M","F","F","M","F","M","M","F","M","M","F","M","M","M","M","F","F","M","M","M","F","M","M","F","M","M","F","M","M","F","F","M","F","M","M","F","F","M","M","M","F","F","M","M","M","M","M","F","F","M","M","F","M","F","F","F","M","M","M","M","M","M","F","M","F","M","F","M","M","F","F","F","M","F","M","F","M","M","F"],"age":[34,38,37,33,34,35,36,42,39,33,39,39,33,33,32,36,36,34,32,31,38,35,38,30,38,35,34,38,42,35,32,29,32,36,38,28,34,34,27,33,41,38,35,37,42,36,37,33,35,42,31,40,34,32,34,33,34,37,34,42,35,34,41,36,24,35,39,39,43,33,38,34,33,37,37,37,31,27,38,36,38,36,39,31,37,33,37,34,39,40,36,47,34,36,31,22,35,35,37,31,38,38,40,37,36],"exposure":["Close, skin-to-skin contact","Close, skin-to-skin contact",null,null,"Close, skin-to-skin contact",null,null,null,"Close, skin-to-skin contact",null,null,"Close, skin-to-skin contact","Close, skin-to-skin contact","Close, skin-to-skin contact","Close, skin-to-skin contact",null,"Close, skin-to-skin contact",null,"Close, skin-to-skin contact","Close, skin-to-skin contact","Close, skin-to-skin contact","Close, skin-to-skin contact","Close, skin-to-skin contact","Close, skin-to-skin contact",null,"Close, skin-to-skin contact",null,null,"Close, skin-to-skin contact","Close, skin-to-skin contact","Close, skin-to-skin contact",null,"Close, skin-to-skin contact",null,null,null,"Close, skin-to-skin contact","Close, skin-to-skin contact",null,null,"Close, skin-to-skin contact","Close, skin-to-skin contact","Close, skin-to-skin contact","Close, skin-to-skin contact",null,"Close, skin-to-skin contact",null,null,null,"Close, skin-to-skin contact","Close, skin-to-skin contact","Close, skin-to-skin contact",null,"Close, skin-to-skin contact","Close, skin-to-skin contact","Close, skin-to-skin contact","Close, skin-to-skin contact",null,"Close, skin-to-skin contact","Close, skin-to-skin contact","Close, skin-to-skin contact",null,"Close, skin-to-skin contact","Close, skin-to-skin contact","Close, skin-to-skin contact","Close, skin-to-skin contact","Close, skin-to-skin contact","Close, skin-to-skin contact","Close, skin-to-skin contact","Close, skin-to-skin contact","Close, skin-to-skin contact","Close, skin-to-skin contact","Close, skin-to-skin contact","Close, skin-to-skin contact","Close, skin-to-skin contact",null,"Close, skin-to-skin contact",null,"Close, skin-to-skin contact","Close, skin-to-skin contact",null,"Close, skin-to-skin contact","Close, skin-to-skin contact","Close, skin-to-skin contact",null,"Close, skin-to-skin contact",null,"Close, skin-to-skin contact",null,"Close, skin-to-skin contact","Close, skin-to-skin contact","Close, skin-to-skin contact","Close, skin-to-skin contact",null,"Close, skin-to-skin contact","Close, skin-to-skin contact","Close, skin-to-skin contact","Close, skin-to-skin contact",null,"Close, skin-to-skin contact","Close, skin-to-skin contact",null,null,null,"Close, skin-to-skin contact"],"exposure_start":[null,"2023-09-29","2023-09-25","2023-10-05","2023-10-10","2023-10-08","2023-10-13","2023-10-04","2023-10-03","2023-10-11","2023-10-13","2023-10-19","2023-10-20","2023-10-05","2023-10-20","2023-10-14","2023-10-26","2023-10-27","2023-10-24","2023-10-17","2023-10-30","2023-11-02","2023-10-27","2023-10-30","2023-10-29","2023-10-25","2023-11-01","2023-11-03","2023-11-03","2023-11-01","2023-11-03","2023-11-05","2023-10-18","2023-10-30","2023-11-02",null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],"exposure_end":[null,"2023-09-29","2023-09-27","2023-10-05","2023-10-10","2023-10-08","2023-10-13","2023-10-04","2023-10-03","2023-10-11","2023-10-14","2023-10-20","2023-10-20","2023-10-05","2023-10-20","2023-10-15","2023-10-26","2023-10-27","2023-10-25","2023-10-17","2023-10-30","2023-11-02","2023-10-27","2023-10-30","2023-10-30","2023-10-25","2023-11-01","2023-11-03","2023-11-03","2023-11-03","2023-11-04","2023-11-05","2023-10-19","2023-10-30","2023-11-04",null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],"label":["1","2","4","5","6","8","9","10","11","12","15","16","19","21","22","23","25","28","29","30","31","32","33","34","36","37","38","41","42","43","44","45","46","47","51","52","53","54","55","57","59","60","61","63","64","65","66","68","69","70","71","73","74","78","79","80","81","83","86","88","89","90","92","96","98","99","100","102","103","105","106","107","108","111","113","114","115","117","119","120","121","122","125","127","128","129","133","136","138","141","142","144","149","152","153","154","156","158","159","160","161","162","164","165","166"],"title":["<p> id: 1<br>date_onset: 2023-10-01<br>sex: M<br>age: 34<br>exposure: Close, skin-to-skin contact<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 2<br>date_onset: 2023-10-03<br>sex: F<br>age: 38<br>exposure: Close, skin-to-skin contact<br>exposure_start: 2023-09-29<br>exposure_end: 2023-09-29 <\/p>","<p> id: 4<br>date_onset: 2023-10-10<br>sex: F<br>age: 37<br>exposure: NA<br>exposure_start: 2023-09-25<br>exposure_end: 2023-09-27 <\/p>","<p> id: 5<br>date_onset: 2023-10-11<br>sex: F<br>age: 33<br>exposure: NA<br>exposure_start: 2023-10-05<br>exposure_end: 2023-10-05 <\/p>","<p> id: 6<br>date_onset: 2023-10-12<br>sex: F<br>age: 34<br>exposure: Close, skin-to-skin contact<br>exposure_start: 2023-10-10<br>exposure_end: 2023-10-10 <\/p>","<p> id: 8<br>date_onset: 2023-10-13<br>sex: M<br>age: 35<br>exposure: NA<br>exposure_start: 2023-10-08<br>exposure_end: 2023-10-08 <\/p>","<p> id: 9<br>date_onset: 2023-10-15<br>sex: F<br>age: 36<br>exposure: NA<br>exposure_start: 2023-10-13<br>exposure_end: 2023-10-13 <\/p>","<p> id: 10<br>date_onset: 2023-10-16<br>sex: M<br>age: 42<br>exposure: NA<br>exposure_start: 2023-10-04<br>exposure_end: 2023-10-04 <\/p>","<p> id: 11<br>date_onset: 2023-10-16<br>sex: F<br>age: 39<br>exposure: Close, skin-to-skin contact<br>exposure_start: 2023-10-03<br>exposure_end: 2023-10-03 <\/p>","<p> id: 12<br>date_onset: 2023-10-18<br>sex: M<br>age: 33<br>exposure: NA<br>exposure_start: 2023-10-11<br>exposure_end: 2023-10-11 <\/p>","<p> id: 15<br>date_onset: 2023-10-20<br>sex: M<br>age: 39<br>exposure: NA<br>exposure_start: 2023-10-13<br>exposure_end: 2023-10-14 <\/p>","<p> id: 16<br>date_onset: 2023-10-21<br>sex: F<br>age: 39<br>exposure: Close, skin-to-skin contact<br>exposure_start: 2023-10-19<br>exposure_end: 2023-10-20 <\/p>","<p> id: 19<br>date_onset: 2023-10-24<br>sex: M<br>age: 33<br>exposure: Close, skin-to-skin contact<br>exposure_start: 2023-10-20<br>exposure_end: 2023-10-20 <\/p>","<p> id: 21<br>date_onset: 2023-10-24<br>sex: M<br>age: 33<br>exposure: Close, skin-to-skin contact<br>exposure_start: 2023-10-05<br>exposure_end: 2023-10-05 <\/p>","<p> id: 22<br>date_onset: 2023-10-25<br>sex: M<br>age: 32<br>exposure: Close, skin-to-skin contact<br>exposure_start: 2023-10-20<br>exposure_end: 2023-10-20 <\/p>","<p> id: 23<br>date_onset: 2023-10-26<br>sex: M<br>age: 36<br>exposure: NA<br>exposure_start: 2023-10-14<br>exposure_end: 2023-10-15 <\/p>","<p> id: 25<br>date_onset: 2023-10-28<br>sex: M<br>age: 36<br>exposure: Close, skin-to-skin contact<br>exposure_start: 2023-10-26<br>exposure_end: 2023-10-26 <\/p>","<p> id: 28<br>date_onset: 2023-10-30<br>sex: F<br>age: 34<br>exposure: NA<br>exposure_start: 2023-10-27<br>exposure_end: 2023-10-27 <\/p>","<p> id: 29<br>date_onset: 2023-10-30<br>sex: F<br>age: 32<br>exposure: Close, skin-to-skin contact<br>exposure_start: 2023-10-24<br>exposure_end: 2023-10-25 <\/p>","<p> id: 30<br>date_onset: 2023-10-30<br>sex: M<br>age: 31<br>exposure: Close, skin-to-skin contact<br>exposure_start: 2023-10-17<br>exposure_end: 2023-10-17 <\/p>","<p> id: 31<br>date_onset: 2023-10-31<br>sex: M<br>age: 38<br>exposure: Close, skin-to-skin contact<br>exposure_start: 2023-10-30<br>exposure_end: 2023-10-30 <\/p>","<p> id: 32<br>date_onset: 2023-11-03<br>sex: M<br>age: 35<br>exposure: Close, skin-to-skin contact<br>exposure_start: 2023-11-02<br>exposure_end: 2023-11-02 <\/p>","<p> id: 33<br>date_onset: 2023-11-03<br>sex: M<br>age: 38<br>exposure: Close, skin-to-skin contact<br>exposure_start: 2023-10-27<br>exposure_end: 2023-10-27 <\/p>","<p> id: 34<br>date_onset: 2023-11-03<br>sex: M<br>age: 30<br>exposure: Close, skin-to-skin contact<br>exposure_start: 2023-10-30<br>exposure_end: 2023-10-30 <\/p>","<p> id: 36<br>date_onset: 2023-11-04<br>sex: F<br>age: 38<br>exposure: NA<br>exposure_start: 2023-10-29<br>exposure_end: 2023-10-30 <\/p>","<p> id: 37<br>date_onset: 2023-11-04<br>sex: M<br>age: 35<br>exposure: Close, skin-to-skin contact<br>exposure_start: 2023-10-25<br>exposure_end: 2023-10-25 <\/p>","<p> id: 38<br>date_onset: 2023-11-05<br>sex: M<br>age: 34<br>exposure: NA<br>exposure_start: 2023-11-01<br>exposure_end: 2023-11-01 <\/p>","<p> id: 41<br>date_onset: 2023-11-06<br>sex: F<br>age: 38<br>exposure: NA<br>exposure_start: 2023-11-03<br>exposure_end: 2023-11-03 <\/p>","<p> id: 42<br>date_onset: 2023-11-06<br>sex: F<br>age: 42<br>exposure: Close, skin-to-skin contact<br>exposure_start: 2023-11-03<br>exposure_end: 2023-11-03 <\/p>","<p> id: 43<br>date_onset: 2023-11-06<br>sex: M<br>age: 35<br>exposure: Close, skin-to-skin contact<br>exposure_start: 2023-11-01<br>exposure_end: 2023-11-03 <\/p>","<p> id: 44<br>date_onset: 2023-11-06<br>sex: F<br>age: 32<br>exposure: Close, skin-to-skin contact<br>exposure_start: 2023-11-03<br>exposure_end: 2023-11-04 <\/p>","<p> id: 45<br>date_onset: 2023-11-07<br>sex: M<br>age: 29<br>exposure: NA<br>exposure_start: 2023-11-05<br>exposure_end: 2023-11-05 <\/p>","<p> id: 46<br>date_onset: 2023-11-07<br>sex: M<br>age: 32<br>exposure: Close, skin-to-skin contact<br>exposure_start: 2023-10-18<br>exposure_end: 2023-10-19 <\/p>","<p> id: 47<br>date_onset: 2023-11-07<br>sex: F<br>age: 36<br>exposure: NA<br>exposure_start: 2023-10-30<br>exposure_end: 2023-10-30 <\/p>","<p> id: 51<br>date_onset: 2023-11-08<br>sex: M<br>age: 38<br>exposure: NA<br>exposure_start: 2023-11-02<br>exposure_end: 2023-11-04 <\/p>","<p> id: 52<br>date_onset: 2023-11-09<br>sex: M<br>age: 28<br>exposure: NA<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 53<br>date_onset: 2023-11-10<br>sex: F<br>age: 34<br>exposure: Close, skin-to-skin contact<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 54<br>date_onset: 2023-11-10<br>sex: M<br>age: 34<br>exposure: Close, skin-to-skin contact<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 55<br>date_onset: 2023-11-10<br>sex: M<br>age: 27<br>exposure: NA<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 57<br>date_onset: 2023-11-11<br>sex: M<br>age: 33<br>exposure: NA<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 59<br>date_onset: 2023-11-12<br>sex: M<br>age: 41<br>exposure: Close, skin-to-skin contact<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 60<br>date_onset: 2023-11-12<br>sex: F<br>age: 38<br>exposure: Close, skin-to-skin contact<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 61<br>date_onset: 2023-11-12<br>sex: F<br>age: 35<br>exposure: Close, skin-to-skin contact<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 63<br>date_onset: 2023-11-12<br>sex: M<br>age: 37<br>exposure: Close, skin-to-skin contact<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 64<br>date_onset: 2023-11-13<br>sex: M<br>age: 42<br>exposure: NA<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 65<br>date_onset: 2023-11-13<br>sex: M<br>age: 36<br>exposure: Close, skin-to-skin contact<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 66<br>date_onset: 2023-11-13<br>sex: F<br>age: 37<br>exposure: NA<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 68<br>date_onset: 2023-11-14<br>sex: M<br>age: 33<br>exposure: NA<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 69<br>date_onset: 2023-11-14<br>sex: M<br>age: 35<br>exposure: NA<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 70<br>date_onset: 2023-11-14<br>sex: F<br>age: 42<br>exposure: Close, skin-to-skin contact<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 71<br>date_onset: 2023-11-14<br>sex: M<br>age: 31<br>exposure: Close, skin-to-skin contact<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 73<br>date_onset: 2023-11-15<br>sex: M<br>age: 40<br>exposure: Close, skin-to-skin contact<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 74<br>date_onset: 2023-11-15<br>sex: F<br>age: 34<br>exposure: NA<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 78<br>date_onset: 2023-11-16<br>sex: M<br>age: 32<br>exposure: Close, skin-to-skin contact<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 79<br>date_onset: 2023-11-16<br>sex: M<br>age: 34<br>exposure: Close, skin-to-skin contact<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 80<br>date_onset: 2023-11-16<br>sex: F<br>age: 33<br>exposure: Close, skin-to-skin contact<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 81<br>date_onset: 2023-11-16<br>sex: F<br>age: 34<br>exposure: Close, skin-to-skin contact<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 83<br>date_onset: 2023-11-17<br>sex: M<br>age: 37<br>exposure: NA<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 86<br>date_onset: 2023-11-17<br>sex: F<br>age: 34<br>exposure: Close, skin-to-skin contact<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 88<br>date_onset: 2023-11-18<br>sex: M<br>age: 42<br>exposure: Close, skin-to-skin contact<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 89<br>date_onset: 2023-11-18<br>sex: M<br>age: 35<br>exposure: Close, skin-to-skin contact<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 90<br>date_onset: 2023-11-18<br>sex: F<br>age: 34<br>exposure: NA<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 92<br>date_onset: 2023-11-18<br>sex: F<br>age: 41<br>exposure: Close, skin-to-skin contact<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 96<br>date_onset: 2023-11-20<br>sex: M<br>age: 36<br>exposure: Close, skin-to-skin contact<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 98<br>date_onset: 2023-11-20<br>sex: M<br>age: 24<br>exposure: Close, skin-to-skin contact<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 99<br>date_onset: 2023-11-20<br>sex: M<br>age: 35<br>exposure: Close, skin-to-skin contact<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 100<br>date_onset: 2023-11-20<br>sex: F<br>age: 39<br>exposure: Close, skin-to-skin contact<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 102<br>date_onset: 2023-11-20<br>sex: F<br>age: 39<br>exposure: Close, skin-to-skin contact<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 103<br>date_onset: 2023-11-21<br>sex: M<br>age: 43<br>exposure: Close, skin-to-skin contact<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 105<br>date_onset: 2023-11-21<br>sex: M<br>age: 33<br>exposure: Close, skin-to-skin contact<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 106<br>date_onset: 2023-11-21<br>sex: M<br>age: 38<br>exposure: Close, skin-to-skin contact<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 107<br>date_onset: 2023-11-21<br>sex: M<br>age: 34<br>exposure: Close, skin-to-skin contact<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 108<br>date_onset: 2023-11-22<br>sex: M<br>age: 33<br>exposure: Close, skin-to-skin contact<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 111<br>date_onset: 2023-11-22<br>sex: F<br>age: 37<br>exposure: Close, skin-to-skin contact<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 113<br>date_onset: 2023-11-23<br>sex: F<br>age: 37<br>exposure: Close, skin-to-skin contact<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 114<br>date_onset: 2023-11-23<br>sex: M<br>age: 37<br>exposure: NA<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 115<br>date_onset: 2023-11-23<br>sex: M<br>age: 31<br>exposure: Close, skin-to-skin contact<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 117<br>date_onset: 2023-11-24<br>sex: F<br>age: 27<br>exposure: NA<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 119<br>date_onset: 2023-11-25<br>sex: M<br>age: 38<br>exposure: Close, skin-to-skin contact<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 120<br>date_onset: 2023-11-25<br>sex: F<br>age: 36<br>exposure: Close, skin-to-skin contact<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 121<br>date_onset: 2023-11-25<br>sex: F<br>age: 38<br>exposure: NA<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 122<br>date_onset: 2023-11-25<br>sex: F<br>age: 36<br>exposure: Close, skin-to-skin contact<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 125<br>date_onset: 2023-11-26<br>sex: M<br>age: 39<br>exposure: Close, skin-to-skin contact<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 127<br>date_onset: 2023-11-26<br>sex: M<br>age: 31<br>exposure: Close, skin-to-skin contact<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 128<br>date_onset: 2023-11-26<br>sex: M<br>age: 37<br>exposure: NA<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 129<br>date_onset: 2023-11-26<br>sex: M<br>age: 33<br>exposure: Close, skin-to-skin contact<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 133<br>date_onset: 2023-11-26<br>sex: M<br>age: 37<br>exposure: NA<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 136<br>date_onset: 2023-11-27<br>sex: M<br>age: 34<br>exposure: Close, skin-to-skin contact<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 138<br>date_onset: 2023-11-27<br>sex: F<br>age: 39<br>exposure: NA<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 141<br>date_onset: 2023-11-27<br>sex: M<br>age: 40<br>exposure: Close, skin-to-skin contact<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 142<br>date_onset: 2023-11-27<br>sex: F<br>age: 36<br>exposure: Close, skin-to-skin contact<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 144<br>date_onset: 2023-11-28<br>sex: M<br>age: 47<br>exposure: Close, skin-to-skin contact<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 149<br>date_onset: 2023-11-29<br>sex: F<br>age: 34<br>exposure: Close, skin-to-skin contact<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 152<br>date_onset: 2023-11-29<br>sex: M<br>age: 36<br>exposure: NA<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 153<br>date_onset: 2023-11-29<br>sex: M<br>age: 31<br>exposure: Close, skin-to-skin contact<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 154<br>date_onset: 2023-11-29<br>sex: F<br>age: 22<br>exposure: Close, skin-to-skin contact<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 156<br>date_onset: 2023-11-29<br>sex: F<br>age: 35<br>exposure: Close, skin-to-skin contact<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 158<br>date_onset: 2023-11-30<br>sex: F<br>age: 35<br>exposure: Close, skin-to-skin contact<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 159<br>date_onset: 2023-11-30<br>sex: M<br>age: 37<br>exposure: NA<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 160<br>date_onset: 2023-11-30<br>sex: F<br>age: 31<br>exposure: Close, skin-to-skin contact<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 161<br>date_onset: 2023-11-30<br>sex: M<br>age: 38<br>exposure: Close, skin-to-skin contact<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 162<br>date_onset: 2023-11-30<br>sex: F<br>age: 38<br>exposure: NA<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 164<br>date_onset: 2023-11-30<br>sex: M<br>age: 40<br>exposure: NA<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 165<br>date_onset: 2023-11-30<br>sex: M<br>age: 37<br>exposure: NA<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 166<br>date_onset: 2023-11-30<br>sex: F<br>age: 36<br>exposure: Close, skin-to-skin contact<br>exposure_start: NA<br>exposure_end: NA <\/p>"],"color.highlight.background":["#CCDDFF","#C4DCF7","#BDDBEF","#B6DAE7","#AFD9E0","#A8D8D8","#A0D7D0","#99D6C9","#92D5C1","#8BD4B9","#84D3B1","#7CD2AA","#7ED0A6","#89CEA7","#95CBA8","#A0C8A9","#ACC6AB","#B8C3AC","#C3C0AD","#CFBEAE","#DABBAF","#E6B8B0","#F2B5B1","#FDB3B2","#F7B1B4","#F0B0B5","#E8AFB6","#E0ADB7","#D8ACB8","#D0ABBA","#C8AABB","#C0A8BC","#B8A7BD","#B1A6BE","#A9A4C0","#A6A5BB","#AEA8AA","#B6AC9A","#BEAF89","#C6B378","#CEB667","#D5B957","#DDBD46","#E5C035","#EDC425","#F5C714","#FDCB03","#FFC808","#FFC513","#FFC11E","#FFBD29","#FFB934","#FFB540","#FFB14B","#FFAD56","#FFA961","#FFA56C","#FFA277","#FEA080","#F9A982","#F5B184","#F0B986","#ECC289","#E7CA8B","#E3D28D","#DFDB8F","#DAE391","#D6EB93","#D1F396","#CDFC98","#CDF99B","#CEF19E","#D0E8A1","#D2E0A5","#D3D8A8","#D5CFAB","#D6C7AE","#D8BFB2","#DAB6B5","#DBAEB8","#DDA6BC","#DF9FBE","#E2A3BB","#E4A7B8","#E7ABB4","#EAAFB1","#EDB2AE","#EFB6AA","#F2BAA7","#F5BEA4","#F8C2A1","#FBC69D","#FDCA9A","#FCCC9B","#F8CCA0","#F3CCA4","#EFCCA9","#EBCCAD","#E6CCB2","#E2CCB6","#DECCBB","#D9CCBF","#D5CCC4","#D1CCC8","#CDCDCD"],"color.background":["#CCDDFF","#C4DCF7","#BDDBEF","#B6DAE7","#AFD9E0","#A8D8D8","#A0D7D0","#99D6C9","#92D5C1","#8BD4B9","#84D3B1","#7CD2AA","#7ED0A6","#89CEA7","#95CBA8","#A0C8A9","#ACC6AB","#B8C3AC","#C3C0AD","#CFBEAE","#DABBAF","#E6B8B0","#F2B5B1","#FDB3B2","#F7B1B4","#F0B0B5","#E8AFB6","#E0ADB7","#D8ACB8","#D0ABBA","#C8AABB","#C0A8BC","#B8A7BD","#B1A6BE","#A9A4C0","#A6A5BB","#AEA8AA","#B6AC9A","#BEAF89","#C6B378","#CEB667","#D5B957","#DDBD46","#E5C035","#EDC425","#F5C714","#FDCB03","#FFC808","#FFC513","#FFC11E","#FFBD29","#FFB934","#FFB540","#FFB14B","#FFAD56","#FFA961","#FFA56C","#FFA277","#FEA080","#F9A982","#F5B184","#F0B986","#ECC289","#E7CA8B","#E3D28D","#DFDB8F","#DAE391","#D6EB93","#D1F396","#CDFC98","#CDF99B","#CEF19E","#D0E8A1","#D2E0A5","#D3D8A8","#D5CFAB","#D6C7AE","#D8BFB2","#DAB6B5","#DBAEB8","#DDA6BC","#DF9FBE","#E2A3BB","#E4A7B8","#E7ABB4","#EAAFB1","#EDB2AE","#EFB6AA","#F2BAA7","#F5BEA4","#F8C2A1","#FBC69D","#FDCA9A","#FCCC9B","#F8CCA0","#F3CCA4","#EFCCA9","#EBCCAD","#E6CCB2","#E2CCB6","#DECCBB","#D9CCBF","#D5CCC4","#D1CCC8","#CDCDCD"],"color.highlight.border":["black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black"],"color.border":["black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black"],"size":[20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20],"borderWidth":[2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2]},"edges":{"from":[1,1,5,4,6,12,9,15,2,22,22,25,25,29,16,31,34,25,36,30,38,41,28,44,41,23,45,45,37,31,42,54,47,61,54,46,79,68,80,60,74,71,70,88,83,64,63,34,113,69,90,108,113,80,73,107,70,78,64,105,55,108,113,103,128,156,99,128,89,92,106,103],"to":[2,5,8,10,11,16,19,21,23,25,30,32,33,34,36,38,42,43,46,51,52,53,55,57,59,61,65,66,69,70,78,79,80,81,83,86,90,92,96,98,100,102,107,111,114,115,117,119,120,121,122,125,127,129,133,136,138,141,142,144,149,152,153,154,158,159,160,161,162,164,165,166],"primary_onset_date":["2023-10-01","2023-10-01","2023-10-11","2023-10-10","2023-10-12","2023-10-18","2023-10-15","2023-10-20","2023-10-03","2023-10-25","2023-10-25","2023-10-28","2023-10-28","2023-10-30","2023-10-21","2023-10-31","2023-11-03","2023-10-28","2023-11-04","2023-10-30","2023-11-05","2023-11-06","2023-10-30","2023-11-06","2023-11-06","2023-10-26","2023-11-07","2023-11-07","2023-11-04","2023-10-31","2023-11-06","2023-11-10","2023-11-07","2023-11-12","2023-11-10","2023-11-07","2023-11-16","2023-11-14","2023-11-16","2023-11-12","2023-11-15","2023-11-14","2023-11-14","2023-11-18","2023-11-17","2023-11-13","2023-11-12","2023-11-03","2023-11-23","2023-11-14","2023-11-18","2023-11-22","2023-11-23","2023-11-16","2023-11-15","2023-11-21","2023-11-14","2023-11-16","2023-11-13","2023-11-21","2023-11-10","2023-11-22","2023-11-23","2023-11-21","2023-11-26","2023-11-29","2023-11-20","2023-11-26","2023-11-18","2023-11-18","2023-11-21","2023-11-21"],"secondary_onset_date":["2023-10-03","2023-10-11","2023-10-13","2023-10-16","2023-10-16","2023-10-21","2023-10-24","2023-10-24","2023-10-26","2023-10-28","2023-10-30","2023-11-03","2023-11-03","2023-11-03","2023-11-04","2023-11-05","2023-11-06","2023-11-06","2023-11-07","2023-11-08","2023-11-09","2023-11-10","2023-11-10","2023-11-11","2023-11-12","2023-11-12","2023-11-13","2023-11-13","2023-11-14","2023-11-14","2023-11-16","2023-11-16","2023-11-16","2023-11-16","2023-11-17","2023-11-17","2023-11-18","2023-11-18","2023-11-20","2023-11-20","2023-11-20","2023-11-20","2023-11-21","2023-11-22","2023-11-23","2023-11-23","2023-11-24","2023-11-25","2023-11-25","2023-11-25","2023-11-25","2023-11-26","2023-11-26","2023-11-26","2023-11-26","2023-11-27","2023-11-27","2023-11-27","2023-11-27","2023-11-28","2023-11-29","2023-11-29","2023-11-29","2023-11-29","2023-11-30","2023-11-30","2023-11-30","2023-11-30","2023-11-30","2023-11-30","2023-11-30","2023-11-30"],"width":[3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3],"color":["black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black"],"arrows.to":[true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true]},"nodesToDataframe":true,"edgesToDataframe":true,"options":{"width":"100%","height":"100%","nodes":{"shape":"dot"},"manipulation":{"enabled":false},"interaction":{"zoomSpeed":1},"edges":{"arrows":{"to":{"scaleFactor":2}}},"physics":{"stabilization":false}},"groups":null,"width":"90%","height":"700px","idselection":{"enabled":false,"style":"width: 150px; height: 26px","useLabels":true,"main":"Select by id"},"byselection":{"enabled":true,"style":"width: 150px; height: 26px","multiple":false,"hideColor":"rgba(200,200,200,0.5)","highlight":false,"variable":"id","main":"Select by id","values":[1,2,4,5,6,8,9,10,11,12,15,16,19,21,22,23,25,28,29,30,31,32,33,34,36,37,38,41,42,43,44,45,46,47,51,52,53,54,55,57,59,60,61,63,64,65,66,68,69,70,71,73,74,78,79,80,81,83,86,88,89,90,92,96,98,99,100,102,103,105,106,107,108,111,113,114,115,117,119,120,121,122,125,127,128,129,133,136,138,141,142,144,149,152,153,154,156,158,159,160,161,162,164,165,166]},"main":null,"submain":null,"footer":null,"background":"rgba(0, 0, 0, 0)","tooltipStay":300,"tooltipStyle":"position: fixed;visibility:hidden;padding: 5px;white-space: nowrap;font-family: verdana;font-size:14px;font-color:#000000;background-color: #EEEEEE;-moz-border-radius: 3px;-webkit-border-radius: 3px;border-radius: 3px;border: 1px solid #000000;","legend":{"width":0.1,"useGroups":false,"position":"left","ncol":1,"stepX":100,"stepY":100,"zoom":false},"opts_manipulation":{"datacss":"table.legend_table {\n  font-size: 11px;\n  border-width:1px;\n  border-color:#d3d3d3;\n  border-style:solid;\n}\ntable.legend_table td {\n  border-width:1px;\n  border-color:#d3d3d3;\n  border-style:solid;\n  padding: 2px;\n}\ndiv.table_content {\n  width:80px;\n  text-align:center;\n}\ndiv.table_description {\n  width:100px;\n}\n\n.operation {\n  font-size:20px;\n}\n\n.network-popUp {\n  display:none;\n  z-index:299;\n  width:250px;\n  /*height:150px;*/\n  background-color: #f9f9f9;\n  border-style:solid;\n  border-width:1px;\n  border-color: #0d0d0d;\n  padding:10px;\n  text-align: center;\n  position:fixed;\n  top:50%;  \n  left:50%;  \n  margin:-100px 0 0 -100px;  \n\n}","addNodeCols":["id","label"],"editNodeCols":["id","label"],"tab_add_node":"<span id=\"addnode-operation\" class = \"operation\">node<\/span> <br><table style=\"margin:auto;\"><tr><td>id<\/td><td><input id=\"addnode-id\"  type= \"text\" value=\"new value\"><\/td><\/tr><tr><td>label<\/td><td><input id=\"addnode-label\"  type= \"text\" value=\"new value\"><\/td><\/tr><\/table><input type=\"button\" value=\"save\" id=\"addnode-saveButton\"><\/button><input type=\"button\" value=\"cancel\" id=\"addnode-cancelButton\"><\/button>","tab_edit_node":"<span id=\"editnode-operation\" class = \"operation\">node<\/span> <br><table style=\"margin:auto;\"><tr><td>id<\/td><td><input id=\"editnode-id\"  type= \"text\" value=\"new value\"><\/td><\/tr><tr><td>label<\/td><td><input id=\"editnode-label\"  type= \"text\" value=\"new value\"><\/td><\/tr><\/table><input type=\"button\" value=\"save\" id=\"editnode-saveButton\"><\/button><input type=\"button\" value=\"cancel\" id=\"editnode-cancelButton\"><\/button>"},"highlight":{"enabled":true,"hoverNearest":false,"degree":1,"algorithm":"all","hideColor":"rgba(200,200,200,1)","labelOnly":true},"collapse":{"enabled":true,"fit":false,"resetHighlight":true,"clusterOptions":null,"keepCoord":true,"labelSuffix":"(cluster)"},"iconsRedraw":true},"evals":[],"jsHooks":[]}</script><!--/html_preserve--><div class="alert alert-secondary">
+<table class="table"><colgroup><col width="100%"></colgroup><tbody><tr class="odd"><td>::: {.alert .alert-secondary} | <em>💡 <strong>Preguntas
+(2)</strong></em> | | - Describa los grupos (clusters). | - ¿Ve algún
+evento potencial de superpropagación (donde un caso propaga el patógeno
+a muchos otros casos)? | ::: |</td>
 </tr></tbody></table></div>
 </div>
 </section><div class="section level1">
-<h1 id="wrap-up-1-_________"><em><code>_______Wrap-up 1 _________</code></em><a class="anchor" aria-label="anchor" href="#wrap-up-1-_________"></a></h1>
+<h1 id="pausa-1-_________"><em><code>_______Pausa 1 _________</code></em><a class="anchor" aria-label="anchor" href="#pausa-1-_________"></a></h1>
 <hr><div class="section level2">
-<h2 id="estimating-the-incubation-period">7. Estimating the incubation period<a class="anchor" aria-label="anchor" href="#estimating-the-incubation-period"></a></h2>
-<p>Now let’s focus on the incubation period. We will use the
-<code>linelist</code> for this part. We need both time of symptom onset
-and time of possible exposure. Notice that there are two dates for
-exposure, a start and end, in the data. Sometimes the exact date of
-exposure is unknown and exposure window is provided during case
-interviews instead.</p>
+<h2 id="estimación-del-período-de-incubación">7. Estimación del período de incubación<a class="anchor" aria-label="anchor" href="#estimaci%C3%B3n-del-per%C3%ADodo-de-incubaci%C3%B3n"></a></h2>
+<p>Ahora, enfoquese en el período de incubación. Se utilizará los datos
+del <code>linelist</code> para esta parte. Se necesitan ambos el tiempo
+de inicio de sintomas y el timpo de la posible exposición. Note que en
+los datos hay dos fechas de exposición, una de inicio y una de final.
+Algunas veces la fecha exacta de exposición es desconocida y en su lugar
+se obtiene la ventana de exposición durante la entrevista.</p>
 <div class="alert alert-secondary">
-<p><em>💡 <strong>Questions (3)</strong></em></p>
-<ul><li><p>For how many cases do we have data on both dates of symptom onset
-and exposure?</p></li>
-<li><p>Calculate the exposure windows. How many cases have a single date
-of exposure?</p></li>
+<p><em>💡 <strong>Preguntas (3)</strong></em></p>
+<ul><li><p>¿Para cuántos casos tiene datos tanto de la fecha de inicio de
+síntomas como de exposición?</p></li>
+<li><p>Calcule las ventanas de exposición. ¿Cuántos casos tienen una
+única fecha de exposición?</p></li>
 </ul></div>
 <div class="codewrapper sourceCode" id="cb14">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -644,14 +645,14 @@ of exposure?</p></li>
 34 11  5 </code></pre>
 </div>
 <div class="section level3">
-<h3 id="naive-estimate-of-the-incubation-period">7.1. Naive estimate of the incubation period<a class="anchor" aria-label="anchor" href="#naive-estimate-of-the-incubation-period"></a></h3>
-<p>Let’s start by calculating a naive estimate of the incubation
-period.</p>
+<h3 id="estimación-naive-del-período-de-incubación">7.1. Estimación naive del período de incubación<a class="anchor" aria-label="anchor" href="#estimaci%C3%B3n-naive-del-per%C3%ADodo-de-incubaci%C3%B3n"></a></h3>
+<p>Empiece calculando una estimación naive del período de
+incubación.</p>
 <div class="codewrapper sourceCode" id="cb18">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># Max incubation period </span></span>
+<code class="sourceCode R"><span><span class="co"># Máximo tiempo de período de incubación</span></span>
 <span><span class="va">ip</span><span class="op">$</span><span class="va">max_ip</span> <span class="op">&lt;-</span> <span class="va">ip</span><span class="op">$</span><span class="va">date_onset</span> <span class="op">-</span> <span class="va">ip</span><span class="op">$</span><span class="va">exposure_start</span></span>
 <span><span class="fu">summary</span><span class="op">(</span><span class="fu">as.numeric</span><span class="op">(</span><span class="va">ip</span><span class="op">$</span><span class="va">max_ip</span><span class="op">)</span><span class="op">)</span></span></code></pre>
 </div>
@@ -665,7 +666,7 @@ period.</p>
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># Minimum incubation period</span></span>
+<code class="sourceCode R"><span><span class="co"># Mínimo tiempo de período de incubación</span></span>
 <span><span class="va">ip</span><span class="op">$</span><span class="va">min_ip</span> <span class="op">&lt;-</span> <span class="va">ip</span><span class="op">$</span><span class="va">date_onset</span> <span class="op">-</span> <span class="va">ip</span><span class="op">$</span><span class="va">exposure_end</span></span>
 <span><span class="fu">summary</span><span class="op">(</span><span class="fu">as.numeric</span><span class="op">(</span><span class="va">ip</span><span class="op">$</span><span class="va">min_ip</span><span class="op">)</span><span class="op">)</span></span></code></pre>
 </div>
@@ -677,22 +678,23 @@ period.</p>
 </div>
 </div>
 <div class="section level3">
-<h3 id="censoring-adjusted-estimate-of-the-incubation-period">7.2. Censoring adjusted estimate of the incubation period<a class="anchor" aria-label="anchor" href="#censoring-adjusted-estimate-of-the-incubation-period"></a></h3>
-<p>Now let’s fit three probability distributions to the incubation
-period data accounting for double censoring. We will adapt some
-<code>stan</code> code that was published by Miura et al. during the
-2022 global mpox outbreak. This method does not account for right
-truncation or dynamical bias.</p>
-<p>Remember we are mainly interested in considering three probability
-distributions: <em>Weibull</em>, <em>gamma</em>, and <em>log normal</em>
-(See Table 1).</p>
-<p><code>Stan</code> is a software program that implements the
-Hamiltonian Monte Carlo (HMC) algorithm. HMC is a Markov chain Monte
-Carlo (MCMC) method for fitting complex models to data using Bayesian
-statistics.</p>
+<h3 id="censura-estimada-ajustada-del-período-de-incubación">7.2. Censura estimada ajustada del período de incubación<a class="anchor" aria-label="anchor" href="#censura-estimada-ajustada-del-per%C3%ADodo-de-incubaci%C3%B3n"></a></h3>
+<p>Ahora, ajuste tres distribuciones de probabilidad a los datos del
+período de incubación teniendo en cuenta la censura doble. Adapte un
+código de <code>stan</code> que fue publicado por Miura et al. durante
+el brote global de mpox de 2022. Este método no tiene en cuenta el
+truncamiento a la derecha ni el sesgo dinámico.</p>
+<p>Recuerde que el interés principal es considerar tres distribuciones
+de probabilidad: <em>Weibull</em>, <em>gamma</em> y <em>log normal</em>
+(Ver Tabla 1).</p>
+<p><code>Stan</code> es un programa de software que implementa el
+algoritmo Monte Carlo Hamiltoniano (HMC por su siglas en inglés de
+Hamiltonian Monte Carlo). HMC es un método de Monte Carlo de cadena de
+Markov (MCMC) para ajustar modelos complejos a datos utilizando
+estadísticas bayesianas.</p>
 <div class="section level4">
-<h4 id="running-the-model-in-stan"><strong>7.1.1. Running the model in Stan</strong><a class="anchor" aria-label="anchor" href="#running-the-model-in-stan"></a></h4>
-<p>We will fit all three distributions in this code chunk.</p>
+<h4 id="corra-el-modelo-en-stan"><strong>7.1.1. Corra el modelo en Stan</strong><a class="anchor" aria-label="anchor" href="#corra-el-modelo-en-stan"></a></h4>
+<p>Ajuste las tres distribuciones en este bloque de código.</p>
 <div class="codewrapper sourceCode" id="cb22">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
@@ -761,25 +763,26 @@ statistics.</p>
 </div>
 </div>
 <div class="section level4">
-<h4 id="checking-for-convergence"><strong>7.1.2. Checking for convergence</strong><a class="anchor" aria-label="anchor" href="#checking-for-convergence"></a></h4>
-<p>Now we will check for model convergence. We will look at r-hat
-values, effective sample sizes, and the MCMC traces. R-hat compares the
-between- and within-chain estimates for model parameters; values near 1
-tell us that chains have mixed well (Vehtari et al. 2021). The effective
-sample size estimates the number of independent samples after accounting
-for dependence in the MCMC chains (Lambert 2018). For a model with 4
-MCMC chains, a total effective sample size of at least 400 is
-recommended (Vehtari et al. 2021).</p>
-<p>For each model of different fitted distributions:</p>
+<h4 id="revisar-si-hay-convergencia"><strong>7.1.2. Revisar si hay convergencia</strong><a class="anchor" aria-label="anchor" href="#revisar-si-hay-convergencia"></a></h4>
+<p>Ahora verifique la convergencia del modelo. Observe los valores de
+r-hat, los tamaños de muestra efectivos y las trazas MCMC. R-hat compara
+las estimaciones entre y dentro de cadenas para los parámetros del
+modelo; valores cercanos a 1 indican que las cadenas se han mezclado
+bien (Vehtari et al. 2021). El tamaño de muestra efectivo estima el
+número de muestras independientes después de tener en cuenta la
+dependencia en las cadenas MCMC (Lambert 2018). Para un modelo con 4
+cadenas MCMC, se recomienda un tamaño total de muestra efectiva de al
+menos 400 (Vehtari et al. 2021).</p>
+<p>Para cada modelo con distribución ajustada:</p>
 <div class="alert alert-secondary">
 <p><em>💡 <strong>Questions (4)</strong></em></p>
-<ul><li><p>Are the r-hat values close to 1?</p></li>
-<li><p>Do the 4 MCMC chains generally lay on top of each other and stay
-around the same values (look like fuzzy caterpillars)?</p></li>
+<ul><li><p>¿Los valores de r-hat son cercanos a 1?</p></li>
+<li><p>¿Las 4 cadenas MCMC generalmente se superponen y permanecen
+alrededor de los mismos valores (se ven como orugas peludas)?</p></li>
 </ul></div>
 </div>
 <div class="section level4">
-<h4 id="convergence-for-gamma"><strong>7.1.2.1. Convergence for Gamma</strong><a class="anchor" aria-label="anchor" href="#convergence-for-gamma"></a></h4>
+<h4 id="convergencia-para-gamma"><strong>7.1.2.1. Convergencia para Gamma</strong><a class="anchor" aria-label="anchor" href="#convergencia-para-gamma"></a></h4>
 <div class="codewrapper sourceCode" id="cb23">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
@@ -793,11 +796,11 @@ around the same values (look like fuzzy caterpillars)?</p></li>
 4 chains, each with iter=3000; warmup=1000; thin=1; 
 post-warmup draws per chain=2000, total post-warmup draws=8000.
 
-        mean se_mean    sd  2.5%   25%   50%   75% 97.5% n_eff Rhat
-par[1] 1.977   0.003 0.352 1.353 1.734 1.952 2.199 2.732 12412    1
-par[2] 0.324   0.001 0.065 0.208 0.278 0.320 0.365 0.466 11709    1
+        mean se_mean    sd  2.5%   25%  50%   75% 97.5% n_eff Rhat
+par[1] 1.980   0.004 0.362 1.338 1.725 1.96 2.208 2.747 10260    1
+par[2] 0.324   0.001 0.067 0.205 0.277 0.32 0.366 0.471 10069    1
 
-Samples were drawn using NUTS(diag_e) at Sun Dec  3 01:36:07 2023.
+Samples were drawn using NUTS(diag_e) at Sun Dec  3 08:25:32 2023.
 For each parameter, n_eff is a crude measure of effective sample size,
 and Rhat is the potential scale reduction factor on split chains (at 
 convergence, Rhat=1).</code></pre>
@@ -810,7 +813,7 @@ convergence, Rhat=1).</code></pre>
 </div>
 <figure><img src="../fig/EnfermedadX-rendered-convergence%20gamma-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure></div>
 <div class="section level4">
-<h4 id="convergence-for-log-normal"><strong>7.1.2.2. Convergence for log normal</strong><a class="anchor" aria-label="anchor" href="#convergence-for-log-normal"></a></h4>
+<h4 id="convergencia-para-log-normal"><strong>7.1.2.2. Convergencia para log normal</strong><a class="anchor" aria-label="anchor" href="#convergencia-para-log-normal"></a></h4>
 <div class="codewrapper sourceCode" id="cb26">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
@@ -825,10 +828,10 @@ convergence, Rhat=1).</code></pre>
 post-warmup draws per chain=2000, total post-warmup draws=8000.
 
         mean se_mean    sd  2.5%   25%   50%   75% 97.5% n_eff Rhat
-par[1] 1.529   0.001 0.114 1.306 1.455 1.529 1.604 1.756 10844    1
-par[2] 0.800   0.001 0.084 0.659 0.741 0.793 0.852 0.986  9854    1
+par[1] 1.531   0.001 0.112 1.314 1.456 1.531 1.604 1.758  9515    1
+par[2] 0.800   0.001 0.084 0.656 0.742 0.793 0.850 0.986  8864    1
 
-Samples were drawn using NUTS(diag_e) at Sun Dec  3 01:36:13 2023.
+Samples were drawn using NUTS(diag_e) at Sun Dec  3 08:25:39 2023.
 For each parameter, n_eff is a crude measure of effective sample size,
 and Rhat is the potential scale reduction factor on split chains (at 
 convergence, Rhat=1).</code></pre>
@@ -841,7 +844,7 @@ convergence, Rhat=1).</code></pre>
 </div>
 <figure><img src="../fig/EnfermedadX-rendered-convergence%20lognormal-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure></div>
 <div class="section level4">
-<h4 id="convergence-for-weibull"><strong>7.1.2.3. Convergence for Weibull</strong><a class="anchor" aria-label="anchor" href="#convergence-for-weibull"></a></h4>
+<h4 id="convergencia-para-weibull"><strong>7.1.2.3. Convergencia para Weibull</strong><a class="anchor" aria-label="anchor" href="#convergencia-para-weibull"></a></h4>
 <div class="codewrapper sourceCode" id="cb29">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
@@ -856,10 +859,10 @@ convergence, Rhat=1).</code></pre>
 post-warmup draws per chain=2000, total post-warmup draws=8000.
 
         mean se_mean    sd  2.5%   25%   50%   75% 97.5% n_eff Rhat
-par[1] 1.373   0.001 0.149 1.092 1.270 1.368 1.474 1.676  9960    1
-par[2] 6.953   0.008 0.776 5.543 6.405 6.919 7.454 8.578  9417    1
+par[1] 1.375   0.002 0.147 1.100 1.273 1.369 1.469 1.673  8693    1
+par[2] 6.967   0.008 0.777 5.548 6.423 6.935 7.471 8.600  9558    1
 
-Samples were drawn using NUTS(diag_e) at Sun Dec  3 01:36:00 2023.
+Samples were drawn using NUTS(diag_e) at Sun Dec  3 08:25:25 2023.
 For each parameter, n_eff is a crude measure of effective sample size,
 and Rhat is the potential scale reduction factor on split chains (at 
 convergence, Rhat=1).</code></pre>
@@ -872,7 +875,8 @@ convergence, Rhat=1).</code></pre>
 </div>
 <figure><img src="../fig/EnfermedadX-rendered-convergence%20weibull-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure></div>
 <div class="section level4">
-<h4 id="compute-model-comparison-criteria"><strong>7.1.3. Compute model comparison criteria</strong><a class="anchor" aria-label="anchor" href="#compute-model-comparison-criteria"></a></h4>
+<h4 id="calcule-los-criterios-de-comparación-de-los-modelos"><strong>7.1.3. Calcule los criterios de comparación de los
+modelos</strong><a class="anchor" aria-label="anchor" href="#calcule-los-criterios-de-comparaci%C3%B3n-de-los-modelos"></a></h4>
 <p>Let’s compute the widely applicable information criterion (WAIC) and
 leave-one-out-information criterion (LOOIC) to compare model fits. The
 best fitting model is the model with the lowest WAIC or LOOIC. We will
@@ -896,8 +900,8 @@ also summarize the distributions and make some plots.</p>
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="output" tabindex="0"><code>           weibull     gamma lognormal
-Estimate 278.18793 276.03678 272.78176
-SE        11.97859  13.39417  13.86509</code></pre>
+Estimate 278.11362 276.16067 272.78043
+SE        11.92209  13.41703  13.86878</code></pre>
 </div>
 <div class="codewrapper sourceCode" id="cb34">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -920,7 +924,7 @@ SE        11.97859  13.39417  13.86509</code></pre>
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="output" tabindex="0"><code><span><span class="va">Estimate</span> </span>
-<span><span class="fl">278.2112</span> </span></code></pre>
+<span><span class="fl">278.1393</span> </span></code></pre>
 </div>
 <div class="codewrapper sourceCode" id="cb36">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -936,7 +940,7 @@ SE        11.97859  13.39417  13.86509</code></pre>
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="output" tabindex="0"><code><span><span class="va">Estimate</span> </span>
-<span> <span class="fl">276.055</span> </span></code></pre>
+<span><span class="fl">276.1785</span> </span></code></pre>
 </div>
 <div class="codewrapper sourceCode" id="cb38">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -952,7 +956,7 @@ SE        11.97859  13.39417  13.86509</code></pre>
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="output" tabindex="0"><code><span><span class="va">Estimate</span> </span>
-<span><span class="fl">272.7942</span> </span></code></pre>
+<span><span class="fl">272.7957</span> </span></code></pre>
 </div>
 </div>
 <div class="section level4">
@@ -993,9 +997,9 @@ or statistical models, like for forecasting (Lessler et al. 2009).</p>
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="output" tabindex="0"><code>       weibull    gamma lognormal
-2.5%  5.157946 5.029951  5.017493
-50%   6.338758 6.122805  6.324905
-97.5% 7.870292 7.523752  8.472183</code></pre>
+2.5%  5.162005 5.044458  5.011720
+50%   6.350587 6.127633  6.326507
+97.5% 7.885251 7.519397  8.534383</code></pre>
 </div>
 <div class="codewrapper sourceCode" id="cb42">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -1009,9 +1013,9 @@ or statistical models, like for forecasting (Lessler et al. 2009).</p>
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="output" tabindex="0"><code>       weibull    gamma lognormal
-2.5%  3.693299 3.436822  3.990813
-50%   4.651300 4.366334  5.902965
-97.5% 6.385197 5.818256 10.203445</code></pre>
+2.5%  3.706025 3.424779  3.981813
+50%   4.656080 4.367375  5.909562
+97.5% 6.367106 5.871257 10.322950</code></pre>
 </div>
 <div class="codewrapper sourceCode" id="cb44">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -1029,9 +1033,9 @@ or statistical models, like for forecasting (Lessler et al. 2009).</p>
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="output" tabindex="0"><code>          0.025      0.05      0.5     0.95    0.975     0.99
-2.5%  0.2141434 0.4062625 4.094363 12.51226 14.39380 16.68748
-50%   0.4701658 0.7878909 5.288772 15.37559 17.89946 21.02025
-97.5% 0.8509980 1.2987854 6.620899 20.06110 23.98055 29.04699</code></pre>
+2.5%  0.2194948 0.4166237 4.133943 12.57786 14.46543 16.77682
+50%   0.4749054 0.7958112 5.313614 15.37212 17.88604 21.03676
+97.5% 0.8496884 1.3007673 6.677588 20.06351 23.94175 28.94577</code></pre>
 </div>
 <div class="codewrapper sourceCode" id="cb46">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -1046,9 +1050,9 @@ or statistical models, like for forecasting (Lessler et al. 2009).</p>
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="output" tabindex="0"><code>          0.025      0.05      0.5     0.95    0.975     0.99
-2.5%  0.3372192 0.5694673 4.096901 11.90124 13.85229 16.36080
-50%   0.7162024 1.0585090 5.109417 14.57927 17.15045 20.47951
-97.5% 1.1832408 1.6042107 6.274960 18.73114 22.30890 26.95634</code></pre>
+2.5%  0.3305815 0.5646783 4.094781 11.86837 13.83815 16.31134
+50%   0.7179738 1.0602036 5.115098 14.60117 17.18316 20.50092
+97.5% 1.1813801 1.6042186 6.294058 18.79424 22.41678 27.22210</code></pre>
 </div>
 <div class="codewrapper sourceCode" id="cb48">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -1062,18 +1066,18 @@ or statistical models, like for forecasting (Lessler et al. 2009).</p>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="output" tabindex="0"><code>          0.025      0.05      0.5     0.95    0.975     0.99
-2.5%  0.6164534 0.8308035 3.692910 12.63805 15.68208 20.08689
-50%   0.9759112 1.2527701 4.615036 16.98527 21.81277 29.13840
-97.5% 1.3556093 1.6852239 5.786690 25.34282 34.19679 48.82132</code></pre>
+<pre class="output" tabindex="0"><code>          0.025     0.05      0.5     0.95    0.975     0.99
+2.5%  0.6354467 0.856151 3.720954 12.55995 15.59239 20.11072
+50%   0.9764216 1.255040 4.621224 16.98482 21.81452 29.15810
+97.5% 1.3706128 1.700840 5.798623 25.69675 34.71595 49.42165</code></pre>
 </div>
-<p>For each model, find these items for the estimated incubation period
-in the output above and write them below.</p>
-<ul><li><p>Mean and 95% credible interval</p></li>
-<li><p>Standard deviation and 95% credible interval</p></li>
+<p>Para cada modelo, encuentre estos elementos para el período de
+incubación estimado en la salida de arriba y escribalos abajo.</p>
+<ul><li><p>Media e intervalo de credibilidad del 95%</p></li>
+<li><p>Desviación estándar e intervalo de credibilidad del 95%</p></li>
 <li><p>Percentiles (e.g., 2.5, 5, 25, 50, 75, 95, 97.5, 99)</p></li>
-<li><p>The parameters of the fitted distributions (e.g., shape and scale
-for gamma distribution)</p></li>
+<li><p>Los parámetros de las distribuciones ajustadas (e.g., shape y
+scale para distribución gamma)</p></li>
 </ul></div>
 <div class="section level4">
 <h4 id="plot-the-results"><strong>7.1.5. Plot the results</strong><a class="anchor" aria-label="anchor" href="#plot-the-results"></a></h4>
@@ -1153,20 +1157,20 @@ curve lays on top of the black line.</p>
 </div>
 </div>
 <div class="section level1">
-<h1 id="wrap-up-2-_________"><em><code>_______Wrap-up 2 _________</code></em><a class="anchor" aria-label="anchor" href="#wrap-up-2-_________"></a></h1>
+<h1 id="pausa-2-_________"><em><code>_______Pausa 2 _________</code></em><a class="anchor" aria-label="anchor" href="#pausa-2-_________"></a></h1>
 <div class="section level2">
-<h2 id="estimating-the-serial-interval">8. Estimating the serial interval<a class="anchor" aria-label="anchor" href="#estimating-the-serial-interval"></a></h2>
-<p>Now we will estimate the serial interval. Again, we’ll do a naive
-estimate first by calculating the difference between the onset times of
-primary and secondary case pairs.</p>
-<ol style="list-style-type: decimal"><li><p>Are there any instances of negative serial intervals in the data
-(e.g., symptom onset in the secondary case came before symptom onset in
-primary case)?</p></li>
-<li><p>Report the median serial interval as well as the minimum and
-maximum.</p></li>
-<li><p>Plot the distribution of the serial interval.</p></li>
+<h2 id="estimación-del-intervalo-serial">8. Estimación del intervalo serial<a class="anchor" aria-label="anchor" href="#estimaci%C3%B3n-del-intervalo-serial"></a></h2>
+<p>Ahora, estime el intervalo serial. Nuevamente, se realizará primero
+una estimación navie calculando la diferencia entre la fecha de inicio
+de síntomas entre el par de casos primario y secundario.</p>
+<ol style="list-style-type: decimal"><li><p>¿Existen casos con intervalos seriales negativos en los datos
+(por ejemplo, el inicio de los síntomas en el caso secundario ocurrió
+antes del inicio de los síntomas en el caso primario)?</p></li>
+<li><p>Informe la mediana del intervalo serial, así como el mínimo y el
+máximo.</p></li>
+<li><p>Grafique la distribución del intervalo serial.</p></li>
 </ol><div class="section level3">
-<h3 id="naive-estimate">8.1. Naive estimate<a class="anchor" aria-label="anchor" href="#naive-estimate"></a></h3>
+<h3 id="estimación-naive">8.1. Estimación naive<a class="anchor" aria-label="anchor" href="#estimaci%C3%B3n-naive"></a></h3>
 <div class="codewrapper sourceCode" id="cb51">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
@@ -1206,7 +1210,7 @@ the MCMC converges on the target distribution. We will use the default
 prior distributions, which can be found in the package documentation
 (see ‘details’ for the dic.fit.mcmc function here: <a href="https://cran.r-project.org/web/packages/coarseDataTools/coarseDataTools.pdf" class="external-link uri">https://cran.r-project.org/web/packages/coarseDataTools/coarseDataTools.pdf</a>).</p>
 <div class="section level4">
-<h4 id="preparing-the-data">8.2.1. Preparing the data<a class="anchor" aria-label="anchor" href="#preparing-the-data"></a></h4>
+<h4 id="preparación-de-los-datos">8.2.1. Preparación de los datos<a class="anchor" aria-label="anchor" href="#preparaci%C3%B3n-de-los-datos"></a></h4>
 <div class="codewrapper sourceCode" id="cb54">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
@@ -1226,9 +1230,8 @@ prior distributions, which can be found in the package documentation
 </div>
 </div>
 <div class="section level4">
-<h4 id="fitting-a-gamma-distribution-for-si">8.2.2. Fitting a gamma distribution for SI<a class="anchor" aria-label="anchor" href="#fitting-a-gamma-distribution-for-si"></a></h4>
-<p>Let’s fit the gamma distribution to the serial interval data
-first.</p>
+<h4 id="ajuste-una-distribución-gamma-para-el-si">8.2.2. Ajuste una distribución gamma para el SI<a class="anchor" aria-label="anchor" href="#ajuste-una-distribuci%C3%B3n-gamma-para-el-si"></a></h4>
+<p>Primero, ajuste una distribución gamma al intervalo serial.</p>
 <div class="codewrapper sourceCode" id="cb55">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
@@ -1307,7 +1310,7 @@ Metropolis acceptance rate = 0.55148
 The Metropolis acceptance rate was 0.55500
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@</code></pre>
 </div>
-<p>Let’s look at the results.</p>
+<p>Ahora observe los resultados.</p>
 <div class="codewrapper sourceCode" id="cb57">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
@@ -1577,7 +1580,7 @@ Gelman-Rubin MCMC convergence diagnostic was successful.</code></pre>
 <span>sd <span class="op">=</span> <span class="fu">sqrt</span><span class="op">(</span><span class="va">scale</span><span class="op">^</span><span class="fl">2</span><span class="op">*</span><span class="op">(</span><span class="fu">gamma</span><span class="op">(</span><span class="fl">1</span><span class="op">+</span><span class="fl">2</span><span class="op">/</span><span class="va">shape</span><span class="op">)</span><span class="op">-</span><span class="op">(</span><span class="fu">gamma</span><span class="op">(</span><span class="fl">1</span><span class="op">+</span><span class="fl">1</span><span class="op">/</span><span class="va">shape</span><span class="op">)</span><span class="op">)</span><span class="op">^</span><span class="fl">2</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="op">)</span> </span>
 <span></span>
-<span><span class="co"># Get the summary statistics</span></span>
+<span><span class="co"># Obtenga las estadísticas resumen</span></span>
 <span><span class="va">si_summary_weibull</span> <span class="op">&lt;-</span> </span>
 <span>  <span class="va">si_samples_weibull</span> <span class="op">%&gt;%</span></span>
 <span><span class="fu">summarise</span><span class="op">(</span></span>
@@ -1626,9 +1629,9 @@ Gelman-Rubin MCMC convergence diagnostic was successful.</code></pre>
 </div>
 </div>
 <div class="section level4">
-<h4 id="plot-the-results-for-si">8.2.5. Plot the results for SI<a class="anchor" aria-label="anchor" href="#plot-the-results-for-si"></a></h4>
-<p>Now we will plot the three fitted distributions. Make sure the
-distributions fit the serial interval data well.</p>
+<h4 id="grafique-los-resultados-para-el-si">8.2.5. Grafique los resultados para el SI<a class="anchor" aria-label="anchor" href="#grafique-los-resultados-para-el-si"></a></h4>
+<p>Ahora, grafique el ajuste de las tres distribuciones. Asegúrese que
+la distribución ajuste bien los datos del intervalo serial.</p>
 <div class="codewrapper sourceCode" id="cb71">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
@@ -1663,15 +1666,15 @@ distributions fit the serial interval data well.</p>
 <span>    legend.title <span class="op">=</span> <span class="fu">element_blank</span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  <span class="op">)</span> </span></code></pre>
 </div>
-<figure><img src="../fig/EnfermedadX-rendered-plot%20dist-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>Let’s calculate the WAIC and LOOIC. <code>coarseDataTools</code> does
-not have a built-in way to do this, so we need to calculate the
-likelihood from the MCMC chains and use the <code>loo</code> R
-package.</p>
+<figure><img src="../fig/EnfermedadX-rendered-plot%20dist-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>Ahora calcule el WAIC y LOOIC. <code>coarseDataTools</code> no tiene
+una forma integrada de hacer esto, por lo que se necesita calcular la
+verosimilitud a partir de las cadenas MCMC y utilizar el paquete
+<code>loo</code> en R.</p>
 <div class="codewrapper sourceCode" id="cb72">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># Load likelihood functions from coarseDataTools</span></span>
+<code class="sourceCode R"><span><span class="co"># Cargur las funciones de verosimilitud de coarseDataTools</span></span>
 <span><span class="kw">source</span><span class="op">(</span><span class="st">"Functions/likelihood_function.R"</span><span class="op">)</span></span></code></pre>
 </div>
 <div class="codewrapper">
@@ -1820,14 +1823,15 @@ elpd_loo -203.956018  6.9097884
 p_loo       2.098279  0.6725387
 looic     407.912036 13.8195768</code></pre>
 </div>
-<p>Include the following when reporting the serial interval:</p>
-<ul><li><p>Mean and 95% credible interval</p></li>
-<li><p>Standard deviation and 95% credible interval</p></li>
-<li><p>The parameters of the fitted distribution (e.g., shape and scale
-for gamma distribution)</p></li>
+<p>Incluya lo siguiente cuando reporte el intervalo serial:</p>
+<ul><li><p>Media e intervalo de credibilidad del 95%</p></li>
+<li><p>Desviación estándar y e intervalo de credibilidad del
+95%</p></li>
+<li><p>Los parámetros de la distribución ajustada (e.g., shape y scale
+para distribución gamma)</p></li>
 </ul><div class="alert alert-secondary">
 <p><em>💡 <strong>Questions (7)</strong></em></p>
-<ul><li>Which distribution(s) have the lowest WAIC and LOOIC??</li>
+<ul><li>¿Qué distribución tiene el menor WAIC y LOOIC??</li>
 </ul></div>
 <div class="codewrapper sourceCode" id="cb95">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -1870,63 +1874,66 @@ for gamma distribution)</p></li>
 </div>
 </div>
 <div class="section level1">
-<h1 id="wrap-up-3-_________"><em><code>_______Wrap-up 3 _________</code></em><a class="anchor" aria-label="anchor" href="#wrap-up-3-_________"></a></h1>
+<h1 id="pausa-3-_________"><em><code>_______Pausa 3 _________</code></em><a class="anchor" aria-label="anchor" href="#pausa-3-_________"></a></h1>
 <div class="section level2">
-<h2 id="control-measures">9. Control measures<a class="anchor" aria-label="anchor" href="#control-measures"></a></h2>
+<h2 id="medidas-de-control">9. Medidas de control<a class="anchor" aria-label="anchor" href="#medidas-de-control"></a></h2>
 <div class="section level3">
-<h3 id="analyze-the-results-altogether">9.1 Analyze the results altogether<a class="anchor" aria-label="anchor" href="#analyze-the-results-altogether"></a></h3>
+<h3 id="analicemos-el-resultado-juntos">9.1 Analicemos el resultado juntos<a class="anchor" aria-label="anchor" href="#analicemos-el-resultado-juntos"></a></h3>
 <div class="alert alert-secondary">
-<p>You have now finalized the statistical analysis 🥳</p>
-<ul><li><p>Compare the incubation period and the serial interval.</p></li>
-<li><p>Which one is longer?</p></li>
-<li><p>Does pre-symptomatic transmission occur with Disease X?</p></li>
-</ul><!-- --><ul><li><p>Will isolating symptomatic individuals and tracing and
-quarantining their contacts be effective measures?</p></li>
-<li><p>If not, which other measures can be implemented to slow the
-outbreak?</p></li>
+<p>Ahora ha finalizado el análisis estadístico 🥳</p>
+<ul><li><p>Compare el período de incubación y el intervalo serial.</p></li>
+<li><p>¿Cuál es más largo?</p></li>
+<li><p>¿Ocurre la transmisión pre-sintomática con la Enfermedad
+X?</p></li>
+</ul><!-- --><ul><li><p>¿Serán medidas efectivas aislar a los individuos sintomáticos y
+rastrear y poner en cuarentena a sus contactos?</p></li>
+<li><p>Si no lo son, ¿qué otras medidas se pueden implementar para
+frenar el brote?</p></li>
 </ul></div>
 </div>
 <div class="section level3">
-<h3 id="design-a-contact-tracing-strategy">9.2 Design a contact tracing strategy<a class="anchor" aria-label="anchor" href="#design-a-contact-tracing-strategy"></a></h3>
-<p>Based on the estimated delays as well as the demographics of cases,
-design a contact tracing strategy for the outbreak, including a
-communications plan (hint: think about logistics).</p>
+<h3 id="diseño-de-una-estrategía-de-rastreo-de-contactos">9.2 Diseño de una estrategía de rastreo de contactos<a class="anchor" aria-label="anchor" href="#dise%C3%B1o-de-una-estrateg%C3%ADa-de-rastreo-de-contactos"></a></h3>
+<p>Basado en los rezagos estimados así como la demografía de los casos,
+diseñe una estrategia de rastreo de contactos para el brote, incluyendo
+un plan de comunicaciones (Pista: piense sobre la logística).</p>
 </div>
 </div>
 <div class="section level2">
-<h2 id="true-values">10. True values<a class="anchor" aria-label="anchor" href="#true-values"></a></h2>
-<p>The true values used to simulate the epidemics were:</p>
-<table style="width:98%;" class="table"><caption>Table 2. True values of the <strong><em>incubation
-period.</em></strong>
+<h2 id="valores-verdaderos">10. Valores verdaderos<a class="anchor" aria-label="anchor" href="#valores-verdaderos"></a></h2>
+<p>Los valores verdaderos usados para simular las epidemías fueron:</p>
+<table style="width:96%;" class="table"><caption>Tabla 2. Valores verdaderos del <strong><em>período de
+incubación.</em></strong>
 </caption>
-<colgroup><col width="20%"><col width="22%"><col width="20%"><col width="35%"></colgroup><tbody><tr class="odd"><td></td>
-<td align="center">Distribution</td>
-<td align="center">Mean (days)</td>
-<td align="center">Standard deviation (days)</td>
+<colgroup><col width="19%"><col width="21%"><col width="19%"><col width="33%"><col width="2%"></colgroup><tbody><tr class="odd"><td></td>
+<td>Distribución</td>
+<td colspan="3">Media (días) | Desviación estándar (días)</td>
+</tr><tr class="even"><td>Grupo 1</td>
+<td>Log normal</td>
+<td>5.7</td>
+<td>4.6</td>
+<td></td>
+</tr><tr class="odd"><td>Grupo 2</td>
+<td>Weibull</td>
+<td>7.1</td>
+<td>3.7</td>
+<td></td>
+</tr></tbody></table><table style="width:96%;" class="table"><caption>Tabla 3. Valores verdaderos del <strong><em>intervalo
+serial</em></strong>.</caption>
+<colgroup><col width="18%"><col width="22%"><col width="18%"><col width="34%"><col width="2%"></colgroup><tbody><tr class="odd"><td></td>
+<td>Distribución</td>
+<td colspan="3">Media (días) | Desviación estándar (días)</td>
 </tr><tr class="even"><td>Group 1</td>
-<td align="center">Log normal</td>
-<td align="center">5.7</td>
-<td align="center">4.6</td>
+<td>Gamma</td>
+<td>8.4</td>
+<td>4.9</td>
+<td></td>
 </tr><tr class="odd"><td>Group 2</td>
-<td align="center">Weibull</td>
-<td align="center">7.1</td>
-<td align="center">3.7</td>
-</tr></tbody></table><table style="width:97%;" class="table"><caption>Table 3. True values of the <strong><em>serial
-interval</em></strong>.</caption>
-<colgroup><col width="19%"><col width="23%"><col width="19%"><col width="35%"></colgroup><tbody><tr class="odd"><td></td>
-<td align="center">Distribution</td>
-<td align="center">Mean (days)</td>
-<td align="center">Standard deviation (days)</td>
-</tr><tr class="even"><td>Group 1</td>
-<td align="center">Gamma</td>
-<td align="center">8.4</td>
-<td align="center">4.9</td>
-</tr><tr class="odd"><td>Group 2</td>
-<td align="center">Gamma</td>
-<td align="center">4.8</td>
-<td align="center">3.3</td>
-</tr></tbody></table><p>How do your estimates compare with the true values? Discuss possible
-reasons for any differences.</p>
+<td>Gamma</td>
+<td>4.8</td>
+<td>3.3</td>
+<td></td>
+</tr></tbody></table><p>¿Cómo se comparan sus estimaciones con los valores verdaderos?
+Discuta las posibles razones para las diferencias.</p>
 <div id="keypoints1" class="callout keypoints">
 <div class="callout-square">
 <i class="callout-icon" data-feather="key"></i>
@@ -1950,21 +1957,21 @@ control en un brote de un patógeno desconocido.</p></li>
 </div>
 </div>
 <div class="section level2">
-<h2 id="further-resources">11. Further resources<a class="anchor" aria-label="anchor" href="#further-resources"></a></h2>
-<p>In this practical, we largely ignored biases due to right truncation
-and dynamical bias, partly due to a lack of readily available tools that
-implement all best practices. To learn more about how these biases could
-affect the estimation of epidemiological delay distributions in
-real-time, we recommend a tutorial on the
-<code>dynamicaltruncation</code> R package by Sam Abbott and Sang Woo
-Park (<a href="https://github.com/parksw3/epidist-paper" class="external-link uri">https://github.com/parksw3/epidist-paper</a>).</p>
+<h2 id="ecursos-adicionales">11. ecursos adicionales<a class="anchor" aria-label="anchor" href="#ecursos-adicionales"></a></h2>
+<p>En este práctica, en gran medida se ignoraron los sesgos de
+truncamiento a la derecha y sesgo dinámico, en parte debido a la falta
+de herramientas fácilmente disponibles que implementen las mejores
+prácticas. Para aprender más sobre cómo estos sesgos podrían afectar la
+estimación de las distribuciones de retraso epidemiológico en tiempo
+real, recomendamos un tutorial sobre el paquete
+<code>dynamicaltruncation</code> en R de Sam Abbott y Sang Woo Park (<a href="https://github.com/parksw3/epidist-paper" class="external-link uri">https://github.com/parksw3/epidist-paper</a>).</p>
 </div>
 <div class="section level2">
-<h2 id="contributors">12. Contributors<a class="anchor" aria-label="anchor" href="#contributors"></a></h2>
+<h2 id="contribuidores">12. Contribuidores<a class="anchor" aria-label="anchor" href="#contribuidores"></a></h2>
 <p>Kelly Charniga, Zachary Madewell, Zulma M. Cucunubá</p>
 </div>
 <div class="section level2">
-<h2 id="references">13. References<a class="anchor" aria-label="anchor" href="#references"></a></h2>
+<h2 id="referencias">13. Referencias<a class="anchor" aria-label="anchor" href="#referencias"></a></h2>
 <ol style="list-style-type: decimal"><li>Reich NG et al. Estimating incubation period distributions with
 coarse data. Stat Med. 2009;28:2769–84. PubMed <a href="https://doi.org/10.1002/sim.3659" class="external-link uri">https://doi.org/10.1002/sim.3659</a>
 </li>
