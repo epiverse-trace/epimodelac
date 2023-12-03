@@ -2,7 +2,7 @@
 title: Reference
 ---
 
-## Glosario
+## Glosario (Construcción)
 
 ### Susceptible:
 Población sin exposición previa ni actual al patógeno, o sin vacunación y que por lo tanto no tiene infección ni tampoco protección inmunológica humoral (anticuerpos neutralizantes) contra el patógeno. 

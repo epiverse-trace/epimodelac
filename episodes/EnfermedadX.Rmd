@@ -531,7 +531,7 @@ Recuerde que el interés principal es considerar tres distribuciones de probabil
 Ajuste las tres distribuciones en este bloque de código.
 
 ```{r correct ip}
-# Prepare data
+# Prepare los datos
 earliest_exposure <- as.Date(min(ip$exposure_start))
 
 ip <- ip |>
@@ -540,19 +540,19 @@ ip <- ip |>
          exposure_end = as.numeric(exposure_end - earliest_exposure)) |>
   select(id, date_onset, exposure_start, exposure_end)
 
-# Setting some options to run the MCMC chains in parallel
-# Running the MCMC chains in parallel means that we will run multiple MCMC chains at the same time by using multiple cores on your computer
+# Configure algunas opciones para ejecutar las cadenas MCMC en paralelo
+# Ejecución de las cadenas MCMC en paralelo significa que se ejecutaran varias cadenas al mismo tiempo usando varios núcleos de su computador
 options(mc.cores=parallel::detectCores())
 
-input_data <- list(N = length(ip$exposure_start), # Number of observations
+input_data <- list(N = length(ip$exposure_start), # NNúmero de observaciones
               tStartExposure = ip$exposure_start,
               tEndExposure = ip$exposure_end,
               tSymptomOnset = ip$date_onset)
 
-# We are going to fit three probability distributions
+# tres distribuciones de probabilidad
 distributions <- c("weibull", "gamma", "lognormal") 
 
-# Stan code
+# Código de Stan 
 code <- sprintf("
   data{
     int<lower=1> N;
@@ -582,16 +582,16 @@ model{
 ", distributions, distributions)
 names(code) <- distributions
 
-# Next line takes ~1.5 min
+# La siguiente línea puede tomar ~1.5 min
 models <- mapply(stan_model, model_code = code)
 
-# Takes ~40 sec.
+# Toma ~40 sec.
 fit <- mapply(sampling, models, list(input_data), 
-              iter=3000, # Number of iterations (length of MCMC chains)
-              warmup=1000, # Number of samples to discard at the beginning of MCMC
-              chain=4) # Number of chains to run MCMC
+              iter=3000, # Número de iteraciones (largo de la cadena MCMC)
+              warmup=1000, # Número de muestras a descartar al inicio de MCMC
+              chain=4) # Número de cadenas MCMC a ejecutar
 
-pos <- mapply(function(z) rstan::extract(z)$par, fit, SIMPLIFY=FALSE) # Posterior samples
+pos <- mapply(function(z) rstan::extract(z)$par, fit, SIMPLIFY=FALSE) # muestreo posterior 
 
 ```
 
@@ -643,30 +643,30 @@ Calcule el criterio de información ampliamente aplicable (WAIC) y el criterio d
 #### 
 
 ```{r looic and waic ip, warning=FALSE, message=FALSE}
-# Compute WAIC for all three models
+# Calcule WAIC para los tres modelos
 waic <- mapply(function(z) waic(extract_log_lik(z))$estimates[3,], fit)
 waic
 
-# For looic, we need to provide the relative effective sample sizes
-# when calling loo. This step leads to better estimates of the PSIS effective
-# sample sizes and Monte Carlo error
+# Para looic, se necesita proveer los tamaños de muestra relativos
+# al llamar a loo. Este paso lleva a mejores estimados de los tamaños de 
+# muestra PSIS efectivos y del error de Monte Carlo 
 
-# Extract pointwise log-likelihood for the Weibull distribution
+# Extraer la verosimilitud puntual logarítmica para la distribución Weibull
 loglik <- extract_log_lik(fit$weibull, merge_chains = FALSE)
-# Get the relative effective sample sizes
+# Obtener los tamaños de muestra relativos efectivos
 r_eff <- relative_eff(exp(loglik), cores = 2)
-# Compute LOOIC
+# Calcula LOOIC
 loo_w <- loo(loglik, r_eff = r_eff, cores = 2)$estimates[3,]
-# Print the results
+# Imprimir los resultados
 loo_w[1]
 
-# Extract pointwise log-likelihood for the gamma distribution
+# Extraer la verosimilitud puntual logarítmica para la distribución gamma 
 loglik <- extract_log_lik(fit$gamma, merge_chains = FALSE)
 r_eff <- relative_eff(exp(loglik), cores = 2)
 loo_g <- loo(loglik, r_eff = r_eff, cores = 2)$estimates[3,]
 loo_g[1]
 
-# Extract pointwise log-likelihood for the log normal distribution
+# Extraer la verosimilitud puntual logarítmica para la distribución log normal 
 loglik <- extract_log_lik(fit$lognormal, merge_chains = FALSE)
 r_eff <- relative_eff(exp(loglik), cores = 2)
 loo_l <- loo(loglik, r_eff = r_eff, cores = 2)$estimates[3,]
@@ -739,13 +739,13 @@ Para cada modelo, encuentre estos elementos para el período de incubación esti
 #### **7.1.5. Grafique los resultados**
 
 ```{r plot ip}
-# Prepare results for plotting
+# Prepare los resultados para graficarlos
 df <- data.frame(
-#Take mean values to draw empirical cumulative density function
+#Tome los valores de las medias para trazar la función de densidad acumulatica empirica
   inc_day = ((input_data$tSymptomOnset-input_data$tEndExposure)+(input_data$tSymptomOnset-input_data$tStartExposure))/2
 )
 
-x_plot <- seq(0, 30, by=0.1) # This sets the range of the x axis (number of days)
+x_plot <- seq(0, 30, by=0.1) # Esto configura el rango del eje x (número de días)
 
 Gam_plot <- as.data.frame(list(dose= x_plot, 
                                pred= sapply(x_plot, function(q) quantile(pgamma(q = q, shape = pos$gamma[,1], rate = pos$gamma[,2]), probs = c(0.5))),
@@ -765,7 +765,7 @@ ln_plot <- as.data.frame(list(dose= x_plot,
                               upp = sapply(x_plot, function(q) quantile(plnorm(q = q, meanlog = pos$lognormal[,1], sdlog= pos$lognormal[,2]), probs = c(0.975)))
 ))
 
-# Plot cumulative distribution curves
+# Grafique las curvas de la distribución acumulada 
 gamma_ggplot <- ggplot(df, aes(x=inc_day)) +
   stat_ecdf(geom = "step")+ 
   xlim(c(0, 30))+
