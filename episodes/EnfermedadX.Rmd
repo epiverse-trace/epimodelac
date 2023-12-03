@@ -1,5 +1,5 @@
 ---
-title: "Estimación de las distribuciones de rezagos epidemiológicos: Enfermedad X (Grupo 1)"
+title: "Taller Día 4 - Grupo 1 Estimación de las distribuciones de rezagos epidemiológicos: Enfermedad X"
 author: "Kelly Charniga, PhD MPH & Zulma Cuucnubá MD, PhD"
 date: "2023-11-23"
 output: html_document
@@ -436,7 +436,7 @@ plot(i) +
 
 Parece que la epidemía todavía podría esta creciendo.
 
-#### **6.2.  Explorando los datos de `rastreo de contactos`**
+#### **6.2.  Exploración de los datos de `rastreo de contactos`**
 
 Ahora vea los datos de rastreo de contactos, que se obtuvieron a través de entrevistas a los pacientes. A los pacientes se les preguntó sobre actividades e interacciones recientes para identificar posibles fuentes de infección. Se emparejaron pares de casos primarios y secundarios si el caso secundario nombraba al caso primario como un contacto. Solo hay información de un subconjunto de los casos porque no todos los pacientes pudieron ser contactados para una entrevista.
 
@@ -632,12 +632,12 @@ rstan::traceplot(fit$weibull, pars = c("par[1]","par[2]"))
 
 #### **7.1.3. Calcule los criterios de comparación de los modelos**
 
-Let's compute the widely applicable information criterion (WAIC) and leave-one-out-information criterion (LOOIC) to compare model fits. The best fitting model is the model with the lowest WAIC or LOOIC. We will also summarize the distributions and make some plots.
+Calcule el criterio de información ampliamente aplicable (WAIC) y el criterio de información de dejar-uno-fuera (LOOIC) para comparar los ajustes de los modelos. El modelo con mejor ajuste es aquel con el WAIC o LOOIC más bajo. En esta sección también se resumirá las distribuciones y se hará algunos gráficos.
 
 ::: {.alert .alert-secondary}
 *💡 **Questions (5)***
 
--   Which model has the best fit?
+-   ¿Qué modelo tiene mejor ajuste?
 :::
 
 #### 
@@ -674,11 +674,11 @@ loo_l[1]
 
 ```
 
-#### **7.1.4. Report the results**
+#### **7.1.4. Reporte los resultados**
 
-The right tail of the incubation period distribution is important for designing control strategies (e.g. quarantine), the 25th-75th percentiles tells us about the most likely time symptom onset could occur, and the full distribution can be used as an input in mathematical or statistical models, like for forecasting (Lessler et al. 2009).
+La cola derecha de la distribución del período de incubación es importante para diseñar estrategias de control (por ejemplo, cuarentena), los percentiles del 25 al 75 informan sobre el momento más probable en que podría ocurrir la aparición de síntomas, y la distribución completa puede usarse como una entrada en modelos matemáticos o estadísticos, como para pronósticos (Lessler et al. 2009).
 
-Let's get the summary statistics.
+Obtenga las estadísticas resumidas.
 
 ```{r reporting res}
 # We need to convert the parameters of the distributions to the mean and standard deviation delay
@@ -736,7 +736,7 @@ Para cada modelo, encuentre estos elementos para el período de incubación esti
 
 -   Los parámetros de las distribuciones ajustadas (e.g., shape y scale para distribución gamma)
 
-#### **7.1.5. Plot the results**
+#### **7.1.5. Grafique los resultados**
 
 ```{r plot ip}
 # Prepare results for plotting
@@ -797,12 +797,13 @@ lognorm_ggplot <- ggplot(df, aes(x=inc_day)) +
 
 ```
 
-In the plots above, the black line is the empirical cumulative distribution (the data), while the blue curve is the fitted probability distribution with the 95% credible intervals. Make sure that the blue curve lays on top of the black line.
+En los gráficos anteriores, la línea negra es la distribución acumulativa empírica (los datos), mientras que la curva azul es la distribución de probabilidad ajustada con los intervalos de credibilidad del 95%. Asegúrese de que la curva azul esté sobre la línea negra.
+
 
 ::: {.alert .alert-secondary}
-*💡 **Questions (6)***
+*💡 **Preguntas (6)***
 
--   Are the fitting of the distributions what you'd expect?
+-   ¿Son los ajustes de las distribuciones lo que espera?
 :::
 
 #### 
@@ -827,15 +828,16 @@ summary(contacts$diff)
 hist(contacts$diff, xlab = "Serial interval (days)", breaks = 25, main = "", col = "pink")
 ```
 
-### 8.2. Censoring adjusted estimate
+### 8.2. Estimación ajustada por censura
 
-Now we will estimate the serial interval using an implementation of the `courseDataTools` package within the `EpiEstim` R package. This method accounts for double censoring and allows different probability distributions to be compared, but it does not adjust for right truncation or dynamical bias.
+Ahora se estimará el intervalo serial utilizando una implementación del paquete `courseDataTools` dentro del paquete R `EpiEstim`. Este método tiene en cuenta la censura doble y permite comparar diferentes distribuciones de probabilidad, pero no se ajusta por truncamiento a la derecha o sesgo dinámico.
 
-We will consider three probability distributions and select the one that best fits the data using WAIC or LOOIC. Recall that the best-fitting distribution will have the lowest WAIC or LOOIC.
+Se considerará tres distribuciones de probabilidad y deberá seleccionar la que mejor se ajuste a los datos utilizando WAIC o LOOIC. Recuerde que la distribución con mejor ajuste tendrá el WAIC o LOOIC más bajo.
 
-Note that in `coarseDataTools`, the parameters for the distributions are slightly different than in rstan. Here, the parameters for the gamma distribution are shape and scale (<https://cran.r-project.org/web/packages/coarseDataTools/coarseDataTools.pdf>).
+Ten en cuenta que en `coarseDataTools`, los parámetros para las distribuciones son ligeramente diferentes que en rstan. Aquí, los parámetros para la distribución gamma son shape y scale (forma y escala) (<https://cran.r-project.org/web/packages/coarseDataTools/coarseDataTools.pdf>).
 
-We will only run one MCMC chain for each distribution in the interest of time, but you should run more than one chain in practice to make sure the MCMC converges on the target distribution. We will use the default prior distributions, which can be found in the package documentation (see 'details' for the dic.fit.mcmc function here: <https://cran.r-project.org/web/packages/coarseDataTools/coarseDataTools.pdf>).
+Solo se ejecutará una cadena MCMC para cada distribución en interés del tiempo, pero en la práctica debería ejecutar más de una cadena para asegurarse de que el MCMC converge en la distribución objetivo. Usará las distribuciones a priori predeterminadas, que se pueden encontrar en la documentación del paquete (ver 'detalles' para la función dic.fit.mcmc aquí:
+ (<https://cran.r-project.org/web/packages/coarseDataTools/coarseDataTools.pdf>).
 
 #### 8.2.1. Preparación de los datos
 
@@ -953,9 +955,9 @@ gamma_rate <- 1 / si_fit_gamma@ests['scale',][1]
 
 ```
 
-#### 8.2.3. Fitting a log normal distribution for SI
+#### 8.2.3. Ajuste de una distribución log normal para el intervalo serial
 
-Now let's fit a log normal distribution to the serial interval data.
+Ahora, ajuste una distribución log normal a los datos del intervalo serial.
 
 ```{r log normal}
 # We will run the model for 4000 iterations with the first 1000 samples discarded as burnin
@@ -992,7 +994,7 @@ n.samples = n_mcmc_samples,
 seed = mcmc_control$seed)
 ```
 
-Let's check the results.
+Revise los resultados.
 
 ```{r log normal res, results=FALSE}
 # Check convergence of MCMC chains
@@ -1045,9 +1047,9 @@ lognorm_sdlog <- si_fit_lnorm@ests['sdlog',][1]
 
 ```
 
-#### 8.2.4. Fitting a Weibull distribution for SI
+#### 8.2.4. Ajuste de una distribución Weibull para el intervalo serial
 
-Finally, let's fit a Weibull distribution to the serial interval data.
+Finalmente, ajuste de una distribución Weibull para los datos del intervalo serial.
 
 ```{r weibull, results = FALSE}
 # We will run the model for 4000 iterations with the first 1000 samples discarded as burnin
@@ -1084,7 +1086,7 @@ n.samples = n_mcmc_samples,
 seed = mcmc_control$seed)
 ```
 
-Now we'll check the results.
+Revise los resultados.
 
 ```{r weibull check res}
 # Check convergence
@@ -1135,7 +1137,7 @@ weibull_scale <- si_fit_weibull@ests['scale',][1]
 
 ```
 
-#### 8.2.5. Grafique los resultados para el SI
+#### 8.2.5. Grafique los resultados para el intervalo serial
 
 Ahora, grafique el ajuste de las tres distribuciones. Asegúrese que la distribución ajuste bien los datos del intervalo serial.
 
@@ -1203,7 +1205,7 @@ Incluya lo siguiente cuando reporte el intervalo serial:
 -   Los parámetros de la distribución ajustada (e.g., shape y scale para distribución gamma)
 
 ::: {.alert .alert-secondary}
-*💡 **Questions (7)***
+*💡 **Preguntas (7)***
 
 -   ¿Qué distribución tiene el menor WAIC y LOOIC??
 :::
