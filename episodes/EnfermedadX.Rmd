@@ -222,7 +222,7 @@ Al final de este taller usted podrá:
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-### 1. Introducción
+## 1. Introducción
 
 La Enfermedad X representa un hipotético, pero plausible, brote de una enfermedad infecciosa en el futuro. Este término fue acuñado por la Organización Mundial de la Salud (OMS) y sirve como un término general para un patógeno desconocido que podría causar una epidemia grave a nivel internacional. Este concepto representa la naturaleza impredecible de la aparición de enfermedades infecciosas y resalta la necesidad de una preparación global y mecanismos de respuesta rápida. La Enfermedad X simboliza el potencial de una enfermedad inesperada y de rápida propagación, y resalta la necesidad de sistemas de salud flexibles y adaptables, así como capacidades de investigación para identificar, comprender y combatir patógenos desconocidos.
 
@@ -233,7 +233,7 @@ La Enfermedad X es causada por un patógeno desconocido y se transmite directame
 
 
 
-### 2. Agenda
+## 2. Agenda
 
 Parte 1. Individual o en grupo.
 
@@ -241,7 +241,7 @@ Parte 2. En 5 grupos de 8 personas. Construir estrategia de rastreo de contactos
 
 
 
-### 3. Conceptos claves
+## 3. Conceptos claves
 
 #### **3.1. Rezagos epidemiológicos: Período de incubación e intervalo serial**
 
@@ -291,7 +291,7 @@ Tres distribuciones de probabilidad comunes utilizadas para caracterizar rezagos
 : Tabla 1. Tres de las distribuciones de probabilidad más comunes para rezagos epidemiológicos.
 
 
-### 4. Paquetes de *R* para la practica
+## 4. Paquetes de *R* para la practica
 
 En esta practica se usarán los siguientes paquetes de `R`:
 
@@ -385,19 +385,17 @@ Empiece con `linelist`. Estos datos fueron recolectado como parte de la vigilanc
 -   `exposure_end`: última fecha en que el paciente estuvo expuesto
 
 ::: {.alert .alert-secondary}
-+-----------------------------------------------------------------+
-|                                |
-| *💡 **Preguntas (1)***                                          |
-|                                                                 |
-| -   *¿Cuántos casos hay en los datos de `linelist`?*             |
-|                                                                 |
-| -   *¿Qué proporción de los casos son femeninos?*                  |
-|                                                                 |
-| -   *¿Cuál es la distribución de edades de los casos?*                    |
-|                                                                 |
-| -   *¿Qué tipo de información sobre la exposición está disponible?* |
-|                                                             |
-+-----------------------------------------------------------------+
+                                
+ *💡 **Preguntas (1)***                                          
+                                                                 
+ -   *¿Cuántos casos hay en los datos de `linelist`?*             
+                                                                 
+ -   *¿Qué proporción de los casos son femeninos?*                  
+                                                                 
+ -   *¿Cuál es la distribución de edades de los casos?*                    
+                                                                 
+ -   *¿Qué tipo de información sobre la exposición está disponible?* 
+
 :::
 
 ```{r data exploration}
@@ -415,15 +413,13 @@ table(linelist$exposure, exclude = F)[1]/nrow(linelist)
 ```
 
 ::: {.alert .alert-secondary}
-+--------------------------------------------------------------------------------------------------------+
-| ::: {.alert .alert-secondary}    |
-| *💡 **Discusión***    |
-|                     |
-| ¿Por qué cree que falta la información de exposición en algunos casos?       |
-|                     |
-| Ahora, grafique la curva epidémica. ¿En qué parte del brote cree que está (principio, medio, final)? |
-| :::                 |
-+--------------------------------------------------------------------------------------------------------+
+   
+ *💡 **Discusión***    
+                     
+- ¿Por qué cree que falta la información de exposición en algunos casos?       
+                     
+- Ahora, grafique la curva epidémica. ¿En qué parte del brote cree que está (principio, medio, final)? 
+
 :::
 
 ```{r epi curve, warning = FALSE, message = FALSE}
@@ -464,22 +460,19 @@ plot(x)
 ```
 
 ::: {.alert .alert-secondary}
-+----------------------------------------------------------------------------------------------------------------+
-| ::: {.alert .alert-secondary}                                                                                  |
-| *💡 **Preguntas (2)***                                                                                         |
-|                                                                                                                |
-| -   Describa los grupos (clusters).                                                                                     |
-|                                                                                                                |
-| -   ¿Ve algún evento potencial de superpropagación (donde un caso propaga el patógeno a muchos otros casos)? |
-| :::                                                                                                            |
-+----------------------------------------------------------------------------------------------------------------+
+                                                                                
+ *💡 **Preguntas (2)***                                                                                         
+        
+-   Describa los grupos (clusters).                                                                                     
+-   ¿Ve algún evento potencial de superpropagación (donde un caso propaga el patógeno a muchos otros casos)? 
+
 :::
 
 # *`_______Pausa 1 _________`*
 
 ------------------------------------------------------------------------
 
-## 7. Estimación del período de incubación
+## 7. Estimación del período de incubación 
 
 Ahora, enfoquese en el período de incubación. Se utilizará los datos del `linelist` para esta parte. Se necesitan ambos el tiempo de inicio de sintomas y el timpo de la posible exposición. Note que en los datos hay dos fechas de exposición, una de inicio y una de final. Algunas veces la fecha exacta de exposición es desconocida y en su lugar se obtiene la ventana de exposición durante la entrevista.
 
@@ -810,7 +803,7 @@ En los gráficos anteriores, la línea negra es la distribución acumulativa emp
 
 # *`_______Pausa 2 _________`*
 
-## 8. Estimación del intervalo serial
+## 8. Estimación del intervalo serial 
 
 Ahora, estime el intervalo serial. Nuevamente, se realizará primero una estimación navie calculando la diferencia entre la fecha de inicio de síntomas entre el par de casos primario y secundario. 
 
@@ -1219,7 +1212,7 @@ si_summary_weibull
 
 # *`_______Pausa 3 _________`*
 
-## 9. Medidas de control
+## 9. Medidas de control 
 
 ### 9.1 Analicemos el resultado juntos
 
@@ -1285,7 +1278,7 @@ Revise si al final de esta lección adquirió estas competencias:
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
-## 11. ecursos adicionales
+## 11. Recursos adicionales
 En este práctica, en gran medida se ignoraron los sesgos de truncamiento a la derecha y sesgo dinámico, en parte debido a la falta de herramientas fácilmente disponibles que implementen las mejores prácticas. Para aprender más sobre cómo estos sesgos podrían afectar la estimación de las distribuciones de retraso epidemiológico en tiempo real, recomendamos un tutorial sobre el paquete `dynamicaltruncation` en R de Sam Abbott y Sang Woo Park (<https://github.com/parksw3/epidist-paper>).
 
 ## 12. Contribuidores

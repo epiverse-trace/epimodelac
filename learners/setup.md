@@ -16,4 +16,7 @@ En esta página encontrará los talleres del día 2 del curso al día 5.
 
 Conozca nuestro [código de conducta TRACE-LAC](https://drive.google.com/file/d/1z9EecMJR0CIyrUI6hzUugS4i9aAgSD-5/view?usp=sharing).
 
+## Agenda del curso
+
+Conozca nuestra [agenda](https://drive.google.com/file/d/1-wUnIJF4hw2Hebifo8pKJyHfADgCqRm1/view?usp=drive_link)
 
