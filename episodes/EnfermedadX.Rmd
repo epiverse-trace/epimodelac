@@ -349,7 +349,7 @@ There are two items of interest:
 
 ```{r load dat, echo=FALSE}
 # Group 1
-dat <- readRDS("Data/practical_data_group1.RDS")
+dat <- readRDS("data/practical_data_group1.RDS")
 linelist <- dat$linelist
 contacts <- dat$contacts
 
