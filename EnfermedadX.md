@@ -143,22 +143,6 @@ There are two items of interest:
 -   `contacts`, a file with contact tracing data which contains information about primary and secondary case pairs.
 
 
-```{.warning}
-Warning in gzfile(file, "rb"): cannot open compressed file
-'Data/practical_data_group1.RDS', probable reason 'No such file or directory'
-```
-
-```{.error}
-Error in gzfile(file, "rb"): cannot open the connection
-```
-
-```{.error}
-Error in eval(expr, envir, enclos): object 'dat' not found
-```
-
-```{.error}
-Error in eval(expr, envir, enclos): object 'dat' not found
-```
 
 ## 6. Data exploration
 
@@ -202,8 +186,14 @@ Let's start with the `linelist`. These data were collected as part of routine ep
 head(linelist)
 ```
 
-```{.error}
-Error in eval(expr, envir, enclos): object 'linelist' not found
+```{.output}
+  id date_onset sex age                    exposure exposure_start exposure_end
+1  1 2023-10-01   M  34 Close, skin-to-skin contact           <NA>         <NA>
+2  2 2023-10-03   F  38 Close, skin-to-skin contact     2023-09-29   2023-09-29
+3  3 2023-10-06   F  38 Close, skin-to-skin contact     2023-09-28   2023-09-28
+4  4 2023-10-10   F  37                        <NA>     2023-09-25   2023-09-27
+5  5 2023-10-11   F  33                        <NA>     2023-10-05   2023-10-05
+6  6 2023-10-12   F  34 Close, skin-to-skin contact     2023-10-10   2023-10-10
 ```
 
 ```r
@@ -211,8 +201,8 @@ Error in eval(expr, envir, enclos): object 'linelist' not found
 nrow(linelist)
 ```
 
-```{.error}
-Error in eval(expr, envir, enclos): object 'linelist' not found
+```{.output}
+[1] 166
 ```
 
 ```r
@@ -220,8 +210,9 @@ Error in eval(expr, envir, enclos): object 'linelist' not found
 table(linelist$sex)[2]/nrow(linelist)
 ```
 
-```{.error}
-Error in eval(expr, envir, enclos): object 'linelist' not found
+```{.output}
+        M 
+0.6144578 
 ```
 
 ```r
@@ -229,8 +220,9 @@ Error in eval(expr, envir, enclos): object 'linelist' not found
 summary(linelist$age)
 ```
 
-```{.error}
-Error in h(simpleError(msg, call)): error in evaluating the argument 'object' in selecting a method for function 'summary': object 'linelist' not found
+```{.output}
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+  22.00   33.00   36.00   35.51   38.00   47.00 
 ```
 
 ```r
@@ -238,8 +230,9 @@ Error in h(simpleError(msg, call)): error in evaluating the argument 'object' in
 table(linelist$exposure, exclude = F)[1]/nrow(linelist)
 ```
 
-```{.error}
-Error in eval(expr, envir, enclos): object 'linelist' not found
+```{.output}
+Close, skin-to-skin contact 
+                  0.6626506 
 ```
 
 ::: {.alert .alert-secondary}
@@ -257,22 +250,13 @@ Error in eval(expr, envir, enclos): object 'linelist' not found
 
 ```r
 i <- incidence(linelist$date_onset)
-```
-
-```{.error}
-Error in eval(expr, envir, enclos): object 'linelist' not found
-```
-
-```r
 plot(i) + 
   theme_classic() + 
   scale_fill_manual(values = "purple") +
   theme(legend.position = "none")
 ```
 
-```{.error}
-Error in h(simpleError(msg, call)): error in evaluating the argument 'x' in selecting a method for function 'plot': object 'i' not found
-```
+<img src="fig/EnfermedadX-rendered-epi curve-1.png" style="display: block; margin: auto;" />
 
 It looks like the epidemic might still be growing.
 
@@ -299,19 +283,12 @@ x <- make_epicontacts(linelist = linelist,
                        from = "primary_case_id",
                        to = "secondary_case_id",
                        directed = TRUE) # This indicates that contacts are directed (i.e., this draws arrows from primary to secondary cases)
-```
 
-```{.error}
-Error in eval(expr, envir, enclos): object 'linelist' not found
-```
-
-```r
 plot(x)
 ```
 
-```{.error}
-Error in h(simpleError(msg, call)): error in evaluating the argument 'x' in selecting a method for function 'plot': object 'x' not found
-```
+<!--html_preserve--><div id="htmlwidget-ad54bb0c5b06ddf467ce" style="width:90%;height:700px;" class="visNetwork html-widget"></div>
+<script type="application/json" data-for="htmlwidget-ad54bb0c5b06ddf467ce">{"x":{"nodes":{"id":[1,2,4,5,6,8,9,10,11,12,15,16,19,21,22,23,25,28,29,30,31,32,33,34,36,37,38,41,42,43,44,45,46,47,51,52,53,54,55,57,59,60,61,63,64,65,66,68,69,70,71,73,74,78,79,80,81,83,86,88,89,90,92,96,98,99,100,102,103,105,106,107,108,111,113,114,115,117,119,120,121,122,125,127,128,129,133,136,138,141,142,144,149,152,153,154,156,158,159,160,161,162,164,165,166],"date_onset":["2023-10-01","2023-10-03","2023-10-10","2023-10-11","2023-10-12","2023-10-13","2023-10-15","2023-10-16","2023-10-16","2023-10-18","2023-10-20","2023-10-21","2023-10-24","2023-10-24","2023-10-25","2023-10-26","2023-10-28","2023-10-30","2023-10-30","2023-10-30","2023-10-31","2023-11-03","2023-11-03","2023-11-03","2023-11-04","2023-11-04","2023-11-05","2023-11-06","2023-11-06","2023-11-06","2023-11-06","2023-11-07","2023-11-07","2023-11-07","2023-11-08","2023-11-09","2023-11-10","2023-11-10","2023-11-10","2023-11-11","2023-11-12","2023-11-12","2023-11-12","2023-11-12","2023-11-13","2023-11-13","2023-11-13","2023-11-14","2023-11-14","2023-11-14","2023-11-14","2023-11-15","2023-11-15","2023-11-16","2023-11-16","2023-11-16","2023-11-16","2023-11-17","2023-11-17","2023-11-18","2023-11-18","2023-11-18","2023-11-18","2023-11-20","2023-11-20","2023-11-20","2023-11-20","2023-11-20","2023-11-21","2023-11-21","2023-11-21","2023-11-21","2023-11-22","2023-11-22","2023-11-23","2023-11-23","2023-11-23","2023-11-24","2023-11-25","2023-11-25","2023-11-25","2023-11-25","2023-11-26","2023-11-26","2023-11-26","2023-11-26","2023-11-26","2023-11-27","2023-11-27","2023-11-27","2023-11-27","2023-11-28","2023-11-29","2023-11-29","2023-11-29","2023-11-29","2023-11-29","2023-11-30","2023-11-30","2023-11-30","2023-11-30","2023-11-30","2023-11-30","2023-11-30","2023-11-30"],"sex":["M","F","F","F","F","M","F","M","F","M","M","F","M","M","M","M","M","F","F","M","M","M","M","M","F","M","M","F","F","M","F","M","M","F","M","M","F","M","M","M","M","F","F","M","M","M","F","M","M","F","M","M","F","M","M","F","F","M","F","M","M","F","F","M","M","M","F","F","M","M","M","M","M","F","F","M","M","F","M","F","F","F","M","M","M","M","M","M","F","M","F","M","F","M","M","F","F","F","M","F","M","F","M","M","F"],"age":[34,38,37,33,34,35,36,42,39,33,39,39,33,33,32,36,36,34,32,31,38,35,38,30,38,35,34,38,42,35,32,29,32,36,38,28,34,34,27,33,41,38,35,37,42,36,37,33,35,42,31,40,34,32,34,33,34,37,34,42,35,34,41,36,24,35,39,39,43,33,38,34,33,37,37,37,31,27,38,36,38,36,39,31,37,33,37,34,39,40,36,47,34,36,31,22,35,35,37,31,38,38,40,37,36],"exposure":["Close, skin-to-skin contact","Close, skin-to-skin contact",null,null,"Close, skin-to-skin contact",null,null,null,"Close, skin-to-skin contact",null,null,"Close, skin-to-skin contact","Close, skin-to-skin contact","Close, skin-to-skin contact","Close, skin-to-skin contact",null,"Close, skin-to-skin contact",null,"Close, skin-to-skin contact","Close, skin-to-skin contact","Close, skin-to-skin contact","Close, skin-to-skin contact","Close, skin-to-skin contact","Close, skin-to-skin contact",null,"Close, skin-to-skin contact",null,null,"Close, skin-to-skin contact","Close, skin-to-skin contact","Close, skin-to-skin contact",null,"Close, skin-to-skin contact",null,null,null,"Close, skin-to-skin contact","Close, skin-to-skin contact",null,null,"Close, skin-to-skin contact","Close, skin-to-skin contact","Close, skin-to-skin contact","Close, skin-to-skin contact",null,"Close, skin-to-skin contact",null,null,null,"Close, skin-to-skin contact","Close, skin-to-skin contact","Close, skin-to-skin contact",null,"Close, skin-to-skin contact","Close, skin-to-skin contact","Close, skin-to-skin contact","Close, skin-to-skin contact",null,"Close, skin-to-skin contact","Close, skin-to-skin contact","Close, skin-to-skin contact",null,"Close, skin-to-skin contact","Close, skin-to-skin contact","Close, skin-to-skin contact","Close, skin-to-skin contact","Close, skin-to-skin contact","Close, skin-to-skin contact","Close, skin-to-skin contact","Close, skin-to-skin contact","Close, skin-to-skin contact","Close, skin-to-skin contact","Close, skin-to-skin contact","Close, skin-to-skin contact","Close, skin-to-skin contact",null,"Close, skin-to-skin contact",null,"Close, skin-to-skin contact","Close, skin-to-skin contact",null,"Close, skin-to-skin contact","Close, skin-to-skin contact","Close, skin-to-skin contact",null,"Close, skin-to-skin contact",null,"Close, skin-to-skin contact",null,"Close, skin-to-skin contact","Close, skin-to-skin contact","Close, skin-to-skin contact","Close, skin-to-skin contact",null,"Close, skin-to-skin contact","Close, skin-to-skin contact","Close, skin-to-skin contact","Close, skin-to-skin contact",null,"Close, skin-to-skin contact","Close, skin-to-skin contact",null,null,null,"Close, skin-to-skin contact"],"exposure_start":[null,"2023-09-29","2023-09-25","2023-10-05","2023-10-10","2023-10-08","2023-10-13","2023-10-04","2023-10-03","2023-10-11","2023-10-13","2023-10-19","2023-10-20","2023-10-05","2023-10-20","2023-10-14","2023-10-26","2023-10-27","2023-10-24","2023-10-17","2023-10-30","2023-11-02","2023-10-27","2023-10-30","2023-10-29","2023-10-25","2023-11-01","2023-11-03","2023-11-03","2023-11-01","2023-11-03","2023-11-05","2023-10-18","2023-10-30","2023-11-02",null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],"exposure_end":[null,"2023-09-29","2023-09-27","2023-10-05","2023-10-10","2023-10-08","2023-10-13","2023-10-04","2023-10-03","2023-10-11","2023-10-14","2023-10-20","2023-10-20","2023-10-05","2023-10-20","2023-10-15","2023-10-26","2023-10-27","2023-10-25","2023-10-17","2023-10-30","2023-11-02","2023-10-27","2023-10-30","2023-10-30","2023-10-25","2023-11-01","2023-11-03","2023-11-03","2023-11-03","2023-11-04","2023-11-05","2023-10-19","2023-10-30","2023-11-04",null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],"label":["1","2","4","5","6","8","9","10","11","12","15","16","19","21","22","23","25","28","29","30","31","32","33","34","36","37","38","41","42","43","44","45","46","47","51","52","53","54","55","57","59","60","61","63","64","65","66","68","69","70","71","73","74","78","79","80","81","83","86","88","89","90","92","96","98","99","100","102","103","105","106","107","108","111","113","114","115","117","119","120","121","122","125","127","128","129","133","136","138","141","142","144","149","152","153","154","156","158","159","160","161","162","164","165","166"],"title":["<p> id: 1<br>date_onset: 2023-10-01<br>sex: M<br>age: 34<br>exposure: Close, skin-to-skin contact<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 2<br>date_onset: 2023-10-03<br>sex: F<br>age: 38<br>exposure: Close, skin-to-skin contact<br>exposure_start: 2023-09-29<br>exposure_end: 2023-09-29 <\/p>","<p> id: 4<br>date_onset: 2023-10-10<br>sex: F<br>age: 37<br>exposure: NA<br>exposure_start: 2023-09-25<br>exposure_end: 2023-09-27 <\/p>","<p> id: 5<br>date_onset: 2023-10-11<br>sex: F<br>age: 33<br>exposure: NA<br>exposure_start: 2023-10-05<br>exposure_end: 2023-10-05 <\/p>","<p> id: 6<br>date_onset: 2023-10-12<br>sex: F<br>age: 34<br>exposure: Close, skin-to-skin contact<br>exposure_start: 2023-10-10<br>exposure_end: 2023-10-10 <\/p>","<p> id: 8<br>date_onset: 2023-10-13<br>sex: M<br>age: 35<br>exposure: NA<br>exposure_start: 2023-10-08<br>exposure_end: 2023-10-08 <\/p>","<p> id: 9<br>date_onset: 2023-10-15<br>sex: F<br>age: 36<br>exposure: NA<br>exposure_start: 2023-10-13<br>exposure_end: 2023-10-13 <\/p>","<p> id: 10<br>date_onset: 2023-10-16<br>sex: M<br>age: 42<br>exposure: NA<br>exposure_start: 2023-10-04<br>exposure_end: 2023-10-04 <\/p>","<p> id: 11<br>date_onset: 2023-10-16<br>sex: F<br>age: 39<br>exposure: Close, skin-to-skin contact<br>exposure_start: 2023-10-03<br>exposure_end: 2023-10-03 <\/p>","<p> id: 12<br>date_onset: 2023-10-18<br>sex: M<br>age: 33<br>exposure: NA<br>exposure_start: 2023-10-11<br>exposure_end: 2023-10-11 <\/p>","<p> id: 15<br>date_onset: 2023-10-20<br>sex: M<br>age: 39<br>exposure: NA<br>exposure_start: 2023-10-13<br>exposure_end: 2023-10-14 <\/p>","<p> id: 16<br>date_onset: 2023-10-21<br>sex: F<br>age: 39<br>exposure: Close, skin-to-skin contact<br>exposure_start: 2023-10-19<br>exposure_end: 2023-10-20 <\/p>","<p> id: 19<br>date_onset: 2023-10-24<br>sex: M<br>age: 33<br>exposure: Close, skin-to-skin contact<br>exposure_start: 2023-10-20<br>exposure_end: 2023-10-20 <\/p>","<p> id: 21<br>date_onset: 2023-10-24<br>sex: M<br>age: 33<br>exposure: Close, skin-to-skin contact<br>exposure_start: 2023-10-05<br>exposure_end: 2023-10-05 <\/p>","<p> id: 22<br>date_onset: 2023-10-25<br>sex: M<br>age: 32<br>exposure: Close, skin-to-skin contact<br>exposure_start: 2023-10-20<br>exposure_end: 2023-10-20 <\/p>","<p> id: 23<br>date_onset: 2023-10-26<br>sex: M<br>age: 36<br>exposure: NA<br>exposure_start: 2023-10-14<br>exposure_end: 2023-10-15 <\/p>","<p> id: 25<br>date_onset: 2023-10-28<br>sex: M<br>age: 36<br>exposure: Close, skin-to-skin contact<br>exposure_start: 2023-10-26<br>exposure_end: 2023-10-26 <\/p>","<p> id: 28<br>date_onset: 2023-10-30<br>sex: F<br>age: 34<br>exposure: NA<br>exposure_start: 2023-10-27<br>exposure_end: 2023-10-27 <\/p>","<p> id: 29<br>date_onset: 2023-10-30<br>sex: F<br>age: 32<br>exposure: Close, skin-to-skin contact<br>exposure_start: 2023-10-24<br>exposure_end: 2023-10-25 <\/p>","<p> id: 30<br>date_onset: 2023-10-30<br>sex: M<br>age: 31<br>exposure: Close, skin-to-skin contact<br>exposure_start: 2023-10-17<br>exposure_end: 2023-10-17 <\/p>","<p> id: 31<br>date_onset: 2023-10-31<br>sex: M<br>age: 38<br>exposure: Close, skin-to-skin contact<br>exposure_start: 2023-10-30<br>exposure_end: 2023-10-30 <\/p>","<p> id: 32<br>date_onset: 2023-11-03<br>sex: M<br>age: 35<br>exposure: Close, skin-to-skin contact<br>exposure_start: 2023-11-02<br>exposure_end: 2023-11-02 <\/p>","<p> id: 33<br>date_onset: 2023-11-03<br>sex: M<br>age: 38<br>exposure: Close, skin-to-skin contact<br>exposure_start: 2023-10-27<br>exposure_end: 2023-10-27 <\/p>","<p> id: 34<br>date_onset: 2023-11-03<br>sex: M<br>age: 30<br>exposure: Close, skin-to-skin contact<br>exposure_start: 2023-10-30<br>exposure_end: 2023-10-30 <\/p>","<p> id: 36<br>date_onset: 2023-11-04<br>sex: F<br>age: 38<br>exposure: NA<br>exposure_start: 2023-10-29<br>exposure_end: 2023-10-30 <\/p>","<p> id: 37<br>date_onset: 2023-11-04<br>sex: M<br>age: 35<br>exposure: Close, skin-to-skin contact<br>exposure_start: 2023-10-25<br>exposure_end: 2023-10-25 <\/p>","<p> id: 38<br>date_onset: 2023-11-05<br>sex: M<br>age: 34<br>exposure: NA<br>exposure_start: 2023-11-01<br>exposure_end: 2023-11-01 <\/p>","<p> id: 41<br>date_onset: 2023-11-06<br>sex: F<br>age: 38<br>exposure: NA<br>exposure_start: 2023-11-03<br>exposure_end: 2023-11-03 <\/p>","<p> id: 42<br>date_onset: 2023-11-06<br>sex: F<br>age: 42<br>exposure: Close, skin-to-skin contact<br>exposure_start: 2023-11-03<br>exposure_end: 2023-11-03 <\/p>","<p> id: 43<br>date_onset: 2023-11-06<br>sex: M<br>age: 35<br>exposure: Close, skin-to-skin contact<br>exposure_start: 2023-11-01<br>exposure_end: 2023-11-03 <\/p>","<p> id: 44<br>date_onset: 2023-11-06<br>sex: F<br>age: 32<br>exposure: Close, skin-to-skin contact<br>exposure_start: 2023-11-03<br>exposure_end: 2023-11-04 <\/p>","<p> id: 45<br>date_onset: 2023-11-07<br>sex: M<br>age: 29<br>exposure: NA<br>exposure_start: 2023-11-05<br>exposure_end: 2023-11-05 <\/p>","<p> id: 46<br>date_onset: 2023-11-07<br>sex: M<br>age: 32<br>exposure: Close, skin-to-skin contact<br>exposure_start: 2023-10-18<br>exposure_end: 2023-10-19 <\/p>","<p> id: 47<br>date_onset: 2023-11-07<br>sex: F<br>age: 36<br>exposure: NA<br>exposure_start: 2023-10-30<br>exposure_end: 2023-10-30 <\/p>","<p> id: 51<br>date_onset: 2023-11-08<br>sex: M<br>age: 38<br>exposure: NA<br>exposure_start: 2023-11-02<br>exposure_end: 2023-11-04 <\/p>","<p> id: 52<br>date_onset: 2023-11-09<br>sex: M<br>age: 28<br>exposure: NA<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 53<br>date_onset: 2023-11-10<br>sex: F<br>age: 34<br>exposure: Close, skin-to-skin contact<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 54<br>date_onset: 2023-11-10<br>sex: M<br>age: 34<br>exposure: Close, skin-to-skin contact<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 55<br>date_onset: 2023-11-10<br>sex: M<br>age: 27<br>exposure: NA<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 57<br>date_onset: 2023-11-11<br>sex: M<br>age: 33<br>exposure: NA<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 59<br>date_onset: 2023-11-12<br>sex: M<br>age: 41<br>exposure: Close, skin-to-skin contact<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 60<br>date_onset: 2023-11-12<br>sex: F<br>age: 38<br>exposure: Close, skin-to-skin contact<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 61<br>date_onset: 2023-11-12<br>sex: F<br>age: 35<br>exposure: Close, skin-to-skin contact<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 63<br>date_onset: 2023-11-12<br>sex: M<br>age: 37<br>exposure: Close, skin-to-skin contact<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 64<br>date_onset: 2023-11-13<br>sex: M<br>age: 42<br>exposure: NA<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 65<br>date_onset: 2023-11-13<br>sex: M<br>age: 36<br>exposure: Close, skin-to-skin contact<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 66<br>date_onset: 2023-11-13<br>sex: F<br>age: 37<br>exposure: NA<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 68<br>date_onset: 2023-11-14<br>sex: M<br>age: 33<br>exposure: NA<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 69<br>date_onset: 2023-11-14<br>sex: M<br>age: 35<br>exposure: NA<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 70<br>date_onset: 2023-11-14<br>sex: F<br>age: 42<br>exposure: Close, skin-to-skin contact<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 71<br>date_onset: 2023-11-14<br>sex: M<br>age: 31<br>exposure: Close, skin-to-skin contact<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 73<br>date_onset: 2023-11-15<br>sex: M<br>age: 40<br>exposure: Close, skin-to-skin contact<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 74<br>date_onset: 2023-11-15<br>sex: F<br>age: 34<br>exposure: NA<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 78<br>date_onset: 2023-11-16<br>sex: M<br>age: 32<br>exposure: Close, skin-to-skin contact<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 79<br>date_onset: 2023-11-16<br>sex: M<br>age: 34<br>exposure: Close, skin-to-skin contact<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 80<br>date_onset: 2023-11-16<br>sex: F<br>age: 33<br>exposure: Close, skin-to-skin contact<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 81<br>date_onset: 2023-11-16<br>sex: F<br>age: 34<br>exposure: Close, skin-to-skin contact<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 83<br>date_onset: 2023-11-17<br>sex: M<br>age: 37<br>exposure: NA<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 86<br>date_onset: 2023-11-17<br>sex: F<br>age: 34<br>exposure: Close, skin-to-skin contact<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 88<br>date_onset: 2023-11-18<br>sex: M<br>age: 42<br>exposure: Close, skin-to-skin contact<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 89<br>date_onset: 2023-11-18<br>sex: M<br>age: 35<br>exposure: Close, skin-to-skin contact<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 90<br>date_onset: 2023-11-18<br>sex: F<br>age: 34<br>exposure: NA<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 92<br>date_onset: 2023-11-18<br>sex: F<br>age: 41<br>exposure: Close, skin-to-skin contact<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 96<br>date_onset: 2023-11-20<br>sex: M<br>age: 36<br>exposure: Close, skin-to-skin contact<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 98<br>date_onset: 2023-11-20<br>sex: M<br>age: 24<br>exposure: Close, skin-to-skin contact<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 99<br>date_onset: 2023-11-20<br>sex: M<br>age: 35<br>exposure: Close, skin-to-skin contact<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 100<br>date_onset: 2023-11-20<br>sex: F<br>age: 39<br>exposure: Close, skin-to-skin contact<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 102<br>date_onset: 2023-11-20<br>sex: F<br>age: 39<br>exposure: Close, skin-to-skin contact<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 103<br>date_onset: 2023-11-21<br>sex: M<br>age: 43<br>exposure: Close, skin-to-skin contact<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 105<br>date_onset: 2023-11-21<br>sex: M<br>age: 33<br>exposure: Close, skin-to-skin contact<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 106<br>date_onset: 2023-11-21<br>sex: M<br>age: 38<br>exposure: Close, skin-to-skin contact<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 107<br>date_onset: 2023-11-21<br>sex: M<br>age: 34<br>exposure: Close, skin-to-skin contact<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 108<br>date_onset: 2023-11-22<br>sex: M<br>age: 33<br>exposure: Close, skin-to-skin contact<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 111<br>date_onset: 2023-11-22<br>sex: F<br>age: 37<br>exposure: Close, skin-to-skin contact<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 113<br>date_onset: 2023-11-23<br>sex: F<br>age: 37<br>exposure: Close, skin-to-skin contact<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 114<br>date_onset: 2023-11-23<br>sex: M<br>age: 37<br>exposure: NA<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 115<br>date_onset: 2023-11-23<br>sex: M<br>age: 31<br>exposure: Close, skin-to-skin contact<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 117<br>date_onset: 2023-11-24<br>sex: F<br>age: 27<br>exposure: NA<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 119<br>date_onset: 2023-11-25<br>sex: M<br>age: 38<br>exposure: Close, skin-to-skin contact<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 120<br>date_onset: 2023-11-25<br>sex: F<br>age: 36<br>exposure: Close, skin-to-skin contact<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 121<br>date_onset: 2023-11-25<br>sex: F<br>age: 38<br>exposure: NA<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 122<br>date_onset: 2023-11-25<br>sex: F<br>age: 36<br>exposure: Close, skin-to-skin contact<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 125<br>date_onset: 2023-11-26<br>sex: M<br>age: 39<br>exposure: Close, skin-to-skin contact<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 127<br>date_onset: 2023-11-26<br>sex: M<br>age: 31<br>exposure: Close, skin-to-skin contact<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 128<br>date_onset: 2023-11-26<br>sex: M<br>age: 37<br>exposure: NA<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 129<br>date_onset: 2023-11-26<br>sex: M<br>age: 33<br>exposure: Close, skin-to-skin contact<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 133<br>date_onset: 2023-11-26<br>sex: M<br>age: 37<br>exposure: NA<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 136<br>date_onset: 2023-11-27<br>sex: M<br>age: 34<br>exposure: Close, skin-to-skin contact<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 138<br>date_onset: 2023-11-27<br>sex: F<br>age: 39<br>exposure: NA<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 141<br>date_onset: 2023-11-27<br>sex: M<br>age: 40<br>exposure: Close, skin-to-skin contact<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 142<br>date_onset: 2023-11-27<br>sex: F<br>age: 36<br>exposure: Close, skin-to-skin contact<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 144<br>date_onset: 2023-11-28<br>sex: M<br>age: 47<br>exposure: Close, skin-to-skin contact<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 149<br>date_onset: 2023-11-29<br>sex: F<br>age: 34<br>exposure: Close, skin-to-skin contact<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 152<br>date_onset: 2023-11-29<br>sex: M<br>age: 36<br>exposure: NA<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 153<br>date_onset: 2023-11-29<br>sex: M<br>age: 31<br>exposure: Close, skin-to-skin contact<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 154<br>date_onset: 2023-11-29<br>sex: F<br>age: 22<br>exposure: Close, skin-to-skin contact<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 156<br>date_onset: 2023-11-29<br>sex: F<br>age: 35<br>exposure: Close, skin-to-skin contact<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 158<br>date_onset: 2023-11-30<br>sex: F<br>age: 35<br>exposure: Close, skin-to-skin contact<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 159<br>date_onset: 2023-11-30<br>sex: M<br>age: 37<br>exposure: NA<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 160<br>date_onset: 2023-11-30<br>sex: F<br>age: 31<br>exposure: Close, skin-to-skin contact<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 161<br>date_onset: 2023-11-30<br>sex: M<br>age: 38<br>exposure: Close, skin-to-skin contact<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 162<br>date_onset: 2023-11-30<br>sex: F<br>age: 38<br>exposure: NA<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 164<br>date_onset: 2023-11-30<br>sex: M<br>age: 40<br>exposure: NA<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 165<br>date_onset: 2023-11-30<br>sex: M<br>age: 37<br>exposure: NA<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 166<br>date_onset: 2023-11-30<br>sex: F<br>age: 36<br>exposure: Close, skin-to-skin contact<br>exposure_start: NA<br>exposure_end: NA <\/p>"],"color.highlight.background":["#CCDDFF","#C4DCF7","#BDDBEF","#B6DAE7","#AFD9E0","#A8D8D8","#A0D7D0","#99D6C9","#92D5C1","#8BD4B9","#84D3B1","#7CD2AA","#7ED0A6","#89CEA7","#95CBA8","#A0C8A9","#ACC6AB","#B8C3AC","#C3C0AD","#CFBEAE","#DABBAF","#E6B8B0","#F2B5B1","#FDB3B2","#F7B1B4","#F0B0B5","#E8AFB6","#E0ADB7","#D8ACB8","#D0ABBA","#C8AABB","#C0A8BC","#B8A7BD","#B1A6BE","#A9A4C0","#A6A5BB","#AEA8AA","#B6AC9A","#BEAF89","#C6B378","#CEB667","#D5B957","#DDBD46","#E5C035","#EDC425","#F5C714","#FDCB03","#FFC808","#FFC513","#FFC11E","#FFBD29","#FFB934","#FFB540","#FFB14B","#FFAD56","#FFA961","#FFA56C","#FFA277","#FEA080","#F9A982","#F5B184","#F0B986","#ECC289","#E7CA8B","#E3D28D","#DFDB8F","#DAE391","#D6EB93","#D1F396","#CDFC98","#CDF99B","#CEF19E","#D0E8A1","#D2E0A5","#D3D8A8","#D5CFAB","#D6C7AE","#D8BFB2","#DAB6B5","#DBAEB8","#DDA6BC","#DF9FBE","#E2A3BB","#E4A7B8","#E7ABB4","#EAAFB1","#EDB2AE","#EFB6AA","#F2BAA7","#F5BEA4","#F8C2A1","#FBC69D","#FDCA9A","#FCCC9B","#F8CCA0","#F3CCA4","#EFCCA9","#EBCCAD","#E6CCB2","#E2CCB6","#DECCBB","#D9CCBF","#D5CCC4","#D1CCC8","#CDCDCD"],"color.background":["#CCDDFF","#C4DCF7","#BDDBEF","#B6DAE7","#AFD9E0","#A8D8D8","#A0D7D0","#99D6C9","#92D5C1","#8BD4B9","#84D3B1","#7CD2AA","#7ED0A6","#89CEA7","#95CBA8","#A0C8A9","#ACC6AB","#B8C3AC","#C3C0AD","#CFBEAE","#DABBAF","#E6B8B0","#F2B5B1","#FDB3B2","#F7B1B4","#F0B0B5","#E8AFB6","#E0ADB7","#D8ACB8","#D0ABBA","#C8AABB","#C0A8BC","#B8A7BD","#B1A6BE","#A9A4C0","#A6A5BB","#AEA8AA","#B6AC9A","#BEAF89","#C6B378","#CEB667","#D5B957","#DDBD46","#E5C035","#EDC425","#F5C714","#FDCB03","#FFC808","#FFC513","#FFC11E","#FFBD29","#FFB934","#FFB540","#FFB14B","#FFAD56","#FFA961","#FFA56C","#FFA277","#FEA080","#F9A982","#F5B184","#F0B986","#ECC289","#E7CA8B","#E3D28D","#DFDB8F","#DAE391","#D6EB93","#D1F396","#CDFC98","#CDF99B","#CEF19E","#D0E8A1","#D2E0A5","#D3D8A8","#D5CFAB","#D6C7AE","#D8BFB2","#DAB6B5","#DBAEB8","#DDA6BC","#DF9FBE","#E2A3BB","#E4A7B8","#E7ABB4","#EAAFB1","#EDB2AE","#EFB6AA","#F2BAA7","#F5BEA4","#F8C2A1","#FBC69D","#FDCA9A","#FCCC9B","#F8CCA0","#F3CCA4","#EFCCA9","#EBCCAD","#E6CCB2","#E2CCB6","#DECCBB","#D9CCBF","#D5CCC4","#D1CCC8","#CDCDCD"],"color.highlight.border":["black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black"],"color.border":["black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black"],"size":[20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20],"borderWidth":[2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2]},"edges":{"from":[1,1,5,4,6,12,9,15,2,22,22,25,25,29,16,31,34,25,36,30,38,41,28,44,41,23,45,45,37,31,42,54,47,61,54,46,79,68,80,60,74,71,70,88,83,64,63,34,113,69,90,108,113,80,73,107,70,78,64,105,55,108,113,103,128,156,99,128,89,92,106,103],"to":[2,5,8,10,11,16,19,21,23,25,30,32,33,34,36,38,42,43,46,51,52,53,55,57,59,61,65,66,69,70,78,79,80,81,83,86,90,92,96,98,100,102,107,111,114,115,117,119,120,121,122,125,127,129,133,136,138,141,142,144,149,152,153,154,158,159,160,161,162,164,165,166],"primary_onset_date":["2023-10-01","2023-10-01","2023-10-11","2023-10-10","2023-10-12","2023-10-18","2023-10-15","2023-10-20","2023-10-03","2023-10-25","2023-10-25","2023-10-28","2023-10-28","2023-10-30","2023-10-21","2023-10-31","2023-11-03","2023-10-28","2023-11-04","2023-10-30","2023-11-05","2023-11-06","2023-10-30","2023-11-06","2023-11-06","2023-10-26","2023-11-07","2023-11-07","2023-11-04","2023-10-31","2023-11-06","2023-11-10","2023-11-07","2023-11-12","2023-11-10","2023-11-07","2023-11-16","2023-11-14","2023-11-16","2023-11-12","2023-11-15","2023-11-14","2023-11-14","2023-11-18","2023-11-17","2023-11-13","2023-11-12","2023-11-03","2023-11-23","2023-11-14","2023-11-18","2023-11-22","2023-11-23","2023-11-16","2023-11-15","2023-11-21","2023-11-14","2023-11-16","2023-11-13","2023-11-21","2023-11-10","2023-11-22","2023-11-23","2023-11-21","2023-11-26","2023-11-29","2023-11-20","2023-11-26","2023-11-18","2023-11-18","2023-11-21","2023-11-21"],"secondary_onset_date":["2023-10-03","2023-10-11","2023-10-13","2023-10-16","2023-10-16","2023-10-21","2023-10-24","2023-10-24","2023-10-26","2023-10-28","2023-10-30","2023-11-03","2023-11-03","2023-11-03","2023-11-04","2023-11-05","2023-11-06","2023-11-06","2023-11-07","2023-11-08","2023-11-09","2023-11-10","2023-11-10","2023-11-11","2023-11-12","2023-11-12","2023-11-13","2023-11-13","2023-11-14","2023-11-14","2023-11-16","2023-11-16","2023-11-16","2023-11-16","2023-11-17","2023-11-17","2023-11-18","2023-11-18","2023-11-20","2023-11-20","2023-11-20","2023-11-20","2023-11-21","2023-11-22","2023-11-23","2023-11-23","2023-11-24","2023-11-25","2023-11-25","2023-11-25","2023-11-25","2023-11-26","2023-11-26","2023-11-26","2023-11-26","2023-11-27","2023-11-27","2023-11-27","2023-11-27","2023-11-28","2023-11-29","2023-11-29","2023-11-29","2023-11-29","2023-11-30","2023-11-30","2023-11-30","2023-11-30","2023-11-30","2023-11-30","2023-11-30","2023-11-30"],"width":[3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3],"color":["black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black"],"arrows.to":[true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true]},"nodesToDataframe":true,"edgesToDataframe":true,"options":{"width":"100%","height":"100%","nodes":{"shape":"dot"},"manipulation":{"enabled":false},"interaction":{"zoomSpeed":1},"edges":{"arrows":{"to":{"scaleFactor":2}}},"physics":{"stabilization":false}},"groups":null,"width":"90%","height":"700px","idselection":{"enabled":false,"style":"width: 150px; height: 26px","useLabels":true,"main":"Select by id"},"byselection":{"enabled":true,"style":"width: 150px; height: 26px","multiple":false,"hideColor":"rgba(200,200,200,0.5)","highlight":false,"variable":"id","main":"Select by id","values":[1,2,4,5,6,8,9,10,11,12,15,16,19,21,22,23,25,28,29,30,31,32,33,34,36,37,38,41,42,43,44,45,46,47,51,52,53,54,55,57,59,60,61,63,64,65,66,68,69,70,71,73,74,78,79,80,81,83,86,88,89,90,92,96,98,99,100,102,103,105,106,107,108,111,113,114,115,117,119,120,121,122,125,127,128,129,133,136,138,141,142,144,149,152,153,154,156,158,159,160,161,162,164,165,166]},"main":null,"submain":null,"footer":null,"background":"rgba(0, 0, 0, 0)","tooltipStay":300,"tooltipStyle":"position: fixed;visibility:hidden;padding: 5px;white-space: nowrap;font-family: verdana;font-size:14px;font-color:#000000;background-color: #EEEEEE;-moz-border-radius: 3px;-webkit-border-radius: 3px;border-radius: 3px;border: 1px solid #000000;","legend":{"width":0.1,"useGroups":false,"position":"left","ncol":1,"stepX":100,"stepY":100,"zoom":false},"opts_manipulation":{"datacss":"table.legend_table {\n  font-size: 11px;\n  border-width:1px;\n  border-color:#d3d3d3;\n  border-style:solid;\n}\ntable.legend_table td {\n  border-width:1px;\n  border-color:#d3d3d3;\n  border-style:solid;\n  padding: 2px;\n}\ndiv.table_content {\n  width:80px;\n  text-align:center;\n}\ndiv.table_description {\n  width:100px;\n}\n\n.operation {\n  font-size:20px;\n}\n\n.network-popUp {\n  display:none;\n  z-index:299;\n  width:250px;\n  /*height:150px;*/\n  background-color: #f9f9f9;\n  border-style:solid;\n  border-width:1px;\n  border-color: #0d0d0d;\n  padding:10px;\n  text-align: center;\n  position:fixed;\n  top:50%;  \n  left:50%;  \n  margin:-100px 0 0 -100px;  \n\n}","addNodeCols":["id","label"],"editNodeCols":["id","label"],"tab_add_node":"<span id=\"addnode-operation\" class = \"operation\">node<\/span> <br><table style=\"margin:auto;\"><tr><td>id<\/td><td><input id=\"addnode-id\"  type= \"text\" value=\"new value\"><\/td><\/tr><tr><td>label<\/td><td><input id=\"addnode-label\"  type= \"text\" value=\"new value\"><\/td><\/tr><\/table><input type=\"button\" value=\"save\" id=\"addnode-saveButton\"><\/button><input type=\"button\" value=\"cancel\" id=\"addnode-cancelButton\"><\/button>","tab_edit_node":"<span id=\"editnode-operation\" class = \"operation\">node<\/span> <br><table style=\"margin:auto;\"><tr><td>id<\/td><td><input id=\"editnode-id\"  type= \"text\" value=\"new value\"><\/td><\/tr><tr><td>label<\/td><td><input id=\"editnode-label\"  type= \"text\" value=\"new value\"><\/td><\/tr><\/table><input type=\"button\" value=\"save\" id=\"editnode-saveButton\"><\/button><input type=\"button\" value=\"cancel\" id=\"editnode-cancelButton\"><\/button>"},"highlight":{"enabled":true,"hoverNearest":false,"degree":1,"algorithm":"all","hideColor":"rgba(200,200,200,1)","labelOnly":true},"collapse":{"enabled":true,"fit":false,"resetHighlight":true,"clusterOptions":null,"keepCoord":true,"labelSuffix":"(cluster)"},"iconsRedraw":true},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
 
 ::: {.alert .alert-secondary}
 +----------------------------------------------------------------------------------------------------------------+
@@ -345,34 +322,23 @@ Now let's focus on the incubation period. We will use the `linelist` for this pa
 ```r
 ip <- filter(linelist, !is.na(exposure_start) &
                !is.na(exposure_end))
-```
-
-```{.error}
-Error in eval(expr, envir, enclos): object 'linelist' not found
-```
-
-```r
 nrow(ip)
 ```
 
-```{.error}
-Error in eval(expr, envir, enclos): object 'ip' not found
+```{.output}
+[1] 50
 ```
 
 ```r
 ip$exposure_window <- as.numeric(ip$exposure_end - ip$exposure_start)
-```
 
-```{.error}
-Error in eval(expr, envir, enclos): object 'ip' not found
-```
-
-```r
 table(ip$exposure_window)
 ```
 
-```{.error}
-Error in eval(expr, envir, enclos): object 'ip' not found
+```{.output}
+
+ 0  1  2 
+34 11  5 
 ```
 
 ### 7.1. Naive estimate of the incubation period
@@ -383,35 +349,23 @@ Let's start by calculating a naive estimate of the incubation period.
 ```r
 # Max incubation period 
 ip$max_ip <- ip$date_onset - ip$exposure_start
-```
-
-```{.error}
-Error in eval(expr, envir, enclos): object 'ip' not found
-```
-
-```r
 summary(as.numeric(ip$max_ip))
 ```
 
-```{.error}
-Error in h(simpleError(msg, call)): error in evaluating the argument 'object' in selecting a method for function 'summary': object 'ip' not found
+```{.output}
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+   1.00    3.00    4.50    6.38    7.75   20.00 
 ```
 
 ```r
 # Minimum incubation period
 ip$min_ip <- ip$date_onset - ip$exposure_end
-```
-
-```{.error}
-Error in eval(expr, envir, enclos): object 'ip' not found
-```
-
-```r
 summary(as.numeric(ip$min_ip))
 ```
 
-```{.error}
-Error in h(simpleError(msg, call)): error in evaluating the argument 'object' in selecting a method for function 'summary': object 'ip' not found
+```{.output}
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+   1.00    2.00    4.00    5.96    7.75   19.00 
 ```
 
 ### 7.2. Censoring adjusted estimate of the incubation period
@@ -430,25 +384,13 @@ We will fit all three distributions in this code chunk.
 ```r
 # Prepare data
 earliest_exposure <- as.Date(min(ip$exposure_start))
-```
 
-```{.error}
-Error in eval(expr, envir, enclos): object 'ip' not found
-```
-
-```r
 ip <- ip |>
   mutate(date_onset = as.numeric(date_onset - earliest_exposure),
          exposure_start = as.numeric(exposure_start - earliest_exposure),
          exposure_end = as.numeric(exposure_end - earliest_exposure)) |>
   select(id, date_onset, exposure_start, exposure_end)
-```
 
-```{.error}
-Error in eval(expr, envir, enclos): object 'ip' not found
-```
-
-```r
 # Setting some options to run the MCMC chains in parallel
 # Running the MCMC chains in parallel means that we will run multiple MCMC chains at the same time by using multiple cores on your computer
 options(mc.cores=parallel::detectCores())
@@ -457,13 +399,7 @@ input_data <- list(N = length(ip$exposure_start), # Number of observations
               tStartExposure = ip$exposure_start,
               tEndExposure = ip$exposure_end,
               tSymptomOnset = ip$date_onset)
-```
 
-```{.error}
-Error in eval(expr, envir, enclos): object 'ip' not found
-```
-
-```r
 # We are going to fit three probability distributions
 distributions <- c("weibull", "gamma", "lognormal") 
 
@@ -505,18 +441,8 @@ fit <- mapply(sampling, models, list(input_data),
               iter=3000, # Number of iterations (length of MCMC chains)
               warmup=1000, # Number of samples to discard at the beginning of MCMC
               chain=4) # Number of chains to run MCMC
-```
 
-```{.error}
-Error in eval(expr, envir, enclos): object 'input_data' not found
-```
-
-```r
 pos <- mapply(function(z) rstan::extract(z)$par, fit, SIMPLIFY=FALSE) # Posterior samples
-```
-
-```{.error}
-Error in dots[[1L]][[1L]]: object of type 'closure' is not subsettable
 ```
 
 #### **7.1.2. Checking for convergence**
@@ -540,17 +466,26 @@ For each model of different fitted distributions:
 print(fit$gamma, digits = 3, pars = c("par[1]","par[2]")) 
 ```
 
-```{.error}
-Error in fit$gamma: object of type 'closure' is not subsettable
+```{.output}
+Inference for Stan model: anon_model.
+4 chains, each with iter=3000; warmup=1000; thin=1; 
+post-warmup draws per chain=2000, total post-warmup draws=8000.
+
+        mean se_mean    sd  2.5%   25%   50%   75% 97.5% n_eff Rhat
+par[1] 1.977   0.003 0.352 1.353 1.734 1.952 2.199 2.732 12412    1
+par[2] 0.324   0.001 0.065 0.208 0.278 0.320 0.365 0.466 11709    1
+
+Samples were drawn using NUTS(diag_e) at Sun Dec  3 01:36:07 2023.
+For each parameter, n_eff is a crude measure of effective sample size,
+and Rhat is the potential scale reduction factor on split chains (at 
+convergence, Rhat=1).
 ```
 
 ```r
 rstan::traceplot(fit$gamma, pars = c("par[1]","par[2]"))
 ```
 
-```{.error}
-Error in (function (cond) : error in evaluating the argument 'object' in selecting a method for function 'traceplot': object of type 'closure' is not subsettable
-```
+<img src="fig/EnfermedadX-rendered-convergence gamma-1.png" style="display: block; margin: auto;" />
 
 #### **7.1.2.2. Convergence for log normal**
 
@@ -559,17 +494,26 @@ Error in (function (cond) : error in evaluating the argument 'object' in selecti
 print(fit$lognormal, digits = 3, pars = c("par[1]","par[2]")) 
 ```
 
-```{.error}
-Error in fit$lognormal: object of type 'closure' is not subsettable
+```{.output}
+Inference for Stan model: anon_model.
+4 chains, each with iter=3000; warmup=1000; thin=1; 
+post-warmup draws per chain=2000, total post-warmup draws=8000.
+
+        mean se_mean    sd  2.5%   25%   50%   75% 97.5% n_eff Rhat
+par[1] 1.529   0.001 0.114 1.306 1.455 1.529 1.604 1.756 10844    1
+par[2] 0.800   0.001 0.084 0.659 0.741 0.793 0.852 0.986  9854    1
+
+Samples were drawn using NUTS(diag_e) at Sun Dec  3 01:36:13 2023.
+For each parameter, n_eff is a crude measure of effective sample size,
+and Rhat is the potential scale reduction factor on split chains (at 
+convergence, Rhat=1).
 ```
 
 ```r
 rstan::traceplot(fit$lognormal, pars = c("par[1]","par[2]")) 
 ```
 
-```{.error}
-Error in (function (cond) : error in evaluating the argument 'object' in selecting a method for function 'traceplot': object of type 'closure' is not subsettable
-```
+<img src="fig/EnfermedadX-rendered-convergence lognormal-1.png" style="display: block; margin: auto;" />
 
 #### **7.1.2.3. Convergence for Weibull**
 
@@ -578,17 +522,26 @@ Error in (function (cond) : error in evaluating the argument 'object' in selecti
 print(fit$weibull, digits = 3, pars = c("par[1]","par[2]")) 
 ```
 
-```{.error}
-Error in fit$weibull: object of type 'closure' is not subsettable
+```{.output}
+Inference for Stan model: anon_model.
+4 chains, each with iter=3000; warmup=1000; thin=1; 
+post-warmup draws per chain=2000, total post-warmup draws=8000.
+
+        mean se_mean    sd  2.5%   25%   50%   75% 97.5% n_eff Rhat
+par[1] 1.373   0.001 0.149 1.092 1.270 1.368 1.474 1.676  9960    1
+par[2] 6.953   0.008 0.776 5.543 6.405 6.919 7.454 8.578  9417    1
+
+Samples were drawn using NUTS(diag_e) at Sun Dec  3 01:36:00 2023.
+For each parameter, n_eff is a crude measure of effective sample size,
+and Rhat is the potential scale reduction factor on split chains (at 
+convergence, Rhat=1).
 ```
 
 ```r
 rstan::traceplot(fit$weibull, pars = c("par[1]","par[2]")) 
 ```
 
-```{.error}
-Error in (function (cond) : error in evaluating the argument 'object' in selecting a method for function 'traceplot': object of type 'closure' is not subsettable
-```
+<img src="fig/EnfermedadX-rendered-convergence weibull-1.png" style="display: block; margin: auto;" />
 
 #### **7.1.3. Compute model comparison criteria**
 
@@ -606,23 +559,13 @@ Let's compute the widely applicable information criterion (WAIC) and leave-one-o
 ```r
 # Compute WAIC for all three models
 waic <- mapply(function(z) waic(extract_log_lik(z))$estimates[3,], fit)
-```
-
-```{.error}
-Error in dots[[1L]][[1L]]: object of type 'closure' is not subsettable
-```
-
-```r
 waic
 ```
 
 ```{.output}
-function (x, ...) 
-{
-    UseMethod("waic")
-}
-<bytecode: 0x5592eb0ed708>
-<environment: namespace:loo>
+           weibull     gamma lognormal
+Estimate 278.18793 276.03678 272.78176
+SE        11.97859  13.39417  13.86509
 ```
 
 ```r
@@ -632,103 +575,43 @@ function (x, ...)
 
 # Extract pointwise log-likelihood for the Weibull distribution
 loglik <- extract_log_lik(fit$weibull, merge_chains = FALSE)
-```
-
-```{.error}
-Error in fit$weibull: object of type 'closure' is not subsettable
-```
-
-```r
 # Get the relative effective sample sizes
 r_eff <- relative_eff(exp(loglik), cores = 2)
-```
-
-```{.error}
-Error in eval(expr, envir, enclos): object 'loglik' not found
-```
-
-```r
 # Compute LOOIC
 loo_w <- loo(loglik, r_eff = r_eff, cores = 2)$estimates[3,]
-```
-
-```{.error}
-Error in h(simpleError(msg, call)): error in evaluating the argument 'x' in selecting a method for function 'loo': object 'loglik' not found
-```
-
-```r
 # Print the results
 loo_w[1]
 ```
 
-```{.error}
-Error in eval(expr, envir, enclos): object 'loo_w' not found
+```{.output}
+Estimate 
+278.2112 
 ```
 
 ```r
 # Extract pointwise log-likelihood for the gamma distribution
 loglik <- extract_log_lik(fit$gamma, merge_chains = FALSE)
-```
-
-```{.error}
-Error in fit$gamma: object of type 'closure' is not subsettable
-```
-
-```r
 r_eff <- relative_eff(exp(loglik), cores = 2)
-```
-
-```{.error}
-Error in eval(expr, envir, enclos): object 'loglik' not found
-```
-
-```r
 loo_g <- loo(loglik, r_eff = r_eff, cores = 2)$estimates[3,]
-```
-
-```{.error}
-Error in h(simpleError(msg, call)): error in evaluating the argument 'x' in selecting a method for function 'loo': object 'loglik' not found
-```
-
-```r
 loo_g[1]
 ```
 
-```{.error}
-Error in eval(expr, envir, enclos): object 'loo_g' not found
+```{.output}
+Estimate 
+ 276.055 
 ```
 
 ```r
 # Extract pointwise log-likelihood for the log normal distribution
 loglik <- extract_log_lik(fit$lognormal, merge_chains = FALSE)
-```
-
-```{.error}
-Error in fit$lognormal: object of type 'closure' is not subsettable
-```
-
-```r
 r_eff <- relative_eff(exp(loglik), cores = 2)
-```
-
-```{.error}
-Error in eval(expr, envir, enclos): object 'loglik' not found
-```
-
-```r
 loo_l <- loo(loglik, r_eff = r_eff, cores = 2)$estimates[3,]
-```
-
-```{.error}
-Error in h(simpleError(msg, call)): error in evaluating the argument 'x' in selecting a method for function 'loo': object 'loglik' not found
-```
-
-```r
 loo_l[1]
 ```
 
-```{.error}
-Error in eval(expr, envir, enclos): object 'loo_l' not found
+```{.output}
+Estimate 
+272.7942 
 ```
 
 #### **7.1.4. Report the results**
@@ -749,71 +632,37 @@ Let's get the summary statistics.
 means <- cbind(pos$weibull[,2]*gamma(1+1/pos$weibull[,1]), # mean of Weibull
                pos$gamma[,1] / pos$gamma[,2], # mean of gamma
                exp(pos$lognormal[,1]+pos$lognormal[,2]^2/2)) # mean of log normal
-```
 
-```{.error}
-Error in eval(expr, envir, enclos): object 'pos' not found
-```
-
-```r
 standard_deviations <- cbind(sqrt(pos$weibull[,2]^2*(gamma(1+2/pos$weibull[,1])-(gamma(1+1/pos$weibull[,1]))^2)),
                              sqrt(pos$gamma[,1]/(pos$gamma[,2]^2)),
                              sqrt((exp(pos$lognormal[,2]^2)-1) * (exp(2*pos$lognormal[,1] + pos$lognormal[,2]^2))))
-```
 
-```{.error}
-Error in eval(expr, envir, enclos): object 'pos' not found
-```
-
-```r
 # Print the mean delays and 95% credible intervals
 probs <- c(0.025, 0.5, 0.975)
 
 res_means <- apply(means, 2, quantile, probs)
-```
-
-```{.error}
-Error in eval(expr, envir, enclos): object 'means' not found
-```
-
-```r
 colnames(res_means) <- colnames(waic)
-```
-
-```{.error}
-Error: object 'res_means' not found
-```
-
-```r
 res_means
 ```
 
-```{.error}
-Error in eval(expr, envir, enclos): object 'res_means' not found
+```{.output}
+       weibull    gamma lognormal
+2.5%  5.157946 5.029951  5.017493
+50%   6.338758 6.122805  6.324905
+97.5% 7.870292 7.523752  8.472183
 ```
 
 ```r
 res_sds <- apply(standard_deviations, 2, quantile, probs)
-```
-
-```{.error}
-Error in eval(expr, envir, enclos): object 'standard_deviations' not found
-```
-
-```r
 colnames(res_sds) <- colnames(waic)
-```
-
-```{.error}
-Error: object 'res_sds' not found
-```
-
-```r
 res_sds
 ```
 
-```{.error}
-Error in eval(expr, envir, enclos): object 'res_sds' not found
+```{.output}
+       weibull    gamma lognormal
+2.5%  3.693299 3.436822  3.990813
+50%   4.651300 4.366334  5.902965
+97.5% 6.385197 5.818256 10.203445
 ```
 
 ```r
@@ -822,76 +671,43 @@ quantiles_to_report <- c(0.025, 0.05, 0.5, 0.95, 0.975, 0.99)
 
 # Weibull
 cens_w_percentiles <- sapply(quantiles_to_report, function(p) quantile(qweibull(p = p, shape = pos$weibull[,1], scale = pos$weibull[,2]), probs = probs))
-```
-
-```{.error}
-Error in FUN(X[[i]], ...): object 'pos' not found
-```
-
-```r
 colnames(cens_w_percentiles) <- quantiles_to_report
-```
-
-```{.error}
-Error: object 'cens_w_percentiles' not found
-```
-
-```r
 print(cens_w_percentiles)
 ```
 
-```{.error}
-Error in eval(expr, envir, enclos): object 'cens_w_percentiles' not found
+```{.output}
+          0.025      0.05      0.5     0.95    0.975     0.99
+2.5%  0.2141434 0.4062625 4.094363 12.51226 14.39380 16.68748
+50%   0.4701658 0.7878909 5.288772 15.37559 17.89946 21.02025
+97.5% 0.8509980 1.2987854 6.620899 20.06110 23.98055 29.04699
 ```
 
 ```r
 # Gamma
 cens_g_percentiles <- sapply(quantiles_to_report, function(p) quantile(qgamma(p = p, shape = pos$gamma[,1], rate = pos$gamma[,2]), probs = probs))
-```
-
-```{.error}
-Error in FUN(X[[i]], ...): object 'pos' not found
-```
-
-```r
 colnames(cens_g_percentiles) <- quantiles_to_report
-```
-
-```{.error}
-Error: object 'cens_g_percentiles' not found
-```
-
-```r
 print(cens_g_percentiles)
 ```
 
-```{.error}
-Error in eval(expr, envir, enclos): object 'cens_g_percentiles' not found
+```{.output}
+          0.025      0.05      0.5     0.95    0.975     0.99
+2.5%  0.3372192 0.5694673 4.096901 11.90124 13.85229 16.36080
+50%   0.7162024 1.0585090 5.109417 14.57927 17.15045 20.47951
+97.5% 1.1832408 1.6042107 6.274960 18.73114 22.30890 26.95634
 ```
 
 ```r
 # Log normal
 cens_ln_percentiles <- sapply(quantiles_to_report, function(p) quantile(qlnorm(p = p, meanlog = pos$lognormal[,1], sdlog= pos$lognormal[,2]), probs = probs))
-```
-
-```{.error}
-Error in FUN(X[[i]], ...): object 'pos' not found
-```
-
-```r
 colnames(cens_ln_percentiles) <- quantiles_to_report
-```
-
-```{.error}
-Error: object 'cens_ln_percentiles' not found
-```
-
-```r
 print(cens_ln_percentiles)
 ```
 
-```{.error}
-Error in eval(expr, envir, enclos): object 'cens_ln_percentiles' not found
+```{.output}
+          0.025      0.05      0.5     0.95    0.975     0.99
+2.5%  0.6164534 0.8308035 3.692910 12.63805 15.68208 20.08689
+50%   0.9759112 1.2527701 4.615036 16.98527 21.81277 29.13840
+97.5% 1.3556093 1.6852239 5.786690 25.34282 34.19679 48.82132
 ```
 
 For each model, find these items for the estimated incubation period in the output above and write them below.
@@ -913,13 +729,7 @@ df <- data.frame(
 #Take mean values to draw empirical cumulative density function
   inc_day = ((input_data$tSymptomOnset-input_data$tEndExposure)+(input_data$tSymptomOnset-input_data$tStartExposure))/2
 )
-```
 
-```{.error}
-Error in eval(expr, envir, enclos): object 'input_data' not found
-```
-
-```r
 x_plot <- seq(0, 30, by=0.1) # This sets the range of the x axis (number of days)
 
 Gam_plot <- as.data.frame(list(dose= x_plot, 
@@ -927,37 +737,19 @@ Gam_plot <- as.data.frame(list(dose= x_plot,
                                low = sapply(x_plot, function(q) quantile(pgamma(q = q, shape = pos$gamma[,1], rate = pos$gamma[,2]), probs = c(0.025))),
                                upp = sapply(x_plot, function(q) quantile(pgamma(q = q, shape = pos$gamma[,1], rate = pos$gamma[,2]), probs = c(0.975)))
 ))
-```
 
-```{.error}
-Error in FUN(X[[i]], ...): object 'pos' not found
-```
-
-```r
 Wei_plot <- as.data.frame(list(dose= x_plot, 
                                pred= sapply(x_plot, function(q) quantile(pweibull(q = q, shape = pos$weibull[,1], scale = pos$weibull[,2]), probs = c(0.5))),
                                low = sapply(x_plot, function(q) quantile(pweibull(q = q, shape = pos$weibull[,1], scale = pos$weibull[,2]), probs = c(0.025))),
                                upp = sapply(x_plot, function(q) quantile(pweibull(q = q, shape = pos$weibull[,1], scale = pos$weibull[,2]), probs = c(0.975)))
 ))
-```
 
-```{.error}
-Error in FUN(X[[i]], ...): object 'pos' not found
-```
-
-```r
 ln_plot <- as.data.frame(list(dose= x_plot, 
                               pred= sapply(x_plot, function(q) quantile(plnorm(q = q, meanlog = pos$lognormal[,1], sdlog= pos$lognormal[,2]), probs = c(0.5))),
                               low = sapply(x_plot, function(q) quantile(plnorm(q = q, meanlog = pos$lognormal[,1], sdlog= pos$lognormal[,2]), probs = c(0.025))),
                               upp = sapply(x_plot, function(q) quantile(plnorm(q = q, meanlog = pos$lognormal[,1], sdlog= pos$lognormal[,2]), probs = c(0.975)))
 ))
-```
 
-```{.error}
-Error in FUN(X[[i]], ...): object 'pos' not found
-```
-
-```r
 # Plot cumulative distribution curves
 gamma_ggplot <- ggplot(df, aes(x=inc_day)) +
   stat_ecdf(geom = "step")+ 
@@ -967,15 +759,7 @@ gamma_ggplot <- ggplot(df, aes(x=inc_day)) +
   theme_bw(base_size = 11)+
   labs(x="Incubation period (days)", y = "Proportion")+
   ggtitle("Gamma")
-```
 
-```{.error}
-Error in `ggplot()`:
-! `data` cannot be a function.
-ℹ Have you misspelled the `data` argument in `ggplot()`
-```
-
-```r
 weibul_ggplot <- ggplot(df, aes(x=inc_day)) +
   stat_ecdf(geom = "step")+ 
   xlim(c(0, 30))+
@@ -984,15 +768,7 @@ weibul_ggplot <- ggplot(df, aes(x=inc_day)) +
   theme_bw(base_size = 11)+
   labs(x="Incubation period (days)", y = "Proportion")+
   ggtitle("Weibull")
-```
 
-```{.error}
-Error in `ggplot()`:
-! `data` cannot be a function.
-ℹ Have you misspelled the `data` argument in `ggplot()`
-```
-
-```r
 lognorm_ggplot <- ggplot(df, aes(x=inc_day)) +
   stat_ecdf(geom = "step")+ 
   xlim(c(0, 30))+
@@ -1001,21 +777,11 @@ lognorm_ggplot <- ggplot(df, aes(x=inc_day)) +
   theme_bw(base_size = 11)+
   labs(x="Incubation period (days)", y = "Proportion")+
   ggtitle("Log normal")
-```
 
-```{.error}
-Error in `ggplot()`:
-! `data` cannot be a function.
-ℹ Have you misspelled the `data` argument in `ggplot()`
-```
-
-```r
 (lognorm_ggplot|gamma_ggplot|weibul_ggplot) + plot_annotation(tag_levels = 'A') 
 ```
 
-```{.error}
-Error in eval(expr, envir, enclos): object 'lognorm_ggplot' not found
-```
+<img src="fig/EnfermedadX-rendered-plot ip-1.png" style="display: block; margin: auto;" />
 
 In the plots above, the black line is the empirical cumulative distribution (the data), while the blue curve is the fitted probability distribution with the 95% credible intervals. Make sure that the blue curve lays on top of the black line.
 
@@ -1044,27 +810,19 @@ Now we will estimate the serial interval. Again, we'll do a naive estimate first
 
 ```r
 contacts$diff <- as.numeric(contacts$secondary_onset_date - contacts$primary_onset_date)
-```
-
-```{.error}
-Error in eval(expr, envir, enclos): object 'contacts' not found
-```
-
-```r
 summary(contacts$diff)
 ```
 
-```{.error}
-Error in h(simpleError(msg, call)): error in evaluating the argument 'object' in selecting a method for function 'summary': object 'contacts' not found
+```{.output}
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+  1.000   4.000   6.000   7.625  10.000  23.000 
 ```
 
 ```r
 hist(contacts$diff, xlab = "Serial interval (days)", breaks = 25, main = "", col = "pink")
 ```
 
-```{.error}
-Error in eval(expr, envir, enclos): object 'contacts' not found
-```
+<img src="fig/EnfermedadX-rendered-si naive-1.png" style="display: block; margin: auto;" />
 
 ### 8.2. Censoring adjusted estimate
 
@@ -1092,10 +850,6 @@ si_data <- contacts |>
   rename(SL = diff) |>
   mutate(type = 0, EL = 0, ER = 1, SR = SL + 1) |>
   select(EL, ER, SL, SR, type)
-```
-
-```{.error}
-Error in eval(expr, envir, enclos): object 'contacts' not found
 ```
 
 #### 8.2.2. Fitting a gamma distribution for SI
@@ -1141,8 +895,41 @@ n.samples = n_mcmc_samples,
 seed = mcmc_control$seed)
 ```
 
-```{.error}
-Error in eval(expr, envir, enclos): object 'si_data' not found
+```{.output}
+Running 4000 MCMC iterations 
+MCMCmetrop1R iteration 1 of 4000 
+function value = -201.95281
+theta = 
+   1.04012
+   0.99131
+Metropolis acceptance rate = 0.00000
+
+MCMCmetrop1R iteration 1001 of 4000 
+function value = -202.42902
+theta = 
+   0.95294
+   1.05017
+Metropolis acceptance rate = 0.55445
+
+MCMCmetrop1R iteration 2001 of 4000 
+function value = -201.88547
+theta = 
+   1.18355
+   0.82124
+Metropolis acceptance rate = 0.56522
+
+MCMCmetrop1R iteration 3001 of 4000 
+function value = -202.11109
+theta = 
+   1.26323
+   0.77290
+Metropolis acceptance rate = 0.55148
+
+
+
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+The Metropolis acceptance rate was 0.55500
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 ```
 
 Let's look at the results.
@@ -1151,21 +938,9 @@ Let's look at the results.
 ```r
 # Check convergence of MCMC chains 
 converg_diag_gamma <- check_cdt_samples_convergence(si_fit_gamma@samples)
-```
-
-```{.error}
-Error in eval(expr, envir, enclos): object 'si_fit_gamma' not found
-```
-
-```r
 converg_diag_gamma
-```
 
-```{.error}
-Error in eval(expr, envir, enclos): object 'converg_diag_gamma' not found
-```
 
-```r
 # Save MCMC samples in dataframe
 si_samples_gamma <- data.frame(
 type = 'Symptom onset',
@@ -1179,13 +954,7 @@ mutate( # Equation for conversion is here https://en.wikipedia.org/wiki/Gamma_di
 mean = shape*scale,
 sd = sqrt(shape*scale^2)
 ) 
-```
 
-```{.error}
-Error in eval(expr, envir, enclos): object 'si_fit_gamma' not found
-```
-
-```r
 # Get the mean, SD, and 95% CrI
 
 
@@ -1199,21 +968,8 @@ sd_mean = quantile(sd, probs=.5),
 sd_l_ci = quantile(sd,probs=.025),
 sd_u_ci = quantile(sd,probs=.975)
 )
-```
-
-```{.error}
-Error in eval(expr, envir, enclos): object 'si_samples_gamma' not found
-```
-
-```r
 si_summary_gamma
-```
 
-```{.error}
-Error in eval(expr, envir, enclos): object 'si_summary_gamma' not found
-```
-
-```r
 # Get the same summary statistics for the parameters of the distribution
 si_samples_gamma |>
 summarise(
@@ -1224,27 +980,10 @@ scale_mean = quantile(scale, probs=.5),
 scale_l_ci = quantile(scale, probs=.025),
 scale_u_ci = quantile(scale, probs=.975)
 )
-```
 
-```{.error}
-Error in eval(expr, envir, enclos): object 'si_samples_gamma' not found
-```
-
-```r
 # We will need these for plotting later
 gamma_shape <- si_fit_gamma@ests['shape',][1]
-```
-
-```{.error}
-Error in eval(expr, envir, enclos): object 'si_fit_gamma' not found
-```
-
-```r
 gamma_rate <- 1 / si_fit_gamma@ests['scale',][1]
-```
-
-```{.error}
-Error in eval(expr, envir, enclos): object 'si_fit_gamma' not found
 ```
 
 #### 8.2.3. Fitting a log normal distribution for SI
@@ -1287,8 +1026,41 @@ n.samples = n_mcmc_samples,
 seed = mcmc_control$seed)
 ```
 
-```{.error}
-Error in eval(expr, envir, enclos): object 'si_data' not found
+```{.output}
+Running 4000 MCMC iterations 
+MCMCmetrop1R iteration 1 of 4000 
+function value = -216.54581
+theta = 
+   1.94255
+  -0.47988
+Metropolis acceptance rate = 1.00000
+
+MCMCmetrop1R iteration 1001 of 4000 
+function value = -216.21549
+theta = 
+   1.81272
+  -0.47418
+Metropolis acceptance rate = 0.56643
+
+MCMCmetrop1R iteration 2001 of 4000 
+function value = -215.86791
+theta = 
+   1.85433
+  -0.52118
+Metropolis acceptance rate = 0.57221
+
+MCMCmetrop1R iteration 3001 of 4000 
+function value = -216.32347
+theta = 
+   1.93196
+  -0.52205
+Metropolis acceptance rate = 0.55948
+
+
+
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+The Metropolis acceptance rate was 0.56875
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 ```
 
 Let's check the results.
@@ -1297,21 +1069,9 @@ Let's check the results.
 ```r
 # Check convergence of MCMC chains
 converg_diag_lnorm <- check_cdt_samples_convergence(si_fit_lnorm@samples)
-```
-
-```{.error}
-Error in eval(expr, envir, enclos): object 'si_fit_lnorm' not found
-```
-
-```r
 converg_diag_lnorm
-```
 
-```{.error}
-Error in eval(expr, envir, enclos): object 'converg_diag_lnorm' not found
-```
 
-```r
 # Save MCMC samples in a dataframe
 si_samples_lnorm <- data.frame(
 type = 'Symptom onset',
@@ -1325,13 +1085,7 @@ mutate( # Equation for conversion is here https://en.wikipedia.org/wiki/Log-norm
 mean = exp(meanlog + (sdlog^2/2)), 
 sd = sqrt((exp(sdlog^2)-1) * (exp(2*meanlog + sdlog^2)))
 )
-```
 
-```{.error}
-Error in eval(expr, envir, enclos): object 'si_fit_lnorm' not found
-```
-
-```r
 # Get the mean, SD, and 95% CrI
 si_summary_lnorm <- 
   si_samples_lnorm %>%
@@ -1343,21 +1097,8 @@ sd_mean = quantile(sd, probs=.5),
 sd_l_ci = quantile(sd,probs=.025),
 sd_u_ci = quantile(sd,probs=.975)
 )
-```
-
-```{.error}
-Error in eval(expr, envir, enclos): object 'si_samples_lnorm' not found
-```
-
-```r
 si_summary_lnorm
-```
 
-```{.error}
-Error in eval(expr, envir, enclos): object 'si_summary_lnorm' not found
-```
-
-```r
 # Now get the summary statistics for the parameters of the distribution
 si_samples_lnorm |>
 summarise(
@@ -1368,26 +1109,9 @@ sdlog_mean = quantile(sdlog, probs=.5),
 sdlog_l_ci = quantile(sdlog, probs=.025),
 sdlog_u_ci = quantile(sdlog, probs=.975)
 )
-```
 
-```{.error}
-Error in eval(expr, envir, enclos): object 'si_samples_lnorm' not found
-```
-
-```r
 lognorm_meanlog <- si_fit_lnorm@ests['meanlog',][1]
-```
-
-```{.error}
-Error in eval(expr, envir, enclos): object 'si_fit_lnorm' not found
-```
-
-```r
 lognorm_sdlog <- si_fit_lnorm@ests['sdlog',][1]
-```
-
-```{.error}
-Error in eval(expr, envir, enclos): object 'si_fit_lnorm' not found
 ```
 
 #### 8.2.4. Fitting a Weibull distribution for SI
@@ -1430,10 +1154,6 @@ n.samples = n_mcmc_samples,
 seed = mcmc_control$seed)
 ```
 
-```{.error}
-Error in eval(expr, envir, enclos): object 'si_data' not found
-```
-
 Now we'll check the results.
 
 
@@ -1442,16 +1162,17 @@ Now we'll check the results.
 converg_diag_weibull <- check_cdt_samples_convergence(si_fit_weibull@samples)
 ```
 
-```{.error}
-Error in eval(expr, envir, enclos): object 'si_fit_weibull' not found
+```{.output}
+
+Gelman-Rubin MCMC convergence diagnostic was successful.
 ```
 
 ```r
 converg_diag_weibull
 ```
 
-```{.error}
-Error in eval(expr, envir, enclos): object 'converg_diag_weibull' not found
+```{.output}
+[1] TRUE
 ```
 
 ```r
@@ -1468,13 +1189,7 @@ mutate( # Equation for conversion is here https://en.wikipedia.org/wiki/Weibull_
 mean = scale*gamma(1+1/shape),
 sd = sqrt(scale^2*(gamma(1+2/shape)-(gamma(1+1/shape))^2))
 ) 
-```
 
-```{.error}
-Error in eval(expr, envir, enclos): object 'si_fit_weibull' not found
-```
-
-```r
 # Get the summary statistics
 si_summary_weibull <- 
   si_samples_weibull %>%
@@ -1486,18 +1201,12 @@ sd_mean = quantile(sd, probs=.5),
 sd_l_ci = quantile(sd,probs=.025),
 sd_u_ci = quantile(sd,probs=.975)
 )
-```
-
-```{.error}
-Error in eval(expr, envir, enclos): object 'si_samples_weibull' not found
-```
-
-```r
 si_summary_weibull
 ```
 
-```{.error}
-Error in eval(expr, envir, enclos): object 'si_summary_weibull' not found
+```{.output}
+  mean_mean mean_l_ci mean_u_ci  sd_mean  sd_l_ci  sd_u_ci
+1  7.692701  6.677548  8.809715 4.418743 3.797158 5.456492
 ```
 
 ```r
@@ -1513,24 +1222,14 @@ scale_u_ci = quantile(scale, probs=.975)
 )
 ```
 
-```{.error}
-Error in eval(expr, envir, enclos): object 'si_samples_weibull' not found
+```{.output}
+  shape_mean shape_l_ci shape_u_ci scale_mean scale_l_ci scale_u_ci
+1   1.791214    1.50812   2.090071   8.631295   7.481234   9.943215
 ```
 
 ```r
 weibull_shape <- si_fit_weibull@ests['shape',][1]
-```
-
-```{.error}
-Error in eval(expr, envir, enclos): object 'si_fit_weibull' not found
-```
-
-```r
 weibull_scale <- si_fit_weibull@ests['scale',][1]
-```
-
-```{.error}
-Error in eval(expr, envir, enclos): object 'si_fit_weibull' not found
 ```
 
 #### 8.2.5. Plot the results for SI
@@ -1570,9 +1269,7 @@ ggplot()+
 	) 
 ```
 
-```{.error}
-Error in eval(expr, envir, enclos): object 'contacts' not found
-```
+<img src="fig/EnfermedadX-rendered-plot dist-1.png" style="display: block; margin: auto;" />
 
 Let's calculate the WAIC and LOOIC. `coarseDataTools` does not have a built-in way to do this, so we need to calculate the likelihood from the MCMC chains and use the `loo` R package.
 
@@ -1595,24 +1292,39 @@ Error in file(filename, "r", encoding = encoding): cannot open the connection
 compare_gamma <- calc_looic_waic(symp = si_data, symp_si = si_fit_gamma, dist = "G")
 ```
 
-```{.error}
-Error in eval(expr, envir, enclos): object 'si_fit_gamma' not found
+```{.warning}
+Warning: Relative effective sample sizes ('r_eff' argument) not specified.
+For models fit with MCMC, the reported PSIS effective sample sizes and 
+MCSE estimates will be over-optimistic.
 ```
 
 ```r
 compare_lnorm <- calc_looic_waic(symp = si_data, symp_si = si_fit_lnorm, dist = "L")
 ```
 
-```{.error}
-Error in eval(expr, envir, enclos): object 'si_fit_lnorm' not found
+```{.warning}
+Warning: Relative effective sample sizes ('r_eff' argument) not specified.
+For models fit with MCMC, the reported PSIS effective sample sizes and 
+MCSE estimates will be over-optimistic.
+```
+
+```{.warning}
+Warning: Some Pareto k diagnostic values are slightly high. See help('pareto-k-diagnostic') for details.
 ```
 
 ```r
 compare_weibull <- calc_looic_waic(symp = si_data, symp_si = si_fit_weibull, dist = "W")
 ```
 
-```{.error}
-Error in eval(expr, envir, enclos): object 'si_fit_weibull' not found
+```{.warning}
+Warning: 
+2 (2.8%) p_waic estimates greater than 0.4. We recommend trying loo instead.
+```
+
+```{.warning}
+Warning: Relative effective sample sizes ('r_eff' argument) not specified.
+For models fit with MCMC, the reported PSIS effective sample sizes and 
+MCSE estimates will be over-optimistic.
 ```
 
 ```r
@@ -1620,48 +1332,66 @@ Error in eval(expr, envir, enclos): object 'si_fit_weibull' not found
 compare_gamma[["waic"]]$estimates
 ```
 
-```{.error}
-Error in eval(expr, envir, enclos): object 'compare_gamma' not found
+```{.output}
+             Estimate         SE
+elpd_waic -202.009546  7.0118463
+p_waic       1.936991  0.4409454
+waic       404.019093 14.0236925
 ```
 
 ```r
 compare_lnorm[["waic"]]$estimates
 ```
 
-```{.error}
-Error in eval(expr, envir, enclos): object 'compare_lnorm' not found
+```{.output}
+             Estimate         SE
+elpd_waic -202.215546  7.0178113
+p_waic       1.874728  0.4106866
+waic       404.431092 14.0356226
 ```
 
 ```r
 compare_weibull[["waic"]]$estimates
 ```
 
-```{.error}
-Error in eval(expr, envir, enclos): object 'compare_weibull' not found
+```{.output}
+             Estimate         SE
+elpd_waic -203.941362  6.9020056
+p_waic       2.083623  0.6633186
+waic       407.882723 13.8040112
 ```
 
 ```r
 compare_gamma[["looic"]]$estimates
 ```
 
-```{.error}
-Error in eval(expr, envir, enclos): object 'compare_gamma' not found
+```{.output}
+            Estimate         SE
+elpd_loo -202.015856  7.0144149
+p_loo       1.943301  0.4437589
+looic     404.031713 14.0288297
 ```
 
 ```r
 compare_lnorm[["looic"]]$estimates
 ```
 
-```{.error}
-Error in eval(expr, envir, enclos): object 'compare_lnorm' not found
+```{.output}
+            Estimate         SE
+elpd_loo -202.218954  7.0182826
+p_loo       1.878136  0.4114664
+looic     404.437909 14.0365651
 ```
 
 ```r
 compare_weibull[["looic"]]$estimates
 ```
 
-```{.error}
-Error in eval(expr, envir, enclos): object 'compare_weibull' not found
+```{.output}
+            Estimate         SE
+elpd_loo -203.956018  6.9097884
+p_loo       2.098279  0.6725387
+looic     407.912036 13.8195768
 ```
 
 Include the following when reporting the serial interval:
@@ -1683,24 +1413,27 @@ Include the following when reporting the serial interval:
 si_summary_gamma
 ```
 
-```{.error}
-Error in eval(expr, envir, enclos): object 'si_summary_gamma' not found
+```{.output}
+  mean_mean mean_l_ci mean_u_ci  sd_mean  sd_l_ci  sd_u_ci
+1  7.659641   6.65395  8.707372 4.342087 3.602425 5.481316
 ```
 
 ```r
 si_summary_lnorm
 ```
 
-```{.error}
-Error in eval(expr, envir, enclos): object 'si_summary_lnorm' not found
+```{.output}
+  mean_mean mean_l_ci mean_u_ci  sd_mean  sd_l_ci  sd_u_ci
+1  7.780719  6.692829  9.300588 5.189349 3.936678 7.289224
 ```
 
 ```r
 si_summary_weibull
 ```
 
-```{.error}
-Error in eval(expr, envir, enclos): object 'si_summary_weibull' not found
+```{.output}
+  mean_mean mean_l_ci mean_u_ci  sd_mean  sd_l_ci  sd_u_ci
+1  7.692701  6.677548  8.809715 4.418743 3.797158 5.456492
 ```
 
 # *`_______Wrap-up 3 _________`*
