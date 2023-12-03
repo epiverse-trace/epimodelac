@@ -1,13 +1,13 @@
 ---
-title: "Estimación de las distribuciones de rezagos epidemiológicos: Enfermedad X"
+title: "Estimación de las distribuciones de rezagos epidemiológicos: Enfermedad X (Grupo 1)"
 author: "Kelly Charniga, PhD MPH & Zulma Cuucnubá MD, PhD"
 date: "2023-11-23"
 output: html_document
 teaching: 90
 exercises: 8
 ---
+
 ```{r include=FALSE}
-update.packages(checkBuilt = TRUE)
 
 ## calculates the DIC likelihood by integration
 diclik <- function(par1, par2, EL, ER, SL, SR, dist){
@@ -207,15 +207,15 @@ for (i in 1:nrow(symp)) {
 
 ::::::::::::::::::::::::::::::::::::: objectives
 
-Al final de este taller usted podrá:
-
-- Comprender los conceptos clave de las distribuciones de retrasos epidemiológicos para la Enfermedad X.
-
-- Entender las estructuras de datos y las herramientas para el análisis de datos de rastreo de contactos.
-
-- Aprender cómo ajustar las estimaciones del intervalo serial y del período de incubación de la Enfermedad X teniendo en cuenta la censura por intervalo usando un marco de trabajo Bayesiano.
-
-- Aprender a utilizar estos parámetros para informar estrategias de control en un brote de un patógeno desconocido.
+Al final de este taller usted podrá: 
+ 
+- Comprender los conceptos clave de las distribuciones de rezagos epidemiológicos para la Enfermedad X. 
+ 
+- Comprender las estructuras de datos y las herramientas para el análisis de datos de rastreo de contactos. 
+ 
+- Aprender a ajustar las estimaciones del intervalo serial y el período de incubación de la Enfermedad X teniendo en cuenta la censura por intervalo utilizando un marco de trabajo Bayesiano.
+ 
+- Aprender a utilizar estos parámetros para informar estrategias de control en un brote de un patógeno desconocido. 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
 ```{r setup, include=FALSE}
@@ -224,14 +224,20 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ### 1. Introducción
 
-La Enfermedad X representa un hipotético, pero plausible, brote de una enfermedad infecciosa en el futuro. Este término fue acuñado por la Organización Mundial de la Salud (OMS) y sirve como un término general para un patógeno desconocido que podría causar una epidemia grave a nivel internacional. Este concepto representa la naturaleza impredecible de la aparición de enfermedades infecciosas y resalta la necesidad de estar preparados y contar con mecanismos de respuesta rápida a nivel global. La Enfermedad X simboliza el potencial de una enfermedad inesperada y de rápida propagación, y destaca la necesidad de sistemas de salud flexibles y adaptativos, así como de capacidades de investigación para identificar, entender y combatir patógenos novedosos.
+La Enfermedad X representa un hipotético, pero plausible, brote de una enfermedad infecciosa en el futuro. Este término fue acuñado por la Organización Mundial de la Salud (OMS) y sirve como un término general para un patógeno desconocido que podría causar una epidemia grave a nivel internacional. Este concepto representa la naturaleza impredecible de la aparición de enfermedades infecciosas y resalta la necesidad de una preparación global y mecanismos de respuesta rápida. La Enfermedad X simboliza el potencial de una enfermedad inesperada y de rápida propagación, y resalta la necesidad de sistemas de salud flexibles y adaptables, así como capacidades de investigación para identificar, comprender y combatir patógenos desconocidos.
 
-En esta práctica, va a aprender a estimar los retrasos epidemiológicos, el tiempo entre dos eventos epidemiológicos, utilizando un conjunto de datos simulado de la Enfermedad X.
+En esta práctica, va a aprender a estimar los rezagos epidemiológicos, el tiempo entre dos eventos epidemiológicos, utilizando un conjunto de datos simulado de la Enfermedad X.
 
 La Enfermedad X es causada por un patógeno desconocido y se transmite directamente de persona a persona. Específicamente, la practica se centrará en estimar el período de incubación y el intervalo serial.
 
 
+
+
 ### 2. Agenda
+
+Parte 1. Individual o en grupo.
+
+Parte 2. En 5 grupos de 8 personas. Construir estrategia de rastreo de contactos  y aislamiento y preparar presentación de máximo 10 mins.
 
 
 
@@ -239,7 +245,7 @@ La Enfermedad X es causada por un patógeno desconocido y se transmite directame
 
 #### **3.1. Epidemiological delays: incubation period and serial interval**
 
-In epidemiology, delay distributions refer to the *time lags* inherent in from two key dates during an outbreak. For example: the time between the symptoms onset and the diagnostics, the time between symptoms and death, among many others.
+In epidemiology, delay distributions refer to the *time lags* between two key events during an outbreak. For example: the time between the symptoms onset and diagnosis, the time between symptom onset and death, among many others.
 
 Today we will be focusing on two key delays known as the incubation period and serial interval. Both are crucial for informing public health response.
 
@@ -247,15 +253,15 @@ The [**incubation period**]{.underline} is the time between infection and sympto
 
 The [**serial interval**]{.underline} is the time between symptom onset in a primary and secondary case pair.
 
-The relationship between these quantities have an impact on whether the disease transmits before [(**Pre-symptomatic transmission)**]{.underline} or after symptoms [**(Symptomatic transmission)**]{.underline} have developed in the primary case (Figure 1).
+The relationship between these quantities have an impact on whether the disease transmits before [(**pre-symptomatic transmission)**]{.underline} or after symptoms [**(symptomatic transmission)**]{.underline} have developed in the primary case (Figure 1).
 
 ![](practicalfig.jpg)
 
 Figure 1. Relationship between the incubation period and serial interval on the timing of transmission (*Adapted from Nishiura et al. 2020)*
 
-#### 3.2. Potential biases and adjustments of epidemiological delays
+#### 3.2. Common delay distributions and potential biases
 
-##### **2.2.1 Potential biases**
+##### **3.2.1 Potential biases**
 
 When estimating epidemiological delays, it is important to consider potential biases:
 
@@ -265,23 +271,23 @@ When estimating epidemiological delays, it is important to consider potential bi
 
 [**Dynamical (or epidemic phase)**]{.underline} **bias** is another type of sampling bias. It affects backward-looking data and is related to the phase of the epidemic: during the exponential growth phase, cases that developed symptoms recently are over-represented in the observed data, while during the declining phase, these cases are underrepresented, leading to the estimation of shorter and longer delay intervals, respectively (Park et al. in progress).
 
-##### **2.2.2 Delay distributions**
+##### **3.2.2 Delay distributions**
 
-Three common probability distributions used to characterize delays in infectious disease epidemiology include the following (Table 1).
+Three common probability distributions used to characterize delays in infectious disease epidemiology include the following (Table 1):
 
-+-----------------+-----------------------------------------+
-| Distribution    | Parameters                              |
-+=================+:=======================================:+
-| **weibull**     | `shape` and `scale`                     |
-+-----------------+-----------------------------------------+
-| **gamma**       | `shape` and `scale`                     |
-+-----------------+-----------------------------------------+
-| **log normal**  | `log mean` and `log standard deviation` |
-+-----------------+-----------------------------------------+
++----------------+-----------------------------------------+
+| Distribution   | Parameters                              |
++================+:=======================================:+
+| **Weibull**    | `shape` and `scale`                     |
++----------------+-----------------------------------------+
+| **gamma**      | `shape` and `scale`                     |
++----------------+-----------------------------------------+
+| **log normal** | `log mean` and `log standard deviation` |
++----------------+-----------------------------------------+
 
 : Table 1. Three of the most common probability distributions for epidemiological delays.
 
-### 4. R packages for the practical
+### 4. *R* packages for the practical
 
 We will use the following `R` packages in this practical:
 
@@ -327,17 +333,13 @@ library(ggplot2)
 library(loo)
 library(patchwork)
 library(rstan)
-devtools::install_github("thibautjombart/quicksim")
-library(RColorBrewer)
-library(labeling)
-library(visNetwork)
 ```
 
 ## 5. Data
 
 We are going to split into two groups for this practical to tackle two unknown diseases with different modes of transmission.
 
-Let's load the simulated data, which is saved as an `.RDS` file.
+Let's load the simulated data, which is saved as a `.RDS` file.
 
 There are two items of interest:
 
@@ -345,9 +347,9 @@ There are two items of interest:
 
 -   `contacts`, a file with contact tracing data which contains information about primary and secondary case pairs.
 
-```{r load dat, echo=TRUE, warning=FALSE}
+```{r load dat, echo=FALSE}
 # Group 1
-dat <- readRDS("data/practical_data_group1.RDS")
+dat <- readRDS("Data/practical_data_group1.RDS")
 linelist <- dat$linelist
 contacts <- dat$contacts
 
@@ -379,22 +381,22 @@ Let's start with the `linelist`. These data were collected as part of routine ep
 -   `exposure_end`: latest date that the patient was exposed
 
 ::: {.alert .alert-secondary}
-+----------------------------------------------------------------------+
-| ::: {.alert .alert-secondary}                                        |
-| *💡 **Questions (1)***                                               |
-|                                                                      |
-| -   *How many cases are in the `linelist` dataset?*                  |
-|                                                                      |
-| -   *What proportion of the cases are female?*                       |
-|                                                                      |
-| -   *What is the age distribution of cases?*                         |
-|                                                                      |
-| -   *What type of exposure information is available?*                |
-| :::                                                                  |
-+----------------------------------------------------------------------+
++-----------------------------------------------------------------+
+| ::: {.alert .alert-secondary}                                   |
+| *💡 **Questions (1)***                                          |
+|                                                                 |
+| -   *How many cases are in the `linelist` dataset?*             |
+|                                                                 |
+| -   *What proportion of the cases are female?*                  |
+|                                                                 |
+| -   *What is the age distribution of cases?*                    |
+|                                                                 |
+| -   *What type of exposure information is available?*           |
+| :::                                                             |
++-----------------------------------------------------------------+
 :::
 
-```{r data exploration, warning=FALSE}
+```{r data exploration}
 # Inspect data
 head(linelist)
 # Q1
@@ -409,17 +411,16 @@ table(linelist$exposure, exclude = F)[1]/nrow(linelist)
 ```
 
 ::: {.alert .alert-secondary}
-+----------------------------------------------------------------------+
-| ::: {.alert .alert-secondary}                                        |
-| *💡 **Discuss***                                                     |
-|                                                                      |
-| Why do you think the exposure information is missing for some cases? |
-| Discuss.                                                             |
-| :::                                                                  |
-+----------------------------------------------------------------------+
++--------------------------------------------------------------------------------------------------------+
+| ::: {.alert .alert-secondary}                                                                          |
+| *💡 **Discuss***                                                                                       |
+|                                                                                                        |
+| Why do you think the exposure information is missing for some cases?                                   |
+|                                                                                                        |
+| Now let's plot the epidemic curve. Where in the outbreak do you think we are (beginning, middle, end)? |
+| :::                                                                                                    |
++--------------------------------------------------------------------------------------------------------+
 :::
-
-Now let's plot the epidemic curve. Where in the outbreak do you think we are (beginning, middle, end)?
 
 ```{r epi curve, warning = FALSE, message = FALSE}
 i <- incidence(linelist$date_onset)
@@ -431,7 +432,7 @@ plot(i) +
 
 It looks like the epidemic might still be growing.
 
-#### **6.1. Exploring `contact tracing` data**
+#### **6.2. Exploring `contact tracing` data**
 
 Now let's look at the contact tracing data, which were obtained through patient interviews. Patients were asked about recent activities and interactions to identify possible sources of infection. Primary and secondary case pairs were matched if the secondary case named the primary case as a contact. We only have information on a subset of the cases because not all patients could be contacted for an interview.
 
@@ -447,33 +448,46 @@ The contact tracing data has 4 variables:
 
 -   `secondary_onset_date`: symptom onset date of the secondary case
 
-```{r contacts, warning=FALSE}
-
+```{r contacts}
 x <- make_epicontacts(linelist = linelist,
                        contacts = contacts,
                        from = "primary_case_id",
                        to = "secondary_case_id",
-                       directed = TRUE) # Don´t remember what directed means
+                       directed = TRUE) # This indicates that contacts are directed (i.e., this draws arrows from primary to secondary cases)
 
 plot(x)
 
 ```
 
-Describe the clusters. Do you see any potential superspreading events (where one cases spreads the pathogen to many other cases)?
+::: {.alert .alert-secondary}
++----------------------------------------------------------------------------------------------------------------+
+| ::: {.alert .alert-secondary}                                                                                  |
+| *💡 **Questions (2)***                                                                                         |
+|                                                                                                                |
+| -   Describe the clusters.                                                                                     |
+|                                                                                                                |
+| -   Do you see any potential superspreading events (where one cases spreads the pathogen to many other cases)? |
+| :::                                                                                                            |
++----------------------------------------------------------------------------------------------------------------+
+:::
 
-# *`_______Break 1 __________`*
+# *`_______Wrap-up 1 _________`*
 
 ------------------------------------------------------------------------
 
 ## 7. Estimating the incubation period
 
-Now let's focus on the incubation period. We will use the `linelist` for this part. We need both time of symptom onset and time of possible exposure. Notice that there are two dates for exposure, a start and end, in the data. Sometimes the exact date of exposure is unknown and exposure window is provided during case interviews instead. Answer the following questions:
+Now let's focus on the incubation period. We will use the `linelist` for this part. We need both time of symptom onset and time of possible exposure. Notice that there are two dates for exposure, a start and end, in the data. Sometimes the exact date of exposure is unknown and exposure window is provided during case interviews instead.
 
-1.  For how many cases do we have data on both dates of symptom onset and exposure?
+::: {.alert .alert-secondary}
+*💡 **Questions (3)***
 
-2.  Calculate the exposure windows. How many cases have a single date of exposure?
+-   For how many cases do we have data on both dates of symptom onset and exposure?
 
-```{r estimate ip, warning=FALSE}
+-   Calculate the exposure windows. How many cases have a single date of exposure?
+:::
+
+```{r estimate ip, warning = FALSE}
 ip <- filter(linelist, !is.na(exposure_start) &
                !is.na(exposure_end))
 nrow(ip)
@@ -488,7 +502,7 @@ table(ip$exposure_window)
 
 Let's start by calculating a naive estimate of the incubation period.
 
-```{r naive, warning=FALSE}
+```{r naive}
 # Max incubation period 
 ip$max_ip <- ip$date_onset - ip$exposure_start
 summary(as.numeric(ip$max_ip))
@@ -501,9 +515,9 @@ summary(as.numeric(ip$min_ip))
 
 ### 7.2. Censoring adjusted estimate of the incubation period
 
-Now let's fit three probability distributions to the incubation period data accounting for double censoring. We will adapt some `stan` code that was published by Miura et al. during the 2022 mpox outbreak. This method does not account for right truncation or dynamical bias.
+Now let's fit three probability distributions to the incubation period data accounting for double censoring. We will adapt some `stan` code that was published by Miura et al. during the 2022 global mpox outbreak. This method does not account for right truncation or dynamical bias.
 
-Remember we are mainly interested in considering three probability distributions: *weibull*, *gamma*, *lognormal* (See Table 1).
+Remember we are mainly interested in considering three probability distributions: *Weibull*, *gamma*, and *log normal* (See Table 1).
 
 `Stan` is a software program that implements the Hamiltonian Monte Carlo (HMC) algorithm. HMC is a Markov chain Monte Carlo (MCMC) method for fitting complex models to data using Bayesian statistics.
 
@@ -511,7 +525,7 @@ Remember we are mainly interested in considering three probability distributions
 
 We will fit all three distributions in this code chunk.
 
-```{r correct ip, warning=FALSE}
+```{r correct ip}
 # Prepare data
 earliest_exposure <- as.Date(min(ip$exposure_start))
 
@@ -530,8 +544,8 @@ input_data <- list(N = length(ip$exposure_start), # Number of observations
               tEndExposure = ip$exposure_end,
               tSymptomOnset = ip$date_onset)
 
-# We are going to fit three probbility distributions
-distributions <- c("weibull", "gamma", "lognormal") # three distributions to fit
+# We are going to fit three probability distributions
+distributions <- c("weibull", "gamma", "lognormal") 
 
 # Stan code
 code <- sprintf("
@@ -582,43 +596,48 @@ Now we will check for model convergence. We will look at r-hat values, effective
 
 For each model of different fitted distributions:
 
-1.  Are the r-hat values close to 1?
+::: {.alert .alert-secondary}
+*💡 **Questions (4)***
 
-2.  Do the 4 MCMC chains generally lay on top of each other and stay around the same values (fuzzy caterpillars)?
+-   Are the r-hat values close to 1?
+
+-   Do the 4 MCMC chains generally lay on top of each other and stay around the same values (look like fuzzy caterpillars)?
+:::
 
 #### **7.1.2.1. Convergence for Gamma**
 
 ```{r convergence gamma}
 print(fit$gamma, digits = 3, pars = c("par[1]","par[2]")) 
-rstan::traceplot(fit$gamma, pars = c("par[1]","par[2]")) 
+rstan::traceplot(fit$gamma, pars = c("par[1]","par[2]"))
 ```
 
 #### **7.1.2.2. Convergence for log normal**
 
 ```{r convergence lognormal}
- 
 print(fit$lognormal, digits = 3, pars = c("par[1]","par[2]")) 
 rstan::traceplot(fit$lognormal, pars = c("par[1]","par[2]")) 
-
-
 ```
 
-#### **7.1.2.3. Convergence for weibull**
+#### **7.1.2.3. Convergence for Weibull**
 
 ```{r convergence weibull}
-
 print(fit$weibull, digits = 3, pars = c("par[1]","par[2]")) 
 rstan::traceplot(fit$weibull, pars = c("par[1]","par[2]")) 
-
 ```
 
 #### **7.1.3. Compute model comparison criteria**
 
 Let's compute the widely applicable information criterion (WAIC) and leave-one-out-information criterion (LOOIC) to compare model fits. The best fitting model is the model with the lowest WAIC or LOOIC. We will also summarize the distributions and make some plots.
 
-Which model has the best fit?
+::: {.alert .alert-secondary}
+*💡 **Questions (5)***
 
-```{r looic and waic ip, warning=FALSE, echo=TRUE, warning=FALSE}
+-   Which model has the best fit?
+:::
+
+#### 
+
+```{r looic and waic ip, warning=FALSE, message=FALSE}
 # Compute WAIC for all three models
 waic <- mapply(function(z) waic(extract_log_lik(z))$estimates[3,], fit)
 waic
@@ -650,13 +669,13 @@ loo_l[1]
 
 ```
 
-#### **7.1.5. Report the results**
+#### **7.1.4. Report the results**
 
 The right tail of the incubation period distribution is important for designing control strategies (e.g. quarantine), the 25th-75th percentiles tells us about the most likely time symptom onset could occur, and the full distribution can be used as an input in mathematical or statistical models, like for forecasting (Lessler et al. 2009).
 
-Let's get the summary statistics
+Let's get the summary statistics.
 
-```{r reporting res, echo=TRUE, warning=FALSE}
+```{r reporting res}
 # We need to convert the parameters of the distributions to the mean and standard deviation delay
 
 # In Stan, the parameters of the distributions are:
@@ -775,7 +794,15 @@ lognorm_ggplot <- ggplot(df, aes(x=inc_day)) +
 
 In the plots above, the black line is the empirical cumulative distribution (the data), while the blue curve is the fitted probability distribution with the 95% credible intervals. Make sure that the blue curve lays on top of the black line.
 
-# \-\-\-\-\-\-\-\-\-- Break 2 ----------
+::: {.alert .alert-secondary}
+*💡 **Questions (6)***
+
+-   Are the fitting of the distributions what you'd expect?
+:::
+
+#### 
+
+# *`_______Wrap-up 2 _________`*
 
 ## 8. Estimating the serial interval
 
@@ -823,7 +850,7 @@ si_data <- contacts |>
 
 ```
 
-#### 8.2.2. Fitting a gamma distribution
+#### 8.2.2. Fitting a gamma distribution for SI
 
 Let's fit the gamma distribution to the serial interval data first.
 
@@ -856,7 +883,7 @@ n1 = params$n1,
 n2 = params$n2))
 
 # Fitting the SI
-si_fit <- coarseDataTools::dic.fit.mcmc(
+si_fit_gamma <- coarseDataTools::dic.fit.mcmc(
 dat = si_data,
 dist = dist,
 init.pars = init_mcmc_params(si_data, dist),
@@ -868,65 +895,64 @@ seed = mcmc_control$seed)
 
 Let's look at the results.
 
-```{r gamma check res, echo=TRUE, warning=FALSE}
+```{r gamma check res, results=FALSE}
 
 # Check convergence of MCMC chains 
-converg_diag <- check_cdt_samples_convergence(si_fit@samples)
-converg_diag
+converg_diag_gamma <- check_cdt_samples_convergence(si_fit_gamma@samples)
+converg_diag_gamma
 
-# Estimated serial interval results
-si_fit
-
-# Save these for later
-si_fit_gamma <- si_fit
 
 # Save MCMC samples in dataframe
-si_samples <- data.frame(
+si_samples_gamma <- data.frame(
 type = 'Symptom onset',
-shape = si_fit@samples$var1,
-scale = si_fit@samples$var2,
+shape = si_fit_gamma@samples$var1,
+scale = si_fit_gamma@samples$var2,
 p50 = qgamma(
 p = 0.5, 
-shape = si_fit@samples$var1, 
-scale = si_fit@samples$var2)) |>
+shape = si_fit_gamma@samples$var1, 
+scale = si_fit_gamma@samples$var2)) |>
 mutate( # Equation for conversion is here https://en.wikipedia.org/wiki/Gamma_distribution
 mean = shape*scale,
 sd = sqrt(shape*scale^2)
 ) 
 
 # Get the mean, SD, and 95% CrI
-si_samples |>
+
+
+si_summary_gamma <- 
+  si_samples_gamma %>%
 summarise(
-mean_mean = mean(mean),
+mean_mean = quantile(mean,probs=.5),
 mean_l_ci = quantile(mean,probs=.025),
 mean_u_ci = quantile(mean,probs=.975),
-sd_mean = mean(sd),
+sd_mean = quantile(sd, probs=.5),
 sd_l_ci = quantile(sd,probs=.025),
 sd_u_ci = quantile(sd,probs=.975)
 )
+si_summary_gamma
 
 # Get the same summary statistics for the parameters of the distribution
-si_samples |>
+si_samples_gamma |>
 summarise(
-shape_mean = mean(shape),
+shape_mean = quantile(shape, probs=.5),
 shape_l_ci = quantile(shape, probs=.025),
 shape_u_ci = quantile(shape, probs=.975),
-scale_mean = mean(scale),
+scale_mean = quantile(scale, probs=.5),
 scale_l_ci = quantile(scale, probs=.025),
 scale_u_ci = quantile(scale, probs=.975)
 )
 
 # We will need these for plotting later
-gamma_shape <- si_fit@ests['shape',][1]
-gamma_rate <- 1 / si_fit@ests['scale',][1]
+gamma_shape <- si_fit_gamma@ests['shape',][1]
+gamma_rate <- 1 / si_fit_gamma@ests['scale',][1]
 
 ```
 
-#### 8.2.3. Fitting a log normal distribution
+#### 8.2.3. Fitting a log normal distribution for SI
 
 Now let's fit a log normal distribution to the serial interval data.
 
-```{r log normal, echo=TRUE, warning=FALSE}
+```{r log normal}
 # We will run the model for 4000 iterations with the first 1000 samples discarded as burnin
 n_mcmc_samples <- 3000 # number of samples to draw from the posterior (after the burnin)
 
@@ -952,7 +978,7 @@ n1 = params$n1,
 n2 = params$n2))
 
 # Fitting the serial interval
-si_fit <- coarseDataTools::dic.fit.mcmc(
+si_fit_lnorm <- coarseDataTools::dic.fit.mcmc(
 dat = si_data,
 dist = dist,
 init.pars = init_mcmc_params(si_data, dist),
@@ -963,63 +989,62 @@ seed = mcmc_control$seed)
 
 Let's check the results.
 
-```{r log normal res, echo=TRUE, warning=FALSE}
+```{r log normal res, results=FALSE}
 # Check convergence of MCMC chains
-converg_diag <- check_cdt_samples_convergence(si_fit@samples)
-converg_diag
+converg_diag_lnorm <- check_cdt_samples_convergence(si_fit_lnorm@samples)
+converg_diag_lnorm
 
-# Serial interval results
-si_fit
-
-# Save these for later
-si_fit_lnorm <- si_fit
 
 # Save MCMC samples in a dataframe
-si_samples <- data.frame(
+si_samples_lnorm <- data.frame(
 type = 'Symptom onset',
-meanlog = si_fit@samples$var1,
-sdlog = si_fit@samples$var2,
+meanlog = si_fit_lnorm@samples$var1,
+sdlog = si_fit_lnorm@samples$var2,
 p50 = qlnorm(
 p = 0.5, 
-meanlog = si_fit@samples$var1, 
-sdlog = si_fit@samples$var2)) |>
+meanlog = si_fit_lnorm@samples$var1, 
+sdlog = si_fit_lnorm@samples$var2)) |>
 mutate( # Equation for conversion is here https://en.wikipedia.org/wiki/Log-normal_distribution
 mean = exp(meanlog + (sdlog^2/2)), 
 sd = sqrt((exp(sdlog^2)-1) * (exp(2*meanlog + sdlog^2)))
 )
 
 # Get the mean, SD, and 95% CrI
-si_samples %>%
+si_summary_lnorm <- 
+  si_samples_lnorm %>%
 summarise(
-mean_mean = mean(mean),
+mean_mean = quantile(mean,probs=.5),
 mean_l_ci = quantile(mean,probs=.025),
 mean_u_ci = quantile(mean,probs=.975),
-sd_mean = mean(sd),
+sd_mean = quantile(sd, probs=.5),
 sd_l_ci = quantile(sd,probs=.025),
 sd_u_ci = quantile(sd,probs=.975)
 )
+si_summary_lnorm
 
 # Now get the summary statistics for the parameters of the distribution
-si_samples |>
+si_samples_lnorm |>
 summarise(
-meanlog_mean = mean(meanlog),
+meanlog_mean = quantile(meanlog, probs=.5),
 meanlog_l_ci = quantile(meanlog, probs=.025),
 meanlog_u_ci = quantile(meanlog, probs=.975),
-sdlog_mean = mean(sdlog),
+sdlog_mean = quantile(sdlog, probs=.5),
 sdlog_l_ci = quantile(sdlog, probs=.025),
 sdlog_u_ci = quantile(sdlog, probs=.975)
 )
 
-lognorm_meanlog <- si_fit@ests['meanlog',][1]
-lognorm_sdlog <- si_fit@ests['sdlog',][1]
+lognorm_meanlog <- si_fit_lnorm@ests['meanlog',][1]
+lognorm_sdlog <- si_fit_lnorm@ests['sdlog',][1]
+
+
 
 ```
 
-#### 8.2.4. Fitting a Weibull distribution
+#### 8.2.4. Fitting a Weibull distribution for SI
 
 Finally, let's fit a Weibull distribution to the serial interval data.
 
-```{r weibull, echo=TRUE, warning=FALSE}
+```{r weibull, results = FALSE}
 # We will run the model for 4000 iterations with the first 1000 samples discarded as burnin
 n_mcmc_samples <- 3000 # number of samples to draw from the posterior (after the burnin)
 
@@ -1045,7 +1070,7 @@ n1 = params$n1,
 n2 = params$n2))
 
 # Fitting the serial interval 
-si_fit <- coarseDataTools::dic.fit.mcmc(
+si_fit_weibull <- coarseDataTools::dic.fit.mcmc(
 dat = si_data,
 dist = dist,
 init.pars = init_mcmc_params(si_data, dist),
@@ -1056,59 +1081,56 @@ seed = mcmc_control$seed)
 
 Now we'll check the results.
 
-```{r weibull check res, echo=TRUE, warning=FALSE}
+```{r weibull check res}
 # Check convergence
-converg_diag <- check_cdt_samples_convergence(si_fit@samples)
-converg_diag
+converg_diag_weibull <- check_cdt_samples_convergence(si_fit_weibull@samples)
+converg_diag_weibull
 
-# Serial interval results
-si_fit
-
-# Save these for later
-si_fit_weibull <- si_fit
 
 # Save MCMC samples in dataframe
-si_samples <- data.frame(
+si_samples_weibull <- data.frame(
 type = 'Symptom onset',
-shape = si_fit@samples$var1,
-scale = si_fit@samples$var2,
+shape = si_fit_weibull@samples$var1,
+scale = si_fit_weibull@samples$var2,
 p50 = qweibull(
 p = 0.5, 
-shape = si_fit@samples$var1, 
-scale = si_fit@samples$var2)) |>
+shape = si_fit_weibull@samples$var1, 
+scale = si_fit_weibull@samples$var2)) |>
 mutate( # Equation for conversion is here https://en.wikipedia.org/wiki/Weibull_distribution
 mean = scale*gamma(1+1/shape),
 sd = sqrt(scale^2*(gamma(1+2/shape)-(gamma(1+1/shape))^2))
 ) 
 
 # Get the summary statistics
-si_samples %>%
+si_summary_weibull <- 
+  si_samples_weibull %>%
 summarise(
-mean_mean = mean(mean),
+mean_mean = quantile(mean,probs=.5),
 mean_l_ci = quantile(mean,probs=.025),
 mean_u_ci = quantile(mean,probs=.975),
-sd_mean = mean(sd),
-sd_l_ci = quantile(sd, probs=.025),
-sd_u_ci = quantile(sd, probs=.975)
+sd_mean = quantile(sd, probs=.5),
+sd_l_ci = quantile(sd,probs=.025),
+sd_u_ci = quantile(sd,probs=.975)
 )
+si_summary_weibull
 
 # Now get the summary statistics for the parameters of the distribution
-si_samples |>
+si_samples_weibull |>
 summarise(
-shape_mean = mean(shape),
+shape_mean = quantile(shape, probs=.5),
 shape_l_ci = quantile(shape, probs=.025),
 shape_u_ci = quantile(shape, probs=.975),
-scale_mean = mean(scale),
+scale_mean = quantile(scale, probs=.5),
 scale_l_ci = quantile(scale, probs=.025),
 scale_u_ci = quantile(scale, probs=.975)
 )
 
-weibull_shape <- si_fit@ests['shape',][1]
-weibull_scale <- si_fit@ests['scale',][1]
+weibull_shape <- si_fit_weibull@ests['shape',][1]
+weibull_scale <- si_fit_weibull@ests['scale',][1]
 
 ```
 
-#### 8.2.5. Plot the results
+#### 8.2.5. Plot the results for SI
 
 Now we will plot the three fitted distributions. Make sure the distributions fit the serial interval data well.
 
@@ -1149,6 +1171,7 @@ Let's calculate the WAIC and LOOIC. `coarseDataTools` does not have a built-in w
 
 ```{r model comparison}
 # Load likelihood functions from coarseDataTools
+source("Functions/likelihood_function.R")
 
 compare_gamma <- calc_looic_waic(symp = si_data, symp_si = si_fit_gamma, dist = "G")
 compare_lnorm <- calc_looic_waic(symp = si_data, symp_si = si_fit_lnorm, dist = "L")
@@ -1165,8 +1188,6 @@ compare_weibull[["looic"]]$estimates
 
 ```
 
-Which distribution(s) have the lowest WAIC and LOOIC?
-
 Include the following when reporting the serial interval:
 
 -   Mean and 95% credible interval
@@ -1175,41 +1196,70 @@ Include the following when reporting the serial interval:
 
 -   The parameters of the fitted distribution (e.g., shape and scale for gamma distribution)
 
-# \-\-\-\-\-\-\-\-\-- Break 3 ----------
+::: {.alert .alert-secondary}
+*💡 **Questions (7)***
+
+-   Which distribution(s) have the lowest WAIC and LOOIC??
+:::
+
+```{r model print_final_results}
+si_summary_gamma
+si_summary_lnorm
+si_summary_weibull
+
+```
+
+# *`_______Wrap-up 3 _________`*
 
 ## 9. Control measures
 
-Now let's compare the serial interval and incubation period we estimated. Which one is longer? Does pre-symptomatic transmission occur with Disease X?
+### 9.1 Analyze the results altogether
 
-Will isolating symptomatic individuals and tracing and quarantining their contacts be effective measures? If not, which other measures can be implemented to slow the outbreak?
+::: {.alert .alert-secondary}
+You have now finalized the statistical analysis 🥳
 
-Based on the estimated delays as well as the demographics of cases, decide on 2-3 control strategies for the outbreak and develop a communications plan.
+-   Compare the incubation period and the serial interval.
+
+-   Which one is longer?
+
+-   Does pre-symptomatic transmission occur with Disease X?
+
+<!-- -->
+
+-   Will isolating symptomatic individuals and tracing and quarantining their contacts be effective measures?
+
+-   If not, which other measures can be implemented to slow the outbreak?
+:::
+
+### 9.2 Design a contact tracing strategy
+
+Based on the estimated delays as well as the demographics of cases, design a contact tracing strategy for the outbreak, including a communications plan (hint: think about logistics).
 
 ## 10. True values
 
 The true values used to simulate the epidemics were:
 
-|         |              |             |                           |
-|---------|:------------:|:-----------:|:-------------------------:|
-|         | Distribution | Mean (days) | Standard deviation (days) |
-| Group 1 |    Gamma     |     8.4     |            4.9            |
-| Group 2 |    Gamma     |     4.8     |            3.3            |
++---------------+:---------------:+:-------------:+:-------------------------:+
+|               | Distribution    | Mean (days)   | Standard deviation (days) |
++---------------+-----------------+---------------+---------------------------+
+| Group 1       | Log normal      | 5.7           | 4.6                       |
++---------------+-----------------+---------------+---------------------------+
+| Group 2       | Weibull         | 7.1           | 3.7                       |
++---------------+-----------------+---------------+---------------------------+
 
-: Table 2. True values of the incubation period.
+: Table 2. True values of the ***incubation period.***
 
-|         |              |             |                           |
-|---------|:------------:|:-----------:|:-------------------------:|
-|         | Distribution | Mean (days) | Standard deviation (days) |
-| Group 1 |  Log normal  |     5.7     |            4.6            |
-| Group 2 |   Weibull    |     7.1     |            3.7            |
++--------------+:---------------:+:------------:+:-------------------------:+
+|              | Distribution    | Mean (days)  | Standard deviation (days) |
++--------------+-----------------+--------------+---------------------------+
+| Group 1      | Gamma           | 8.4          | 4.9                       |
++--------------+-----------------+--------------+---------------------------+
+| Group 2      | Gamma           | 4.8          | 3.3                       |
++--------------+-----------------+--------------+---------------------------+
 
-: Table 3. True values of the serial interval.
+: Table 3. True values of the ***serial interval***.
 
 How do your estimates compare with the true values? Discuss possible reasons for any differences.
-
-## 11. Further resources
-
-In this practical, we largely ignored biases due to right truncation and dynamical bias, partly due to a lack of readily available tools that implement all best practices. To learn more about how these biases could affect the estimation of epidemiological delay distributions in real-time, we recommend a tutorial on the `dynamicaltruncation` R package by Sam Abbott and Sang Woo Park (<https://github.com/parksw3/epidist-paper>).
 
 ::::::::::::::::::::::::::::::::::::: keypoints 
 
@@ -1226,9 +1276,14 @@ Revise si al final de esta lección adquirió estas competencias:
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
+## 11. Further resources
+
+In this practical, we largely ignored biases due to right truncation and dynamical bias, partly due to a lack of readily available tools that implement all best practices. To learn more about how these biases could affect the estimation of epidemiological delay distributions in real-time, we recommend a tutorial on the `dynamicaltruncation` R package by Sam Abbott and Sang Woo Park (<https://github.com/parksw3/epidist-paper>).
+
 ## 12. Contributors
 
 Kelly Charniga, Zachary Madewell, Zulma M. Cucunubá
+
 
 ## 13. References
 
@@ -1240,3 +1295,5 @@ Kelly Charniga, Zachary Madewell, Zulma M. Cucunubá
 6.  Lambert B. A Student's Guide to Bayesian Statistics. Los Angeles, London, New Delhi, Singapore, Washington DC, Melbourne: SAGE, 2018.
 7.  Vehtari A et al. Rank-normalization, folding, and localization: An improved R-hat for assessing convergence of MCMC. Bayesian Analysis 2021: Advance publication 1-28. <https://doi.org/10.1214/20-BA1221>
 8.  Nishiura H et al. Serial interval of novel coronavirus (COVID-19) infections. Int J Infect Dis. 2020;93:284-286. <https://doi.org/10.1016/j.ijid.2020.02.060>
+
+
