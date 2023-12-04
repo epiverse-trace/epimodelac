@@ -2734,6 +2734,27 @@
       ],
       "Hash": "3d78edfb977a69fc7a0341bee25e163f"
     },
+    "vaccineff": {
+      "Package": "vaccineff",
+      "Version": "0.0.1",
+      "Source": "GitHub",
+      "RemoteType": "github",
+      "RemoteHost": "api.github.com",
+      "RemoteUsername": "epiverse-trace",
+      "RemoteRepo": "vaccineff",
+      "RemoteRef": "main",
+      "RemoteSha": "666ddf4f1272f835f0faaed796ed2aa824c63946",
+      "Requirements": [
+        "R",
+        "checkmate",
+        "ggplot2",
+        "rlang",
+        "scales",
+        "stats",
+        "survival"
+      ],
+      "Hash": "dff57d6aacd7046dca5edd79fdebb552"
+    },
     "vctrs": {
       "Package": "vctrs",
       "Version": "0.6.5",
