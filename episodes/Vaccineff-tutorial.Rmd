@@ -662,6 +662,7 @@ ajustar la censura de datos durante el seguimiento.
 [Reto](https://docs.google.com/document/d/1_33E0LufZP7FNO9Q491aFquV26eS4p2h/edit?usp=sharing&ouid=108718106243006326200&rtpof=true&sd=true)
 
 ***
+
 ::::::::::::::::::::::::::::::::::::: keypoints 
 
 - Estudiar algunos de los conceptos claves para la implementación de estudios 

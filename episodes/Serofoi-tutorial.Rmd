@@ -8,6 +8,7 @@ output: html_document
 teaching: 50
 exercises: 5
 ---
+
 :::::::::::::::::::::::::::::::::::::: questions 
  
 - ¿Cómo estimar retrospectivamente la *Fuerza de Infección* de un patógeno a partir de *encuestas serológicas poblacionales de prevalencia desagregadas por edad* mediante la implementación de *modelos Bayesianos* usando **serofoi**?
@@ -333,13 +334,13 @@ FoI.
 Cada uno de ellos se basa en distintas distribuciones previas para
 $\lambda$, las cuales se muestran en la tabla 1.
 
-::: l-body-outset
+
 | Model Option    | Probability of positive case at age $a$ | Prior distribution                                                             |
 |:-----------------|:-----------------------------|:-----------------------|
 | `constant`      | $\sim binom(n(a,t), P(a,t))$            | $\lambda\sim uniform(0,2)$                                                     |
 | `tv_normal`     | $\sim binom(n(a,t), P(a,t))$            | $\lambda\sim normal(\lambda(t-1),\sigma)\\ \lambda(t=1)\sim normal(0,1)$       |
 | `tv_normal_log` | $\sim binom(n(a,t), P(a,t))$            | $\lambda\sim normal(log(\lambda(t-1)),\sigma)\\ \lambda(t=1)\sim normal(-6,4)$ |
-:::
+
 
 **Tabla 1.** Distribuciones a priori de los distintos modelos soportados
 por **serofoi**. $\sigma$ representa la desviación estándar.
@@ -489,6 +490,7 @@ Según los criterios explicados anteriormente, responda:
 ***
 
 [Reto](https://docs.google.com/document/d/11j99fA8SBMUn1FD6oJBOvc-Nmr9aq5hd/edit?usp=sharing&ouid=108718106243006326200&rtpof=true&sd=true)
+
 ::::::::::::::::::::::::::::::::::::: keypoints 
 
 Revise si al final de esta lección adquirió estas competencias:

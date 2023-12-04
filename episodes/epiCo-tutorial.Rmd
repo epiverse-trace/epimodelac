@@ -236,6 +236,7 @@ Para observar un ejemplo más detallado del modulo espaciotemporal, puede dirigi
 
 [Reto](https://docs.google.com/document/d/1HLUTZzEA5-8BjjeK6vByLnO9D2W0VhRK/edit?usp=sharing&ouid=108718106243006326200&rtpof=true&sd=true)
 ***
+
 ::::::::::::::::::::::::::::::::::::: keypoints 
 
 Revise si al final de esta lección adquirió estas competencias:
@@ -251,6 +252,7 @@ Revise si al final de esta lección adquirió estas competencias:
 
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
+
 ### Sobre este documento
 
 Este documento ha sido diseñado por Juan Daniel Umaña Caro y Juan Montenegro-Torres para el Curso Internacional: Análisis de Brotes y Modelamiento en Salud Pública, Bogotá 2023. TRACE-LAC/Javeriana.
