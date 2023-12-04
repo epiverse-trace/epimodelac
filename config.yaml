@@ -62,7 +62,10 @@ episodes:
 - TallerIntroAnaliticaBrotes.Rmd
 - ZIKAB.Rmd
 - EnfermedadX.Rmd
-
+- Sivirep-tutorial.Rmd
+- Serofoi-tutorial.Rmd
+- Vaccineff-tutorial.Rmd
+- epiCo-tutorial.Rmd
 
 # Information for Learners
 learners:
