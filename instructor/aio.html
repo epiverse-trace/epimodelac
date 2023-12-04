@@ -1920,7 +1920,7 @@ tienen la misma unidad de tiempo (días).</p>
   Solución 1
   </h3>
 </button>
-<div id="collapseInstructor1" class="accordion-collapse collapse" aria-labelledby="headingInstructor1" data-bs-parent="#accordionInstructor1">
+<div id="collapseInstructor1" class="accordion-collapse collapse" data-bs-parent="#accordionInstructor1" aria-labelledby="headingInstructor1">
 <div class="accordion-body">
 <div class="codewrapper sourceCode" id="cb3">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -2069,7 +2069,7 @@ parámetro correspondientes) en las ecuaciones:</p>
   Solución 2
   </h3>
 </button>
-<div id="collapseInstructor2" class="accordion-collapse collapse" aria-labelledby="headingInstructor2" data-bs-parent="#accordionInstructor2">
+<div id="collapseInstructor2" class="accordion-collapse collapse" data-bs-parent="#accordionInstructor2" aria-labelledby="headingInstructor2">
 <div class="accordion-body">
 <div class="codewrapper sourceCode" id="cb6">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -2168,7 +2168,7 @@ el paquete <strong>deSolve</strong>.</p></li>
   Solución 3
   </h3>
 </button>
-<div id="collapseInstructor3" class="accordion-collapse collapse" aria-labelledby="headingInstructor3" data-bs-parent="#accordionInstructor3">
+<div id="collapseInstructor3" class="accordion-collapse collapse" data-bs-parent="#accordionInstructor3" aria-labelledby="headingInstructor3">
 <div class="accordion-body">
 <div class="codewrapper sourceCode" id="cb8">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -2239,7 +2239,7 @@ convierta las unidades de tiempo de <em>días</em> a <em>años</em> y a
   Solución 4
   </h3>
 </button>
-<div id="collapseInstructor4" class="accordion-collapse collapse" aria-labelledby="headingInstructor4" data-bs-parent="#accordionInstructor4">
+<div id="collapseInstructor4" class="accordion-collapse collapse" data-bs-parent="#accordionInstructor4" aria-labelledby="headingInstructor4">
 <div class="accordion-body">
 <div class="codewrapper sourceCode" id="cb10">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -4921,7 +4921,7 @@ tiempo (días, meses, años, …), es decir la FoI. La ecuación diferencial
 (1) se asemeja a la de una reacción química en donde <span class="math inline">\(P(t)\)</span> representa la proporción de sustrato
 que no ha entrado en contacto con un reactivo catalítico, por lo que
 este tipo de modelos se conocen como <strong>modelos
-serocatalíticos</strong> <span class="citation">[@muench1959catalytic]</span>.</p>
+serocatalíticos</strong> (Muench, 1959).</p>
 <p>A pesar de la simpleza del modelo representado por la ecuación (1),
 en comparación con modelos compartimentales (por ejemplo), la dificultad
 para conocer una condición inicial para la seropositividad en algún
@@ -4932,7 +4932,7 @@ edad de acuerdo con su año de nacimiento <span class="math inline">\(\tau\)</sp
 seronegativos al nacer: <span class="math display">\[
 \frac{dP^\tau (t)}{dt} = \lambda(t) (1 - P^\tau(t)).
 \]</span> Con condiciones iniciales dadas por <span class="math inline">\(P^\tau(\tau) = 0\)</span>. Esta ecuación se puede
-resolver analíticamente, dando como resultado<span class="citation">[@hens2010seventy]</span>:</p>
+resolver analíticamente, dando como resultado (Hens et al, 2010):</p>
 <p><span class="math display">\[
 P^{\tau} (t) = 1 - \exp\left(-\int_{\tau}^{t} \lambda (t') dt'
 \right).
@@ -5059,7 +5059,7 @@ de la fuerza de infección entre <span class="math inline">\(0\)</span> y
 <span class="math inline">\(2\)</span> son igualmente probables. Por
 otro lado, de la teoría de modelos sero-catalíticos sabemos que la
 seroprevalencia en un año dado está descrita por un proceso cumulativo
-con la edad <span class="citation">[@hens2010seventy]</span>:</p>
+con la edad (Hens et al, 2010):</p>
 <p><span class="math display">\[\tag{7}
 P(a, t) = 1 - \exp\left(  -\sum_{i=t-a+1}^{t} \lambda_i  \right),  
 \]</span> en donde <span class="math inline">\(\lambda_i\)</span>
@@ -5304,10 +5304,22 @@ Bogotá 2023. TRACE-LAC/Javeriana.</p>
 </section><section id="referencias"><h2 class="section-heading">Referencias<a class="anchor" aria-label="anchor" href="#referencias"></a>
 </h2>
 <hr class="half-width">
+<p>Muench, H. (1959). Catalytic models in epidemiology. Harvard
+University Press.</p>
+<p>Hens, N., Aerts, M., Faes, C., Shkedy, Z., Lejeune, O., Van Damme,
+P., &amp; Beutels, P. (2010). Seventy-five years of estimating the force
+of infection from current status data. Epidemiology &amp; Infection,
+138(6), 802–812.</p>
+<p>Cucunubá, Z. M., Nouvellet, P., Conteh, L., Vera, M. J., Angulo, V.
+M., Dib, J. C., … Basáñez, M. G. (2017). Modelling historical changes in
+the force-of-infection of Chagas disease to inform control and
+elimination programmes: application in Colombia. BMJ Global Health,
+2(3). <a href="../doi:10.1136/bmjgh-2017-000345" class="uri">doi:10.1136/bmjgh-2017-000345</a></p>
 <!-- 
 Place links that you need to refer to multiple times across pages here. Delete
 any links that you are not going to use. 
- --></section></section><section id="aio-Vaccineff-tutorial"><p>Content from <a href="Vaccineff-tutorial.html">Tutorial Vaccineff: Introducción al cálculo de efectividad vacunal con cohortes</a></p>
+ -->
+</section></section><section id="aio-Vaccineff-tutorial"><p>Content from <a href="Vaccineff-tutorial.html">Tutorial Vaccineff: Introducción al cálculo de efectividad vacunal con cohortes</a></p>
 <hr>
 <p> Last updated on 2023-12-04 | 
         
