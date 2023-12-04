@@ -364,7 +364,7 @@ Empiece con `linelist`. Estos datos fueron recolectado como parte de la vigilanc
 
 -   `exposure_end`: última fecha en que el paciente estuvo expuesto
 
-::: {.alert .alert-secondary}
+::::::::::::::::::::::::::::::::: challenge
                                 
  *💡 **Preguntas (1)***                                          
                                                                  
@@ -376,7 +376,7 @@ Empiece con `linelist`. Estos datos fueron recolectado como parte de la vigilanc
                                                                  
  -   *¿Qué tipo de información sobre la exposición está disponible?* 
 
-:::
+:::::::::::::::::::::::::::::::::::::::::::
 
 ```{r data exploration}
 # Inspecionar los datos
@@ -392,7 +392,7 @@ table(linelist$exposure, exclude = F)[1]/nrow(linelist)
 
 ```
 
-::: {.alert .alert-secondary}
+::::::::::::::::: discussion
    
  *💡 **Discusión***    
                      
@@ -400,7 +400,7 @@ table(linelist$exposure, exclude = F)[1]/nrow(linelist)
                      
 - Ahora, grafique la curva epidémica. ¿En qué parte del brote cree que está (principio, medio, final)? 
 
-:::
+::::::::::::::::::::::::::::
 
 ```{r epi curve, warning = FALSE, message = FALSE}
 i <- incidence(linelist$date_onset)
@@ -439,14 +439,14 @@ plot(x)
 
 ```
 
-::: {.alert .alert-secondary}
+::::::::::::::::::::::::::::::::: challenge
                                                                                 
  *💡 **Preguntas (2)***                                                                                         
         
 -   Describa los grupos (clusters).                                                                                     
 -   ¿Ve algún evento potencial de superpropagación (donde un caso propaga el patógeno a muchos otros casos)? 
 
-:::
+:::::::::::::::::::::::::::::::::::::::::::
 
 # *`_______Pausa 1 _________`*
 
@@ -456,13 +456,13 @@ plot(x)
 
 Ahora, enfoquese en el período de incubación. Se utilizará los datos del `linelist` para esta parte. Se necesitan ambos el tiempo de inicio de sintomas y el timpo de la posible exposición. Note que en los datos hay dos fechas de exposición, una de inicio y una de final. Algunas veces la fecha exacta de exposición es desconocida y en su lugar se obtiene la ventana de exposición durante la entrevista.
 
-::: {.alert .alert-secondary}
+::::::::::::::::::::::::::::::::: challenge
 *💡 **Preguntas (3)***
 
 -   ¿Para cuántos casos tiene datos tanto de la fecha de inicio de síntomas como de exposición?
 
 -   Calcule las ventanas de exposición. ¿Cuántos casos tienen una única fecha de exposición?
-:::
+:::::::::::::::::::::::::::::::::::::::::::
 
 ```{r estimate ip, warning = FALSE}
 ip <- filter(linelist, !is.na(exposure_start) &
@@ -574,13 +574,15 @@ Ahora verifique la convergencia del modelo. Observe los valores de r-hat, los ta
 
 Para cada modelo con distribución ajustada:
 
-::: {.alert .alert-secondary}
+::::::::::::::::::::::::::::::::: challenge
+
 *💡 **Questions (4)***
 
 -   ¿Los valores de r-hat son cercanos a 1?
 
 -   ¿Las 4 cadenas MCMC generalmente se superponen y permanecen alrededor de los mismos valores (se ven como orugas peludas)?
-:::
+
+:::::::::::::::::::::::::::::::::::::::::::
 
 #### **7.1.2.1. Convergencia para Gamma**
 
@@ -607,11 +609,11 @@ rstan::traceplot(fit$weibull, pars = c("par[1]","par[2]"))
 
 Calcule el criterio de información ampliamente aplicable (WAIC) y el criterio de información de dejar-uno-fuera (LOOIC) para comparar los ajustes de los modelos. El modelo con mejor ajuste es aquel con el WAIC o LOOIC más bajo. En esta sección también se resumirá las distribuciones y se hará algunos gráficos.
 
-::: {.alert .alert-secondary}
+::::::::::::::::::::::::::::::::: challenge
 *💡 **Questions (5)***
 
 -   ¿Qué modelo tiene mejor ajuste?
-:::
+:::::::::::::::::::::::::::::::::::::::::::
 
 #### 
 
@@ -773,11 +775,11 @@ lognorm_ggplot <- ggplot(df, aes(x=inc_day)) +
 En los gráficos anteriores, la línea negra es la distribución acumulativa empírica (los datos), mientras que la curva azul es la distribución de probabilidad ajustada con los intervalos de credibilidad del 95%. Asegúrese de que la curva azul esté sobre la línea negra.
 
 
-::: {.alert .alert-secondary}
+::::::::::::::::::::::::::::::::: challenge
 *💡 **Preguntas (6)***
 
 -   ¿Son los ajustes de las distribuciones lo que espera?
-:::
+::::::::::::::::::::::::::::::::::::
 
 #### 
 
@@ -1196,11 +1198,11 @@ Incluya lo siguiente cuando reporte el intervalo serial:
 
 -   Los parámetros de la distribución ajustada (e.g., shape y scale para distribución gamma)
 
-::: {.alert .alert-secondary}
+::::::::::::::::::::::::::::::::: challenge
 *💡 **Preguntas (7)***
 
 -   ¿Qué distribución tiene el menor WAIC y LOOIC??
-:::
+:::::::::::::::::::::::::::::::::::::::::::
 
 ```{r model print_final_results}
 si_summary_gamma
@@ -1215,7 +1217,7 @@ si_summary_weibull
 
 ### 9.1 Analicemos el resultado juntos
 
-::: {.alert .alert-secondary}
+::::::::::::::::::::::::::::::::: challenge
 Ahora ha finalizado el análisis estadístico 🥳
 
 -   Compare el período de incubación y el intervalo serial.
@@ -1230,7 +1232,7 @@ Ahora ha finalizado el análisis estadístico 🥳
 
 -   Si no lo son, ¿qué otras medidas se pueden implementar para frenar el brote?
 
-:::
+::::::::::::::::::::::::::::::::::::::::
 
 ### 9.2 Diseño de una estrategía de rastreo de contactos
 
