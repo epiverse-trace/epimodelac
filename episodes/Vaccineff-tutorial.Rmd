@@ -247,10 +247,10 @@ el paquete `vaccineff`. Adicionalmente, se utilizarán algunas funciones de los
 paquetes `ggplot2` y `cowplot` para viazulizar algunos resultados.
 Para cargar el set de datos y los paquetes en el espacio de trabajo ejecute:
 
-```{R}
-library("vaccineff")
-library("ggplot2")
-library("cowplot")
+```{r}
+library(vaccineff)
+library(ggplot2)
+library(cowplot)
 data(cohortdata)
 head(cohortdata)
 ```
