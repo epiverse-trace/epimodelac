@@ -99,13 +99,13 @@ susceptibles se infectan por unidad de tiempo (días, meses, años, ...), es dec
 ecuación diferencial (1) se asemeja a la de una reacción química en
 donde $P(t)$ representa la proporción de sustrato que no ha entrado en
 contacto con un reactivo catalítico, por lo que este tipo de modelos se
-conocen como **modelos serocatalíticos** [@muench1959catalytic].
+conocen como **modelos serocatalíticos** (Muench, 1959).
 
 A pesar de la simpleza del modelo representado por la ecuación (1), en comparación con modelos compartimentales (por ejemplo), la dificultad para conocer una condición inicial para la seropositividad en algún punto del pasado imposibilita su uso práctico. Para sortear esta limitación, es común aplicar el modelo para cohortes de edad en lugar de para el total de la población. Para ello, etiquetemos cada cohorte de edad de acuerdo con su año de nacimiento $\tau$, y supongamos que los individuos son seronegativos al nacer:
 $$
 \frac{dP^\tau (t)}{dt} = \lambda(t) (1 - P^\tau(t)).
 $$
-Con condiciones iniciales dadas por $P^\tau(\tau) = 0$. Esta ecuación se puede resolver analíticamente, dando como resultado[@hens2010seventy]:
+Con condiciones iniciales dadas por $P^\tau(\tau) = 0$. Esta ecuación se puede resolver analíticamente, dando como resultado (Hens et al, 2010):
 
 $$
 P^{\tau} (t) = 1 - \exp\left(-\int_{\tau}^{t} \lambda (t') dt' \right).
@@ -305,7 +305,7 @@ lo que significa que partimos de la premisa de que todos los valores
 de la fuerza de infección entre $0$ y $2$ son igualmente probables. Por
 otro lado, de la teoría de modelos sero-catalíticos sabemos que la
 seroprevalencia en un año dado está descrita por un proceso cumulativo
-con la edad [@hens2010seventy]:
+con la edad (Hens et al, 2010):
 
 $$\tag{7}
 P(a, t) = 1 - \exp\left(  -\sum_{i=t-a+1}^{t} \lambda_i  \right),  
@@ -517,4 +517,8 @@ Contribuciones son bienvenidas vía [pull requests](https://github.com/reconhub/
 
 ## Referencias
 
+Muench, H. (1959). Catalytic models in epidemiology. Harvard University Press.
 
+Hens, N., Aerts, M., Faes, C., Shkedy, Z., Lejeune, O., Van Damme, P., & Beutels, P. (2010). Seventy-five years of estimating the force of infection from current status data. Epidemiology & Infection, 138(6), 802–812.
+
+Cucunubá, Z. M., Nouvellet, P., Conteh, L., Vera, M. J., Angulo, V. M., Dib, J. C., … Basáñez, M. G. (2017). Modelling historical changes in the force-of-infection of Chagas disease to inform control and elimination programmes: application in Colombia. BMJ Global Health, 2(3). doi:10.1136/bmjgh-2017-000345
