@@ -119,7 +119,7 @@ Se le ha proporcionado la siguiente base de datos:
 Para leer en R este archivo, utilice la función `read_rds` de `tidyverse`. Se creará una tabla de datos almacenada como objeto de clase `tibble.`
 
 ```{r echo=TRUE, message=FALSE, warning=FALSE, comment=""}
-casos <- read_rds("files/casos.rds")
+casos <- read_rds("data/casos.rds")
 ```
 
 
@@ -167,7 +167,7 @@ table(casos$desenlace, useNA = "ifany")
 
 ## Desafío 1  
 
-Calcule la probabilidad de muerte en los casos reportados (`CFR`) tomando el número de muertes y el número de casos con desenlace final conocido del objeto casos. Esta vez se calculará el `CFR` con el método *Naive*. Los cálculos *Naive* (*inocentes*) tienen el problema de que pueden presentar sesgos, por lo que no deberían ser utilizados para informar decisiones de salud pública. Hablaremos de estos sesgos en profundidad en el día 4. 
+Calcule la probabilidad de muerte en los casos reportados (`CFR`) tomando el número de muertes y el número de casos con desenlace final conocido del objeto `casos`. Esta vez se calculará el `CFR` con el método *Naive*. Los cálculos *Naive* (*inocentes*) tienen el problema de que pueden presentar sesgos, por lo que no deberían ser utilizados para informar decisiones de salud pública. Hablaremos de estos sesgos en profundidad en el día 4. 
 
 Durante este taller se le presentarán algunos retos, para los cuales obtendrá algunas pistas, por ejemplo en el presente reto se le presenta una pista, la cual es un fragmento del código que usted debe completar para alcanzar la solución. En los espacios donde dice `COMPLETE` por favor diligencie el código faltante.
 
@@ -223,7 +223,7 @@ Para complementar el calculo del CFR se pueden calcular sus intervalos de confia
 
 ## Desafío 2  
 
-Determine el CFR con sus intervalos de confianza utilizando la función `binom.confint`. Y obtenga este resultado. 
+Determine el CFR con sus intervalos de confianza utilizando la función `binom.confint`. Y obtenga este resultado: 
 
 ```{r echo=FALSE, message=FALSE, warning=FALSE, comment=""}
 CFR_con_CI <- binom.confint(muertes, casos_desenlace_final_conocido, method = "exact") %>%
@@ -265,7 +265,7 @@ CFR_con_CI
 
 ### 3.1. Curva de incidencia diaria 
 
-El paquete `incidence` es de gran utilidad para el análisis epidemiológico de datos de incidencia de enfermedades infecciosas, dado que permite calcular la incidencia a partir del intervalo temporal suministrado (e.g. diario o semanal). Dentro de este paquete esta la función `incidence` la cuenta con los siguientes argumentos: 
+El paquete `incidence` es de gran utilidad para el análisis epidemiológico de datos de incidencia de enfermedades infecciosas, dado que permite calcular la incidencia a partir del intervalo temporal suministrado (e.g. diario o semanal). Dentro de este paquete esta la función `incidence` la cual cuenta con los siguientes argumentos: 
 
 1. `dates` contiene una variable con fechas que representan cuándo ocurrieron eventos individuales, como por ejemplo la fecha de inicio de los síntomas de una enfermedad en un conjunto de pacientes. 
 
@@ -330,7 +330,7 @@ A pesar de que hay una curva creciente, hay periodos con pocos o ningún caso. �
 
 ## Ideas discusión: 
 
-Usualmente el inicio de la transmisión en la fase exponencial, y dependiendo el periodo de incubación y el intervalo serial, se van a ver días sin casos. Eso no significa que la curva no sea creciente. Usualmente, al agrupar por semana ya no se verá la ausencia de casos.
+Usualmente al inicio de la transmisión en la fase exponencial, y dependiendo el periodo de incubación y el intervalo serial, se van a ver días sin casos. Eso no significa que la curva no sea creciente. Usualmente, al agrupar por semana ya no se verá la ausencia de casos.
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
@@ -417,7 +417,7 @@ ajuste_modelo
 
 ## Solución 
 
-`$model`: Indica que se ha realizado una regresión logarítmica de la incidencia en función del tiempo. Esto implica que la relación entre el tiempo y la incidencia de la enfermedad ha sido modelada como una función lineal en escalá logarítmica en la incidencia con el fin de entender mejor las tendencias de crecimiento.
+`$model`: Indica que se ha realizado una regresión logarítmica de la incidencia en función del tiempo. Esto implica que la relación entre el tiempo y la incidencia de la enfermedad ha sido modelada como una función lineal en escala logarítmica en la incidencia con el fin de entender mejor las tendencias de crecimiento.
 
 
 `$info`: Contiene varios componentes importantes del análisis:
@@ -427,7 +427,7 @@ ajuste_modelo
 La tasa de crecimiento diaria estimada del brote es de `0.0415`. Esto significa que cada día la cantidad de casos está creciendo en un `4.15%` con respecto al día anterior, bajo la suposición de un crecimiento exponencial constante durante el periodo modelado.
 
 
-Si quisiera acceder a esta información sin ingresar al modelo podría hacerlo con el siguiente código
+Si quisiera acceder a esta información sin ingresar al modelo podría hacerlo con el siguiente código:
 
 ```{r}
 tasa_crecimiento_diaria <- ajuste_modelo$info$r
@@ -446,7 +446,7 @@ El intervalo de confianza del `95%` para la tasa de crecimiento diaria está ent
 
 4. El intervalo de confianza del `95%` para el tiempo de duplicación está entre aproximadamente `12.14` y `26.84 días`. Este amplio rango refleja la incertidumbre en la estimación y puede ser consecuencia de la variabilidad en los datos o de un tamaño de muestra pequeño.
 
-`$pred`: Contiene las predicciones de incidencia observada. Incluye las fechas, la escala de tiempo en días desde el inicio del brote, los valores ajustados (predicciones), los límites inferior y superior del intervalo de confianza para las predicciones.
+`$pred`: Contiene las predicciones de incidencia observada. Incluye las fechas, la escala de tiempo en días desde el inicio del brote, los valores ajustados (predicciones) y los límites inferior y superior del intervalo de confianza para las predicciones.
 
 Si quiere conocer un poco más de este componente puede explorarlo con la función `glimpse`.
 
@@ -474,7 +474,7 @@ Antes de continuar ¿Considera más adecuado usar una gráfica semanal para busc
 
 ## Ideas para responder:
 
-Es preferible estimar tasa de crecimiento diaria utilizando el ajuste de la incidencia semanal en lugar de la incidencia diaria debido a que los datos diarios pueden ser muy volátiles en los primeros días de la curva exponencial. Esto puede suceder por varias razones:
+Es preferible estimar la tasa de crecimiento diaria utilizando el ajuste de la incidencia semanal en lugar de la incidencia diaria debido a que los datos diarios pueden ser muy volátiles en los primeros días de la curva exponencial. Esto puede suceder por varias razones:
 
 - Las fluctuaciones naturales, ciclos de informes, retrasos en el reporte y los errores de medición, que pueden no reflejar cambios reales en la transmisión de la enfermedad. 
 
@@ -498,7 +498,7 @@ plot(incidencia_semanal, fit = ajuste_modelo)
 ```
 
 
-Tras ajustar el modelo log-lineal a la incidencia semanal para estimar la tasa de crecimiento de la epidemia el gráfico muestra la curva de ajuste superpuesta a la incidencia semanal observada. 
+Tras ajustar el modelo log-lineal a la incidencia semanal para estimar la tasa de crecimiento de la epidemia, el gráfico muestra la curva de ajuste superpuesta a la incidencia semanal observada. 
 
 Al final del gráfico se puede observar que la incidencia semanal disminuye. 
 
@@ -515,13 +515,13 @@ Si se grafica por fecha de inicio de síntomas mientras el brote está creciendo
 
 #### Encuentre una fecha límite adecuada para el modelo log-lineal, en función de los rezagos (biológicos y administrativos).
 
-Dado que esta epidemia es de ébola y la mayoría de los casos van a ser hospitalizados, es muy probable que la mayoría de las notificaciones ocurran en el momento de la hospitalización. De tal manera que podríamos examinar cuánto tiempo transcurre entre la fecha de inicio de síntomas y la fecha de hospitalización para hacernos una idea del rezago para esta epidemia.
+Dado que esta epidemia es de Ébola y la mayoría de los casos van a ser hospitalizados, es muy probable que la mayoría de las notificaciones ocurran en el momento de la hospitalización. De tal manera que podríamos examinar cuánto tiempo transcurre entre la fecha de inicio de síntomas y la fecha de hospitalización para hacernos una idea del rezago para esta epidemia.
 
 ```{r echo=TRUE, message=FALSE, warning=FALSE,comment=""}
 summary(as.numeric(casos$fecha_de_hospitalizacion - casos$fecha_inicio_sintomas))
 ```
 
-Al restar la fecha de hospitalización a la fecha de inicio de síntomas podría haber valores negativos. ¿Cual cree que sea su significado? ¿Ocurre en este caso?
+Al restar la fecha de hospitalización a la fecha de inicio de síntomas podría haber valores negativos. ¿Cuál cree que sea su significado? ¿Ocurre en este caso?
 
 
 Para evitar el sesgo debido a rezagos en la notificación, se pueden truncar los datos de incidencia. Pruebe descartar las últimas dos semanas. Este procedimiento permite concentrarse en el periodo en que los datos son más completos para un análisis más fiable.
@@ -573,7 +573,7 @@ cat("El R cuadrado ajustado es:", AjusteR2modelo, "\n")
 ```
 ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
-¿Como interpreta estos resultados? ¿Compare los $R^2$?
+¿Cámo interpreta estos resultados? ¿Compare los $R^2$?
 
 ::::::::::::::::::::::::::::::::::::: challenge  
 
@@ -618,7 +618,7 @@ Para estimar la tasa de crecimiento de una epidemia utilizando un modelo log-lin
 
 El modelo log-lineal proporcionará los coeficientes necesarios para estos cálculos. Note que el coeficiente asociado con el tiempo (la pendiente de la regresión) se puede interpretar como la tasa de crecimiento diaria cuando el tiempo se expresa en días.
 
-Con el modelo ajustado truncado, es hora de realizar la estimación de la tasa de crecimiento. Estos datos los puede encontrar en el objeto ajuste modelo semana, que tiene los datos ajustados de incidencia semanal truncada. 
+Con el modelo ajustado truncado, es hora de realizar la estimación de la tasa de crecimiento. Estos datos los puede encontrar en el objeto `ajuste modelo semana`, que tiene los datos ajustados de incidencia semanal truncada. 
 
 ::::::::::::::::::::::::::::::::::::: challenge  
 
@@ -722,7 +722,7 @@ El intervalo serial en epidemiología se refiere al tiempo que transcurre entre 
 
 Este intervalo es importante porque ayuda a entender qué tan rápido se está propagando una enfermedad y a diseñar estrategias de control como el rastreo de contactos y la cuarentena. Si el intervalo serial es corto, puede significar que la enfermedad se propaga rápidamente y que es necesario actuar con urgencia para contenerla. Si es largo, puede haber más tiempo para intervenir antes de que la enfermedad se disemine ampliamente.
 
-Para este brote de ébola asumiremos que el intervalo serial está descrito por una distribución Gamma de media (`mean_si`) de `8.7 días` y con una desviación estándar (`std_si`) de `6.1 días`. En la práctica del día 4 estudiaremos cómo estimar el intervalo serial.
+Para este brote de Ébola asumiremos que el intervalo serial está descrito por una distribución Gamma de media (`mean_si`) de `8.7 días` y con una desviación estándar (`std_si`) de `6.1 días`. En la práctica del día 4 estudiaremos cómo estimar el intervalo serial.
 
 ```{r echo=TRUE, message=FALSE}
 # Parametros de la distribución gamma para el invertavlo serial
@@ -736,7 +736,7 @@ config <- make_config(list(mean_si = mean_si, std_si = std_si))
 
 ### 5.2. Estimación de la transmisibilidad variable en el tiempo, R(t) 
 
-Cuando la suposición de que ($R$) es constante en el tiempo se vuelve insostenible, una alternativa es estimar la transmisibilidad variable en el tiempo utilizando el número de reproducción instantánea ($R_t$). Este enfoque, introducido por Cori et al. (2013),  se implementa en el paquete `EpiEstim`, el cual estima el $R_t$ para ventanas de tiempo personalizadas, utilizando la una distribución de Poisson.  A continuación, estimamos la transmisibilidad para ventanas de tiempo deslizantes de 1 semana (el valor predeterminado de `estimate_R`):
+Cuando la suposición de que ($R$) es constante en el tiempo se vuelve insostenible, una alternativa es estimar la transmisibilidad variable en el tiempo utilizando el número de reproducción instantánea ($R_t$). Este enfoque, introducido por Cori et al. (2013),  se implementa en el paquete `EpiEstim`, el cual estima el $R_t$ para ventanas de tiempo personalizadas, utilizando una distribución de Poisson.  A continuación, estimamos la transmisibilidad para ventanas de tiempo deslizantes de 1 semana (el valor predeterminado de `estimate_R`):
 
 ***
 
@@ -809,13 +809,13 @@ Cambios menores y adaptación a español:
 Revise si al final de esta lección adquirió estas competencias:
 
 
-- Identificar los parámetros necesarios en casos de  transmisión de enfermedades infecciosas de persona a persona. 
+- Identificar los parámetros necesarios en casos de transmisión de enfermedades infecciosas de persona a persona. 
 
 - Estimar la probabilidad de muerte (CFR). 
 
 - Calcular y graficar la incidencia.
 
-- Estimar e interpretar la tasa de crecimiento y el tiempo en que se duplica la epidemia. 
+- Estimar e interpretar la tasa de crecimiento y el tiempo en el que se duplica la epidemia. 
 
 - Estimar e interpretar el número de reproducción instantáneo  de la epidemia.
 
