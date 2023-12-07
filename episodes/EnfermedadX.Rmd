@@ -891,7 +891,7 @@ converg_diag_gamma
 ```
 
 
-```{r gamma check res}
+```{r gamma sample MCMC}
 # Guardar las muestras MCMC en un dataframe
 si_samples_gamma <- data.frame(
 type = 'Symptom onset',
@@ -922,7 +922,7 @@ si_summary_gamma
 ```
 
 
-```{r gamma check res, echo=TRUE, results=FALSE}
+```{r gamma check res si, echo=TRUE, results=FALSE}
 # Obtenga las mismas estadísticas de resumen para los parámetros de la distribución
 si_samples_gamma |>
 summarise(
@@ -936,7 +936,7 @@ scale_u_ci = quantile(scale, probs=.975)
 ```
 
 
-```{r gamma check res, results=FALSE}
+```{r gamma check res parms, results=FALSE}
 # Necesita esto para hacer gráficos más tarde
 gamma_shape <- si_fit_gamma@ests['shape',][1]
 gamma_rate <- 1 / si_fit_gamma@ests['scale',][1]
@@ -985,14 +985,14 @@ seed = mcmc_control$seed)
 
 Revise los resultados.
 
-```{r log normal res}
+```{r log normal res conver}
 # Revise la convergencia de las cadenas MCMC 
 converg_diag_lnorm <- check_cdt_samples_convergence(si_fit_lnorm@samples)
 converg_diag_lnorm
 ```
 
 
-```{r log normal res, results=FALSE}
+```{r log normal res samples MCM, results=FALSE}
 # Guarde las muestras de MCMC en un dataframe
 si_samples_lnorm <- data.frame(
 type = 'Symptom onset',
@@ -1009,7 +1009,7 @@ sd = sqrt((exp(sdlog^2)-1) * (exp(2*meanlog + sdlog^2)))
 ```
 
 
-```{r log normal res}
+```{r log normal res si sum}
 # Obtenga la media, desviación estándar e intervalo de credibilidad del 95% 
 si_summary_lnorm <- 
   si_samples_lnorm %>%
@@ -1025,7 +1025,7 @@ si_summary_lnorm
 ```
 
 
-```{r log normal res}
+```{r log normal res stad}
 # Obtenga las estadísticas resumen para los parámetros de la distribución
 si_samples_lnorm |>
 summarise(
@@ -1039,7 +1039,7 @@ sdlog_u_ci = quantile(sdlog, probs=.975)
 ```
 
 
-```{r log normal res}
+```{r log normal res end}
 lognorm_meanlog <- si_fit_lnorm@ests['meanlog',][1]
 lognorm_sdlog <- si_fit_lnorm@ests['sdlog',][1]
 
@@ -1095,7 +1095,7 @@ converg_diag_weibull
 ```
 
 
-```{r weibull check res}
+```{r weibull check res si}
 # Guarde las muestra MCMC en un dataframe
 si_samples_weibull <- data.frame(
 type = 'Symptom onset',
@@ -1112,7 +1112,7 @@ sd = sqrt(scale^2*(gamma(1+2/shape)-(gamma(1+1/shape))^2))
 ```
 
 
-```{r weibull check res, echo=TRUE}
+```{r weibull check res si sum, echo=TRUE}
 # Obtenga las estadísticas resumen
 si_summary_weibull <- 
   si_samples_weibull %>%
@@ -1128,7 +1128,7 @@ si_summary_weibull
 ```
 
 
-```{r weibull check res, echo=TRUE}
+```{r weibull check res si samples, echo=TRUE}
 # Obtenga las estadísticas resumen para los parámetros de la distribución.
 si_samples_weibull |>
 summarise(
@@ -1142,7 +1142,7 @@ scale_u_ci = quantile(scale, probs=.975)
 ```
 
 
-```{r weibull check res}
+```{r weibull check res parms}
 weibull_shape <- si_fit_weibull@ests['shape',][1]
 weibull_scale <- si_fit_weibull@ests['scale',][1]
 
