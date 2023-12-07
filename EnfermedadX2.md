@@ -87,11 +87,12 @@ Tres distribuciones de probabilidad comunes utilizadas para caracterizar rezagos
 +----------------+-----------------------------------------+
 | Distribución   | Parámetros                              |
 +================+:=======================================:+
-| **Weibull**    | `shape` y `scale`  (forma y escala)                     |
+| **Weibull**    | `shape` y `scale`  (forma y escala)     |
 +----------------+-----------------------------------------+
-| **gamma**      | `shape` y `scale`  (forma y escala)                     |
+| **gamma**      | `shape` y `scale`  (forma y escala)     |
 +----------------+-----------------------------------------+
-| **log normal** | `log mean` y `log standard deviation`  (media logarítmica y desviación estándar logarítmica) |
+| **log normal** | `log mean` y `log standard deviation`   |
+|                |(media y desviación estándar logarítmica)|
 +----------------+-----------------------------------------+
 
 : Tabla 1. Tres de las distribuciones de probabilidad más comunes para rezagos epidemiológicos.
@@ -111,7 +112,7 @@ En esta practica se usarán los siguientes paquetes de `R`:
 
 -   `rstan` para estimar el período de incubación
 
--   `coarseDataTools` via `EpiEstim` para estimar el intervalo serial
+-   `coarseDataTools` vía `EpiEstim` para estimar el intervalo serial
 
 Instrucciones de instalación para los paquetes: 
 
@@ -617,7 +618,7 @@ waic
 function(x, ...) {
   UseMethod("waic")
 }
-<bytecode: 0x55c668973f40>
+<bytecode: 0x55bf92673f70>
 <environment: namespace:loo>
 ```
 
