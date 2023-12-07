@@ -1,5 +1,5 @@
 ---
-title: "Taller Día 4 - Grupo 1 - Estimación de las distribuciones de rezagos epidemiológicos: Enfermedad X"
+title: "Taller Día 4 - Grupo 2 - Estimación de las distribuciones de rezagos epidemiológicos: Enfermedad X"
 author: "Kelly Charniga, PhD MPH & Zulma Cucunubá MD, PhD"
 date: "2023-11-23"
 output: html_document
@@ -331,9 +331,9 @@ Hay dos elementos de interés:
 -   `contacts`,  un archivo con datos de rastreo de contactos que contiene información sobre pares de casos primarios y secundarios.
 
 ```{r load dat, echo=FALSE}
-# Grupo 1
-dat <- readRDS("data/practical_data_group1.RDS") 
-linelist <- dat$linelist 
+# Grupo 2
+dat <- readRDS("Data/practical_data_group2.RDS")
+linelist <- dat$linelist
 contacts <- dat$contacts
 
 ```
