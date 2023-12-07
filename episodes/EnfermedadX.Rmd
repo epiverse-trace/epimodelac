@@ -676,11 +676,11 @@ standard_deviations <- cbind(
 probs <- c(0.025, 0.5, 0.975)
 
 res_means <- apply(means, 2, quantile, probs)
-colnames(res_means) <- colnames(waic) # Aquí parece faltar la definición de 'waic'
+colnames(res_means) <- colnames(waic) 
 res_means
 
 res_sds <- apply(standard_deviations, 2, quantile, probs)
-colnames(res_sds) <- colnames(waic) # Aquí parece faltar la definición de 'waic'
+colnames(res_sds) <- colnames(waic) 
 res_sds
 
 # Informe la mediana e intervalos creíbles del 95% para los cuantiles de cada distribución
@@ -1011,7 +1011,7 @@ sd_u_ci = quantile(sd,probs=.975)
 )
 si_summary_lnorm
 
-# Obtenga las estadísticas reumen para los parámetros de la distribución
+# Obtenga las estadísticas resumen para los parámetros de la distribución
 si_samples_lnorm |>
 summarise(
 meanlog_mean = quantile(meanlog, probs=.5),
