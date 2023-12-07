@@ -884,13 +884,14 @@ seed = mcmc_control$seed)
 
 Ahora observe los resultados.
 
-```{r gamma check res, results=FALSE}
-
+```{r gamma check res}
 # Verificar convergencia de las cadenas MCMC 
 converg_diag_gamma <- check_cdt_samples_convergence(si_fit_gamma@samples)
 converg_diag_gamma
+```
 
 
+```{r gamma check res}
 # Guardar las muestras MCMC en un dataframe
 si_samples_gamma <- data.frame(
 type = 'Symptom onset',
@@ -918,7 +919,10 @@ sd_l_ci = quantile(sd,probs=.025),
 sd_u_ci = quantile(sd,probs=.975)
 )
 si_summary_gamma
+```
 
+
+```{r gamma check res, echo=TRUE, results=FALSE}
 # Obtenga las mismas estadísticas de resumen para los parámetros de la distribución
 si_samples_gamma |>
 summarise(
@@ -929,7 +933,10 @@ scale_mean = quantile(scale, probs=.5),
 scale_l_ci = quantile(scale, probs=.025),
 scale_u_ci = quantile(scale, probs=.975)
 )
+```
 
+
+```{r gamma check res, results=FALSE}
 # Necesita esto para hacer gráficos más tarde
 gamma_shape <- si_fit_gamma@ests['shape',][1]
 gamma_rate <- 1 / si_fit_gamma@ests['scale',][1]
@@ -978,12 +985,14 @@ seed = mcmc_control$seed)
 
 Revise los resultados.
 
-```{r log normal res, results=FALSE}
+```{r log normal res}
 # Revise la convergencia de las cadenas MCMC 
 converg_diag_lnorm <- check_cdt_samples_convergence(si_fit_lnorm@samples)
 converg_diag_lnorm
+```
 
 
+```{r log normal res, results=FALSE}
 # Guarde las muestras de MCMC en un dataframe
 si_samples_lnorm <- data.frame(
 type = 'Symptom onset',
@@ -997,7 +1006,10 @@ mutate( # La ecuación para la conversión está aquí https://en.wikipedia.org/
 mean = exp(meanlog + (sdlog^2/2)), 
 sd = sqrt((exp(sdlog^2)-1) * (exp(2*meanlog + sdlog^2)))
 )
+```
 
+
+```{r log normal res}
 # Obtenga la media, desviación estándar e intervalo de credibilidad del 95% 
 si_summary_lnorm <- 
   si_samples_lnorm %>%
@@ -1010,7 +1022,10 @@ sd_l_ci = quantile(sd,probs=.025),
 sd_u_ci = quantile(sd,probs=.975)
 )
 si_summary_lnorm
+```
 
+
+```{r log normal res}
 # Obtenga las estadísticas resumen para los parámetros de la distribución
 si_samples_lnorm |>
 summarise(
@@ -1021,7 +1036,10 @@ sdlog_mean = quantile(sdlog, probs=.5),
 sdlog_l_ci = quantile(sdlog, probs=.025),
 sdlog_u_ci = quantile(sdlog, probs=.975)
 )
+```
 
+
+```{r log normal res}
 lognorm_meanlog <- si_fit_lnorm@ests['meanlog',][1]
 lognorm_sdlog <- si_fit_lnorm@ests['sdlog',][1]
 
@@ -1074,8 +1092,10 @@ Revise los resultados.
 # Revise covengencia
 converg_diag_weibull <- check_cdt_samples_convergence(si_fit_weibull@samples)
 converg_diag_weibull
+```
 
 
+```{r weibull check res}
 # Guarde las muestra MCMC en un dataframe
 si_samples_weibull <- data.frame(
 type = 'Symptom onset',
@@ -1088,8 +1108,11 @@ scale = si_fit_weibull@samples$var2)) |>
 mutate( # La ecuación para conversión está aquí https://en.wikipedia.org/wiki/Weibull_distribution
 mean = scale*gamma(1+1/shape),
 sd = sqrt(scale^2*(gamma(1+2/shape)-(gamma(1+1/shape))^2))
-) 
+)
+```
 
+
+```{r weibull check res, echo=TRUE}
 # Obtenga las estadísticas resumen
 si_summary_weibull <- 
   si_samples_weibull %>%
@@ -1102,7 +1125,10 @@ sd_l_ci = quantile(sd,probs=.025),
 sd_u_ci = quantile(sd,probs=.975)
 )
 si_summary_weibull
+```
 
+
+```{r weibull check res, echo=TRUE}
 # Obtenga las estadísticas resumen para los parámetros de la distribución.
 si_samples_weibull |>
 summarise(
@@ -1113,7 +1139,10 @@ scale_mean = quantile(scale, probs=.5),
 scale_l_ci = quantile(scale, probs=.025),
 scale_u_ci = quantile(scale, probs=.975)
 )
+```
 
+
+```{r weibull check res}
 weibull_shape <- si_fit_weibull@ests['shape',][1]
 weibull_scale <- si_fit_weibull@ests['scale',][1]
 
