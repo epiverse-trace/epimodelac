@@ -331,7 +331,7 @@ Hay dos elementos de interés:
 
 -   `contacts`,  un archivo con datos de rastreo de contactos que contiene información sobre pares de casos primarios y secundarios.
 
-```{r load dat, echo=FALSE}
+```{r load dat, echo=TRUE}
 # Grupo 1
 dat <- readRDS("data/practical_data_group1.RDS") 
 linelist <- dat$linelist 
@@ -570,7 +570,7 @@ Ahora verifique la convergencia del modelo. Observe los valores de r-hat, los ta
 Para cada modelo con distribución ajustada:
 
 ::: {.alert .alert-secondary}
-*💡 **Questions (4)***
+*💡 **Preguntas (4)***
 
 -   ¿Los valores de r-hat son cercanos a 1?
 
@@ -604,7 +604,7 @@ rstan::traceplot(fit$weibull, pars = c("par[1]","par[2]"))
 Calcule el criterio de información ampliamente aplicable (WAIC) y el criterio de información de dejar-uno-fuera (LOOIC) para comparar los ajustes de los modelos. El modelo con mejor ajuste es aquel con el WAIC o LOOIC más bajo. En esta sección también se resumirá las distribuciones y se hará algunos gráficos.
 
 ::: {.alert .alert-secondary}
-*💡 **Questions (5)***
+*💡 **Preguntas (5)***
 
 -   ¿Qué modelo tiene mejor ajuste?
 :::
@@ -1085,7 +1085,7 @@ p50 = qweibull(
 p = 0.5, 
 shape = si_fit_weibull@samples$var1, 
 scale = si_fit_weibull@samples$var2)) |>
-mutate( # La cuación para conversión está aquí https://en.wikipedia.org/wiki/Weibull_distribution
+mutate( # La ecuación para conversión está aquí https://en.wikipedia.org/wiki/Weibull_distribution
 mean = scale*gamma(1+1/shape),
 sd = sqrt(scale^2*(gamma(1+2/shape)-(gamma(1+1/shape))^2))
 ) 
