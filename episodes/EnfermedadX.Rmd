@@ -260,11 +260,12 @@ Tres distribuciones de probabilidad comunes utilizadas para caracterizar rezagos
 +----------------+-----------------------------------------+
 | Distribución   | Parámetros                              |
 +================+:=======================================:+
-| **Weibull**    | `shape` y `scale`  (forma y escala)                     |
+| **Weibull**    | `shape` y `scale`  (forma y escala)     |
 +----------------+-----------------------------------------+
-| **gamma**      | `shape` y `scale`  (forma y escala)                     |
+| **gamma**      | `shape` y `scale`  (forma y escala)     |
 +----------------+-----------------------------------------+
-| **log normal** | `log mean` y `log standard deviation`  (media logarítmica y desviación estándar logarítmica) |
+| **log normal** | `log mean` y `log standard deviation`   |
+|                |(media y desviación estándar logarítmica)|
 +----------------+-----------------------------------------+
 
 : Tabla 1. Tres de las distribuciones de probabilidad más comunes para rezagos epidemiológicos.
@@ -1158,7 +1159,7 @@ ggplot()+
 Ahora calcule el WAIC y LOOIC. `coarseDataTools` no tiene una forma integrada de hacer esto, por lo que se necesita calcular la verosimilitud a partir de las cadenas MCMC y utilizar el paquete `loo` en R.
 
 
-```{r model comparison}
+```{r model comparison, warning=FALSE}
 # Cargue las funciones de verosimilitud de coarseDataTools
 calc_looic_waic <- function(symp, symp_si, dist){
 # Prepare los datos y parámetros para el paquete loo
