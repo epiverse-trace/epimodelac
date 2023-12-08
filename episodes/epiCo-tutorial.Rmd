@@ -42,8 +42,8 @@ Al final de este taller usted podrá:
 Puede descargar la última versión estable de **epiCo** a través del repositorio en [GitHub](https://github.com/epiverse-trace/epiCo) con los siguientes comandos:
 
 ```{r, message=FALSE, warning=FALSE}
-if(!require("remotes")) install.packages("remotes")
-if(!require("epico")) remotes::install_github("epiverse-trace/epiCo")
+# if(!require("remotes")) install.packages("remotes")
+# if(!require("epico")) remotes::install_github("epiverse-trace/epiCo")
 ```
 
 ## Motivación
@@ -54,7 +54,7 @@ if(!require("epico")) remotes::install_github("epiverse-trace/epiCo")
 
 ## Indicadores demográficos en **epiCo**
 
-El módulo demográfico de **epiCo** es una herramienta de análisis descriptivo y evaluación del riesgo basado en las variables reportadas por el Sistema de Vigilancia en Salud Pública en Colombia [(SIVIGILA)](https://www.ins.gov.co/Direcciones/Vigilancia/Paginas/SIVIGILA.aspx) y en datos del Departamento Administrativo Nacional de Estadística [(DANE)]().
+El módulo demográfico de **epiCo** es una herramienta de análisis descriptivo y evaluación del riesgo basado en las variables reportadas por el Sistema de Vigilancia en Salud Pública en Colombia [(SIVIGILA)](https://www.ins.gov.co/Direcciones/Vigilancia/Paginas/SIVIGILA.aspx) y en datos del Departamento Administrativo Nacional de Estadística [(DANE)](https://www.dane.gov.co/).
 
 
 
