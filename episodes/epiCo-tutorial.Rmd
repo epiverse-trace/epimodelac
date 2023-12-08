@@ -1,7 +1,7 @@
 ---
-title: "Tutorial epiCo: Taller Análisis de Riesgo y Tablero de Control"
+title: "Tutorial epiCo"
 author: "Juan D. Umaña, Juan Montenegro-Torres"
-date: "2023-11-03"
+date: "2023-12-08"
 image: null
 editor_options:
   markdown:
@@ -23,216 +23,317 @@ exercises: 5
 
 Al final de este taller usted podrá: 
  
-- Analizar datos de incidencia por grupos de edad en años endémicos. 
-
-- Evaluar la distribución de ocupaciones y su relación con el riesgo. 
-
-- Realizar un canal endémico e identificar semanas críticas. 
-
-- Estratificar el riesgo espacialmente y señalar municipios de alta incidencia.  
+1.	Navegar por la codificación de la División Política Administrativa de Colombia (DIVIPOLA).
+2.	Consultar, visualizar e interpretar pirámides poblacionales a distintas escalas administrativas.
+3.	Familiarizarse con la información epidemiológica proporcionada por el SIVIGILA.
+4.	Describir las características demográficas de la información epidemiológica.
+5.	Estimar tasas de incidencia acumulada a distintas escalas espaciales y temporales.
+6.	Realizar una evaluación del riesgo etario integrando información epidemiológica con información sobre la estructura poblacional de una región.  
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
-## Introducción
 
-En un entorno epidemiológico, la gestión efectiva de la salud pública requiere un enfoque proactivo y multidisciplinario que permita la detección temprana, el análisis exhaustivo y la respuesta efectiva a las amenazas para la salud de una población. Las Salas de Análisis de Riesgo se establecen como un elemento esencial en este contexto, donde se reúnen especialistas y profesionales de la salud para abordar problemas relacionados con la propagación de enfermedades. 
+# **epiCo**
 
-La identificación de poblaciones vulnerables, la monitorización de la incidencia en distintos grupos de edad y ocupaciones, y la evaluación de la independencia del riesgo en estos grupos son esenciales para diseñar intervenciones efectivas y priorizar recursos. Para este estudio simularemos una sala de análisis de riesgo en el departamento del Tolima. Con el fin de cumplir este objetivo, utilizaremos los datos cargados en el paquete **epiCo** para comprender y analizar las dinámicas del dengue en este departamento.
+**epiCo** ofrece herramientas estadísticas y de visualización para el análisis de indicadores demográficos, comportamiento espaciotemporal como mapas de riesgo, y caracterización de los brotes a través de canales endémicos de las ETVs en Colombia.
 
-Para comprender el tipo de datos utilizados en estas salas, cargue la base de datos `epi_data` y describa los datos presentes en esta.
+## Instalación
 
-Ahora compare las tasas específicas de incidencia por grupos de edad en el año endémico 2017 versus el año endémico 2019 y ofrezca una interpretación de los resultados. De igual forma compare la distribución de ocupaciones y responda:
+Puede descargar la última versión estable de **epiCo** a través del repositorio en [GitHub](https://github.com/epiverse-trace/epiCo) con los siguientes comandos:
 
-- ¿La distribución del riesgo en los grupos de edad es independiente del nivel de transmisión de la enfermedad?
-- ¿Qué grupos etarios podrían priorizarse en una intervención?
-- ¿Qué actividades económicas podrían tener una relación con la transmisión de la enfermedad?
-- ¿Qué aspectos del curso natural de la enfermedad deberían considerarse para este análisis?
+```{r, message=FALSE, warning=FALSE}
+if(!require("remotes")) install.packages("remotes")
+if(!require("epico")) remotes::install_github("epiverse-trace/epiCo")
+```
 
-Realice el canal endémico para el departamento del Tolima en el año 2021 e identifique:
+## Motivación
 
-- Semanas del 2021 en situación de brote.
-- Periodos de oportunidad para intervenciones.
+- Incluir evaluaciones de riesgos espaciales y demográficos en informes epidemiológicos rutinarios para mejorar la identificación de grupos vulnerables.
+- Facilitar la comprensión de los diferentes perfiles epidemiológicos dentro de una región de Colombia en cuanto al inicio, duración, magnitud y frecuencia de los brotes.
+- Reforzar la transparencia de los métodos utilizados para el análisis de brotes.
 
-Realice un mapa de estratificación de riesgo por autocorrelación espacial (índice local de Moran) en el año 2021 e identifique:
+## Indicadores demográficos en **epiCo**
 
-- Municipios con alta incidencia y alta correlación espacial.
-
-Reporte sus resultados en donde ofrezca un panorama sobre la transmisión de dengue en el departamento del Tolima en el año 2021, aprendizajes que deberían tenerse en cuenta tras la epidemia del año 2019, e ideas sobre análisis adicionales que puede realizar con epiCo para comprender mejor el comportamiento de la enfermedad dentro del departamento.
+El módulo demográfico de **epiCo** es una herramienta de análisis descriptivo y evaluación del riesgo basado en las variables reportadas por el Sistema de Vigilancia en Salud Pública en Colombia [(SIVIGILA)](https://www.ins.gov.co/Direcciones/Vigilancia/Paginas/SIVIGILA.aspx) y en datos del Departamento Administrativo Nacional de Estadística [(DANE)]().
 
 
-## Conceptos básicos a desarrollar
 
-- Incidencia: La incidencia (en inglés Cumulative Incidence) expresa el riesgo de contraer una enfermedad en una población determinada dentro de un intervalo de tiempo. (Mendel Suchmacher and Mauro Geller, 2021)[https://www.sciencedirect.com/book/9780323901024/practical-biostatistics]
-- Tasa de incidencia: La tasa de incidencia (o en inglés Incidence) es el número de nuevos casos identificados de una enfermedad o afección por población de riesgo en un periodo de tiempo determinado.(Noordzij M, Dekker FW, Zoccali C, Jager KJ, 2010)[https://pubmed.ncbi.nlm.nih.gov/20173345/]
-- Tasa específica por edades: El ajuste por edad es un proceso estadístico aplicado a las tasas de enfermedad, muerte, lesiones u otros resultados sanitarios que permite comparar comunidades con diferentes estructuras de edad. (Department of Health. New York State)[https://www.health.ny.gov/diseases/chronic/ageadj.htm]
-- Canal endémico: estrategia visual para representar el comportamiento histórico de una enfermedad en una región específica sobre una curva epidémica que define la tendencia central de los casos durante un año y los límites superior e inferior donde se espera que varíen los casos (Bortman, 1999)[https://iris.paho.org/handle/10665.2/8562]
-- Índice (global y local) de Moran: análisis de autocorrelación espacial que permite la identificación de regiones con alta y baja incidencia de una enfermedad que presentan una distribución espacial no aleatoria, lo que conlleva a formación de clusters o áreas de intensidad (hotspots).
+### 1. Navegando por la codificación de la División Política Administrativa de Colombia (DIVIPOLA)
 
+El sistema DIVIPOLA es una nomenclatura estándar diseñada por el DANE para la identificación de entidades territoriales (departamentos, distritos y municipios), áreas no municipalizadas, y centros poblados a través de un código numérico único.
 
-### Contenido del taller
+Colombia posee:
 
-Para cargar los datos y analizarlos se debe utilizar el paquete **epiCo** y cargar los datos `epi_data` como se observa en el siguiente código:
+-	32 departamentos (División administrativa nivel 1)
+-	1102 municipios (División administrativa nivel 2)
+-	1 isla
+-	18 áreas no municipalizadas
+-	6678 centros poblados
+
+Dos dígitos son usados para codificar los departamentos, y tres dígitos adicionales son usados para codificar los municipios. **epiCo** proporciona la lista completa de códigos a través de un dataset interno llamado `divipola_table`.
+
+```{r, warning=FALSE}
+# Se cargan las librerías necesarias.
+library(epiCo)
+library(incidence)
+
+# Listado de códigos para cada uno de los municipios.
+data("divipola_table")
+head(divipola_table)
+```
+
+### 2. Pirámides poblacionales
+
+**epiCo** cuenta con datos internos sobre las proyecciones poblaciones de Colombia a nivel nacional, departamental y municipal (información proveniente del DANE).
+
+Los usuarios pueden realizar consultas a **epiCo** utilizando la función `population_pyramid`, la cual requiere el codigo DIVIPOLA de la entidad de interés y el año que se desea consultar.
 
 ```{r}
-library(epiCo)
+tolima_codigo <- 73 # Código DIVIPOLA para el departamento del Tolima.
+año <- 2021 # Año a consultar.
+tolima_piramide_2021 <- population_pyramid(tolima_codigo, año) # Pirámide 
+# poblacional del departamento del tolima para el año 2021.
+head(tolima_piramide_2021)
+```
 
-# Se cargan los datos contenidos en el paquete epiCo.
+**epiCo** presenta los datos agrupados en intervalos de 5 años *de forma predeterminada*; sin embargo, puede modificar parámetros para tener rangos distintos, separar la pirámide por género binario, obtener los datos como conteos totales o proporciones y/o desplegar una gráfica de la pirámide.
+
+```{r}
+tolima_codigo <- 73 # Código DIVIPOLA para el departamento del Tolima.
+año <- 2021 # Año a consultar.
+rango_edad <- 10 #Rango de edades o ventana.
+# Pirámide poblacional del departamento del tolima para el año 2021.
+tolima_piramide_2021 <- population_pyramid(divipola_code = tolima_codigo,
+                                           year = año,
+                                           range = rango_edad,
+                                           gender = TRUE, total = TRUE,
+                                           plot = TRUE)
+```
+
+### 3. Datos epidemiológicos
+**epiCo** es una herramienta que produce análisis basados en datos epidemiológicos como los que provee el SIVIGILA. El paquete cuenta con un data set llamado epi_data, que cuenta con la información y estructura que requiere la librería para sus funciones y que utiliza los casos de dengue reportados en el departamento del Tolima del 2012 al 2021 a manera de ejemplo.
+
+```{r}
+# Datos epimdeiológicos.
 data("epi_data")
-
-# Se visualizan las primeras filas de los datos previamente cargados.
 head(epi_data)
 ```
 
-El cálculo de incidencia acumulada (conteo de aparición de casos en un periodo de tiempo) se puede realizar a través del paquete *incidence*.
+### 4. Variables demográficas
+
+**epiCo** proporciona un diccionario para consultar las categorías étnicas usadas por el sistema SIVIGILA a través de la función `describe_ethnicity`.
 
 ```{r}
-require(incidence)
-
-# Se cargan los datos contenidos en el paquete epiCo.
-incidence_count <- incidence(dates = epi_data$fec_not, groups = epi_data$cod_dpto_o,
-                             interval = "1 epiweek")
+# Descripción de las etnicidades reportadas en la base de datos.
+describe_ethnicity(unique(epi_data$per_etn))
 ```
 
-El cálculo de tasas de incidencia (número de casos sobre población expuesta) se puede realizar en **epiCo** a través de la función incidence_rate (hasta el momento la función toma la población total del municipio o departamento como población expuesta)
+Para calcular la distribución de las ocupaciones en estos años, **epiCo** usa la columna que nos indica la ocupación de cada uno de los casos presentados en estos años. Esta ocupación está codificada por el sistema ISCO-88 como se puede observar en la tabla `isco88_table`, y epiCo cuenta con la función `occupation_plot` para visualizar de forma proporcional el número de casos pertenecientes a una labor.
 
 ```{r}
-incidence_tasa <- epiCo::incidence_rate(incidence_count, level = 1)
-```
-
-Para calcular las tasas específicas de incidencia por grupos de edad, necesitamos los casos filtrados para los años de interés y la pirámide poblacional del departamento para cada uno de estos años. **epiCo** permite obtener las pirámides poblacionales para años específicos, a escala municipal, departamental y nacional a partir de sus códigos DIVIPOLA asignados por el DANE, a través de la función `population_pyramid`.
-
-De igual manera, el paquete permite el cálculo de las tasas de incidencia por grupos de edad a partir de las edades de los casos presentados en un año especifico y la pirámide poblacional de ese mismo año, como se observa a continuación.
-
-```{r}
-# Se filtran los datos del SIVIGILA para los años 2017 y 2019.
-data_tolima_2017 <-  epi_data[lubridate::year(epi_data$fec_not) == 2017, ]
-data_tolima_2019 <-  epi_data[lubridate::year(epi_data$fec_not) == 2019, ]
-
-# Se calcula la pirámide poblacional para el departamento del Tolima que está  
-# representado por el código 73 para los años 2017 y 2019.
-tolima_pyramid_2017 <- population_pyramid(divipola_code = 73,
-                                          year = 2017,
-                                          range = 5,
-                                          gender = FALSE,
-                                          plot = FALSE,
-                                          total = TRUE)
-tolima_pyramid_2019 <- population_pyramid(divipola_code = 73,
-                                          year = 2019,
-                                          range = 5,
-                                          gender = FALSE,
-                                          plot = FALSE,
-                                          total = TRUE)
-
-# Se calcula las tasas por edades para los años 2017 y 2019.
-incidence_rate_2017 <- age_risk(age = as.integer(data_tolima_2017$edad),
-                                population_pyramid = tolima_pyramid_2017,
-                                gender = NULL,
-                                plot = TRUE)
-incidence_rate_2019 <- age_risk(age = as.integer(data_tolima_2019$edad),
-                                population_pyramid = tolima_pyramid_2019,
-                                gender = NULL,
-                                plot = TRUE)
-```
-
-Ahora para calcular la distribución de las ocupaciones en estos años, nos basamos en los datos filtrados anteriormente y la columna que nos indica la ocupación de cada uno de los casos presentados en estos años, como se muestra en el siguiente código:
-
-```{r}
-require(tidyverse)
-require(treemapify)
-require(RColorBrewer)
-
+# Tabla de ocupaciones del sistema ISCO-88.
 data("isco88_table")
-# Se calcula la distribución de ocupaciones
-occupation_data_2017 <- data_tolima_2017 %>% subset(ocupacion %in% isco88_table$unit) %>%
-                                   dplyr::select(ocupacion,sexo)
-occupation_data_2017 <- na.omit(occupation_data_2017)
-
-occupation_data_2017 <- merge(occupation_data_2017,isco88_table,
-                              by.x = "ocupacion", by.y = "unit")
-
-occupation_count_2017 <- occupation_data_2017 %>% count(sexo,major_label,minor_label)
-occupation_count_2017 <- occupation_count_2017 %>% subset(n>=quantile(n,0.9))
-
-occupation_treemap <- ggplot(occupation_count_2017, aes(area = n, fill = major_label, label = minor_label, subgroup = sexo)) +
-  geom_treemap() +
-  scale_fill_manual(name="Major Group", values = brewer.pal(n = 8, name = "Set2")) +
-  geom_treemap_subgroup_border(colour = "white", size = 5) +
-  geom_treemap_subgroup_text(place = "centre", grow = TRUE,
-                             alpha = 0.15, colour = "black") +
-  geom_treemap_text(colour = "grey16", place = "centre",
-                    size = 20, fontface = "italic", grow = TRUE, reflow = TRUE) +
-  theme(legend.position = "bottom")
-
-occupation_treemap
-
+head(isco88_table)
+# Se calcula la distribución de ocupaciones.
+occupation_plot(isco_codes = as.integer(epi_data$ocupacion), gender = epi_data$sexo)
 ```
 
-Dado que los datos presentados en `epi_data` son una fila con la información de cada uno de los casos y para generar un canal endémico requerimos conteos de casos para cada una de las semanas de los años analizados, utilizamos el paquete incidence que nos permite calcular conteos a partir de fechas, como se observa a continuación:
+### 5.	Estimación de las tasas de incidencia
+
+La función `incidence_rate` de **epiCo** requiere del paquete *incidence* para producir un objeto incidence modificado. En lugar de un vector (o matriz) de conteos, transforma el objeto para proporcionar un elemento de tasa que representa el número de casos en el periodo dividido por el número total de habitantes en la región en las fechas específicas.
+ 
+**epiCo** usa como denominadores las proyecciones poblacionales del DANE; por lo que es necesario proporcionar el nivel de administración en el que se calculan las incidencias.
 
 ```{r}
+# Se crea el objeto incidence a partir de las fechas y municiíos presentadas en
+# epi_data.
+incidence_objecto <- incidence(
+  dates = epi_data$fec_not,
+  groups = epi_data$cod_mun_o,
+  interval = "1 epiweek"
+)
+# Calcular la tasa de incidencia para cada uno de los municipios del Tolima.
+incidence_tasa_objecto <- incidence_rate(incidence_objecto, level = 2)
+head(incidence_tasa_objecto$counts)
+```
+
+### 6.	Estimación del riesgo etario
+
+La normalización de los datos es un aspecto clave de la epidemiología. **epiCo** utiliza la distribución por edades de los casos y normaliza los datos epidemiológicos con la estructura de edades de una población a tarvés de la función `age_risk`. Esta normalización nos permite estimar el riesgo por edad de sufrir una enfermedad según la estructura de edad de la población general de un municipio, departamento o país en un año determinado.
+
+```{r}
+# Se filtran los datos del SIVIGILA para el año 2021.
+data_tolima_2021 <-  epi_data[lubridate::year(epi_data$fec_not) == 2021, ]
+
+# Se calcula las tasas por edades para el año 2021.
+incidence_rate_2019 <- age_risk(age = as.integer(data_tolima_2021$edad),
+                                population_pyramid = tolima_piramide_2021,
+                                gender = data_tolima_2021$sexo,
+                                plot = TRUE)
+```
+
+## Construir un canal endémico con **epiCo**
+
+El módulo de canal endémico de **epiCo** es una herramienta que permite estimar una línea de tendencia central y los límites superior e inferior del número esperado de casos de una enfermedad a partir de los datos históricos proporcionados por el usuario y un conjunto de parámetros personalizados.
+
+En el siguiente tutorial, los usuarios aprenderán:
+
+1.	Qué es un canal endémico y cuáles son sus ventajas, inconvenientes y precauciones.
+2.	Un ejemplo de los datos históricos necesarios para construir un canal endémico.
+3.	Cómo utilizar la función `endemic_channel`.
+
+### 1. ¿Qué es un canal endémico?
+
+El uso de un canal endémico es una estrategia visual para representar el comportamiento histórico de una enfermedad en una región específica en una curva epidémica que define la tendencia central de los casos durante un año y los límites superior e inferior donde se espera que varíen los casos. Este gráfico proporciona tres zonas denominadas "$\color{green}{\text{Safety - Seguridad}}$", "$\color{yellow}{\text{Warning -  Alerta}}$" y "$\color{red}{\text{Epidemic - Epidemia}}$", que posteriormente se utilizan para definir la situación epidemiológica de la región en función de los casos actuales.
+
+La definición más amplia y la metodología para el canal endémico fueron proporcionadas por [Bormant (1999)](https://iris.paho.org/handle/10665.2/8562).
+
+Los datos necesarios para construir un canal endémico son la incidencia semanal o mensual de la enfermedad durante los años anteriores en la región de interés. **epiCo** pide al menos un año de datos, pero los canales endémicos suelen tener entre *5 y 7 años de información*.
+Es natural suponer que más años proporcionan mejores estimaciones ya que los análisis estadísticos serán más robustos, pero es importante disponer de información contextual para asegurar que las condiciones de transmisión, vigilancia o demográficas (entre otros factores) no han cambiado durante este periodo de tiempo. En cuanto a la frecuencia de los datos, la incidencia semanal puede proporcionar información más útil sobre el comportamiento de la enfermedad y el momento en que se debe plantear una alerta epidemiológica; sin embargo, depende de la experiencia de los usuarios y de su contexto que se pueda lograr esta resolución de los datos.
+Otra decisión común mientras se construye un canal endémico es ignorar los años epidémicos anteriores para evitar tergiversar la dinámica de transmisión tradicional. **epiCo** no sugiere años epidémicos automáticamente, pero su función `endemic_channel` ofrece la opción de anotar los años atípicos y decidir si incluirlos, ignorarlos o ajustarlos. Más adelante en esta viñeta se ofrecen más consejos y fuentes para la recopilación de datos.
+
+### 2. Datos históricos necesarios para construir un canal endémico
+
+En esta sección se presentan algunas estrategias para obtener, manejar y recopilar los datos históricos necesarios para construir un canal endémico. Se asume que el usuario cuenta con los datos de incidencia de la enfermedad de interés o tiene la posibilidad de consultar datos históricos del SIVIGILA.
+
+Independientemente del caso del usuario, el objetivo de esta sección es crear un objeto `incidence` con datos históricos de la enfermedad. Este objeto debe dar cuenta de la incidencia de una sola región (no se permiten grupos en la función `endemic_channel`), debe tener un intervalo semanal o mensual (también se permiten semanas epidemiológicas) y debe representar al menos un año de información.
+
+Para comprender mejor el paquete de `incidence`, consulte sus [viñetas](https://www.repidemicsconsortium.org/incidence/).
+
+#### Incidencia histórica a partir de los datos propios o de los datos SIVIGILA
+
+El canal endémico es más útil cuando se dispone de datos hasta el año inmediatamente anterior; sin embargo, esto no siempre es posible para los usuarios ajenos a las instituciones de vigilancia. Como opción, los usuarios pueden acceder a los datos del SIVIGILA que normalmente se hacen públicos hasta el segundo semestre del año (es decir, los datos de 2022 se publicaron en el segundo semestre de 2023).
+Para este ejemplo se utilizarán los datos suministrados en la carpeta de datos del paquete. Estos datos presentan los casos de dengue para todos los municipios del Tolima para los años 2012 a 2021. En este caso, utilizaremos los casos del municipio de Espinal para calcular el respectivo canal endémico.
+
+```{r}
+# Se cargan las librerías necesarias.
+library(epiCo)
 library(incidence)
 
-# Calculamos los conteos de casos para cada una de las semanas epidemiológicas
-# de los distintos años.
-data_ibague <- epi_data[epi_data$cod_mun_o == 73001, ]
-incidence_tolima <- incidence(dates = data_ibague$fec_not,
-                              interval = '1 epiweek')
+#Se cargan los datos epidemiológicos del paquete.
+data("epi_data")
 
-# Visualizamos las primeras filas de los conteos obtenidos y sus fechas
-head(incidence_tolima$counts)
-head(incidence_tolima$dates)
+data_espinal <- epi_data[epi_data$cod_mun_o == 73268, ]
+
+# Se construyen el objeto incidence para el municipio del Espinal.
+incidencia_espinal <- incidence(data_espinal$fec_not,
+  interval = "1 epiweek"
+)
+
+# Se filtra el objeto incidence para obtener el historico de los 7 años 
+# anteriores al año de interes. En este caso el 2021.
+incidencia_historica <- incidencia_espinal[
+  incidencia_espinal$date <= as.Date("2020-12-31") &
+    incidencia_espinal$date >= as.Date("2014-01-01"), ]
+
+print(incidencia_historica)
 ```
 
-Ahora para generar el canal endémico del departamento se utiliza la función `endemic_channel` de **epiCo** el cual genera el canal endémico a partir del objeto incidence historico de casos para los años anteriores al que se quiere analizar. Para este caso que se quiere analizar el año 2021, se toma el historico de los años anteriores al 2021 y especificamos que años fueron hiper endémicos, como el caso del año 2019. Y posteriormente se le pasan las observaciones o conteos del año a analizar para observar cual fue el comportamiento de cada una de estas semanas en el año 2021, como se observa a continuación:
+Cuando los usuarios tienen sus propios datos, el objetivo es el mismo: limpiar y manejar los datos para construir el objeto `incidence` (llamado `incidencia_histórica` en el ejemplo anterior). El mensaje clave es que se necesita una lista de fechas que den cuenta del evento de interés para luego utilizarla en el paquete [`incidence`](https://www.repidemicsconsortium.org/incidence/).
+
+### 3. Uso de la función canal_endémico de **epico**
+
+Tras recopilar los datos de incidencia, los usuarios están listos para pedir a **epiCo** que construya un canal endémico.
+
+La función `endemic_channel` tiene los siguientes parámetros:
+
+- `incidence_historic`: Un objeto de incidencia con los recuentos de casos de los años anteriores.
+- `observations`: Un vector numérico con las observaciones actuales *(por defecto = NULL)*.
+- `method`: Una cadena con el método de cálculo de la media de preferencia ("`median`", "`mean`" o "`geometric`") o método "`unusual_behavior`" (Prueba de distribución de Poisson) *(por defecto = "geométrica")*.
+- `geom_method`: Una cadena con el método seleccionado para el cálculo de la media geométrica (véase la función `geom_mean` de **epiCo**) *(por defecto = "shifted")*.
+- `outlier_years`: Un vector numérico con los años atípicos (epidémicos) *(por defecto = NULL)*.
+- `outliers_handling`: Una cadena con la decisión de tratamiento de los años atípicos:
+
+    - ignored = los datos de los años atípicos no se tendrán en cuenta *(por defecto)*.
+    - included = se tendrán en cuenta los datos de los años atípicos.
+    - replaced_by_median = los datos de los años atípicos se sustituirán por la mediana y se tendrán en cuenta.
+    - replaced_by_mean = los datos de los años atípicos se sustituirán por la media y se tendrán en cuenta.
+    - replaced_by_geom_mean = los datos de los años atípicos se sustituirán por la media geométrica y se tendrán en cuenta.
+- `ci`: Un valor numérico para especificar el intervalo de confianza a utilizar con el método geométrico *(por defecto = 0.95)*.
+- `plot`: Un booleano para mostrar un gráfico *(por defecto = FALSE)*.
+
+La salida de la función `endemic_channel` de **epiCo** es una tabla de datos con las observaciones, la media histórica y los intervalos de confianza, y un gráfico que muestra las tres bandas epidemiológicas, las observaciones actuales (si se proporcionan) y los métodos y el manejo de valores atípicos establecidos por el usuario.
+
+#### Ejemplo
+
+El siguiente ejemplo utiliza la incidencia histórica a la que se ha accedido previamente desde la fuente de datos SIVIGILA para construir el canal endémico 2021 para el municipio del Espinal.
 
 ```{r}
-# Se toma el historico de casos previo al 2021 para construir el canal endémico
-incidence_historic <- incidence_tolima[
-    incidence_tolima$date <= as.Date("2020-12-31"), ]
-
-# Se toman el conteo de casos del 2021 como las observaciones
-observations <- incidence_tolima[
-  incidence_tolima$date >= as.Date("2021-01-01") &
-    incidence_tolima$date <= as.Date("2021-12-31"), ]$counts
+# Se toman el conteo de casos del 2020 como las observaciones.
+observaciones <- incidencia_espinal[
+  incidencia_espinal$date >= as.Date("2021-01-01") &
+    incidencia_espinal$date <= as.Date("2021-12-31"), ]$counts
 
 # Se especifican los años hiper endemicos que deben ser ignorados en la 
-# constucción del canal endémico
-outlier_years <- 2019
+# constucción del canal endémico.
+años_atipicos <- c(2016, 2019)
 
 # Se construye el canal endémico y se plotea el resultado.
-tolima_endemic_chanel <- endemic_channel(
-  incidence_historic = incidence_historic,
-  observations = observations,
-  outlier_years = outlier_years,
+espinal_endemic_chanel <- endemic_channel(
+  incidence_historic = incidencia_historica,
+  observations = observaciones,
+  outlier_years = años_atipicos,
   plot = TRUE
 )
 ```
 
-Para observar un ejemplo más detallado del canal endémico, puede dirigirse a la viñeta del paquete en el siguiente enlace: https://epiverse-trace.github.io/epiCo/articles/endemic_channel.html
+## Análisis espaciotemporales con **epico**
 
-Para realizar una autocorrelación espacial se utiliza la función `index_moran` del paquete **epiCo** que requiere de un conteo de casos de clase incidence separado por cada uno de los municipios presentes en el departamento como se muestra en el siguiente código:
+El módulo *espaciotemporal* de **epico** es una herramienta que permite analizar la correlación espacial de los casos a partir de sus coordenadas de notificación y los tiempos reales de desplazamiento dentro del territorio colombiano.
+
+En el siguiente tutorial aprenderás:
+
+1.	A utilizar la función `morans_index` de **epico**.
+2.	Cómo interpretar y comunicar los resultados.
+
+### 1. La función `morans_index` de **epico**
+
+**epiCo** proporciona una función para realizar un análisis del [índice de Moran Local](https://r-spatial.github.io/spdep/reference/moran.plot.html) a partir de un objeto `incidence` con observaciones únicas para un conjunto de municipios colombianos.
+
+Internamente, la función lee los grupos del objeto `incidence` como los códigos DIVIPOLA para:
+
+1.	Estimar las tasas de incidencia utilizando la función `incidence_rate` de **epico**.
+2.	Evaluarlas en la función `neighborhoods` de **epico**.
+
+Es necesario que el usuario proporcione el nivel administrativo al que corresponden los grupos (0: nivel nacional, 1: nivel departamental, 2: nivel municipal), la escala a la que se deben estimar las tasas de incidencia (casos por número de habitantes) y el umbral de tiempo de viaje para la definición del barrio.
+En el siguiente ejemplo se utilizan los casos de los municipios del Tolima para el año 2021.
 
 ```{r}
-# Se filtra el año de interes en los datos originales
-data_tolima_2021 <- epi_data[lubridate::year(epi_data$fec_not) == 2021, ]
+# Se cargan las librerías necesarias.
+library(epiCo)
+library(incidence)
 
-# Se crea el objeto incidence teniendo en cuenta el municipio de origen de los 
-# casos
-incidence_tolima_2021 <- incidence(dates = data_tolima_2021$fec_not,
-                                   interval = '12 months',
-                                   groups = data_tolima_2021$cod_mun_o)
+data("epi_data")
 
-# Se calcula el indice de moran para los municipios y se muestran los resultados
-# junto con su respectivo mapa
-monrans_tolima <- morans_index(incidence_object = incidence_tolima_2021,
-                               level = 2)
+# Se filtran los datos epidemiológicos para el año de interés.
+data_tolima <- epi_data[lubridate::year(epi_data$fec_not) == 2021, ]
+
+# Se crea el objeto incidence para los datos del tolima en el 2021.
+incidence_object <- incidence(
+  dates = data_tolima$fec_not,
+  groups = data_tolima$cod_mun_o,
+  interval = "12 months"
+)
+
+# Se realiza el analisis espaciotemporal, especificando la escala de nivel 
+# municipal
+monrans_tolima <- morans_index(incidence_object = incidence_object, level = 2)
 monrans_tolima$leaflet_map
 ```
 
-Para observar un ejemplo más detallado del modulo espaciotemporal, puede dirigirse a la viñeta del paquete en el siguiente enlace: https://epiverse-trace.github.io/epiCo/articles/spatiotemporal_vignette.html
 
-## Reflexión (Sección 5)
+### 2. Interpretación de los resultados del mapa
 
+El metodo del indice de moran local divide los datos espaciales en 4 cuadrantes:
+
+-	High-High: donde se ubican los municipios cuya incidencia está sobre la media de la región, y se encuentran rodeados de municipios que también se encuentran sobre la media de la región.
+-	Low-High: municipios cuya incidencia está debajo de la media de la región, y se encuentran rodeados de municipios que se encuentran sobre la media de la región. Este cuadrante marca municipios candidatos a ser casos atípicos espaciales.
+-	Low-Low: municipios cuya incidencia está debajo de la media de la región, y se encuentran rodeados de municipios que se encuentran debajo de la media media de la región.
+-	High-Low, municipios cuya incidencia está sobre la media de la región, y se encuentran rodeados de municipios que se encuentran debajo de la media de la región. Este cuadrante marca municipios candidatos a ser casos atípicos espaciales.
+
+***
+
+## Reto
 
 [Reto](https://docs.google.com/document/d/1HLUTZzEA5-8BjjeK6vByLnO9D2W0VhRK/edit?usp=sharing&ouid=108718106243006326200&rtpof=true&sd=true)
 ***
@@ -241,15 +342,12 @@ Para observar un ejemplo más detallado del modulo espaciotemporal, puede dirigi
 
 Revise si al final de esta lección adquirió estas competencias:
 
-
-- Analizar datos de incidencia por grupos de edad en años endémicos. 
-
-- Evaluar la distribución de ocupaciones y su relación con el riesgo. 
-
-- Realizar un canal endémico e identificar semanas críticas. 
-
-- Estratificar el riesgo espacialmente y señalar municipios de alta incidencia. 
-
+1.	Navegar por la codificación de la División Política Administrativa de Colombia (DIVIPOLA).
+2.	Consultar, visualizar e interpretar pirámides poblacionales a distintas escalas administrativas.
+3.	Familiarizarse con la información epidemiológica proporcionada por el SIVIGILA.
+4.	Describir las características demográficas de la información epidemiológica.
+5.	Estimar tasas de incidencia acumulada a distintas escalas espaciales y temporales.
+6.	Realizar una evaluación del riesgo etario integrando información epidemiológica con información sobre la estructura poblacional de una región.
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
@@ -259,7 +357,9 @@ Este documento ha sido diseñado por Juan Daniel Umaña Caro y Juan Montenegro-T
 
 #### Contribuciones
 
-- Juan Daniel Umaña Caro
-- Juan Montenegro-Torres
-
-
+  - [Juan D. Umaña](https://github.com/juan-umana) (author)
+  - [Juan Montenegro-Torres](https://github.com/Juanmontenegro99) (author)
+  - [Julian Otero](https://github.com/jd-otero) (author)
+  - [Mauricio Santos-Vega](https://github.com/mauricio110785) (contributor)
+  - [Catalina Gonzalez Uribe](mailto:cgonzalez@uniandes.edu.co) (contributor)
+  - [Juan Manuel Cordovez](mailto:jucordov@uniandes.edu.co) (contributor)
