@@ -206,6 +206,7 @@
 <li><a href="#conceptos-b%C3%A1sicos-a-desarrollar">Conceptos básicos a desarrollar</a></li>
 <li><a href="#contenido-del-taller">Contenido del taller</a></li>
 <li><a href="#reflexi%C3%B3n">Reflexión</a></li>
+<li><a href="#desafio">Desafio</a></li>
         </ul></div><!--/div.accordion-body-->
     </div><!--/div.accordion-collapse-->
         
@@ -356,12 +357,13 @@ tecnología y la calidad del acceso a internet en algunas regiones de
 Colombia.</p>
 </section><section id="objetivos"><h2 class="section-heading">Objetivos<a class="anchor" aria-label="anchor" href="#objetivos"></a>
 </h2>
-<hr class="half-width"><ul><li><p>Conocer el paquete <code>sivirep</code></p></li>
-<li><p>Identificar las funcionalidades principales de
-<code>sivirep</code> para generar un reporte básico.</p></li>
-<li><p>Hacer uso de <code>sivirep</code> para el análisis de una de las
+<hr class="half-width"><ul><li>Conocer el paquete <code>sivirep</code>
+</li>
+<li>Identificar las funcionalidades principales de <code>sivirep</code>
+para generar un reporte básico.</li>
+<li>Hacer uso de <code>sivirep</code> para el análisis de una de las
 enfermedades con mayor impacto en la región, como herramienta para la
-toma de decisiones y análisis.</p></li>
+toma de decisiones y análisis.</li>
 </ul></section><section id="conceptos-básicos-a-desarrollar"><h2 class="section-heading">Conceptos básicos a desarrollar<a class="anchor" aria-label="anchor" href="#conceptos-b%C3%A1sicos-a-desarrollar"></a>
 </h2>
 <hr class="half-width"><p>En esta práctica se desarrollarán los siguientes conceptos:</p>
@@ -383,8 +385,10 @@ base de datos.</p></li>
 <li><p>Evento: Conjunto de sucesos o circunstancias que pueden modificar
 o incidir en la situación de salud de una comunidad.</p></li>
 <li><p>Incidencia: Es la cantidad de casos nuevos de un evento o una
-enfermedad que se presenta durante un período de tiempo específico. En
-Colombia varia su calculo dependiendo del evento o enfermedad.</p></li>
+enfermedad que se presenta durante un período de tiempo específico.
+Usualmente, se presentá como el número de casos por población a riesgo,
+y por ello el denominador podría variar dependiendo del evento o
+enfermedad.</p></li>
 <li><p>Departamento: En Colombia, existen 32 unidades geográficas
 administrativas (adm1) llamadas departamentos.</p></li>
 <li><p>Municipio: Corresponden al segundo nivel de división
@@ -397,19 +401,25 @@ SIVIGILA.</p></li>
 <hr class="half-width"><p>Ha llegado el momento de explorar <code>sivirep</code>, de conocer
 cómo generar reportes automatizados con el paquete y sus funcionalidades
 principales.</p>
-<p>El evento que analizaremos es la Malaria en el departamento del Cauca
-para el año 2022, ya que ha sido una de las regiones más afectadas en
-Colombia a lo largo del tiempo por esta enfermedad.</p>
-<p>Iniciaremos importando el paquete a través del siguiente comando:</p>
+<p>El evento que analizaremos es <strong>Dengue</strong> en el
+departamento del <strong>Cauca</strong> para el año
+<strong>2022</strong>, ya que ha sido una de las regiones más afectadas
+en Colombia a lo largo del tiempo por esta enfermedad.</p>
+<p>Iniciaremos instalando e importando el paquete a través de los
+siguientes comandos:</p>
 <div class="codewrapper sourceCode" id="cb1">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw">library</span><span class="op">(</span><span class="va">sivirep</span><span class="op">)</span></span></code></pre>
+<code class="sourceCode R"><span><span class="fu">remove.packages</span><span class="op">(</span><span class="st">"sivirep"</span><span class="op">)</span></span>
+<span><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="kw">require</span><span class="op">(</span><span class="st">"pak"</span><span class="op">)</span><span class="op">)</span> <span class="fu">install.packages</span><span class="op">(</span><span class="st">"pak"</span><span class="op">)</span></span>
+<span><span class="fu">pak</span><span class="fu">::</span><span class="fu">pak</span><span class="op">(</span><span class="st">"epiverse-trace/sivirep"</span><span class="op">)</span> <span class="co"># Comando para instalar sivirep</span></span>
+<span><span class="fu">rm</span><span class="op">(</span>list <span class="op">=</span> <span class="fu">ls</span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="co"># Comando para limpiar el ambiente de R</span></span>
+<span><span class="kw">library</span><span class="op">(</span><span class="va">sivirep</span><span class="op">)</span> <span class="co"># Comando para importar sivirep</span></span></code></pre>
 </div>
-<p>Verifica que el evento o enfermedad se encuentren disponibles para su
-descarga en la lista que provee <code>sivirep</code>, la cual puedes
-obtener ejecutando el siguiente comando:</p>
+<p>Verificar que el evento o enfermedad se encuentren disponibles para
+su descarga en la lista que provee <code>sivirep</code>, la cual se
+puede obtener ejecutando el siguiente comando:</p>
 <div class="section level3">
 <h3 id="reporte-automatizado">Reporte automatizado<a class="anchor" aria-label="anchor" href="#reporte-automatizado"></a></h3>
 <p>Ahora generaremos un reporte automatizado a partir de la plantilla
@@ -420,20 +430,23 @@ departamento (opcional) y nombre del municipio (opcional) para descargar
 los datos de la fuente de SIVIGILA.</p>
 <p>Para hacer uso de la plantilla se deben seguir los siguientes
 pasos:</p>
-<ol style="list-style-type: decimal"><li>En RStudio hacer click <em>‘File/New File/R’</em> Markdown:</li>
-</ol><figure><img src="https://github.com/epiverse-trace/sivirep/raw/main/man/figures/file_rmarkdown.png" class="rmarkdown-img figure mx-auto d-block" style="margin-left: 2.8em; margin-top: 0.8em; margin-bottom: 0.8em;" align="center" width="560"></figure><ol start="2" style="list-style-type: decimal"><li>Selecciona la opción del panel izquierdo: <em>‘From Template’</em>,
-después haz clic en el template llamado
+<ol style="list-style-type: decimal"><li>En RStudio hacer click <strong>‘File/New File/R’</strong>
+Markdown:</li>
+</ol><figure><img src="https://github.com/epiverse-trace/sivirep/raw/main/man/figures/file_rmarkdown.png" class="rmarkdown-img figure mx-auto d-block" style="margin-left: 2.8em; margin-top: 0.8em; margin-bottom: 0.8em;" align="center" width="560"></figure><ol start="2" style="list-style-type: decimal"><li>Selecciona la opción del panel izquierdo: <strong>‘From
+Template’</strong>, después haz clic en el template llamado
 <code>Reporte Básico {sivirep}</code>, indica el nombre que deseas para
 el reporte (i.e. Reporte_Laura), la ubicación donde deseas guardarlo y
-presiona <em>‘Ok’</em>.</li>
-</ol><figure><img src="https://github.com/epiverse-trace/sivirep/raw/main/man/figures/reporte_basico.png" class="rmarkdown-img figure mx-auto d-block" style="margin-left: 2.8em; margin-top: 0.8em; margin-bottom: 0.8em;" align="center" width="520"></figure><ol start="3" style="list-style-type: decimal"><li>Dirigite a la parte superior de <em>‘RStudio’</em>, presiona el
-botón <em>‘Knit’</em>, despliega las opciones y selecciona <em>‘Knit
-with parameters’</em>. A continuación, aparecerá una pantalla donde
-podrás indicar el nombre de la enfermedad o evento, el año y el
-departamento del reporte. Esta acción descargará los datos deseados y
-también proporcionará la plantilla en un archivo R Markdown (.Rmd).</li>
-</ol><figure><img src="https://github.com/epiverse-trace/sivirep/raw/main/man/figures/button_knit.png" class="rmarkdown-img figure mx-auto d-block" style="margin-left: 2.8em; margin-top: 0.8em; margin-bottom: 0.8em;" align="center" width="560"></figure><ol start="4" style="list-style-type: decimal"><li>Espera unos segundos mientras el informe se genera en un archivo
-PDF.</li>
+presiona <strong>‘Ok’</strong>.</li>
+</ol><figure><img src="https://github.com/epiverse-trace/sivirep/raw/main/man/figures/reporte_basico.png" class="rmarkdown-img figure mx-auto d-block" style="margin-left: 2.8em; margin-top: 0.8em; margin-bottom: 0.8em;" align="center" width="520"></figure><ol start="3" style="list-style-type: decimal"><li>En la parte superior de **‘RStudio’*, presiona el botón
+<strong>‘Knit’</strong>, despliega las opciones y selecciona
+<strong>‘Knit with parameters’</strong>.</li>
+</ol><figure><img src="https://github.com/epiverse-trace/sivirep/raw/main/man/figures/button_knit.png" class="rmarkdown-img figure mx-auto d-block" style="margin-left: 2.8em; margin-top: 0.8em; margin-bottom: 0.8em;" align="center" width="560"></figure><ol start="4" style="list-style-type: decimal"><li>A continuación, aparecerá una pantalla donde podrás indicar el
+nombre de la enfermedad o evento, el año y el departamento del reporte.
+Esta acción descargará los datos deseados y también proporcionará la
+plantilla en un archivo R Markdown (.Rmd), al hacer clic en el botón
+<strong>‘Knit’</strong>.</li>
+</ol><figure><img src=".././reference/figures/params_knit.png" class="rmarkdown-img figure mx-auto d-block" style="margin-left: 2.8em; margin-top: 0.8em; margin-bottom: 0.8em;" align="center" width="560"></figure><ol start="5" style="list-style-type: decimal"><li>Espera unos segundos mientras el informe se genera en un archivo
+HTML.</li>
 </ol><p><strong>!Felicitaciones has generado tu primer reporte automatizado
 con sivirep!</strong></p>
 </div>
@@ -442,25 +455,38 @@ con sivirep!</strong></p>
 <p>Para conocer las funciones principales del paquete realizaremos una
 actividad exploratoria siguiendo el flujo de datos de
 <code>sivirep</code>.</p>
-<p>Construiremos un informe en R Markdown (no se debe utilizar la
-plantilla de reporte vista en la sección anterior) que de respuesta a
-las siguientes preguntas:</p>
+<p>Construiremos un informe en R Markdown para Dengue, departamento del
+Cauca, año 2022 (no se debe utilizar la plantilla de reporte vista en la
+sección anterior) que de respuesta a las siguientes preguntas:</p>
 <ol style="list-style-type: decimal"><li>¿Cómo es la distribución por sexo y semana epidemiológica de la
-enfermedad asignada?</li>
-<li>¿Esta distribución sugiere que la enfermedad asignada afecta más a
-un sexo o a otro? ¿sí, no y por qué?</li>
+enfermedad?</li>
+<li>¿Esta distribución sugiere que la enfermedad afecta más a un sexo o
+a otro? ¿sí, no y por qué?</li>
 <li>¿Cómo afecta la enfermedad los distintos grupos etarios?</li>
 <li>¿Cuál es el municipio que más se ve afectado por la enfermedad en la
 región?</li>
 </ol></div>
 <div class="section level3">
-<h3 id="exploración-de-la-base-de-datos">1. Exploración de la base de datos<a class="anchor" aria-label="anchor" href="#exploraci%C3%B3n-de-la-base-de-datos"></a></h3>
-<p>Te recomendamos iniciar explorando la base de datos, sus variables,
-tipos de datos, registros y otras caracteristicas que pueden ser
-relavantes para su análisis y permitan responder correctamente a las
-preguntas planteadas en la actividad.</p>
-<p>Si tienes alguna duda respecto a las variables o desconoces su
-significado puedes dirigite al diccionario de datos del SIVIGILA.</p>
+<h3 id="preparación-y-configuración-del-documento-r-markdown">1. Preparación y configuración del documento R Markdown<a class="anchor" aria-label="anchor" href="#preparaci%C3%B3n-y-configuraci%C3%B3n-del-documento-r-markdown"></a></h3>
+<p>Realizaremos la configuración y preparación del documento en R
+Markdown a través de los siguientes pasos:</p>
+<ol style="list-style-type: decimal"><li>Crear un documento en R Mardown vacio:</li>
+<li>Insertar un chunk en el documento con las siguientes opciones de
+configuración:</li>
+</ol><div class="codewrapper sourceCode" id="cb2">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">knitr</span><span class="fu">::</span><span class="va">opts_chunk</span><span class="op">$</span><span class="fu">set</span><span class="op">(</span></span>
+<span>  collapse <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  comment <span class="op">=</span> <span class="st">"#&gt;"</span>,</span>
+<span>  fig.path <span class="op">=</span> <span class="st">"figures/"</span>,</span>
+<span>  include <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>    error <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  warning <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  message <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span><span class="op">)</span></span></code></pre>
+</div>
 </div>
 <div class="section level3">
 <h3 id="importación-de-datos-de-sivigila">2. Importación de datos de SIVIGILA<a class="anchor" aria-label="anchor" href="#importaci%C3%B3n-de-datos-de-sivigila"></a></h3>
@@ -468,16 +494,26 @@ significado puedes dirigite al diccionario de datos del SIVIGILA.</p>
 utilizando la función <code>import_data_event</code> la cual permite
 descargar los datos desde la fuente de SIVIGILA utilizando un formato
 parametrizado basado en el nombre del evento y el año.</p>
-<div class="codewrapper sourceCode" id="cb2">
+<div class="codewrapper sourceCode" id="cb3">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">data_event</span> <span class="op">&lt;-</span>  <span class="fu">import_data_event</span><span class="op">(</span>year <span class="op">=</span> <span class="fl">2022</span>,</span>
-<span>                                 nombre_event <span class="op">=</span> <span class="st">"Malaria"</span><span class="op">)</span></span></code></pre>
+<code class="sourceCode R"><span><span class="va">data_dengue</span> <span class="op">&lt;-</span>  <span class="fu">import_data_event</span><span class="op">(</span>nombre_event <span class="op">=</span> <span class="st">"dengue"</span>,</span>
+<span>                                  year <span class="op">=</span> <span class="fl">2022</span><span class="op">)</span></span></code></pre>
 </div>
 </div>
 <div class="section level3">
-<h3 id="limpieza-de-datos-de-sivigila">3. Limpieza de datos de SIVIGILA<a class="anchor" aria-label="anchor" href="#limpieza-de-datos-de-sivigila"></a></h3>
+<h3 id="exploración-de-la-base-de-datos">3. Exploración de la base de datos<a class="anchor" aria-label="anchor" href="#exploraci%C3%B3n-de-la-base-de-datos"></a></h3>
+<p>Recomendamos explorar la base de datos, sus variables, tipos de
+datos, registros y otras caracteristicas que pueden ser relavantes para
+su análisis y permitan responder correctamente a las preguntas
+planteadas en la actividad.</p>
+<p>Si tiene alguna duda respecto a las variables o desconoce su
+significado puede dirigirse al <a href="https://www.dssa.gov.co/images/documentos/sivigila2017/Anexo%202%20Diccionario%20datos.pdf" class="external-link">diccionario
+de datos del SIVIGILA</a>.</p>
+</div>
+<div class="section level3">
+<h3 id="limpieza-de-datos-de-sivigila">4. Limpieza de datos de SIVIGILA<a class="anchor" aria-label="anchor" href="#limpieza-de-datos-de-sivigila"></a></h3>
 <p>Para limpiar los datos utilizaremos una función genérica que
 proporciona <code>sivirep</code> llamada
 <code>limpiar_data_sivigila</code>, la cual envuelve diversas tareas
@@ -488,43 +524,45 @@ reemplazo de valores faltantes y la validación de datos, entre otras
 tareas, como eliminar fechas improbables, limpiar códigos de
 geolocalización y estandarizar los nombres de las columnas y las
 categorías de edad.</p>
-<div class="codewrapper sourceCode" id="cb3">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">data_event_limp</span> <span class="op">&lt;-</span> <span class="fu">limpiar_data_sivigila</span><span class="op">(</span>data_event <span class="op">=</span> <span class="va">data_event</span>, year <span class="op">=</span> <span class="fl">2022</span><span class="op">)</span></span></code></pre>
-</div>
-</div>
-<div class="section level3">
-<h3 id="filtrar-casos">4. Filtrar casos<a class="anchor" aria-label="anchor" href="#filtrar-casos"></a></h3>
-<p>Ahora debemos filtrar los datos del evento o enfermedad por el
-departamento de <code>Cundinamarca</code>, utilizando la función de
-<code>sivirep</code> llamada <code>geo_filtro</code>. Esta función
-permite al usuario crear informes a nivel subnacional, seleccionando
-casos específicos basados en la ubicación geográfica.</p>
 <div class="codewrapper sourceCode" id="cb4">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">data_event_filtrada</span> <span class="op">&lt;-</span> <span class="fu">geo_filtro</span><span class="op">(</span>data_event <span class="op">=</span> <span class="va">data_event_limp</span>,</span>
-<span>                                  nombre_dpto <span class="op">=</span> <span class="st">"Cauca"</span><span class="op">)</span></span></code></pre>
+<code class="sourceCode R"><span><span class="va">data_limpia</span> <span class="op">&lt;-</span> <span class="fu">limpiar_data_sivigila</span><span class="op">(</span>data_event <span class="op">=</span> <span class="va">data_dengue</span><span class="op">)</span></span>
+<span><span class="va">data_limpia</span></span></code></pre>
 </div>
 </div>
 <div class="section level3">
-<h3 id="variable-de-sexo">5. Variable de sexo<a class="anchor" aria-label="anchor" href="#variable-de-sexo"></a></h3>
-<p><code>sivirep</code> proporciona una función que agrega y calcula
-automáticamente los porcentajes por sexo después del proceso de
-limpieza.</p>
+<h3 id="filtrar-casos">5. Filtrar casos<a class="anchor" aria-label="anchor" href="#filtrar-casos"></a></h3>
+<p>Ahora debemos filtrar los datos del evento o enfermedad por el
+departamento de <code>Cauca</code>, utilizando la función de
+<code>sivirep</code> llamada <code>geo_filtro</code>. Esta función
+permite al usuario crear informes a nivel subnacional, seleccionando
+casos específicos basados en la ubicación geográfica.</p>
 <div class="codewrapper sourceCode" id="cb5">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">casos_sex</span> <span class="op">&lt;-</span> <span class="fu">agrupar_sex</span><span class="op">(</span>data_event <span class="op">=</span> <span class="va">data_event_limp</span>,</span>
-<span>                         porcentaje <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre>
+<code class="sourceCode R"><span><span class="va">data_filtrada</span> <span class="op">&lt;-</span> <span class="fu">geo_filtro</span><span class="op">(</span>data_event <span class="op">=</span> <span class="va">data_limpia</span>, dpto <span class="op">=</span> <span class="st">"Cauca"</span><span class="op">)</span></span>
+<span><span class="va">data_filtrada</span></span></code></pre>
+</div>
+</div>
+<div class="section level3">
+<h3 id="variable-de-sexo">6. Variable de sexo<a class="anchor" aria-label="anchor" href="#variable-de-sexo"></a></h3>
+<p>Agruparemos los datos de la enfermedad por la variable sexo para
+poder visualizar su distribución y obtener los porcentajes a través de
+la función que proporciona <code>sivirep</code>:</p>
+<div class="codewrapper sourceCode" id="cb6">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">casos_sex</span> <span class="op">&lt;-</span> <span class="fu">agrupar_sex</span><span class="op">(</span>data_event <span class="op">=</span> <span class="va">data_filtrada</span>,</span>
+<span>                         porcentaje <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="va">casos_sex</span></span></code></pre>
 </div>
 <p>Además, <code>sivirep</code> cuenta con una función para generar el
 gráfico por esta variable llamada <code>plot_sex</code>:</p>
-<div class="codewrapper sourceCode" id="cb6">
+<div class="codewrapper sourceCode" id="cb7">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -533,17 +571,18 @@ gráfico por esta variable llamada <code>plot_sex</code>:</p>
 <p>La distribución de casos por sexo y semana epidemiológica se puede
 generar utilizando la función <code>agrupar_sex_semanaepi</code>
 proporcionada por <code>sivirep</code>.</p>
-<div class="codewrapper sourceCode" id="cb7">
+<div class="codewrapper sourceCode" id="cb8">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">casos_sex_semanaepi</span> <span class="op">&lt;-</span> <span class="fu">agrupar_sex_semanaepi</span><span class="op">(</span>data_event <span class="op">=</span> <span class="va">data_event_limp</span><span class="op">)</span></span></code></pre>
+<code class="sourceCode R"><span><span class="va">casos_sex_semanaepi</span> <span class="op">&lt;-</span> <span class="fu">agrupar_sex_semanaepi</span><span class="op">(</span>data_event <span class="op">=</span> <span class="va">data_filtrada</span><span class="op">)</span></span>
+<span><span class="va">casos_sex_semanaepi</span></span></code></pre>
 </div>
 <p>La función de visualización correspondiente es
 <code>plot_sex_semanaepi</code>, que <code>sivirep</code> proporciona
 para mostrar la distribución de casos por sexo y semana
 epidemiológica.</p>
-<div class="codewrapper sourceCode" id="cb8">
+<div class="codewrapper sourceCode" id="cb9">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -551,20 +590,21 @@ epidemiológica.</p>
 </div>
 </div>
 <div class="section level3">
-<h3 id="variable-de-edad">6. Variable de edad<a class="anchor" aria-label="anchor" href="#variable-de-edad"></a></h3>
+<h3 id="variable-de-edad">7. Variable de edad<a class="anchor" aria-label="anchor" href="#variable-de-edad"></a></h3>
 <p><code>sivirep</code> proporciona una función llamada
 <code>agrupar_edad</code>, que puede agrupar los datos de enfermedades
 por grupos de edad. De forma predeterminada, esta función produce rangos
 de edad con intervalos de 10 años.</p>
-<div class="codewrapper sourceCode" id="cb9">
+<div class="codewrapper sourceCode" id="cb10">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">casos_edad</span> <span class="op">&lt;-</span> <span class="fu">agrupar_edad</span><span class="op">(</span>data_event <span class="op">=</span> <span class="va">data_event_limp</span>, interval_edad <span class="op">=</span> <span class="fl">10</span><span class="op">)</span></span></code></pre>
+<code class="sourceCode R"><span><span class="va">casos_edad</span> <span class="op">&lt;-</span> <span class="fu">agrupar_edad</span><span class="op">(</span>data_event <span class="op">=</span> <span class="va">data_limpia</span>, interval_edad <span class="op">=</span> <span class="fl">10</span><span class="op">)</span></span>
+<span><span class="va">casos_edad</span></span></code></pre>
 </div>
 <p>La función de visualización correspondiente es
 <code>plot_edad</code>.</p>
-<div class="codewrapper sourceCode" id="cb10">
+<div class="codewrapper sourceCode" id="cb11">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -572,38 +612,39 @@ de edad con intervalos de 10 años.</p>
 </div>
 </div>
 <div class="section level3">
-<h3 id="distribución-espacial-de-casos">7. Distribución espacial de casos<a class="anchor" aria-label="anchor" href="#distribuci%C3%B3n-espacial-de-casos"></a></h3>
+<h3 id="distribución-espacial-de-casos">8. Distribución espacial de casos<a class="anchor" aria-label="anchor" href="#distribuci%C3%B3n-espacial-de-casos"></a></h3>
 <p>Obtener la distribución espacial de los casos es útil para
 identificar áreas con una alta concentración de casos, agrupaciones de
 enfermedades y factores de riesgo ambientales o sociales.</p>
 <p>En Colombia, existen 32 unidades geográficas administrativas (adm1)
 llamadas departamentos. <code>sivirep</code> proporciona una función
-llamada <code>agrupar_mun</code> que permite obtener un data.frame de
+llamada <code>agrupar_mpio</code> que permite obtener un data.frame de
 casos agrupados por departamento o municipio.</p>
-<div class="codewrapper sourceCode" id="cb11">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">dist_esp_dept</span> <span class="op">&lt;-</span> <span class="fu">agrupar_mun</span><span class="op">(</span>data_event <span class="op">=</span> <span class="va">data_event_filtrada</span>,</span>
-<span>                             dept_nombre <span class="op">=</span> <span class="st">"Cauca"</span><span class="op">)</span></span></code></pre>
-</div>
-<p>Con la función llamada <code>plot_map</code>, podremos generar un
-mapa estático que muestra la distribución de casos por municipios.</p>
 <div class="codewrapper sourceCode" id="cb12">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">mapa</span> <span class="op">&lt;-</span> <span class="fu">plot_map</span><span class="op">(</span>data_agrupada <span class="op">=</span> <span class="va">dist_esp_dept</span>, dpto <span class="op">=</span> <span class="st">"Cauca"</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">dist_esp_dept</span> <span class="op">&lt;-</span> <span class="fu">agrupar_mpio</span><span class="op">(</span>data_event <span class="op">=</span> <span class="va">data_filtrada</span><span class="op">)</span></span>
+<span><span class="va">dist_esp_dept</span></span></code></pre>
+</div>
+<p>Con la función llamada <code>plot_map</code>, podremos generar un
+mapa estático que muestra la distribución de casos por municipios.</p>
+<div class="codewrapper sourceCode" id="cb13">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">mapa</span> <span class="op">&lt;-</span> <span class="fu">plot_map</span><span class="op">(</span>data_agrupada <span class="op">=</span> <span class="va">dist_esp_dept</span><span class="op">)</span></span>
 <span><span class="va">mapa</span></span></code></pre>
 </div>
 </div>
 <div class="section level3">
-<h3 id="análisis-de-resultados">8. Análisis de resultados<a class="anchor" aria-label="anchor" href="#an%C3%A1lisis-de-resultados"></a></h3>
-<p>Analiza los resultados obtenidos en la ejecución de las funciones,
+<h3 id="análisis-de-resultados">9. Análisis de resultados<a class="anchor" aria-label="anchor" href="#an%C3%A1lisis-de-resultados"></a></h3>
+<p>Analiza los resultados obtenidos en la ejecución de las funciones y
 responde las preguntas planteadas en el enunciado de la actividad
-exploratoria. Dentro del R Markdown desarrolla las conclusiones
-pertinentes a la enfermedad teniendo en cuenta el contexto de la región
-y las estrategias que podrían contribuir a su mitigación.</p>
+exploratoria.</p>
+<p>Dentro del R Markdown desarrolla dos (2) conclusiones pertinentes a
+la enfermedad teniendo en cuenta el contexto de la región y las
+estrategias que podrían contribuir a su mitigación.</p>
 </div>
 </section><section id="reflexión"><h2 class="section-heading">Reflexión<a class="anchor" aria-label="anchor" href="#reflexi%C3%B3n"></a>
 </h2>
@@ -611,36 +652,32 @@ y las estrategias que podrían contribuir a su mitigación.</p>
 disponibilidad de los datos y el impacto que esto tiene en la
 construcción de análisis y en las acciones que se pueden emprender para
 mitigar el efecto de esta enfermedad sobre la población.</p>
-<p>Las conclusiones de esta discusión deberán escribirlas en una
-cartelera y socializarlas con los demás grupos.</p>
-<p><a href="https://docs.google.com/document/d/1_79eyXHTaQSPSvUzlikx9DKpBvICaiqy/edit?usp=sharing&amp;ouid=108718106243006326200&amp;rtpof=true&amp;sd=true" class="external-link">Reto</a>
-***</p>
-<div id="keypoints1" class="callout keypoints">
-<div class="callout-square">
-<i class="callout-icon" data-feather="key"></i>
-</div>
-<div class="callout-inner">
-<h3 class="callout-title">Puntos Clave<a class="anchor" aria-label="anchor" href="#keypoints1"></a>
-</h3>
-<div class="callout-content">
-<p>Revise si al final de esta lección adquirió estas competencias:</p>
-<ul><li><p>Conocer el paquete <code>sivirep</code></p></li>
-<li><p>Identificar las funcionalidades principales de
-<code>sivirep</code> para generar un reporte básico.</p></li>
-<li><p>Hacer uso de <code>sivirep</code> para el análisis de una de las
-enfermedades con mayor impacto en la región, como herramienta para la
-toma de decisiones y análisis.</p></li>
-</ul></div>
-</div>
-</div>
-<div class="section level3">
+</section><section id="desafio"><h2 class="section-heading">Desafio<a class="anchor" aria-label="anchor" href="#desafio"></a>
+</h2>
+<hr class="half-width"><p>En el siguiente enlace podrán encontrar el desafío que debérán
+desarrollar con <code>sivirep</code>: - <a href="https://docs.google.com/document/d/1_79eyXHTaQSPSvUzlikx9DKpBvICaiqy/edit?usp=sharing&amp;ouid=113064166206309718856&amp;rtpof=true&amp;sd=true" class="external-link uri">https://docs.google.com/document/d/1_79eyXHTaQSPSvUzlikx9DKpBvICaiqy/edit?usp=sharing&amp;ouid=113064166206309718856&amp;rtpof=true&amp;sd=true</a></p>
+<hr><div class="section level3">
 <h3 id="sobre-este-documento">Sobre este documento<a class="anchor" aria-label="anchor" href="#sobre-este-documento"></a></h3>
 <p>Este documento ha sido diseñado por Geraldine Gómez Millán para el
 Curso Internacional: Análisis de Brotes y Modelamiento en Salud Pública,
 Bogotá 2023. TRACE-LAC/Javeriana.</p>
 <div class="section level4">
+<h4 id="recursos">Recursos<a class="anchor" aria-label="anchor" href="#recursos"></a></h4>
+<ul><li><a href="https://www.canva.com/design/DAFzKDqZT0E/uwZABHMIn14qq_LT9uSKEA/edit?utm_content=DAFzKDqZT0E&amp;utm_campaign=designshare&amp;utm_medium=link2&amp;utm_source=sharebutton" class="external-link">Presentación
+del taller</a></li>
+<li><a href="https://forms.office.com/r/bRpPuAh8hF?origin=lprLink" class="external-link">Encuesta</a></li>
+<li><a href="https://epiverse-trace.github.io/sivirep/" class="external-link">Página de
+sivirep</a></li>
+<li><a href="https://epiverse-trace.github.io/sivirep/reference/index.html" class="external-link">Documentación
+de las funciones de sivirep</a></li>
+<li><a href="https://github.com/epiverse-trace/sivirep" class="external-link">Repositorio de
+sivirep</a></li>
+</ul></div>
+<div class="section level4">
 <h4 id="contribuciones">Contribuciones<a class="anchor" aria-label="anchor" href="#contribuciones"></a></h4>
 <ul><li>Geraldine Gómez Millán</li>
+<li>Jaime Pavlich-Mariscal</li>
+<li>Andrés Moreno</li>
 </ul><!-- 
 Place links that you need to refer to multiple times across pages here. Delete
 any links that you are not going to use. 
