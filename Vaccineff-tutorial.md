@@ -1,5 +1,5 @@
 ---
-title: "Tutorial Vaccineff: Introducción al cálculo de efectividad vacunal con cohortes"
+title: "Tutorial Vaccineff: Introducción al cálculo de efectividad vacunal con cohortes usando vaccineff"
 author: "David Santiago Quevedo, Santiago Loaiza, Zulma M. Cucunubá"
 date: "2023-11-03"
 output: html_document
@@ -242,14 +242,24 @@ $$V_{EFF} = 1 - HR$$
 
 Para esta sesión se trabajará con el conjunto de datos de ejemplo incluido en 
 el paquete `vaccineff`. Adicionalmente, se utilizarán algunas funciones de los
-paquetes `ggplot2` y `cowplot` para viazulizar algunos resultados.
-Para cargar el set de datos y los paquetes en el espacio de trabajo ejecute:
+paquetes `ggplot2` y `cowplot` para vizualizar algunos resultados.
+
+Para installar `vaccineff` ejecute las siguientes líneas en R:
 
 
 ```r
-library(vaccineff)
-library(ggplot2)
-library(cowplot)
+# if(!require("pak")) install.packages("pak")
+# pak::pak("epiverse-trace/vaccineff@dev")
+```
+
+Posteriormente, para cargar los paquetes en el espacio de trabajo y el set de 
+datos de ejemplo del `vaccineff` ejecute:
+
+
+```r
+library("vaccineff")
+library("ggplot2")
+library("cowplot")
 data(cohortdata)
 head(cohortdata)
 ```
@@ -309,14 +319,14 @@ ggplot(data = cohortdata,
   theme_classic()
 ```
 
-<img src="fig/Vaccineff-tutorial-rendered-unnamed-chunk-3-1.png" style="display: block; margin: auto;" />
+<img src="fig/Vaccineff-tutorial-rendered-unnamed-chunk-4-1.png" style="display: block; margin: auto;" />
 
 #### **4.1.2. Cobertura vacunal en las cohortes**
 
 En un conjunto de datos típico de un estudio de cohorte se tiene
 información desagregada por persona de la(s) dosis aplicada(s) durante
 el seguimiento. En este sentido, es importante dimensionar el nivel de
-cobertura en la vacunación alcanzado durante el seguimiento. Vaccineff
+cobertura en la vacunación alcanzado durante el seguimiento. vaccineff
 ofrece la función "plot_coverage" que permite llevar a cabo esta tarea
 con facilidad. Para esto, ejecute el siguiente comando en R:
 
@@ -332,7 +342,7 @@ plot_coverage(
   cumulative = FALSE)
 ```
 
-<img src="fig/Vaccineff-tutorial-rendered-unnamed-chunk-4-1.png" style="display: block; margin: auto;" />
+<img src="fig/Vaccineff-tutorial-rendered-unnamed-chunk-5-1.png" style="display: block; margin: auto;" />
 
 Esta función calcula la cobertura con base en alguna dosis, la cual se
 especifica en el parámetro "vacc_date_col". En particular, en el ejemplo
@@ -359,11 +369,29 @@ start_cohort <- as.Date("2044-01-01")
 end_cohort <- as.Date("2044-12-31")
 ```
 
-#### **4.2.2 Definir el tiempo de inducción del efecto *(delay)***
+Para determinar la fecha de immunización, de un individuo `vaccineff` cuenta 
+con la función `get_immunization_date()`. Esta calcula la fecha de inmunización 
+seleccionando la vacuna que cumpla con el criterio de *fecha límite* 
+presentado en la siguiente figura.
 
-Ahora defina el "delay" de 14 días entre la fecha de la aplicación de la
-vacuna y el momento del desarrollo de inmunidad protectora, para esto
-escriba la siguiente inscripción en R y ejecútelo:
+![Esquema de fecha límite para selección de vacunas](img/limit_imm.png)
+
+#### **4.2.2 Tiempo de inducción del efecto *(delay)***
+
+En la figura anterior se introdujo el concepto de *delay*. El *delay del 
+desenlace* hace referencia al tiempo característico al desenlace desde que se un
+individuo se infecta. Por otra parte, el *delay de la immunización* se refiere
+al tiempo que se espera que transcurra antes de considerar que existe inmunidad
+protectora. Cada uno de estas variables puede controlarse en la función
+mediante los parámetros `outcome_delay` e `immunization_delay`, respectivamente.
+El valor que se asigne a estas depende de la naturaleza del estudio. 
+En particular, para nuestra epidemia ejemplo utilizaremos `outcome_delay = 0` 
+dado que no es considerado como una variable relevante para determinar la fecha 
+límite en que la vacuna podría hacer efecto. Por otra parte, el valor asumido
+para el de immunización es de 14 días.
+
+Para calcular la fecha de immunización de cada individiduo escriba la siguiente 
+instrucción en R y ejecútela:
 
 
 ```r
@@ -381,10 +409,9 @@ cohortdata$immunization <-
 Al ejecutar este comando, se añadirá una columna nueva al conjunto de
 datos del caso de estudio, esta columna contiene una variable de tipo
 "Date" que corresponde la fecha 14 días posteriores a la última dosis de
-cualquiera de las dos vacunas utilizadas en el caso de estudio y se está
-integrando el concepto de *delay* al tener en cuenta los 14 días que se
-espera que transcurran antes de considerar que existe inmunidad
-protectora. Puede evidenciar la nueva columna en el conjunto de datos.
+cualquiera de las dos vacunas utilizadas en el caso de estudio, que cumpla con
+el criterio de *fecha límite*. Puede evidenciar la nueva columna en el conjunto 
+de datos.
 
 #### **4.2.3. Definir la exposición: cohorte vacunada y cohorte no vacunada**
 
@@ -402,12 +429,9 @@ cohortdata$vaccine_status <- set_status(
 ```
 
 Al ejecutar el comando encontrará que se ha creado una nueva columna en
-el conjunto de datos y podrá evidenciar en la base de datos que en la
-nueva columna se consignó "vacc" o "unvacc" para cada uno de los
-registros de acuerdo a su estado de vacunación de acuerdo a las
-consideraciones del punto anterior, donde se integraron los *delay* y
-para cualquiera de las dos vacunas que se utilizaron en el caso de
-estudio.
+el conjunto de datos con los valores "vacc" o "unvacc", para cada uno de los
+registros de acuerdo con su estado de vacunación, el cual se determina a partir
+de la variable `"immunization"`.
 
 #### **4.2.3 Definir el desenlace: estado vivo vs estado fallecido**
 
@@ -460,7 +484,10 @@ la opción "start_from_immunization = FALSE" o desde la fecha de
 inmunización. Para este último caso es necesario asignar
 "start_from_immunization = TRUE" y pasar el nombre de la columna con la
 información sobre la fecha de inmunización en el parámetro
-"immunization_date_col"
+"immunization_date_col". En la figura a continuación se presenta un esquema
+de los dos métodos de cálculo del tiempo al evento.
+
+![a) Tiempo al evento evaludado desde inicio de la cohorte. b) tiempo al evento desde la fecha de immunización](img/time-to-event.png)
 
 ### 4.3. Curvas de riesgo acumulado y supervivencia al desenlace en cada cohorte
 
@@ -488,7 +515,7 @@ plot_survival(data = cohortdata,
   cumulative = TRUE)
 ```
 
-<img src="fig/Vaccineff-tutorial-rendered-unnamed-chunk-10-1.png" style="display: block; margin: auto;" />
+<img src="fig/Vaccineff-tutorial-rendered-unnamed-chunk-11-1.png" style="display: block; margin: auto;" />
 
 A partir de la función anterior también es posible realizar la gráfica
 de supervivencia de las cohortes o gráfica de Kaplan-Meier en la cual se
@@ -517,7 +544,7 @@ plt_surv <- plot_survival(data = cohortdata,
 plt_surv
 ```
 
-<img src="fig/Vaccineff-tutorial-rendered-unnamed-chunk-11-1.png" style="display: block; margin: auto;" />
+<img src="fig/Vaccineff-tutorial-rendered-unnamed-chunk-12-1.png" style="display: block; margin: auto;" />
 
 ### **4.4. Evaluación de la hipótesis riesgos proporcionales**
 
@@ -533,118 +560,16 @@ el logaritmo del tiempo al evento, es posible identificar si los grupos
 representan riesgos proporcionales cuando sus curvas se comportan de forma
 aproximadamente paralela.
 
-En el código a continuación se construyen las gráficas `loglog` haciendo uso
-de las funciones de `vaccineff`. En el panel de la izquierda se testea la 
-hipótesis de riesgos proporcionales construyendo los tiempos al evento de forma 
-dinámica, es decir, a partir del momento en que se vacuna cada individuo de la 
-población, para lo que se asignan
-`start_from_immunization = start_from_immunization` y 
-`immunization_date_col = "immunization`. Por otra parte, el en panel de la 
-derecha se teste la hipótesis con un modelo de tiempos al evento con punto
-de inicio fijo, es decir tomando la fecha de inicio del estudio como punto de 
-inicio para el cálculo del tiempo al evento de ambos grupos.
+A continuación se presentan las gráficas loglog obtenidas al construir 
+los tiempos al evento de forma  dinámica (panel de la izquiera) y con punto
+de inicio fijo (panel de la derecha). Particularmente, se observa que el 
+cálculo dinámico de los tiempos no satisface riesgos proporcionales, 
+por lo que pontencialmente necesitará algún tipo de estrategia para contrarestar 
+los posibles sesgos muestrales.
 
-Particularmente, se observa que el cálculo dinámico de los tiempos no satisface
-riesgos proporcionales, por lo que pontencialmente será necesario realizar 
-algún tipo de estrategio para contrarestar los posibles sesgos muestrales 
-bajo este modelo.
-
-
-```r
-plot_loglog <- function(
-  df_cohort,
-  outcome_date_col,
-  vaccine_date_cols,
-  start_from_immunization = FALSE
-) {
-  date_format <- "%Y-%m-%d"
-  t0 <- as.Date("2044-01-01", date_format)
-  tf <- as.Date("2044-12-31", date_format)
-
-  df_cohort$immunization <-
-    get_immunization_date(
-      data = df_cohort,
-      outcome_date_col = outcome_date_col,
-      outcome_delay = 0,
-      immunization_delay = 14,
-      vacc_date_col = vaccine_date_cols,
-      end_cohort = tf,
-      take_first = FALSE
-    )
-  
-  df_cohort$vaccine_status <- set_status(
-    data = df_cohort,
-    col_names = "immunization",
-    status = c("v", "u")
-  )
-  
-  df_cohort$out_status <- set_status(
-    data = df_cohort,
-    col_names = outcome_date_col
-  )
-  
-  df_cohort$time_to_event <- get_time_to_event(
-    data = df_cohort,
-    outcome_date_col = outcome_date_col,
-    start_cohort = t0,
-    end_cohort = tf,
-    start_from_immunization = start_from_immunization,
-    immunization_date_col = "immunization"
-  )
-  
-  plt <- plot_survival(
-    data = df_cohort,
-    outcome_status_col = "out_status",
-    time_to_event_col = "time_to_event",
-    vacc_status_col = "vaccine_status",
-    vaccinated_status = "v",
-    unvaccinated_status = "u",
-    vaccinated_color = "steelblue",
-    unvaccinated_color = "darkred",
-    start_cohort = t0,
-    end_cohort = tf,
-    percentage = TRUE,
-    cumulative = FALSE
-  )
-  df <- plt$data
-  df$loglog <- log(-log(df$surv))
-  df$logtime <- log(df$time)
-  plt <- ggplot(data = df) +
-  geom_step(ggplot2::aes(x = .data$logtime,
-                                  y = .data$loglog,
-                                  color = .data$strata)) +
-  theme_classic() +
-  labs(x = "Log[Time to event] (Days)",
-                y = "Log[-Log[Survival probability]]") +
-  labs(colour = "Vaccine Status")
-  return(plt)
-}
-
-p1 <- plot_loglog(
-  df_cohort = cohortdata,
-  outcome_date_col = "death_date",
-  vaccine_date_cols = c("vaccine_date_1", "vaccine_date_2"),
-  start_from_immunization = TRUE
-) + ggtitle("Riesgos NO proporcionales")
-
-
-p2 <- plot_loglog(
-  df_cohort = cohortdata,
-  outcome_date_col = "death_date",
-  vaccine_date_cols = c("vaccine_date_1", "vaccine_date_2")
-) + ggtitle("Riesgos proporcionales")
-
-plot_grid(p1,p2)
-```
-
-<img src="fig/Vaccineff-tutorial-rendered-unnamed-chunk-12-1.png" style="display: block; margin: auto;" />
+<img src="fig/Vaccineff-tutorial-rendered-unnamed-chunk-13-1.png" style="display: block; margin: auto;" />
 
 ### **4.5. Estimación de la efectividad vacunal**
-
-#### **4.5.1. Estimador Kaplan-Meier**
-
-(FUNCIONES EN CONSTRUCCIÓN)
-
 #### **Modelo de Cox**
 
 En todos los estudios observacionales de efectividad vacunal de cohorte
@@ -679,21 +604,45 @@ coh_eff_noconf(
 
 ### **4.6 Cohorte dinámica - Emparejamiento poblacional**
 
-(FUNCIONES EN CONSTRUCCIÓN)
+El comando anterior arrojó la efectividad vacunal obtenida mediante el model de
+Cox. Sin embargo, en la columna PH aparece la palabra rejected. Esto significa
+que pese a que las curvas de ambos grupos son paralelas la evaluación de la
+hipótesis de riesgos proporcionales haciendo uso del test de *Schoenfeld* 
+no es satisfactoria. Esto debido a los potenciales sesgos muestrales inducidos
+por la estrategia de vacunación desplegada sobre la población. Una estrategia
+para contrarestas dichos sesgos es el emparejamiento dinámico de la población.
+En la siguiente figura se presenta un esquema de emparejamiento orientado a
+disminuir los sesgos muestrales.
+
+![](img/matching.png)
+
+### **4.7 Próximos características**
+
+* Estimador Kaplan-Meier
+
+* Curva loglog para evaluación de riesgos proporcionales
+
+* Matching dinámico
+
+* Censura
 
 ## 5. Reflexión
 
 En esta sesión se llevó a cabo una estimación básica de la efectividad vacunal
 mediante un estudio de cohorte, haciendo uso de los estimador Kaplan-Meier y 
 del modelo de Cox. Adicionalmente, se estudió la hipótesis de riesgos 
-proporcionales para los grupos vacunado y no vacunado y se enfrentó el sesgo
-muestral de los datos mediante la construcción de una cohorte dinámica, haciendo
-uso de métodos de emparejamiento poblacional. En general la validez de los 
-resultados obtenidos depende del alcance que se quiera dar al estudio, debido
-a que la decisión sobre aceptar o no los resultados es altamente dependiente 
-del tipo de diseño que se proponga para las cohortes y el acceso a información
-adicional relevante que permita realizar ajustes por variables confusoras o
-ajustar la censura de datos durante el seguimiento.
+proporcionales para los grupos vacunado y no vacunado comparando la 
+construcción de tiempos al evento de forma dinámica y fija. Se observó que
+pese a que la hipótesis de riesgos proporcionales se corrobora gráficamente
+en la consrucción de los tiempos al evento con fecha de inicio fija, al evaluar
+el modelo de riesgos proporcionales de Cox el test de Schoenfeld rechaza
+esta hipótesis. En general la decisión sobre aceptar o no los resultados 
+es altamente dependiente del acceso a información adicional relevante que 
+permita realizar ajustes a la estimación y capturar dinámicas relevantes.
+
+***
+
+## Reto
 
 [Reto](https://docs.google.com/document/d/1_33E0LufZP7FNO9Q491aFquV26eS4p2h/edit?usp=sharing&ouid=108718106243006326200&rtpof=true&sd=true)
 
