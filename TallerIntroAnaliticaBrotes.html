@@ -299,7 +299,7 @@
       </div>
       <hr></nav><main id="main-content" class="main-content"><div class="container lesson-content">
         <h1>Taller Día 2 - Introducción a la analítica de brotes</h1>
-        <p> Last updated on 2023-12-08 | 
+        <p> Last updated on 2023-12-11 | 
         
         <a href="https://github.com/epiverse-trace/epimodelac/edit/main/episodes/TallerIntroAnaliticaBrotes.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
         
@@ -408,7 +408,12 @@ objeto de clase <code>tibble.</code></p>
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">casos</span> <span class="op">&lt;-</span> <span class="fu">read_rds</span><span class="op">(</span><span class="st">"files/casos.rds"</span><span class="op">)</span></span></code></pre>
+<code class="sourceCode R"><span><span class="va">casos</span> <span class="op">&lt;-</span> <span class="fu">read_rds</span><span class="op">(</span><span class="st">"data/casos.rds"</span><span class="op">)</span></span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="error" tabindex="0"><code>Error in readRDS(con, refhook = refhook): cannot open the connection</code></pre>
 </div>
 </div>
 <div class="section level4">
@@ -417,28 +422,16 @@ objeto de clase <code>tibble.</code></p>
 función <code>glimpse</code> de <code>tidyverse</code>, la cual nos
 proporciona una visión rápida y legible de la estructura interna de
 nuestro conjunto de datos.</p>
-<div class="codewrapper sourceCode" id="cb3">
+<div class="codewrapper sourceCode" id="cb4">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">glimpse</span><span class="op">(</span><span class="va">casos</span><span class="op">)</span></span></code></pre>
 </div>
 <div class="codewrapper">
-<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="output" tabindex="0"><code>Rows: 166
-Columns: 11
-$ id_caso                  &lt;chr&gt; "d1fafd", "53371b", "f5c3d8", "6c286a", "0f58…
-$ generacion               &lt;dbl&gt; 0, 1, 1, 2, 2, 0, 3, 3, 2, 3, 4, 3, 4, 2, 4, …
-$ fecha_de_infeccion       &lt;date&gt; NA, 2014-04-09, 2014-04-18, NA, 2014-04-22, …
-$ fecha_inicio_sintomas    &lt;date&gt; 2014-04-07, 2014-04-15, 2014-04-21, 2014-04-…
-$ fecha_de_hospitalizacion &lt;date&gt; 2014-04-17, 2014-04-20, 2014-04-25, 2014-04-…
-$ fecha_desenlace          &lt;date&gt; 2014-04-19, NA, 2014-04-30, 2014-05-07, 2014…
-$ desenlace                &lt;chr&gt; NA, NA, "Recuperacion", "Muerte", "Recuperaci…
-$ genero                   &lt;fct&gt; f, m, f, f, f, f, f, f, m, m, f, f, f, f, f, …
-$ hospital                 &lt;fct&gt; Military Hospital, Connaught Hospital, other,…
-$ longitud                 &lt;dbl&gt; -13.21799, -13.21491, -13.22804, -13.23112, -…
-$ latitud                  &lt;dbl&gt; 8.473514, 8.464927, 8.483356, 8.464776, 8.452…</code></pre>
+<pre class="error" tabindex="0"><code>Error in eval(expr, envir, enclos): object 'casos' not found</code></pre>
 </div>
 <p>Como puede observar contactos tiene 11 columnas (variables) y 166
 filas de datos. En un rápido vistazo puede observar el tipo de las
@@ -468,18 +461,16 @@ muerte</p></li>
 <hr class="half-width"><div class="section level3">
 <h3 id="probabilidad-de-muerte-en-los-casos-reportados-cfr-por-case-fatality-ratio">Probabilidad de muerte en los casos reportados (<code>CFR</code>,
 por <em>Case Fatality Ratio</em>)<a class="anchor" aria-label="anchor" href="#probabilidad-de-muerte-en-los-casos-reportados-cfr-por-case-fatality-ratio"></a></h3>
-<div class="codewrapper sourceCode" id="cb5">
+<div class="codewrapper sourceCode" id="cb6">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">table</span><span class="op">(</span><span class="va">casos</span><span class="op">$</span><span class="va">desenlace</span>, useNA <span class="op">=</span> <span class="st">"ifany"</span><span class="op">)</span></span></code></pre>
 </div>
 <div class="codewrapper">
-<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="output" tabindex="0"><code>
-      Muerte Recuperacion         &lt;NA&gt; 
-          60           43           63 </code></pre>
+<pre class="error" tabindex="0"><code>Error in eval(expr, envir, enclos): object 'casos' not found</code></pre>
 </div>
 <div id="desafío-1" class="callout discussion">
 <div class="callout-square">
@@ -491,8 +482,8 @@ por <em>Case Fatality Ratio</em>)<a class="anchor" aria-label="anchor" href="#pr
 <div class="callout-content">
 <p>Calcule la probabilidad de muerte en los casos reportados
 (<code>CFR</code>) tomando el número de muertes y el número de casos con
-desenlace final conocido del objeto casos. Esta vez se calculará el
-<code>CFR</code> con el método <em>Naive</em>. Los cálculos
+desenlace final conocido del objeto <code>casos</code>. Esta vez se
+calculará el <code>CFR</code> con el método <em>Naive</em>. Los cálculos
 <em>Naive</em> (<em>inocentes</em>) tienen el problema de que pueden
 presentar sesgos, por lo que no deberían ser utilizados para informar
 decisiones de salud pública. Hablaremos de estos sesgos en profundidad
@@ -502,7 +493,7 @@ obtendrá algunas pistas, por ejemplo en el presente reto se le presenta
 una pista, la cual es un fragmento del código que usted debe completar
 para alcanzar la solución. En los espacios donde dice
 <code>COMPLETE</code> por favor diligencie el código faltante.</p>
-<div class="codewrapper sourceCode" id="cb7">
+<div class="codewrapper sourceCode" id="cb8">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -513,7 +504,7 @@ para alcanzar la solución. En los espacios donde dice
 <span><span class="va">CFR</span> <span class="op">&lt;-</span> <span class="va">COMPLETE</span> <span class="op">/</span> <span class="va">COMPLETE</span></span></code></pre>
 </div>
 <p>Ejemplo,</p>
-<div class="codewrapper sourceCode" id="cb8">
+<div class="codewrapper sourceCode" id="cb9">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -523,9 +514,24 @@ para alcanzar la solución. En los espacios donde dice
 <span><span class="va">muertes</span> <span class="op">&lt;-</span> <span class="fu">sum</span><span class="op">(</span><span class="va">casos</span><span class="op">$</span><span class="va">desenlace</span> <span class="op">%in%</span> <span class="st">"Muerte"</span><span class="op">)</span> </span></code></pre>
 </div>
 <div class="codewrapper">
-<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="output" tabindex="0"><code>[1] 0.5825243</code></pre>
+<pre class="error" tabindex="0"><code>Error in eval(expr, envir, enclos): object 'casos' not found</code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="error" tabindex="0"><code>Error in eval(expr, envir, enclos): object 'casos' not found</code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="error" tabindex="0"><code>Error in eval(expr, envir, enclos): object 'muertes' not found</code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="error" tabindex="0"><code>Error in eval(expr, envir, enclos): object 'CFR' not found</code></pre>
 </div>
 </div>
 </div>
@@ -552,21 +558,18 @@ Clopper-Pearson).</p>
 </h3>
 <div class="callout-content">
 <p>Determine el CFR con sus intervalos de confianza utilizando la
-función <code>binom.confint</code>. Y obtenga este resultado.</p>
-<table class="table"><caption><strong>CFR con intervalos de confianza</strong></caption>
-<thead><tr class="header"><th align="left">method</th>
-<th align="right">x</th>
-<th align="right">n</th>
-<th align="right">mean</th>
-<th align="right">lower</th>
-<th align="right">upper</th>
-</tr></thead><tbody><tr class="odd"><td align="left">exact</td>
-<td align="right">60</td>
-<td align="right">103</td>
-<td align="right">0.5825243</td>
-<td align="right">0.4812264</td>
-<td align="right">0.6789504</td>
-</tr></tbody></table></div>
+función <code>binom.confint</code>. Y obtenga este resultado:</p>
+<div class="codewrapper">
+<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="error" tabindex="0"><code>Error in eval(expr, envir, enclos): object 'muertes' not found</code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="error" tabindex="0"><code>Error in eval(expr, envir, enclos): object 'CFR_con_CI' not found</code></pre>
+</div>
+</div>
 </div>
 </div>
 <div id="accordionSolution1" class="accordion challenge-accordion accordion-flush">
@@ -576,11 +579,11 @@ función <code>binom.confint</code>. Y obtenga este resultado.</p>
   Pista
   </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
 <div class="accordion-body">
 <p>Recuerde diligenciar los espacios donde dice <code>COMPLETE</code>. Y
 obtenga este resultado</p>
-<div class="codewrapper sourceCode" id="cb12">
+<div class="codewrapper sourceCode" id="cb24">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -603,7 +606,7 @@ obtenga este resultado</p>
 análisis epidemiológico de datos de incidencia de enfermedades
 infecciosas, dado que permite calcular la incidencia a partir del
 intervalo temporal suministrado (e.g. diario o semanal). Dentro de este
-paquete esta la función <code>incidence</code> la cuenta con los
+paquete esta la función <code>incidence</code> la cual cuenta con los
 siguientes argumentos:</p>
 <ol style="list-style-type: decimal"><li><p><code>dates</code> contiene una variable con fechas que
 representan cuándo ocurrieron eventos individuales, como por ejemplo la
@@ -636,7 +639,7 @@ enfermedad) que ocurrieron dentro de cada intervalo.</p>
 la función <code>incidence</code> ¿Qué fecha sería la más adecuada?
 Tenga en cuenta que se espera que esta sea la que pueda dar mejor
 información, es decir la menor cantidad de <code>NA</code>s.</p>
-<div class="codewrapper sourceCode" id="cb14">
+<div class="codewrapper sourceCode" id="cb29">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -652,17 +655,14 @@ intervalo de tiempo, lo que facilita su visualización y análisis
 posterior. Como puede observar la función produjo los siguientes
 datos:</p>
 <div class="codewrapper">
-<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="output" tabindex="0"><code>&lt;incidence object&gt;
-[166 cases from days 2014-04-07 to 2014-06-29]
-
-$counts: matrix with 84 rows and 1 columns
-$n: 166 cases in total
-$dates: 84 dates marking the left-side of bins
-$interval: 1 day
-$timespan: 84 days
-$cumulative: FALSE</code></pre>
+<pre class="error" tabindex="0"><code>Error in eval(expr, envir, enclos): object 'casos' not found</code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="error" tabindex="0"><code>Error in eval(expr, envir, enclos): object 'incidencia_diaria' not found</code></pre>
 </div>
 
 <p>Como resultado de la función se produjo un objeto tipo lista. Este
@@ -676,13 +676,18 @@ haciendo el acumulado de la incidencia, es decir que los casos
 corresponden a los del intervalo <code>interval: 1 day</code>, es decir
 a los casos nuevos cada día en específico.</p>
 <p>Ahora haga una gráfica de la incidencia diaria.</p>
-<div class="codewrapper sourceCode" id="cb18">
+<div class="codewrapper sourceCode" id="cb36">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">plot</span><span class="op">(</span><span class="va">incidencia_diaria</span>, border <span class="op">=</span> <span class="st">"black"</span><span class="op">)</span></span></code></pre>
 </div>
-<figure><img src="fig/TallerIntroAnaliticaBrotes-rendered-unnamed-chunk-15-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>En el <code>Eje X (Fechas)</code>: Se puede observar fechas van desde
+<div class="codewrapper">
+<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="error" tabindex="0"><code>Error in eval(expr, envir, enclos): object 'incidencia_diaria' not found</code></pre>
+</div>
+<p>En el <code>Eje X (Fechas)</code>: Se puede observar fechas van desde
 el <code>7 de abril de 2014</code> hasta una fecha posterior al
 <code>21 de junio de 2014</code>. Estas fechas representan el período de
 observación del brote.</p>
@@ -716,28 +721,29 @@ escogido como el primer argumento.</p>
 <h3 class="callout-title">Desafío 4<a class="anchor" aria-label="anchor" href="#desaf%C3%ADo-4"></a>
 </h3>
 <div class="callout-content">
-<div class="codewrapper sourceCode" id="cb19">
+<div class="codewrapper sourceCode" id="cb38">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode r" tabindex="0"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>incidencia_semanal <span class="ot">&lt;-</span> <span class="fu">incidence</span>(PRIMER ARGUMENTO,  <span class="co">#COMPLETE</span></span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>                                SEGUNDO ARGUMENTO, <span class="co">#COMPLETE </span></span>
-<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>                                TERCER ARGUMENTO)  <span class="co">#COMPLETE</span></span></code></pre>
+<pre class="sourceCode r" tabindex="0"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>incidencia_semanal <span class="ot">&lt;-</span> <span class="fu">incidence</span>(PRIMER ARGUMENTO,  <span class="co">#COMPLETE</span></span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>                                SEGUNDO ARGUMENTO, <span class="co">#COMPLETE </span></span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>                                TERCER ARGUMENTO)  <span class="co">#COMPLETE</span></span></code></pre>
 </div>
 <div class="codewrapper">
-<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="output" tabindex="0"><code>&lt;incidence object&gt;
-[166 cases from days 2014-04-07 to 2014-06-30]
-[166 cases from ISO weeks 2014-W15 to 2014-W27]
-
-$counts: matrix with 13 rows and 1 columns
-$n: 166 cases in total
-$dates: 13 dates marking the left-side of bins
-$interval: 7 days
-$timespan: 85 days
-$cumulative: FALSE</code></pre>
+<pre class="error" tabindex="0"><code>Error in eval(expr, envir, enclos): object 'casos' not found</code></pre>
 </div>
-<figure><img src="fig/TallerIntroAnaliticaBrotes-rendered-unnamed-chunk-17-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure></div>
+<div class="codewrapper">
+<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="error" tabindex="0"><code>Error in eval(expr, envir, enclos): object 'incidencia_semanal' not found</code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="error" tabindex="0"><code>Error in eval(expr, envir, enclos): object 'incidencia_semanal' not found</code></pre>
+</div>
+</div>
 </div>
 </div>
 
@@ -757,7 +763,7 @@ casos se puede visualizar la incidencia semanal en una escala
 logarítmica. Esto es particularmente útil para identificar patrones
 exponenciales en los datos.</p>
 <p>Grafique la incidencia transformada logarítmicamente:</p>
-<div class="codewrapper sourceCode" id="cb24">
+<div class="codewrapper sourceCode" id="cb48">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -768,39 +774,35 @@ exponenciales en los datos.</p>
 <span>  <span class="fu">ylab</span><span class="op">(</span><span class="st">"Incidencia semanal logarítmica"</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu">theme_minimal</span><span class="op">(</span><span class="op">)</span></span></code></pre>
 </div>
-<figure><img src="fig/TallerIntroAnaliticaBrotes-rendered-unnamed-chunk-19-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure></div>
+<div class="codewrapper">
+<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="error" tabindex="0"><code>Error in eval(expr, envir, enclos): object 'incidencia_semanal' not found</code></pre>
+</div>
+</div>
 <div class="section level4">
 <h4 id="interpretación-del-modelo">Ajuste un modelo log-lineal a los datos de incidencia semanal<a class="anchor" aria-label="anchor" href="#interpretaci%C3%B3n-del-modelo"></a></h4>
-<div class="codewrapper sourceCode" id="cb25">
+<div class="codewrapper sourceCode" id="cb50">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">ajuste_modelo</span> <span class="op">&lt;-</span> <span class="fu">incidence</span><span class="fu">::</span><span class="fu">fit</span><span class="op">(</span><span class="va">incidencia_semanal</span><span class="op">)</span></span>
-<span><span class="va">ajuste_modelo</span></span></code></pre>
+<code class="sourceCode R"><span><span class="va">ajuste_modelo</span> <span class="op">&lt;-</span> <span class="fu">incidence</span><span class="fu">::</span><span class="fu">fit</span><span class="op">(</span><span class="va">incidencia_semanal</span><span class="op">)</span></span></code></pre>
 </div>
 <div class="codewrapper">
-<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="output" tabindex="0"><code>&lt;incidence_fit object&gt;
-
-$model: regression of log-incidence over time
-
-$info: list containing the following items:
-  $r (daily growth rate):
-[1] 0.04145251
-
-  $r.conf (confidence interval):
-          2.5 %     97.5 %
-[1,] 0.02582225 0.05708276
-
-  $doubling (doubling time in days):
-[1] 16.72148
-
-  $doubling.conf (confidence interval):
-        2.5 %   97.5 %
-[1,] 12.14285 26.84302
-
-  $pred: data.frame of incidence predictions (12 rows, 5 columns)</code></pre>
+<pre class="error" tabindex="0"><code>Error in eval(expr, envir, enclos): object 'incidencia_semanal' not found</code></pre>
+</div>
+<div class="codewrapper sourceCode" id="cb52">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">ajuste_modelo</span></span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="error" tabindex="0"><code>Error in eval(expr, envir, enclos): object 'ajuste_modelo' not found</code></pre>
 </div>
 <div id="desafío-5" class="callout challenge">
 <div class="callout-square">
@@ -821,12 +823,12 @@ $info: list containing the following items:
   Solución
   </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
 <div class="accordion-body">
 <p><code>$model</code>: Indica que se ha realizado una regresión
 logarítmica de la incidencia en función del tiempo. Esto implica que la
 relación entre el tiempo y la incidencia de la enfermedad ha sido
-modelada como una función lineal en escalá logarítmica en la incidencia
+modelada como una función lineal en escala logarítmica en la incidencia
 con el fin de entender mejor las tendencias de crecimiento.</p>
 <p><code>$info</code>: Contiene varios componentes importantes del
 análisis:</p>
@@ -840,18 +842,28 @@ está creciendo en un <code>4.15%</code> con respecto al día anterior,
 bajo la suposición de un crecimiento exponencial constante durante el
 periodo modelado.</p>
 <p>Si quisiera acceder a esta información sin ingresar al modelo podría
-hacerlo con el siguiente código</p>
-<div class="codewrapper sourceCode" id="cb27">
+hacerlo con el siguiente código:</p>
+<div class="codewrapper sourceCode" id="cb54">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">tasa_crecimiento_diaria</span> <span class="op">&lt;-</span> <span class="va">ajuste_modelo</span><span class="op">$</span><span class="va">info</span><span class="op">$</span><span class="va">r</span></span>
-<span><span class="fu">cat</span><span class="op">(</span><span class="st">"La tasa de crecimiento diaria es:"</span>, <span class="va">tasa_crecimiento_diaria</span>, <span class="st">"\n"</span><span class="op">)</span></span></code></pre>
+<code class="sourceCode R"><span><span class="va">tasa_crecimiento_diaria</span> <span class="op">&lt;-</span> <span class="va">ajuste_modelo</span><span class="op">$</span><span class="va">info</span><span class="op">$</span><span class="va">r</span></span></code></pre>
 </div>
 <div class="codewrapper">
-<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="output" tabindex="0"><code>La tasa de crecimiento diaria es: 0.04145251 </code></pre>
+<pre class="error" tabindex="0"><code>Error in eval(expr, envir, enclos): object 'ajuste_modelo' not found</code></pre>
+</div>
+<div class="codewrapper sourceCode" id="cb56">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">cat</span><span class="op">(</span><span class="st">"La tasa de crecimiento diaria es:"</span>, <span class="va">tasa_crecimiento_diaria</span>, <span class="st">"\n"</span><span class="op">)</span></span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="error" tabindex="0"><code>Error in eval(expr, envir, enclos): object 'tasa_crecimiento_diaria' not found</code></pre>
 </div>
 <ol start="2" style="list-style-type: decimal"><li>
 <code>$r.conf</code> (confidence interval): 2.5 % 0.02582225 97.5 %
@@ -874,29 +886,39 @@ la estimación y puede ser consecuencia de la variabilidad en los datos o
 de un tamaño de muestra pequeño.</li>
 </ol><p><code>$pred</code>: Contiene las predicciones de incidencia
 observada. Incluye las fechas, la escala de tiempo en días desde el
-inicio del brote, los valores ajustados (predicciones), los límites
+inicio del brote, los valores ajustados (predicciones) y los límites
 inferior y superior del intervalo de confianza para las
 predicciones.</p>
 <p>Si quiere conocer un poco más de este componente puede explorarlo con
 la función <code>glimpse</code>.</p>
-<div class="codewrapper sourceCode" id="cb29">
+<div class="codewrapper sourceCode" id="cb58">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">glimpse</span><span class="op">(</span><span class="va">ajuste_modelo</span><span class="op">$</span><span class="va">info</span><span class="op">$</span><span class="va">pred</span><span class="op">)</span></span></code></pre>
 </div>
 <p>¿El modelo se ajusta bien a los datos? Verifique el <span class="math inline">\(R^2\)</span></p>
-<div class="codewrapper sourceCode" id="cb30">
+<div class="codewrapper sourceCode" id="cb59">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">AjusteR2modelo</span> <span class="op">&lt;-</span> <span class="fu">summary</span><span class="op">(</span><span class="va">ajuste_modelo</span><span class="op">$</span><span class="va">model</span><span class="op">)</span><span class="op">$</span><span class="va">adj.r.squared</span></span>
-<span><span class="fu">cat</span><span class="op">(</span><span class="st">"El R cuadrado ajustado es:"</span>, <span class="va">AjusteR2modelo</span>, <span class="st">"\n"</span><span class="op">)</span></span></code></pre>
+<code class="sourceCode R"><span><span class="va">AjusteR2modelo</span> <span class="op">&lt;-</span> <span class="fu">summary</span><span class="op">(</span><span class="va">ajuste_modelo</span><span class="op">$</span><span class="va">model</span><span class="op">)</span><span class="op">$</span><span class="va">adj.r.squared</span></span></code></pre>
 </div>
 <div class="codewrapper">
-<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="output" tabindex="0"><code>El R cuadrado ajustado es: 0.7551113 </code></pre>
+<pre class="error" tabindex="0"><code>Error in eval(expr, envir, enclos): object 'ajuste_modelo' not found</code></pre>
+</div>
+<div class="codewrapper sourceCode" id="cb61">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">cat</span><span class="op">(</span><span class="st">"El R cuadrado ajustado es:"</span>, <span class="va">AjusteR2modelo</span>, <span class="st">"\n"</span><span class="op">)</span></span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="error" tabindex="0"><code>Error in eval(expr, envir, enclos): object 'AjusteR2modelo' not found</code></pre>
 </div>
 </div>
 </div>
@@ -910,14 +932,19 @@ semanal y no con el ajuste diario?</p>
 <p>Grafique la incidencia incluyendo una línea que represente el
 modelo.</p>
 <p>Con <code>plot</code></p>
-<div class="codewrapper sourceCode" id="cb32">
+<div class="codewrapper sourceCode" id="cb63">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">plot</span><span class="op">(</span><span class="va">incidencia_semanal</span>, fit <span class="op">=</span> <span class="va">ajuste_modelo</span><span class="op">)</span></span></code></pre>
 </div>
-<figure><img src="fig/TallerIntroAnaliticaBrotes-rendered-unnamed-chunk-24-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>Tras ajustar el modelo log-lineal a la incidencia semanal para
-estimar la tasa de crecimiento de la epidemia el gráfico muestra la
+<div class="codewrapper">
+<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="error" tabindex="0"><code>Error in eval(expr, envir, enclos): object 'incidencia_semanal' not found</code></pre>
+</div>
+<p>Tras ajustar el modelo log-lineal a la incidencia semanal para
+estimar la tasa de crecimiento de la epidemia, el gráfico muestra la
 curva de ajuste superpuesta a la incidencia semanal observada.</p>
 <p>Al final del gráfico se puede observar que la incidencia semanal
 disminuye.</p>
@@ -931,49 +958,81 @@ solucionaría?</p>
 <div class="section level4">
 <h4 id="encuentre-una-fecha-límite-adecuada-para-el-modelo-log-lineal-en-función-de-los-rezagos-biológicos-y-administrativos-">Encuentre una fecha límite adecuada para el modelo log-lineal, en
 función de los rezagos (biológicos y administrativos).<a class="anchor" aria-label="anchor" href="#encuentre-una-fecha-l%C3%ADmite-adecuada-para-el-modelo-log-lineal-en-funci%C3%B3n-de-los-rezagos-biol%C3%B3gicos-y-administrativos-"></a></h4>
-<p>Dado que esta epidemia es de ébola y la mayoría de los casos van a
+<p>Dado que esta epidemia es de Ébola y la mayoría de los casos van a
 ser hospitalizados, es muy probable que la mayoría de las notificaciones
 ocurran en el momento de la hospitalización. De tal manera que podríamos
 examinar cuánto tiempo transcurre entre la fecha de inicio de síntomas y
 la fecha de hospitalización para hacernos una idea del rezago para esta
 epidemia.</p>
-<div class="codewrapper sourceCode" id="cb33">
+<div class="codewrapper sourceCode" id="cb65">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">summary</span><span class="op">(</span><span class="fu">as.numeric</span><span class="op">(</span><span class="va">casos</span><span class="op">$</span><span class="va">fecha_de_hospitalizacion</span> <span class="op">-</span> <span class="va">casos</span><span class="op">$</span><span class="va">fecha_inicio_sintomas</span><span class="op">)</span><span class="op">)</span></span></code></pre>
 </div>
 <div class="codewrapper">
-<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="output" tabindex="0"><code>   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
-   0.00    1.00    2.00    3.53    5.00   22.00 </code></pre>
+<pre class="error" tabindex="0"><code>Error in eval(expr, envir, enclos): object 'casos' not found</code></pre>
 </div>
 <p>Al restar la fecha de hospitalización a la fecha de inicio de
-síntomas podría haber valores negativos. ¿Cual cree que sea su
+síntomas podría haber valores negativos. ¿Cuál cree que sea su
 significado? ¿Ocurre en este caso?</p>
 <p>Para evitar el sesgo debido a rezagos en la notificación, se pueden
 truncar los datos de incidencia. Pruebe descartar las últimas dos
 semanas. Este procedimiento permite concentrarse en el periodo en que
 los datos son más completos para un análisis más fiable.</p>
 <p>Semanas a descartar al final de la epicurva</p>
-<div class="codewrapper sourceCode" id="cb35">
+<div class="codewrapper sourceCode" id="cb67">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">semanas_a_descartar</span> <span class="op">&lt;-</span> <span class="fl">2</span></span>
-<span><span class="va">fecha_minima</span> <span class="op">&lt;-</span> <span class="fu">min</span><span class="op">(</span><span class="va">incidencia_diaria</span><span class="op">$</span><span class="va">dates</span><span class="op">)</span></span>
-<span><span class="va">fecha_maxima</span> <span class="op">&lt;-</span> <span class="fu">max</span><span class="op">(</span><span class="va">incidencia_diaria</span><span class="op">$</span><span class="va">dates</span><span class="op">)</span> <span class="op">-</span> <span class="va">semanas_a_descartar</span> <span class="op">*</span> <span class="fl">7</span></span>
-<span></span>
-<span><span class="co"># Para truncar la incidencia semanal</span></span>
+<span><span class="va">fecha_minima</span> <span class="op">&lt;-</span> <span class="fu">min</span><span class="op">(</span><span class="va">incidencia_diaria</span><span class="op">$</span><span class="va">dates</span><span class="op">)</span></span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="error" tabindex="0"><code>Error in eval(expr, envir, enclos): object 'incidencia_diaria' not found</code></pre>
+</div>
+<div class="codewrapper sourceCode" id="cb69">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">fecha_maxima</span> <span class="op">&lt;-</span> <span class="fu">max</span><span class="op">(</span><span class="va">incidencia_diaria</span><span class="op">$</span><span class="va">dates</span><span class="op">)</span> <span class="op">-</span> <span class="va">semanas_a_descartar</span> <span class="op">*</span> <span class="fl">7</span></span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="error" tabindex="0"><code>Error in eval(expr, envir, enclos): object 'incidencia_diaria' not found</code></pre>
+</div>
+<div class="codewrapper sourceCode" id="cb71">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Para truncar la incidencia semanal</span></span>
 <span><span class="va">incidencia_semanal_truncada</span> <span class="op">&lt;-</span> <span class="fu">subset</span><span class="op">(</span><span class="va">incidencia_semanal</span>, </span>
 <span>                         from <span class="op">=</span> <span class="va">fecha_minima</span>, </span>
-<span>                         to <span class="op">=</span> <span class="va">fecha_maxima</span><span class="op">)</span> <span class="co"># descarte las últimas semanas de datos</span></span>
-<span></span>
-<span><span class="co"># Incidencia diaria truncada. No la usamos para la regresión lineal pero se puede usar más adelante</span></span>
+<span>                         to <span class="op">=</span> <span class="va">fecha_maxima</span><span class="op">)</span> <span class="co"># descarte las últimas semanas de datos</span></span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="error" tabindex="0"><code>Error in eval(expr, envir, enclos): object 'incidencia_semanal' not found</code></pre>
+</div>
+<div class="codewrapper sourceCode" id="cb73">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Incidencia diaria truncada. No la usamos para la regresión lineal pero se puede usar más adelante</span></span>
 <span><span class="va">incidencia_diaria_truncada</span> <span class="op">&lt;-</span> <span class="fu">subset</span><span class="op">(</span><span class="va">incidencia_diaria</span>, </span>
 <span>                        from <span class="op">=</span> <span class="va">fecha_minima</span>, </span>
 <span>                        to <span class="op">=</span> <span class="va">fecha_maxima</span><span class="op">)</span> <span class="co"># eliminamos las últimas dos semanas de datos</span></span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="error" tabindex="0"><code>Error in eval(expr, envir, enclos): object 'incidencia_diaria' not found</code></pre>
 </div>
 <div id="desafío-6" class="callout discussion">
 <div class="callout-square">
@@ -987,34 +1046,20 @@ los datos son más completos para un análisis más fiable.</p>
 <code>incidencia_semanal_truncada</code> vuelva a ajustar el modelo
 logarítmico lineal.</p>
 <div class="codewrapper">
-<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="output" tabindex="0"><code>&lt;incidence_fit object&gt;
-
-$model: regression of log-incidence over time
-
-$info: list containing the following items:
-  $r (daily growth rate):
-[1] 0.05224047
-
-  $r.conf (confidence interval):
-          2.5 %    97.5 %
-[1,] 0.03323024 0.0712507
-
-  $doubling (doubling time in days):
-[1] 13.2684
-
-  $doubling.conf (confidence interval):
-        2.5 %   97.5 %
-[1,] 9.728286 20.85893
-
-  $pred: data.frame of incidence predictions (10 rows, 5 columns)</code></pre>
+<pre class="error" tabindex="0"><code>Error in eval(expr, envir, enclos): object 'incidencia_semanal_truncada' not found</code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="error" tabindex="0"><code>Error in eval(expr, envir, enclos): object 'ajuste_modelo_truncado' not found</code></pre>
 </div>
 </div>
 </div>
 </div>
 
-<p>¿Como interpreta estos resultados? ¿Compare los <span class="math inline">\(R^2\)</span>?</p>
+<p>¿Cámo interpreta estos resultados? ¿Compare los <span class="math inline">\(R^2\)</span>?</p>
 <div id="desafío-7" class="callout discussion">
 <div class="callout-square">
 <i class="callout-icon" data-feather="message-circle"></i>
@@ -1026,39 +1071,27 @@ $info: list containing the following items:
 <p>Ahora utilizando los datos truncados
 <code>incidencia_semanal_truncada</code> vuelva a graficar el modelo
 logarítmico lineal.</p>
-<figure><img src="fig/TallerIntroAnaliticaBrotes-rendered-unnamed-chunk-29-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure></div>
+<div class="codewrapper">
+<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="error" tabindex="0"><code>Error in eval(expr, envir, enclos): object 'incidencia_semanal_truncada' not found</code></pre>
+</div>
+</div>
 </div>
 </div>
 
 <p>¿Qué cambios observa?</p>
 <p>Observe las estadísticas resumidas del ajuste:</p>
-<div class="codewrapper sourceCode" id="cb42">
+<div class="codewrapper sourceCode" id="cb88">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">summary</span><span class="op">(</span><span class="va">ajuste_modelo_truncado</span><span class="op">$</span><span class="va">model</span><span class="op">)</span></span></code></pre>
 </div>
 <div class="codewrapper">
-<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="output" tabindex="0"><code>
-Call:
-stats::lm(formula = log(counts) ~ dates.x, data = df)
-
-Residuals:
-     Min       1Q   Median       3Q      Max 
--0.73474 -0.31655 -0.03211  0.41798  0.65311 
-
-Coefficients:
-            Estimate Std. Error t value Pr(&gt;|t|)    
-(Intercept) 0.186219   0.332752   0.560 0.591049    
-dates.x     0.052240   0.008244   6.337 0.000224 ***
----
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-
-Residual standard error: 0.5241 on 8 degrees of freedom
-Multiple R-squared:  0.8339,	Adjusted R-squared:  0.8131 
-F-statistic: 40.16 on 1 and 8 DF,  p-value: 0.0002237</code></pre>
+<pre class="error" tabindex="0"><code>Error in eval(expr, envir, enclos): object 'ajuste_modelo_truncado' not found</code></pre>
 </div>
 <p>El modelo muestra que hay una relación significativa
 (<code>R-squared: 0.8131</code>) entre el tiempo (<code>dates.x</code>)
@@ -1082,8 +1115,8 @@ pendiente de la regresión) se puede interpretar como la tasa de
 crecimiento diaria cuando el tiempo se expresa en días.</p>
 <p>Con el modelo ajustado truncado, es hora de realizar la estimación de
 la tasa de crecimiento. Estos datos los puede encontrar en el objeto
-ajuste modelo semana, que tiene los datos ajustados de incidencia
-semanal truncada.</p>
+<code>ajuste modelo semana</code>, que tiene los datos ajustados de
+incidencia semanal truncada.</p>
 <div id="desafío-8" class="callout discussion">
 <div class="callout-square">
 <i class="callout-icon" data-feather="message-circle"></i>
@@ -1094,14 +1127,24 @@ semanal truncada.</p>
 <div class="callout-content">
 <p>Por favor escriba el código para obtener los siguientes valores:</p>
 <div class="codewrapper">
-<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="output" tabindex="0"><code>La tasa de crecimiento diaria es: 0.05224047 </code></pre>
+<pre class="error" tabindex="0"><code>Error in eval(expr, envir, enclos): object 'ajuste_modelo_truncado' not found</code></pre>
 </div>
 <div class="codewrapper">
-<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="output" tabindex="0"><code>Intervalo de confianza de la tasa de crecimiento diaria (95%): 0.03323024 0.0712507 </code></pre>
+<pre class="error" tabindex="0"><code>Error in eval(expr, envir, enclos): object 'tasa_crecimiento_diaria' not found</code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="error" tabindex="0"><code>Error in eval(expr, envir, enclos): object 'ajuste_modelo_truncado' not found</code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="error" tabindex="0"><code>Error in eval(expr, envir, enclos): object 'tasa_crecimiento_IC' not found</code></pre>
 </div>
 </div>
 </div>
@@ -1128,14 +1171,24 @@ datos ajustados de incidencia semanal truncada.</p>
 <div class="callout-content">
 <p>Por favor escriba el código para obtener los siguientes valores:</p>
 <div class="codewrapper">
-<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="output" tabindex="0"><code>El tiempo de duplicación de la epidemia es 13.2684 días</code></pre>
+<pre class="error" tabindex="0"><code>Error in eval(expr, envir, enclos): object 'ajuste_modelo_truncado' not found</code></pre>
 </div>
 <div class="codewrapper">
-<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="output" tabindex="0"><code>Intervalo de confianza del tiempo de duplicación (95%): 9.728286 20.85893 </code></pre>
+<pre class="error" tabindex="0"><code>Error in eval(expr, envir, enclos): object 'tiempo_duplicacion_dias' not found</code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="error" tabindex="0"><code>Error in eval(expr, envir, enclos): object 'ajuste_modelo_truncado' not found</code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="error" tabindex="0"><code>Error in eval(expr, envir, enclos): object 'tiempo_duplicacion_IC' not found</code></pre>
 </div>
 </div>
 </div>
@@ -1179,12 +1232,12 @@ corto, puede significar que la enfermedad se propaga rápidamente y que
 es necesario actuar con urgencia para contenerla. Si es largo, puede
 haber más tiempo para intervenir antes de que la enfermedad se disemine
 ampliamente.</p>
-<p>Para este brote de ébola asumiremos que el intervalo serial está
+<p>Para este brote de Ébola asumiremos que el intervalo serial está
 descrito por una distribución Gamma de media (<code>mean_si</code>) de
 <code>8.7 días</code> y con una desviación estándar
 (<code>std_si</code>) de <code>6.1 días</code>. En la práctica del día 4
 estudiaremos cómo estimar el intervalo serial.</p>
-<div class="codewrapper sourceCode" id="cb56">
+<div class="codewrapper sourceCode" id="cb114">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -1205,49 +1258,57 @@ estimar la transmisibilidad variable en el tiempo utilizando el número
 de reproducción instantánea (<span class="math inline">\(R_t\)</span>).
 Este enfoque, introducido por Cori et al. (2013), se implementa en el
 paquete <code>EpiEstim</code>, el cual estima el <span class="math inline">\(R_t\)</span> para ventanas de tiempo
-personalizadas, utilizando la una distribución de Poisson. A
-continuación, estimamos la transmisibilidad para ventanas de tiempo
-deslizantes de 1 semana (el valor predeterminado de
-<code>estimate_R</code>):</p>
-<hr><div class="codewrapper sourceCode" id="cb57">
+personalizadas, utilizando una distribución de Poisson. A continuación,
+estimamos la transmisibilidad para ventanas de tiempo deslizantes de 1
+semana (el valor predeterminado de <code>estimate_R</code>):</p>
+<hr><div class="codewrapper sourceCode" id="cb115">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">config</span> <span class="op">&lt;-</span> <span class="fu">make_config</span><span class="op">(</span><span class="fu">list</span><span class="op">(</span>mean_si <span class="op">=</span> <span class="va">mean_si</span>, std_si <span class="op">=</span> <span class="va">std_si</span><span class="op">)</span><span class="op">)</span> </span>
 <span><span class="co"># t_start y t_end se configuran automáticamente para estimar R en ventanas deslizantes para 1 semana de forma predeterminada.</span></span></code></pre>
 </div>
-<div class="codewrapper sourceCode" id="cb58">
+<div class="codewrapper sourceCode" id="cb116">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># use estimate_R using method = "parametric_si"</span></span>
 <span><span class="va">estimacion_rt</span> <span class="op">&lt;-</span> <span class="fu">estimate_R</span><span class="op">(</span><span class="va">incidencia_diaria_truncada</span>, method <span class="op">=</span> <span class="st">"parametric_si"</span>, </span>
 <span>                            si_data <span class="op">=</span> <span class="va">si_data</span>,</span>
-<span>                            config <span class="op">=</span> <span class="va">config</span><span class="op">)</span></span>
-<span><span class="co"># Observamos las primeras estimaciones de R(t)</span></span>
+<span>                            config <span class="op">=</span> <span class="va">config</span><span class="op">)</span></span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="error" tabindex="0"><code>Error in eval(expr, envir, enclos): object 'incidencia_diaria_truncada' not found</code></pre>
+</div>
+<div class="codewrapper sourceCode" id="cb118">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Observamos las primeras estimaciones de R(t)</span></span>
 <span><span class="fu">head</span><span class="op">(</span><span class="va">estimacion_rt</span><span class="op">$</span><span class="va">R</span><span class="op">[</span>, <span class="fu">c</span><span class="op">(</span><span class="st">"t_start"</span>, <span class="st">"t_end"</span>, <span class="st">"Median(R)"</span>, </span>
 <span>                         <span class="st">"Quantile.0.025(R)"</span>, <span class="st">"Quantile.0.975(R)"</span><span class="op">)</span><span class="op">]</span><span class="op">)</span></span></code></pre>
 </div>
 <div class="codewrapper">
-<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="output" tabindex="0"><code>  t_start t_end Median(R) Quantile.0.025(R) Quantile.0.975(R)
-1       2     8        NA                NA                NA
-2       3     9  2.173592         0.3136801          7.215718
-3       4    10  2.148673         0.3100840          7.132996
-4       5    11  2.060726         0.2973920          6.841036
-5       6    12  1.960940         0.2829915          6.509775
-6       7    13  1.869417         0.2697834          6.205943</code></pre>
+<pre class="error" tabindex="0"><code>Error in eval(expr, envir, enclos): object 'estimacion_rt' not found</code></pre>
 </div>
 <p>Grafique la estimación de <span class="math inline">\(R\)</span> como
 función del tiempo:</p>
-<div class="codewrapper sourceCode" id="cb60">
+<div class="codewrapper sourceCode" id="cb120">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">plot</span><span class="op">(</span><span class="va">estimacion_rt</span>, legend <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre>
 </div>
-<figure><img src="fig/TallerIntroAnaliticaBrotes-rendered-unnamed-chunk-40-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><hr><div class="section level4">
+<div class="codewrapper">
+<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="error" tabindex="0"><code>Error in eval(expr, envir, enclos): object 'estimacion_rt' not found</code></pre>
+</div>
+<hr><div class="section level4">
 <h4 id="sobre-este-documento">Sobre este documento<a class="anchor" aria-label="anchor" href="#sobre-este-documento"></a></h4>
 <p>Este documento ha sido una adaptación de los materiales originales
 disponibles en <a href="https://www.reconlearn.org/" class="external-link">RECON Learn</a></p>
@@ -1278,8 +1339,8 @@ disponibles en <a href="https://www.reconlearn.org/" class="external-link">RECON
 enfermedades infecciosas de persona a persona.</p></li>
 <li><p>Estimar la probabilidad de muerte (CFR).</p></li>
 <li><p>Calcular y graficar la incidencia.</p></li>
-<li><p>Estimar e interpretar la tasa de crecimiento y el tiempo en que
-se duplica la epidemia.</p></li>
+<li><p>Estimar e interpretar la tasa de crecimiento y el tiempo en el
+que se duplica la epidemia.</p></li>
 <li><p>Estimar e interpretar el número de reproducción instantáneo de la
 epidemia.</p></li>
 </ul></div>
@@ -1350,8 +1411,8 @@ any links that you are not going to use.
   "url": "https://epiverse-trace.github.io/epimodelac/TallerIntroAnaliticaBrotes.html",
   "identifier": "https://epiverse-trace.github.io/epimodelac/TallerIntroAnaliticaBrotes.html",
   "dateCreated": "2023-11-10",
-  "dateModified": "2023-12-08",
-  "datePublished": "2023-12-08"
+  "dateModified": "2023-12-11",
+  "datePublished": "2023-12-11"
 }
 
   </script><script>
