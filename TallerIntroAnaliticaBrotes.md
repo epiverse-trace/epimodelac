@@ -118,7 +118,11 @@ Para leer en R este archivo, utilice la función `read_rds` de `tidyverse`. Se c
 
 
 ```r
-casos <- read_rds("files/casos.rds")
+casos <- read_rds("data/casos.rds")
+```
+
+```{.error}
+Error in readRDS(con, refhook = refhook): cannot open the connection
 ```
 
 
@@ -131,20 +135,8 @@ Explore la estructura de los datos. Para esto puede utilizar la función `glimps
 glimpse(casos)
 ```
 
-```{.output}
-Rows: 166
-Columns: 11
-$ id_caso                  <chr> "d1fafd", "53371b", "f5c3d8", "6c286a", "0f58…
-$ generacion               <dbl> 0, 1, 1, 2, 2, 0, 3, 3, 2, 3, 4, 3, 4, 2, 4, …
-$ fecha_de_infeccion       <date> NA, 2014-04-09, 2014-04-18, NA, 2014-04-22, …
-$ fecha_inicio_sintomas    <date> 2014-04-07, 2014-04-15, 2014-04-21, 2014-04-…
-$ fecha_de_hospitalizacion <date> 2014-04-17, 2014-04-20, 2014-04-25, 2014-04-…
-$ fecha_desenlace          <date> 2014-04-19, NA, 2014-04-30, 2014-05-07, 2014…
-$ desenlace                <chr> NA, NA, "Recuperacion", "Muerte", "Recuperaci…
-$ genero                   <fct> f, m, f, f, f, f, f, f, m, m, f, f, f, f, f, …
-$ hospital                 <fct> Military Hospital, Connaught Hospital, other,…
-$ longitud                 <dbl> -13.21799, -13.21491, -13.22804, -13.23112, -…
-$ latitud                  <dbl> 8.473514, 8.464927, 8.483356, 8.464776, 8.452…
+```{.error}
+Error in eval(expr, envir, enclos): object 'casos' not found
 ```
 
 Como puede observar contactos tiene 11 columnas (variables) y 166 filas de datos. En un rápido vistazo puede observar el tipo de las variables por ejemplo, la columna `desenlace` tiene formato carácter (`chr`) y contiene entre sus valores `"Recuperación"` o `"Muerte"`. 
@@ -180,17 +172,15 @@ Note que las fechas ya están en formato fecha (`date`).
 table(casos$desenlace, useNA = "ifany")
 ```
 
-```{.output}
-
-      Muerte Recuperacion         <NA> 
-          60           43           63 
+```{.error}
+Error in eval(expr, envir, enclos): object 'casos' not found
 ```
 
 ::::::::::::::::::::::::::::::::::::: challenge  
 
 ## Desafío 1  
 
-Calcule la probabilidad de muerte en los casos reportados (`CFR`) tomando el número de muertes y el número de casos con desenlace final conocido del objeto casos. Esta vez se calculará el `CFR` con el método *Naive*. Los cálculos *Naive* (*inocentes*) tienen el problema de que pueden presentar sesgos, por lo que no deberían ser utilizados para informar decisiones de salud pública. Hablaremos de estos sesgos en profundidad en el día 4. 
+Calcule la probabilidad de muerte en los casos reportados (`CFR`) tomando el número de muertes y el número de casos con desenlace final conocido del objeto `casos`. Esta vez se calculará el `CFR` con el método *Naive*. Los cálculos *Naive* (*inocentes*) tienen el problema de que pueden presentar sesgos, por lo que no deberían ser utilizados para informar decisiones de salud pública. Hablaremos de estos sesgos en profundidad en el día 4. 
 
 Durante este taller se le presentarán algunos retos, para los cuales obtendrá algunas pistas, por ejemplo en el presente reto se le presenta una pista, la cual es un fragmento del código que usted debe completar para alcanzar la solución. En los espacios donde dice `COMPLETE` por favor diligencie el código faltante.
 
@@ -214,8 +204,20 @@ muertes <- sum(casos$desenlace %in% "Muerte")
 ```
 
 
-```{.output}
-[1] 0.5825243
+```{.error}
+Error in eval(expr, envir, enclos): object 'casos' not found
+```
+
+```{.error}
+Error in eval(expr, envir, enclos): object 'casos' not found
+```
+
+```{.error}
+Error in eval(expr, envir, enclos): object 'muertes' not found
+```
+
+```{.error}
+Error in eval(expr, envir, enclos): object 'CFR' not found
 ```
 :::::::::::::::::::::::::::::::::
 
@@ -226,16 +228,34 @@ muertes <- sum(casos$desenlace %in% "Muerte")
 
 ```r
 muertes <- sum(casos$desenlace %in% "Muerte") 
+```
 
+```{.error}
+Error in eval(expr, envir, enclos): object 'casos' not found
+```
+
+```r
 casos_desenlace_final_conocido <- sum(casos$desenlace %in% c("Muerte", "Recuperacion")) 
+```
 
+```{.error}
+Error in eval(expr, envir, enclos): object 'casos' not found
+```
+
+```r
 CFR <- muertes / casos_desenlace_final_conocido
+```
 
+```{.error}
+Error in eval(expr, envir, enclos): object 'muertes' not found
+```
+
+```r
 print(CFR)
 ```
 
-```{.output}
-[1] 0.5825243
+```{.error}
+Error in eval(expr, envir, enclos): object 'CFR' not found
 ```
  
 ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
@@ -246,14 +266,16 @@ Para complementar el calculo del CFR se pueden calcular sus intervalos de confia
 
 ## Desafío 2  
 
-Determine el CFR con sus intervalos de confianza utilizando la función `binom.confint`. Y obtenga este resultado. 
+Determine el CFR con sus intervalos de confianza utilizando la función `binom.confint`. Y obtenga este resultado: 
 
 
-Table: **CFR con intervalos de confianza**
+```{.error}
+Error in eval(expr, envir, enclos): object 'muertes' not found
+```
 
-|method |  x|   n|      mean|     lower|     upper|
-|:------|--:|---:|---------:|---------:|---------:|
-|exact  | 60| 103| 0.5825243| 0.4812264| 0.6789504|
+```{.error}
+Error in eval(expr, envir, enclos): object 'CFR_con_CI' not found
+```
 :::::::::::::::::::::::: solution 
 
 ## Pista 
@@ -279,24 +301,26 @@ CFR_con_CI
 CFR_con_CI <- binom.confint(muertes, 
                                        casos_desenlace_final_conocido, method = "exact") %>%
   kable(caption = "**CFR con intervalos de confianza**")
+```
 
+```{.error}
+Error in eval(expr, envir, enclos): object 'muertes' not found
+```
+
+```r
 CFR_con_CI
 ```
 
-
-
-Table: **CFR con intervalos de confianza**
-
-|method |  x|   n|      mean|     lower|     upper|
-|:------|--:|---:|---------:|---------:|---------:|
-|exact  | 60| 103| 0.5825243| 0.4812264| 0.6789504|
+```{.error}
+Error in eval(expr, envir, enclos): object 'CFR_con_CI' not found
+```
 ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
 ## 3. Incidencia 
 
 ### 3.1. Curva de incidencia diaria 
 
-El paquete `incidence` es de gran utilidad para el análisis epidemiológico de datos de incidencia de enfermedades infecciosas, dado que permite calcular la incidencia a partir del intervalo temporal suministrado (e.g. diario o semanal). Dentro de este paquete esta la función `incidence` la cuenta con los siguientes argumentos: 
+El paquete `incidence` es de gran utilidad para el análisis epidemiológico de datos de incidencia de enfermedades infecciosas, dado que permite calcular la incidencia a partir del intervalo temporal suministrado (e.g. diario o semanal). Dentro de este paquete esta la función `incidence` la cual cuenta con los siguientes argumentos: 
 
 1. `dates` contiene una variable con fechas que representan cuándo ocurrieron eventos individuales, como por ejemplo la fecha de inicio de los síntomas de una enfermedad en un conjunto de pacientes. 
 
@@ -325,16 +349,12 @@ incidencia_diaria
 El resultado es un objeto de clase incidencia (`incidence`) que contiene el recuento de casos para cada intervalo de tiempo, lo que facilita su visualización y análisis posterior. Como puede observar la función produjo los siguientes datos: 
 
 
-```{.output}
-<incidence object>
-[166 cases from days 2014-04-07 to 2014-06-29]
+```{.error}
+Error in eval(expr, envir, enclos): object 'casos' not found
+```
 
-$counts: matrix with 84 rows and 1 columns
-$n: 166 cases in total
-$dates: 84 dates marking the left-side of bins
-$interval: 1 day
-$timespan: 84 days
-$cumulative: FALSE
+```{.error}
+Error in eval(expr, envir, enclos): object 'incidencia_diaria' not found
 ```
 
 :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: instructor
@@ -344,19 +364,18 @@ $cumulative: FALSE
 
 ```r
 incidencia_diaria <- incidence(casos$fecha_inicio_sintomas)
+```
+
+```{.error}
+Error in eval(expr, envir, enclos): object 'casos' not found
+```
+
+```r
 incidencia_diaria
 ```
 
-```{.output}
-<incidence object>
-[166 cases from days 2014-04-07 to 2014-06-29]
-
-$counts: matrix with 84 rows and 1 columns
-$n: 166 cases in total
-$dates: 84 dates marking the left-side of bins
-$interval: 1 day
-$timespan: 84 days
-$cumulative: FALSE
+```{.error}
+Error in eval(expr, envir, enclos): object 'incidencia_diaria' not found
 ```
 ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
@@ -370,7 +389,9 @@ Ahora haga una gráfica de la incidencia diaria.
 plot(incidencia_diaria, border = "black")
 ```
 
-<img src="fig/TallerIntroAnaliticaBrotes-rendered-unnamed-chunk-15-1.png" style="display: block; margin: auto;" />
+```{.error}
+Error in eval(expr, envir, enclos): object 'incidencia_diaria' not found
+```
 
 
 En el `Eje X (Fechas)`: Se puede observar fechas van desde el `7 de abril de 2014` hasta una fecha posterior al `21 de junio de 2014`. Estas fechas representan el período de observación del brote.
@@ -386,7 +407,7 @@ A pesar de que hay una curva creciente, hay periodos con pocos o ningún caso. �
 
 ## Ideas discusión: 
 
-Usualmente el inicio de la transmisión en la fase exponencial, y dependiendo el periodo de incubación y el intervalo serial, se van a ver días sin casos. Eso no significa que la curva no sea creciente. Usualmente, al agrupar por semana ya no se verá la ausencia de casos.
+Usualmente al inicio de la transmisión en la fase exponencial, y dependiendo el periodo de incubación y el intervalo serial, se van a ver días sin casos. Eso no significa que la curva no sea creciente. Usualmente, al agrupar por semana ya no se verá la ausencia de casos.
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
@@ -407,20 +428,17 @@ incidencia_semanal <- incidence(PRIMER ARGUMENTO,  #COMPLETE
 
 
 
-```{.output}
-<incidence object>
-[166 cases from days 2014-04-07 to 2014-06-30]
-[166 cases from ISO weeks 2014-W15 to 2014-W27]
-
-$counts: matrix with 13 rows and 1 columns
-$n: 166 cases in total
-$dates: 13 dates marking the left-side of bins
-$interval: 7 days
-$timespan: 85 days
-$cumulative: FALSE
+```{.error}
+Error in eval(expr, envir, enclos): object 'casos' not found
 ```
 
-<img src="fig/TallerIntroAnaliticaBrotes-rendered-unnamed-chunk-17-1.png" style="display: block; margin: auto;" />
+```{.error}
+Error in eval(expr, envir, enclos): object 'incidencia_semanal' not found
+```
+
+```{.error}
+Error in eval(expr, envir, enclos): object 'incidencia_semanal' not found
+```
 
 :::::::::::::::::::::::::::::::::
 
@@ -434,27 +452,27 @@ incidencia_semanal <- incidence(casos$fecha_inicio_sintomas,
                                 interval = 7, 
                                 last_date = max(casos$fecha_de_hospitalizacion,
                                               na.rm = TRUE))
+```
+
+```{.error}
+Error in eval(expr, envir, enclos): object 'casos' not found
+```
+
+```r
 incidencia_semanal
 ```
 
-```{.output}
-<incidence object>
-[166 cases from days 2014-04-07 to 2014-06-30]
-[166 cases from ISO weeks 2014-W15 to 2014-W27]
-
-$counts: matrix with 13 rows and 1 columns
-$n: 166 cases in total
-$dates: 13 dates marking the left-side of bins
-$interval: 7 days
-$timespan: 85 days
-$cumulative: FALSE
+```{.error}
+Error in eval(expr, envir, enclos): object 'incidencia_semanal' not found
 ```
 
 ```r
 plot(incidencia_semanal, border = "black")
 ```
 
-<img src="fig/TallerIntroAnaliticaBrotes-rendered-unnamed-chunk-18-1.png" style="display: block; margin: auto;" />
+```{.error}
+Error in eval(expr, envir, enclos): object 'incidencia_semanal' not found
+```
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
@@ -482,7 +500,9 @@ ggplot(as.data.frame(incidencia_semanal)) +
   theme_minimal()
 ```
 
-<img src="fig/TallerIntroAnaliticaBrotes-rendered-unnamed-chunk-19-1.png" style="display: block; margin: auto;" />
+```{.error}
+Error in eval(expr, envir, enclos): object 'incidencia_semanal' not found
+```
  
   
 #### Ajuste un modelo log-lineal a los datos de incidencia semanal {#interpretación-del-modelo}
@@ -490,30 +510,18 @@ ggplot(as.data.frame(incidencia_semanal)) +
 
 ```r
 ajuste_modelo <- incidence::fit(incidencia_semanal)
+```
+
+```{.error}
+Error in eval(expr, envir, enclos): object 'incidencia_semanal' not found
+```
+
+```r
 ajuste_modelo
 ```
 
-```{.output}
-<incidence_fit object>
-
-$model: regression of log-incidence over time
-
-$info: list containing the following items:
-  $r (daily growth rate):
-[1] 0.04145251
-
-  $r.conf (confidence interval):
-          2.5 %     97.5 %
-[1,] 0.02582225 0.05708276
-
-  $doubling (doubling time in days):
-[1] 16.72148
-
-  $doubling.conf (confidence interval):
-        2.5 %   97.5 %
-[1,] 12.14285 26.84302
-
-  $pred: data.frame of incidence predictions (12 rows, 5 columns)
+```{.error}
+Error in eval(expr, envir, enclos): object 'ajuste_modelo' not found
 ```
 
 ::::::::::::::::::::::::::::::::::::: challenge  
@@ -526,7 +534,7 @@ $info: list containing the following items:
 
 ## Solución 
 
-`$model`: Indica que se ha realizado una regresión logarítmica de la incidencia en función del tiempo. Esto implica que la relación entre el tiempo y la incidencia de la enfermedad ha sido modelada como una función lineal en escalá logarítmica en la incidencia con el fin de entender mejor las tendencias de crecimiento.
+`$model`: Indica que se ha realizado una regresión logarítmica de la incidencia en función del tiempo. Esto implica que la relación entre el tiempo y la incidencia de la enfermedad ha sido modelada como una función lineal en escala logarítmica en la incidencia con el fin de entender mejor las tendencias de crecimiento.
 
 
 `$info`: Contiene varios componentes importantes del análisis:
@@ -536,16 +544,23 @@ $info: list containing the following items:
 La tasa de crecimiento diaria estimada del brote es de `0.0415`. Esto significa que cada día la cantidad de casos está creciendo en un `4.15%` con respecto al día anterior, bajo la suposición de un crecimiento exponencial constante durante el periodo modelado.
 
 
-Si quisiera acceder a esta información sin ingresar al modelo podría hacerlo con el siguiente código
+Si quisiera acceder a esta información sin ingresar al modelo podría hacerlo con el siguiente código:
 
 
 ```r
 tasa_crecimiento_diaria <- ajuste_modelo$info$r
+```
+
+```{.error}
+Error in eval(expr, envir, enclos): object 'ajuste_modelo' not found
+```
+
+```r
 cat("La tasa de crecimiento diaria es:", tasa_crecimiento_diaria, "\n")
 ```
 
-```{.output}
-La tasa de crecimiento diaria es: 0.04145251 
+```{.error}
+Error in eval(expr, envir, enclos): object 'tasa_crecimiento_diaria' not found
 ```
 
 2. `$r.conf` (confidence interval):  2.5 %  0.02582225   97.5 %  0.05708276
@@ -560,7 +575,7 @@ El intervalo de confianza del `95%` para la tasa de crecimiento diaria está ent
 
 4. El intervalo de confianza del `95%` para el tiempo de duplicación está entre aproximadamente `12.14` y `26.84 días`. Este amplio rango refleja la incertidumbre en la estimación y puede ser consecuencia de la variabilidad en los datos o de un tamaño de muestra pequeño.
 
-`$pred`: Contiene las predicciones de incidencia observada. Incluye las fechas, la escala de tiempo en días desde el inicio del brote, los valores ajustados (predicciones), los límites inferior y superior del intervalo de confianza para las predicciones.
+`$pred`: Contiene las predicciones de incidencia observada. Incluye las fechas, la escala de tiempo en días desde el inicio del brote, los valores ajustados (predicciones) y los límites inferior y superior del intervalo de confianza para las predicciones.
 
 Si quiere conocer un poco más de este componente puede explorarlo con la función `glimpse`.
 
@@ -574,11 +589,18 @@ glimpse(ajuste_modelo$info$pred)
 
 ```r
 AjusteR2modelo <- summary(ajuste_modelo$model)$adj.r.squared
+```
+
+```{.error}
+Error in eval(expr, envir, enclos): object 'ajuste_modelo' not found
+```
+
+```r
 cat("El R cuadrado ajustado es:", AjusteR2modelo, "\n")
 ```
 
-```{.output}
-El R cuadrado ajustado es: 0.7551113 
+```{.error}
+Error in eval(expr, envir, enclos): object 'AjusteR2modelo' not found
 ```
 
 
@@ -593,7 +615,7 @@ Antes de continuar ¿Considera más adecuado usar una gráfica semanal para busc
 
 ## Ideas para responder:
 
-Es preferible estimar tasa de crecimiento diaria utilizando el ajuste de la incidencia semanal en lugar de la incidencia diaria debido a que los datos diarios pueden ser muy volátiles en los primeros días de la curva exponencial. Esto puede suceder por varias razones:
+Es preferible estimar la tasa de crecimiento diaria utilizando el ajuste de la incidencia semanal en lugar de la incidencia diaria debido a que los datos diarios pueden ser muy volátiles en los primeros días de la curva exponencial. Esto puede suceder por varias razones:
 
 - Las fluctuaciones naturales, ciclos de informes, retrasos en el reporte y los errores de medición, que pueden no reflejar cambios reales en la transmisión de la enfermedad. 
 
@@ -617,10 +639,12 @@ Con `plot`
 plot(incidencia_semanal, fit = ajuste_modelo)
 ```
 
-<img src="fig/TallerIntroAnaliticaBrotes-rendered-unnamed-chunk-24-1.png" style="display: block; margin: auto;" />
+```{.error}
+Error in eval(expr, envir, enclos): object 'incidencia_semanal' not found
+```
 
 
-Tras ajustar el modelo log-lineal a la incidencia semanal para estimar la tasa de crecimiento de la epidemia el gráfico muestra la curva de ajuste superpuesta a la incidencia semanal observada. 
+Tras ajustar el modelo log-lineal a la incidencia semanal para estimar la tasa de crecimiento de la epidemia, el gráfico muestra la curva de ajuste superpuesta a la incidencia semanal observada. 
 
 Al final del gráfico se puede observar que la incidencia semanal disminuye. 
 
@@ -637,19 +661,18 @@ Si se grafica por fecha de inicio de síntomas mientras el brote está creciendo
 
 #### Encuentre una fecha límite adecuada para el modelo log-lineal, en función de los rezagos (biológicos y administrativos).
 
-Dado que esta epidemia es de ébola y la mayoría de los casos van a ser hospitalizados, es muy probable que la mayoría de las notificaciones ocurran en el momento de la hospitalización. De tal manera que podríamos examinar cuánto tiempo transcurre entre la fecha de inicio de síntomas y la fecha de hospitalización para hacernos una idea del rezago para esta epidemia.
+Dado que esta epidemia es de Ébola y la mayoría de los casos van a ser hospitalizados, es muy probable que la mayoría de las notificaciones ocurran en el momento de la hospitalización. De tal manera que podríamos examinar cuánto tiempo transcurre entre la fecha de inicio de síntomas y la fecha de hospitalización para hacernos una idea del rezago para esta epidemia.
 
 
 ```r
 summary(as.numeric(casos$fecha_de_hospitalizacion - casos$fecha_inicio_sintomas))
 ```
 
-```{.output}
-   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
-   0.00    1.00    2.00    3.53    5.00   22.00 
+```{.error}
+Error in eval(expr, envir, enclos): object 'casos' not found
 ```
 
-Al restar la fecha de hospitalización a la fecha de inicio de síntomas podría haber valores negativos. ¿Cual cree que sea su significado? ¿Ocurre en este caso?
+Al restar la fecha de hospitalización a la fecha de inicio de síntomas podría haber valores negativos. ¿Cuál cree que sea su significado? ¿Ocurre en este caso?
 
 
 Para evitar el sesgo debido a rezagos en la notificación, se pueden truncar los datos de incidencia. Pruebe descartar las últimas dos semanas. Este procedimiento permite concentrarse en el periodo en que los datos son más completos para un análisis más fiable.
@@ -660,17 +683,40 @@ Semanas a descartar al final de la epicurva
 ```r
 semanas_a_descartar <- 2
 fecha_minima <- min(incidencia_diaria$dates)
-fecha_maxima <- max(incidencia_diaria$dates) - semanas_a_descartar * 7
+```
 
+```{.error}
+Error in eval(expr, envir, enclos): object 'incidencia_diaria' not found
+```
+
+```r
+fecha_maxima <- max(incidencia_diaria$dates) - semanas_a_descartar * 7
+```
+
+```{.error}
+Error in eval(expr, envir, enclos): object 'incidencia_diaria' not found
+```
+
+```r
 # Para truncar la incidencia semanal
 incidencia_semanal_truncada <- subset(incidencia_semanal, 
                          from = fecha_minima, 
                          to = fecha_maxima) # descarte las últimas semanas de datos
+```
 
+```{.error}
+Error in eval(expr, envir, enclos): object 'incidencia_semanal' not found
+```
+
+```r
 # Incidencia diaria truncada. No la usamos para la regresión lineal pero se puede usar más adelante
 incidencia_diaria_truncada <- subset(incidencia_diaria, 
                         from = fecha_minima, 
                         to = fecha_maxima) # eliminamos las últimas dos semanas de datos
+```
+
+```{.error}
+Error in eval(expr, envir, enclos): object 'incidencia_diaria' not found
 ```
 
 
@@ -682,27 +728,12 @@ incidencia_diaria_truncada <- subset(incidencia_diaria,
 Ahora utilizando los datos truncados `incidencia_semanal_truncada` vuelva a ajustar el modelo logarítmico lineal.
 
 
-```{.output}
-<incidence_fit object>
+```{.error}
+Error in eval(expr, envir, enclos): object 'incidencia_semanal_truncada' not found
+```
 
-$model: regression of log-incidence over time
-
-$info: list containing the following items:
-  $r (daily growth rate):
-[1] 0.05224047
-
-  $r.conf (confidence interval):
-          2.5 %    97.5 %
-[1,] 0.03323024 0.0712507
-
-  $doubling (doubling time in days):
-[1] 13.2684
-
-  $doubling.conf (confidence interval):
-        2.5 %   97.5 %
-[1,] 9.728286 20.85893
-
-  $pred: data.frame of incidence predictions (10 rows, 5 columns)
+```{.error}
+Error in eval(expr, envir, enclos): object 'ajuste_modelo_truncado' not found
 ```
 :::::::::::::::::::::::::::::::::
 
@@ -713,44 +744,38 @@ $info: list containing the following items:
 
 ```r
 ajuste_modelo_truncado <- incidence::fit(incidencia_semanal_truncada)
+```
+
+```{.error}
+Error in eval(expr, envir, enclos): object 'incidencia_semanal_truncada' not found
+```
+
+```r
 ajuste_modelo_truncado
 ```
 
-```{.output}
-<incidence_fit object>
-
-$model: regression of log-incidence over time
-
-$info: list containing the following items:
-  $r (daily growth rate):
-[1] 0.05224047
-
-  $r.conf (confidence interval):
-          2.5 %    97.5 %
-[1,] 0.03323024 0.0712507
-
-  $doubling (doubling time in days):
-[1] 13.2684
-
-  $doubling.conf (confidence interval):
-        2.5 %   97.5 %
-[1,] 9.728286 20.85893
-
-  $pred: data.frame of incidence predictions (10 rows, 5 columns)
+```{.error}
+Error in eval(expr, envir, enclos): object 'ajuste_modelo_truncado' not found
 ```
 
 ```r
 AjusteR2modelo <- summary(ajuste_modelo_truncado$model)$adj.r.squared 
+```
 
+```{.error}
+Error in eval(expr, envir, enclos): object 'ajuste_modelo_truncado' not found
+```
+
+```r
 cat("El R cuadrado ajustado es:", AjusteR2modelo, "\n")
 ```
 
-```{.output}
-El R cuadrado ajustado es: 0.8131106 
+```{.error}
+Error in eval(expr, envir, enclos): object 'AjusteR2modelo' not found
 ```
 ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
-¿Como interpreta estos resultados? ¿Compare los $R^2$?
+¿Cámo interpreta estos resultados? ¿Compare los $R^2$?
 
 ::::::::::::::::::::::::::::::::::::: challenge  
 
@@ -758,7 +783,10 @@ El R cuadrado ajustado es: 0.8131106
 
 Ahora utilizando los datos truncados `incidencia_semanal_truncada` vuelva a graficar el modelo logarítmico lineal. 
 
-<img src="fig/TallerIntroAnaliticaBrotes-rendered-unnamed-chunk-29-1.png" style="display: block; margin: auto;" />
+
+```{.error}
+Error in eval(expr, envir, enclos): object 'incidencia_semanal_truncada' not found
+```
 :::::::::::::::::::::::::::::::::
 
 :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: instructor
@@ -770,7 +798,9 @@ Ahora utilizando los datos truncados `incidencia_semanal_truncada` vuelva a graf
 plot(incidencia_semanal_truncada, fit = ajuste_modelo_truncado)
 ```
 
-<img src="fig/TallerIntroAnaliticaBrotes-rendered-unnamed-chunk-30-1.png" style="display: block; margin: auto;" />
+```{.error}
+Error in eval(expr, envir, enclos): object 'incidencia_semanal_truncada' not found
+```
 ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
 
@@ -784,25 +814,8 @@ Observe las estadísticas resumidas del ajuste:
 summary(ajuste_modelo_truncado$model)
 ```
 
-```{.output}
-
-Call:
-stats::lm(formula = log(counts) ~ dates.x, data = df)
-
-Residuals:
-     Min       1Q   Median       3Q      Max 
--0.73474 -0.31655 -0.03211  0.41798  0.65311 
-
-Coefficients:
-            Estimate Std. Error t value Pr(>|t|)    
-(Intercept) 0.186219   0.332752   0.560 0.591049    
-dates.x     0.052240   0.008244   6.337 0.000224 ***
----
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-
-Residual standard error: 0.5241 on 8 degrees of freedom
-Multiple R-squared:  0.8339,	Adjusted R-squared:  0.8131 
-F-statistic: 40.16 on 1 and 8 DF,  p-value: 0.0002237
+```{.error}
+Error in eval(expr, envir, enclos): object 'ajuste_modelo_truncado' not found
 ```
 
 El modelo muestra que hay una relación significativa (`R-squared: 0.8131`) entre el tiempo (`dates.x`) y la incidencia de la enfermedad, por lo que concluimos que la enfermedad muestra un crecimiento exponencial a lo largo del tiempo. 
@@ -816,7 +829,7 @@ Para estimar la tasa de crecimiento de una epidemia utilizando un modelo log-lin
 
 El modelo log-lineal proporcionará los coeficientes necesarios para estos cálculos. Note que el coeficiente asociado con el tiempo (la pendiente de la regresión) se puede interpretar como la tasa de crecimiento diaria cuando el tiempo se expresa en días.
 
-Con el modelo ajustado truncado, es hora de realizar la estimación de la tasa de crecimiento. Estos datos los puede encontrar en el objeto ajuste modelo semana, que tiene los datos ajustados de incidencia semanal truncada. 
+Con el modelo ajustado truncado, es hora de realizar la estimación de la tasa de crecimiento. Estos datos los puede encontrar en el objeto `ajuste modelo semana`, que tiene los datos ajustados de incidencia semanal truncada. 
 
 ::::::::::::::::::::::::::::::::::::: challenge  
 
@@ -825,12 +838,20 @@ Con el modelo ajustado truncado, es hora de realizar la estimación de la tasa d
 Por favor escriba el código para obtener los siguientes valores:
 
 
-```{.output}
-La tasa de crecimiento diaria es: 0.05224047 
+```{.error}
+Error in eval(expr, envir, enclos): object 'ajuste_modelo_truncado' not found
 ```
 
-```{.output}
-Intervalo de confianza de la tasa de crecimiento diaria (95%): 0.03323024 0.0712507 
+```{.error}
+Error in eval(expr, envir, enclos): object 'tasa_crecimiento_diaria' not found
+```
+
+```{.error}
+Error in eval(expr, envir, enclos): object 'ajuste_modelo_truncado' not found
+```
+
+```{.error}
+Error in eval(expr, envir, enclos): object 'tasa_crecimiento_IC' not found
 ```
 :::::::::::::::::::::::::::::::::
 
@@ -842,23 +863,35 @@ Intervalo de confianza de la tasa de crecimiento diaria (95%): 0.03323024 0.0712
 ```r
 # Estimación de la tasa de crecimiento diaria
 tasa_crecimiento_diaria <- ajuste_modelo_truncado$info$r
+```
 
+```{.error}
+Error in eval(expr, envir, enclos): object 'ajuste_modelo_truncado' not found
+```
+
+```r
 cat("La tasa de crecimiento diaria es:", tasa_crecimiento_diaria, "\n")
 ```
 
-```{.output}
-La tasa de crecimiento diaria es: 0.05224047 
+```{.error}
+Error in eval(expr, envir, enclos): object 'tasa_crecimiento_diaria' not found
 ```
 
 ```r
 # Intervalo de confianza de la tasa de crecimiento diaria
 tasa_crecimiento_IC <- ajuste_modelo_truncado$info$r.conf
+```
 
+```{.error}
+Error in eval(expr, envir, enclos): object 'ajuste_modelo_truncado' not found
+```
+
+```r
 cat("Intervalo de confianza de la tasa de crecimiento diaria (95%):", tasa_crecimiento_IC, "\n")
 ```
 
-```{.output}
-Intervalo de confianza de la tasa de crecimiento diaria (95%): 0.03323024 0.0712507 
+```{.error}
+Error in eval(expr, envir, enclos): object 'tasa_crecimiento_IC' not found
 ```
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
@@ -881,12 +914,20 @@ Esta información también la encontrará calculada y lista para utilizar en el 
 Por favor escriba el código para obtener los siguientes valores:
 
 
-```{.output}
-El tiempo de duplicación de la epidemia es 13.2684 días
+```{.error}
+Error in eval(expr, envir, enclos): object 'ajuste_modelo_truncado' not found
 ```
 
-```{.output}
-Intervalo de confianza del tiempo de duplicación (95%): 9.728286 20.85893 
+```{.error}
+Error in eval(expr, envir, enclos): object 'tiempo_duplicacion_dias' not found
+```
+
+```{.error}
+Error in eval(expr, envir, enclos): object 'ajuste_modelo_truncado' not found
+```
+
+```{.error}
+Error in eval(expr, envir, enclos): object 'tiempo_duplicacion_IC' not found
 ```
 :::::::::::::::::::::::::::::::::
 
@@ -898,21 +939,35 @@ Intervalo de confianza del tiempo de duplicación (95%): 9.728286 20.85893
 ```r
 # Estimación del tiempo de duplicación en días
 tiempo_duplicacion_dias <- ajuste_modelo_truncado$info$doubling
+```
+
+```{.error}
+Error in eval(expr, envir, enclos): object 'ajuste_modelo_truncado' not found
+```
+
+```r
 cat("El tiempo de duplicación de la epidemia es", tiempo_duplicacion_dias, "días\n")
 ```
 
-```{.output}
-El tiempo de duplicación de la epidemia es 13.2684 días
+```{.error}
+Error in eval(expr, envir, enclos): object 'tiempo_duplicacion_dias' not found
 ```
 
 ```r
 # Intervalo de confianza del tiempo de duplicación
 tiempo_duplicacion_IC <- ajuste_modelo_truncado$info$doubling.conf
+```
+
+```{.error}
+Error in eval(expr, envir, enclos): object 'ajuste_modelo_truncado' not found
+```
+
+```r
 cat("Intervalo de confianza del tiempo de duplicación (95%):", tiempo_duplicacion_IC, "\n")
 ```
 
-```{.output}
-Intervalo de confianza del tiempo de duplicación (95%): 9.728286 20.85893 
+```{.error}
+Error in eval(expr, envir, enclos): object 'tiempo_duplicacion_IC' not found
 ```
 ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
@@ -936,7 +991,7 @@ El intervalo serial en epidemiología se refiere al tiempo que transcurre entre 
 
 Este intervalo es importante porque ayuda a entender qué tan rápido se está propagando una enfermedad y a diseñar estrategias de control como el rastreo de contactos y la cuarentena. Si el intervalo serial es corto, puede significar que la enfermedad se propaga rápidamente y que es necesario actuar con urgencia para contenerla. Si es largo, puede haber más tiempo para intervenir antes de que la enfermedad se disemine ampliamente.
 
-Para este brote de ébola asumiremos que el intervalo serial está descrito por una distribución Gamma de media (`mean_si`) de `8.7 días` y con una desviación estándar (`std_si`) de `6.1 días`. En la práctica del día 4 estudiaremos cómo estimar el intervalo serial.
+Para este brote de Ébola asumiremos que el intervalo serial está descrito por una distribución Gamma de media (`mean_si`) de `8.7 días` y con una desviación estándar (`std_si`) de `6.1 días`. En la práctica del día 4 estudiaremos cómo estimar el intervalo serial.
 
 
 ```r
@@ -951,7 +1006,7 @@ config <- make_config(list(mean_si = mean_si, std_si = std_si))
 
 ### 5.2. Estimación de la transmisibilidad variable en el tiempo, R(t) 
 
-Cuando la suposición de que ($R$) es constante en el tiempo se vuelve insostenible, una alternativa es estimar la transmisibilidad variable en el tiempo utilizando el número de reproducción instantánea ($R_t$). Este enfoque, introducido por Cori et al. (2013),  se implementa en el paquete `EpiEstim`, el cual estima el $R_t$ para ventanas de tiempo personalizadas, utilizando la una distribución de Poisson.  A continuación, estimamos la transmisibilidad para ventanas de tiempo deslizantes de 1 semana (el valor predeterminado de `estimate_R`):
+Cuando la suposición de que ($R$) es constante en el tiempo se vuelve insostenible, una alternativa es estimar la transmisibilidad variable en el tiempo utilizando el número de reproducción instantánea ($R_t$). Este enfoque, introducido por Cori et al. (2013),  se implementa en el paquete `EpiEstim`, el cual estima el $R_t$ para ventanas de tiempo personalizadas, utilizando una distribución de Poisson.  A continuación, estimamos la transmisibilidad para ventanas de tiempo deslizantes de 1 semana (el valor predeterminado de `estimate_R`):
 
 ***
 
@@ -970,19 +1025,20 @@ config <- make_config(list(mean_si = mean_si, std_si = std_si))
 estimacion_rt <- estimate_R(incidencia_diaria_truncada, method = "parametric_si", 
                             si_data = si_data,
                             config = config)
+```
+
+```{.error}
+Error in eval(expr, envir, enclos): object 'incidencia_diaria_truncada' not found
+```
+
+```r
 # Observamos las primeras estimaciones de R(t)
 head(estimacion_rt$R[, c("t_start", "t_end", "Median(R)", 
                          "Quantile.0.025(R)", "Quantile.0.975(R)")])
 ```
 
-```{.output}
-  t_start t_end Median(R) Quantile.0.025(R) Quantile.0.975(R)
-1       2     8        NA                NA                NA
-2       3     9  2.173592         0.3136801          7.215718
-3       4    10  2.148673         0.3100840          7.132996
-4       5    11  2.060726         0.2973920          6.841036
-5       6    12  1.960940         0.2829915          6.509775
-6       7    13  1.869417         0.2697834          6.205943
+```{.error}
+Error in eval(expr, envir, enclos): object 'estimacion_rt' not found
 ```
 
 
@@ -993,7 +1049,9 @@ Grafique la estimación de $R$ como función del tiempo:
 plot(estimacion_rt, legend = FALSE)
 ```
 
-<img src="fig/TallerIntroAnaliticaBrotes-rendered-unnamed-chunk-40-1.png" style="display: block; margin: auto;" />
+```{.error}
+Error in eval(expr, envir, enclos): object 'estimacion_rt' not found
+```
 
 
 ***
@@ -1034,13 +1092,13 @@ Cambios menores y adaptación a español:
 Revise si al final de esta lección adquirió estas competencias:
 
 
-- Identificar los parámetros necesarios en casos de  transmisión de enfermedades infecciosas de persona a persona. 
+- Identificar los parámetros necesarios en casos de transmisión de enfermedades infecciosas de persona a persona. 
 
 - Estimar la probabilidad de muerte (CFR). 
 
 - Calcular y graficar la incidencia.
 
-- Estimar e interpretar la tasa de crecimiento y el tiempo en que se duplica la epidemia. 
+- Estimar e interpretar la tasa de crecimiento y el tiempo en el que se duplica la epidemia. 
 
 - Estimar e interpretar el número de reproducción instantáneo  de la epidemia.
 
