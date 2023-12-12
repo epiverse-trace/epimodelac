@@ -1742,6 +1742,18 @@
       ],
       "Hash": "2a0dc8c6adfb6f032e4d4af82d258ab5"
     },
+    "pak": {
+      "Package": "pak",
+      "Version": "0.7.1",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Requirements": [
+        "R",
+        "tools",
+        "utils"
+      ],
+      "Hash": "17c4c32b4bdc087508f35e8b7dcf4191"
+    },
     "patchwork": {
       "Package": "patchwork",
       "Version": "1.1.3",
@@ -2733,27 +2745,6 @@
         "R"
       ],
       "Hash": "3d78edfb977a69fc7a0341bee25e163f"
-    },
-    "vaccineff": {
-      "Package": "vaccineff",
-      "Version": "0.0.1",
-      "Source": "GitHub",
-      "RemoteType": "github",
-      "RemoteHost": "api.github.com",
-      "RemoteUsername": "epiverse-trace",
-      "RemoteRepo": "vaccineff",
-      "RemoteRef": "main",
-      "RemoteSha": "666ddf4f1272f835f0faaed796ed2aa824c63946",
-      "Requirements": [
-        "R",
-        "checkmate",
-        "ggplot2",
-        "rlang",
-        "scales",
-        "stats",
-        "survival"
-      ],
-      "Hash": "dff57d6aacd7046dca5edd79fdebb552"
     },
     "vctrs": {
       "Package": "vctrs",
