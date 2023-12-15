@@ -348,103 +348,79 @@ any links that you are not going to use.
 <h3 id="TallerIntroAnaliticaBrotes-headingInstructor1">
 <a href="TallerIntroAnaliticaBrotes.html#headingInstructor1">Solución 1</a><a class="anchor" aria-label="anchor" href="#TallerIntroAnaliticaBrotes-headingInstructor1"></a>
 </h3>
-<div class="codewrapper sourceCode" id="cb14">
+<div class="codewrapper sourceCode" id="cb10">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">muertes</span> <span class="op">&lt;-</span> <span class="fu">sum</span><span class="op">(</span><span class="va">casos</span><span class="op">$</span><span class="va">desenlace</span> <span class="op">%in%</span> <span class="st">"Muerte"</span><span class="op">)</span> </span></code></pre>
+<code class="sourceCode R"><span><span class="va">muertes</span> <span class="op">&lt;-</span> <span class="fu">sum</span><span class="op">(</span><span class="va">casos</span><span class="op">$</span><span class="va">desenlace</span> <span class="op">%in%</span> <span class="st">"Muerte"</span><span class="op">)</span> </span>
+<span></span>
+<span><span class="va">casos_desenlace_final_conocido</span> <span class="op">&lt;-</span> <span class="fu">sum</span><span class="op">(</span><span class="va">casos</span><span class="op">$</span><span class="va">desenlace</span> <span class="op">%in%</span> <span class="fu">c</span><span class="op">(</span><span class="st">"Muerte"</span>, <span class="st">"Recuperacion"</span><span class="op">)</span><span class="op">)</span> </span>
+<span></span>
+<span><span class="va">CFR</span> <span class="op">&lt;-</span> <span class="va">muertes</span> <span class="op">/</span> <span class="va">casos_desenlace_final_conocido</span></span>
+<span></span>
+<span><span class="fu">print</span><span class="op">(</span><span class="va">CFR</span><span class="op">)</span></span></code></pre>
 </div>
 <div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="error" tabindex="0"><code>Error in eval(expr, envir, enclos): object 'casos' not found</code></pre>
-</div>
-<div class="codewrapper sourceCode" id="cb16">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">casos_desenlace_final_conocido</span> <span class="op">&lt;-</span> <span class="fu">sum</span><span class="op">(</span><span class="va">casos</span><span class="op">$</span><span class="va">desenlace</span> <span class="op">%in%</span> <span class="fu">c</span><span class="op">(</span><span class="st">"Muerte"</span>, <span class="st">"Recuperacion"</span><span class="op">)</span><span class="op">)</span> </span></code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error in eval(expr, envir, enclos): object 'casos' not found</code></pre>
-</div>
-<div class="codewrapper sourceCode" id="cb18">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">CFR</span> <span class="op">&lt;-</span> <span class="va">muertes</span> <span class="op">/</span> <span class="va">casos_desenlace_final_conocido</span></span></code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error in eval(expr, envir, enclos): object 'muertes' not found</code></pre>
-</div>
-<div class="codewrapper sourceCode" id="cb20">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">print</span><span class="op">(</span><span class="va">CFR</span><span class="op">)</span></span></code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error in eval(expr, envir, enclos): object 'CFR' not found</code></pre>
+<pre class="output" tabindex="0"><code>[1] 0.5825243</code></pre>
 </div>
 <hr>
 <br><h3 id="TallerIntroAnaliticaBrotes-headingInstructor2">
 <a href="TallerIntroAnaliticaBrotes.html#headingInstructor2">Solución 2</a><a class="anchor" aria-label="anchor" href="#TallerIntroAnaliticaBrotes-headingInstructor2"></a>
 </h3>
-<div class="codewrapper sourceCode" id="cb25">
+<div class="codewrapper sourceCode" id="cb13">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">CFR_con_CI</span> <span class="op">&lt;-</span> <span class="fu">binom.confint</span><span class="op">(</span><span class="va">muertes</span>, </span>
 <span>                                       <span class="va">casos_desenlace_final_conocido</span>, method <span class="op">=</span> <span class="st">"exact"</span><span class="op">)</span> <span class="op">%&gt;%</span></span>
-<span>  <span class="fu">kable</span><span class="op">(</span>caption <span class="op">=</span> <span class="st">"**CFR con intervalos de confianza**"</span><span class="op">)</span></span></code></pre>
+<span>  <span class="fu">kable</span><span class="op">(</span>caption <span class="op">=</span> <span class="st">"**CFR con intervalos de confianza**"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">CFR_con_CI</span></span></code></pre>
 </div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error in eval(expr, envir, enclos): object 'muertes' not found</code></pre>
-</div>
-<div class="codewrapper sourceCode" id="cb27">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">CFR_con_CI</span></span></code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error in eval(expr, envir, enclos): object 'CFR_con_CI' not found</code></pre>
-</div>
+<table class="table">
+<caption><strong>CFR con intervalos de confianza</strong></caption>
+<thead><tr class="header">
+<th align="left">method</th>
+<th align="right">x</th>
+<th align="right">n</th>
+<th align="right">mean</th>
+<th align="right">lower</th>
+<th align="right">upper</th>
+</tr></thead>
+<tbody><tr class="odd">
+<td align="left">exact</td>
+<td align="right">60</td>
+<td align="right">103</td>
+<td align="right">0.5825243</td>
+<td align="right">0.4812264</td>
+<td align="right">0.6789504</td>
+</tr></tbody>
+</table>
 <hr>
 <br><h3 id="TallerIntroAnaliticaBrotes-headingInstructor3">
 <a href="TallerIntroAnaliticaBrotes.html#headingInstructor3">Solución 3</a><a class="anchor" aria-label="anchor" href="#TallerIntroAnaliticaBrotes-headingInstructor3"></a>
 </h3>
-<div class="codewrapper sourceCode" id="cb32">
+<div class="codewrapper sourceCode" id="cb16">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">incidencia_diaria</span> <span class="op">&lt;-</span> <span class="fu">incidence</span><span class="op">(</span><span class="va">casos</span><span class="op">$</span><span class="va">fecha_inicio_sintomas</span><span class="op">)</span></span></code></pre>
+<code class="sourceCode R"><span><span class="va">incidencia_diaria</span> <span class="op">&lt;-</span> <span class="fu">incidence</span><span class="op">(</span><span class="va">casos</span><span class="op">$</span><span class="va">fecha_inicio_sintomas</span><span class="op">)</span></span>
+<span><span class="va">incidencia_diaria</span></span></code></pre>
 </div>
 <div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="error" tabindex="0"><code>Error in eval(expr, envir, enclos): object 'casos' not found</code></pre>
-</div>
-<div class="codewrapper sourceCode" id="cb34">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">incidencia_diaria</span></span></code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error in eval(expr, envir, enclos): object 'incidencia_diaria' not found</code></pre>
+<pre class="output" tabindex="0"><code>&lt;incidence object&gt;
+[166 cases from days 2014-04-07 to 2014-06-29]
+
+$counts: matrix with 84 rows and 1 columns
+$n: 166 cases in total
+$dates: 84 dates marking the left-side of bins
+$interval: 1 day
+$timespan: 84 days
+$cumulative: FALSE</code></pre>
 </div>
 <hr>
 <br><h3 id="TallerIntroAnaliticaBrotes-headingInstructor4">
@@ -459,43 +435,37 @@ casos.</p>
 <br><h3 id="TallerIntroAnaliticaBrotes-headingInstructor5">
 <a href="TallerIntroAnaliticaBrotes.html#headingInstructor5">Solución 4</a><a class="anchor" aria-label="anchor" href="#TallerIntroAnaliticaBrotes-headingInstructor5"></a>
 </h3>
-<div class="codewrapper sourceCode" id="cb42">
+<div class="codewrapper sourceCode" id="cb21">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">incidencia_semanal</span> <span class="op">&lt;-</span> <span class="fu">incidence</span><span class="op">(</span><span class="va">casos</span><span class="op">$</span><span class="va">fecha_inicio_sintomas</span>, </span>
 <span>                                interval <span class="op">=</span> <span class="fl">7</span>, </span>
 <span>                                last_date <span class="op">=</span> <span class="fu">max</span><span class="op">(</span><span class="va">casos</span><span class="op">$</span><span class="va">fecha_de_hospitalizacion</span>,</span>
-<span>                                              na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span></code></pre>
+<span>                                              na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">incidencia_semanal</span></span></code></pre>
 </div>
 <div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="error" tabindex="0"><code>Error in eval(expr, envir, enclos): object 'casos' not found</code></pre>
+<pre class="output" tabindex="0"><code>&lt;incidence object&gt;
+[166 cases from days 2014-04-07 to 2014-06-30]
+[166 cases from ISO weeks 2014-W15 to 2014-W27]
+
+$counts: matrix with 13 rows and 1 columns
+$n: 166 cases in total
+$dates: 13 dates marking the left-side of bins
+$interval: 7 days
+$timespan: 85 days
+$cumulative: FALSE</code></pre>
 </div>
-<div class="codewrapper sourceCode" id="cb44">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">incidencia_semanal</span></span></code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error in eval(expr, envir, enclos): object 'incidencia_semanal' not found</code></pre>
-</div>
-<div class="codewrapper sourceCode" id="cb46">
+<div class="codewrapper sourceCode" id="cb23">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">plot</span><span class="op">(</span><span class="va">incidencia_semanal</span>, border <span class="op">=</span> <span class="st">"black"</span><span class="op">)</span></span></code></pre>
 </div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error in eval(expr, envir, enclos): object 'incidencia_semanal' not found</code></pre>
-</div>
-<hr>
+<figure><img src="../fig/TallerIntroAnaliticaBrotes-rendered-unnamed-chunk-18-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><hr>
 <br><h3 id="TallerIntroAnaliticaBrotes-headingInstructor6">
 <a href="TallerIntroAnaliticaBrotes.html#headingInstructor6">Ideas para responder:</a><a class="anchor" aria-label="anchor" href="#TallerIntroAnaliticaBrotes-headingInstructor6"></a>
 </h3>
@@ -538,164 +508,121 @@ necesariamente una reducción de la incidencia real.</p>
 <br><h3 id="TallerIntroAnaliticaBrotes-headingInstructor8">
 <a href="TallerIntroAnaliticaBrotes.html#headingInstructor8">Solución 6</a><a class="anchor" aria-label="anchor" href="#TallerIntroAnaliticaBrotes-headingInstructor8"></a>
 </h3>
-<div class="codewrapper sourceCode" id="cb77">
+<div class="codewrapper sourceCode" id="cb37">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">ajuste_modelo_truncado</span> <span class="op">&lt;-</span> <span class="fu">incidence</span><span class="fu">::</span><span class="fu">fit</span><span class="op">(</span><span class="va">incidencia_semanal_truncada</span><span class="op">)</span></span></code></pre>
+<code class="sourceCode R"><span><span class="va">ajuste_modelo_truncado</span> <span class="op">&lt;-</span> <span class="fu">incidence</span><span class="fu">::</span><span class="fu">fit</span><span class="op">(</span><span class="va">incidencia_semanal_truncada</span><span class="op">)</span></span>
+<span><span class="va">ajuste_modelo_truncado</span></span></code></pre>
 </div>
 <div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="error" tabindex="0"><code>Error in eval(expr, envir, enclos): object 'incidencia_semanal_truncada' not found</code></pre>
+<pre class="output" tabindex="0"><code>&lt;incidence_fit object&gt;
+
+$model: regression of log-incidence over time
+
+$info: list containing the following items:
+  $r (daily growth rate):
+[1] 0.05224047
+
+  $r.conf (confidence interval):
+          2.5 %    97.5 %
+[1,] 0.03323024 0.0712507
+
+  $doubling (doubling time in days):
+[1] 13.2684
+
+  $doubling.conf (confidence interval):
+        2.5 %   97.5 %
+[1,] 9.728286 20.85893
+
+  $pred: data.frame of incidence predictions (10 rows, 5 columns)</code></pre>
 </div>
-<div class="codewrapper sourceCode" id="cb79">
+<div class="codewrapper sourceCode" id="cb39">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">ajuste_modelo_truncado</span></span></code></pre>
+<code class="sourceCode R"><span><span class="va">AjusteR2modelo</span> <span class="op">&lt;-</span> <span class="fu">summary</span><span class="op">(</span><span class="va">ajuste_modelo_truncado</span><span class="op">$</span><span class="va">model</span><span class="op">)</span><span class="op">$</span><span class="va">adj.r.squared</span> </span>
+<span></span>
+<span><span class="fu">cat</span><span class="op">(</span><span class="st">"El R cuadrado ajustado es:"</span>, <span class="va">AjusteR2modelo</span>, <span class="st">"\n"</span><span class="op">)</span></span></code></pre>
 </div>
 <div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="error" tabindex="0"><code>Error in eval(expr, envir, enclos): object 'ajuste_modelo_truncado' not found</code></pre>
-</div>
-<div class="codewrapper sourceCode" id="cb81">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">AjusteR2modelo</span> <span class="op">&lt;-</span> <span class="fu">summary</span><span class="op">(</span><span class="va">ajuste_modelo_truncado</span><span class="op">$</span><span class="va">model</span><span class="op">)</span><span class="op">$</span><span class="va">adj.r.squared</span> </span></code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error in eval(expr, envir, enclos): object 'ajuste_modelo_truncado' not found</code></pre>
-</div>
-<div class="codewrapper sourceCode" id="cb83">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">cat</span><span class="op">(</span><span class="st">"El R cuadrado ajustado es:"</span>, <span class="va">AjusteR2modelo</span>, <span class="st">"\n"</span><span class="op">)</span></span></code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error in eval(expr, envir, enclos): object 'AjusteR2modelo' not found</code></pre>
+<pre class="output" tabindex="0"><code>El R cuadrado ajustado es: 0.8131106 </code></pre>
 </div>
 <hr>
 <br><h3 id="TallerIntroAnaliticaBrotes-headingInstructor9">
 <a href="TallerIntroAnaliticaBrotes.html#headingInstructor9">Solución 7</a><a class="anchor" aria-label="anchor" href="#TallerIntroAnaliticaBrotes-headingInstructor9"></a>
 </h3>
-<div class="codewrapper sourceCode" id="cb86">
+<div class="codewrapper sourceCode" id="cb41">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">plot</span><span class="op">(</span><span class="va">incidencia_semanal_truncada</span>, fit <span class="op">=</span> <span class="va">ajuste_modelo_truncado</span><span class="op">)</span></span></code></pre>
 </div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error in eval(expr, envir, enclos): object 'incidencia_semanal_truncada' not found</code></pre>
-</div>
-<hr>
+<figure><img src="../fig/TallerIntroAnaliticaBrotes-rendered-unnamed-chunk-30-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><hr>
 <br><h3 id="TallerIntroAnaliticaBrotes-headingInstructor10">
 <a href="TallerIntroAnaliticaBrotes.html#headingInstructor10">Solución 8</a><a class="anchor" aria-label="anchor" href="#TallerIntroAnaliticaBrotes-headingInstructor10"></a>
 </h3>
-<div class="codewrapper sourceCode" id="cb94">
+<div class="codewrapper sourceCode" id="cb46">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Estimación de la tasa de crecimiento diaria</span></span>
-<span><span class="va">tasa_crecimiento_diaria</span> <span class="op">&lt;-</span> <span class="va">ajuste_modelo_truncado</span><span class="op">$</span><span class="va">info</span><span class="op">$</span><span class="va">r</span></span></code></pre>
+<span><span class="va">tasa_crecimiento_diaria</span> <span class="op">&lt;-</span> <span class="va">ajuste_modelo_truncado</span><span class="op">$</span><span class="va">info</span><span class="op">$</span><span class="va">r</span></span>
+<span></span>
+<span><span class="fu">cat</span><span class="op">(</span><span class="st">"La tasa de crecimiento diaria es:"</span>, <span class="va">tasa_crecimiento_diaria</span>, <span class="st">"\n"</span><span class="op">)</span></span></code></pre>
 </div>
 <div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="error" tabindex="0"><code>Error in eval(expr, envir, enclos): object 'ajuste_modelo_truncado' not found</code></pre>
+<pre class="output" tabindex="0"><code>La tasa de crecimiento diaria es: 0.05224047 </code></pre>
 </div>
-<div class="codewrapper sourceCode" id="cb96">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">cat</span><span class="op">(</span><span class="st">"La tasa de crecimiento diaria es:"</span>, <span class="va">tasa_crecimiento_diaria</span>, <span class="st">"\n"</span><span class="op">)</span></span></code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error in eval(expr, envir, enclos): object 'tasa_crecimiento_diaria' not found</code></pre>
-</div>
-<div class="codewrapper sourceCode" id="cb98">
+<div class="codewrapper sourceCode" id="cb48">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Intervalo de confianza de la tasa de crecimiento diaria</span></span>
-<span><span class="va">tasa_crecimiento_IC</span> <span class="op">&lt;-</span> <span class="va">ajuste_modelo_truncado</span><span class="op">$</span><span class="va">info</span><span class="op">$</span><span class="va">r.conf</span></span></code></pre>
+<span><span class="va">tasa_crecimiento_IC</span> <span class="op">&lt;-</span> <span class="va">ajuste_modelo_truncado</span><span class="op">$</span><span class="va">info</span><span class="op">$</span><span class="va">r.conf</span></span>
+<span></span>
+<span><span class="fu">cat</span><span class="op">(</span><span class="st">"Intervalo de confianza de la tasa de crecimiento diaria (95%):"</span>, <span class="va">tasa_crecimiento_IC</span>, <span class="st">"\n"</span><span class="op">)</span></span></code></pre>
 </div>
 <div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="error" tabindex="0"><code>Error in eval(expr, envir, enclos): object 'ajuste_modelo_truncado' not found</code></pre>
-</div>
-<div class="codewrapper sourceCode" id="cb100">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">cat</span><span class="op">(</span><span class="st">"Intervalo de confianza de la tasa de crecimiento diaria (95%):"</span>, <span class="va">tasa_crecimiento_IC</span>, <span class="st">"\n"</span><span class="op">)</span></span></code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error in eval(expr, envir, enclos): object 'tasa_crecimiento_IC' not found</code></pre>
+<pre class="output" tabindex="0"><code>Intervalo de confianza de la tasa de crecimiento diaria (95%): 0.03323024 0.0712507 </code></pre>
 </div>
 <hr>
 <br><h3 id="TallerIntroAnaliticaBrotes-headingInstructor11">
 <a href="TallerIntroAnaliticaBrotes.html#headingInstructor11">Solución 9</a><a class="anchor" aria-label="anchor" href="#TallerIntroAnaliticaBrotes-headingInstructor11"></a>
 </h3>
-<div class="codewrapper sourceCode" id="cb106">
+<div class="codewrapper sourceCode" id="cb52">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Estimación del tiempo de duplicación en días</span></span>
-<span><span class="va">tiempo_duplicacion_dias</span> <span class="op">&lt;-</span> <span class="va">ajuste_modelo_truncado</span><span class="op">$</span><span class="va">info</span><span class="op">$</span><span class="va">doubling</span></span></code></pre>
+<span><span class="va">tiempo_duplicacion_dias</span> <span class="op">&lt;-</span> <span class="va">ajuste_modelo_truncado</span><span class="op">$</span><span class="va">info</span><span class="op">$</span><span class="va">doubling</span></span>
+<span><span class="fu">cat</span><span class="op">(</span><span class="st">"El tiempo de duplicación de la epidemia es"</span>, <span class="va">tiempo_duplicacion_dias</span>, <span class="st">"días\n"</span><span class="op">)</span></span></code></pre>
 </div>
 <div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="error" tabindex="0"><code>Error in eval(expr, envir, enclos): object 'ajuste_modelo_truncado' not found</code></pre>
+<pre class="output" tabindex="0"><code>El tiempo de duplicación de la epidemia es 13.2684 días</code></pre>
 </div>
-<div class="codewrapper sourceCode" id="cb108">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">cat</span><span class="op">(</span><span class="st">"El tiempo de duplicación de la epidemia es"</span>, <span class="va">tiempo_duplicacion_dias</span>, <span class="st">"días\n"</span><span class="op">)</span></span></code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error in eval(expr, envir, enclos): object 'tiempo_duplicacion_dias' not found</code></pre>
-</div>
-<div class="codewrapper sourceCode" id="cb110">
+<div class="codewrapper sourceCode" id="cb54">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Intervalo de confianza del tiempo de duplicación</span></span>
-<span><span class="va">tiempo_duplicacion_IC</span> <span class="op">&lt;-</span> <span class="va">ajuste_modelo_truncado</span><span class="op">$</span><span class="va">info</span><span class="op">$</span><span class="va">doubling.conf</span></span></code></pre>
+<span><span class="va">tiempo_duplicacion_IC</span> <span class="op">&lt;-</span> <span class="va">ajuste_modelo_truncado</span><span class="op">$</span><span class="va">info</span><span class="op">$</span><span class="va">doubling.conf</span></span>
+<span><span class="fu">cat</span><span class="op">(</span><span class="st">"Intervalo de confianza del tiempo de duplicación (95%):"</span>, <span class="va">tiempo_duplicacion_IC</span>, <span class="st">"\n"</span><span class="op">)</span></span></code></pre>
 </div>
 <div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="error" tabindex="0"><code>Error in eval(expr, envir, enclos): object 'ajuste_modelo_truncado' not found</code></pre>
-</div>
-<div class="codewrapper sourceCode" id="cb112">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">cat</span><span class="op">(</span><span class="st">"Intervalo de confianza del tiempo de duplicación (95%):"</span>, <span class="va">tiempo_duplicacion_IC</span>, <span class="st">"\n"</span><span class="op">)</span></span></code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error in eval(expr, envir, enclos): object 'tiempo_duplicacion_IC' not found</code></pre>
+<pre class="output" tabindex="0"><code>Intervalo de confianza del tiempo de duplicación (95%): 9.728286 20.85893 </code></pre>
 </div>
 <hr>
 <br></section><section id="ZIKAB"><h2 class="section-heading"><a href="ZIKAB.html">Taller Día 3 - Construyendo un modelo matemático simple para Zika.</a></h2>
@@ -877,8 +804,8 @@ necesariamente una reducción de la incidencia real.</p>
   "url": "https://epiverse-trace.github.io/epimodelac/instructor/instructor-notes.html",
   "identifier": "https://epiverse-trace.github.io/epimodelac/instructor/instructor-notes.html",
   "dateCreated": "2023-11-10",
-  "dateModified": "2023-12-12",
-  "datePublished": "2023-12-12"
+  "dateModified": "2023-12-15",
+  "datePublished": "2023-12-15"
 }
 
   </script><script>
