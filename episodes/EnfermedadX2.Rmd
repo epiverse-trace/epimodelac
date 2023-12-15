@@ -7,7 +7,148 @@ teaching: 90
 exercises: 8
 ---
 
-```{r include=FALSE}
+:::::::::::::::::::::::::::::::::::::: questions 
+ 
+- ¿Cómo responder ante un brote de una enfermedad desconocida?
+
+::::::::::::::::::::::::::::::::::::::::::::::::
+
+::::::::::::::::::::::::::::::::::::: objectives
+
+Al final de este taller usted podrá: 
+ 
+- Comprender los conceptos clave de las distribuciones de rezagos epidemiológicos para la Enfermedad X. 
+ 
+- Comprender las estructuras de datos y las herramientas para el análisis de datos de rastreo de contactos. 
+ 
+- Aprender a ajustar las estimaciones del intervalo serial y el período de incubación de la Enfermedad X teniendo en cuenta la censura por intervalo utilizando un marco de trabajo Bayesiano.
+ 
+- Aprender a utilizar estos parámetros para informar estrategias de control en un brote de un patógeno desconocido. 
+::::::::::::::::::::::::::::::::::::::::::::::::
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## 1. Introducción
+
+La Enfermedad X representa un hipotético, pero plausible, brote de una enfermedad infecciosa en el futuro. Este término fue acuñado por la Organización Mundial de la Salud (OMS) y sirve como un término general para un patógeno desconocido que podría causar una epidemia grave a nivel internacional. Este concepto representa la naturaleza impredecible de la aparición de enfermedades infecciosas y resalta la necesidad de una preparación global y mecanismos de respuesta rápida. La Enfermedad X simboliza el potencial de una enfermedad inesperada y de rápida propagación, y resalta la necesidad de sistemas de salud flexibles y adaptables, así como capacidades de investigación para identificar, comprender y combatir patógenos desconocidos.
+
+En esta práctica, va a aprender a estimar los rezagos epidemiológicos, el tiempo entre dos eventos epidemiológicos, utilizando un conjunto de datos simulado de la Enfermedad X.
+
+La Enfermedad X es causada por un patógeno desconocido y se transmite directamente de persona a persona. Específicamente, la practica se centrará en estimar el período de incubación y el intervalo serial.
+
+
+## 2. Agenda
+
+Parte 1. Individual o en grupo.
+
+Parte 2. En grupos de 6 personas. Construir estrategia de rastreo de contactos  y aislamiento y preparar presentación de máximo 10 mins.
+
+
+
+## 3. Conceptos claves
+
+#### **3.1. Rezagos epidemiológicos: Período de incubación e intervalo serial**
+
+En epidemiología, las distribuciones de rezagos se refieren a los *retrasos temporales* entre dos eventos clave durante un brote. Por ejemplo: el tiempo entre el inicio de los síntomas y el diagnóstico, el tiempo entre la aparición de síntomas y la muerte, entre muchos otros.
+
+Este taller se enfocará en dos rezagos clave conocidos como el período de incubación y el intervalo serial. Ambos son cruciales para informar la respuesta de salud pública.
+
+El [**período de incubación**]{.underline} es el tiempo entre la infección y la aparición de síntomas.
+
+El [**intervalo serial**]{.underline} es el tiempo entre la aparición de síntomas entre el caso primario y secundario.
+
+La relación entre estos parámetros tiene un impacto en si la enfermedad se transmite antes [(**transmisión pre-sintomática**)]{.underline} o después de que los síntomas [(**transmisión sintomática**)]{.underline} se hayan desarrollado en el caso primario (Figura 1). 
+
+![](practicalfig.jpg)
+
+Figura 1. Relación entre el período de incubación y el intervalo serial en el momento de la transmisión (*Adaptado de Nishiura et al. 2020)*
+
+#### 3.2. Distribuciones comunes de rezagos y posibles sesgos
+
+##### **3.2.1 Sesgos potenciales**
+
+Cuando se estiman rezagos epidemiológicos, es importante considerar posibles sesgos:
+
+
+[**Censura**]{.underline} significa que sabemos que un evento ocurrió, pero no sabemos exactamente cuándo sucedió. La mayoría de los datos epidemiológicos están "doblemente censurados" debido a la incertidumbre que rodea tanto los tiempos de eventos primarios como secundarios. No tener en cuenta la censura puede llevar a estimaciones sesgadas de la desviación estándar del resago (Park et al. en progreso).
+
+
+[**Truncamiento a la derecha**]{.underline} es un tipo de sesgo de muestreo relacionado con el proceso de recolección de datos. Surge porque solo se pueden observar los casos que han sido reportados. No tener en cuenta el truncamiento a la derecha durante la fase de crecimiento de una epidemia puede llevar a una subestimación del rezago medio (Park et al. en progreso).
+
+
+El sesgo [**dinámico (o de fase epidémica**)]{.underline} es otro tipo de sesgo de muestreo. Afecta a los datos retrospectivos y está relacionado con la fase de la epidemia: durante la fase de crecimiento exponencial, los casos que desarrollaron síntomas recientemente están sobrerrepresentados en los datos observados, mientras que durante la fase de declive, estos casos están subrepresentados, lo que lleva a la estimación de intervalos de retraso más cortos y más largos, respectivamente (Park et al. en progreso).
+
+##### **3.2.2 Distribuciones de rezagos**
+
+Tres distribuciones de probabilidad comunes utilizadas para caracterizar rezagos en epidemiología de enfermedades infecciosas (Tabla 1):
+
++----------------+-----------------------------------------+
+| Distribución   | Parámetros                              |
++================+:=======================================:+
+| **Weibull**    | `shape` y `scale`  (forma y escala)     |
++----------------+-----------------------------------------+
+| **gamma**      | `shape` y `scale`  (forma y escala)     |
++----------------+-----------------------------------------+
+| **log normal** | `log mean` y `log standard deviation`   |
+|                |(media y desviación estándar logarítmica)|
++----------------+-----------------------------------------+
+
+: Tabla 1. Tres de las distribuciones de probabilidad más comunes para rezagos epidemiológicos.
+
+
+## 4. Paquetes de *R* para la practica
+
+En esta practica se usarán los siguientes paquetes de `R`:
+
+-   `dplyr` para manejo de datos 
+
+-   `epicontacts` para visualizar los datos de rastreo de contactos 
+
+-   `ggplot2` y `patchwork` para gráficar
+
+-   `incidence` para visualizar curvas epidemicas
+
+-   `rstan` para estimar el período de incubación
+
+-   `coarseDataTools` vía `EpiEstim` para estimar el intervalo serial
+
+Instrucciones de instalación para los paquetes: 
+
+```{r install_packages, echo=FALSE}
+## Packages on CRAN
+#install.packages("dplyr")
+#install.packages("incidence")
+#install.packages("coarseDataTools")
+#install.packages("EpiEstim")
+#install.packages("ggplot2)
+#install.packages("loo")
+#install.packages("patchwork")
+#install.packages("rstan")
+#install.packages("parallel")
+#
+## Packages on GitHub
+#remotes::install_github("reconhub/epicontacts")
+```
+
+Para cargar los paquetes, escriba:
+
+```{r load_packages, warning=FALSE, message=FALSE}
+library(dplyr)
+library(epicontacts)
+library(incidence)
+library(coarseDataTools)
+library(EpiEstim)
+library(ggplot2)
+library(loo)
+library(patchwork)
+library(rstan)
+```
+
+Para este taller, las autoras han creado algunas funciones que serán necesarias para el buen funcionamiento del mismo. Por favor, copie el siguiente texto, selecciónelo y ejecútelo para tener estas funciones en su ambiente global y poderlas utilizar. 
+
+```{r include=TRUE}
 
 ## Calcule la verosimilitud DIC mediante integración
 diclik <- function(par1, par2, EL, ER, SL, SR, dist){
@@ -178,145 +319,6 @@ fw3 <- function(t, EL, ER, SL, SR, par1, par2, dist){
 	}
 }
 
-```
-
-:::::::::::::::::::::::::::::::::::::: questions 
- 
-- ¿Cómo responder ante un brote de una enfermedad desconocida?
-
-::::::::::::::::::::::::::::::::::::::::::::::::
-
-::::::::::::::::::::::::::::::::::::: objectives
-
-Al final de este taller usted podrá: 
- 
-- Comprender los conceptos clave de las distribuciones de rezagos epidemiológicos para la Enfermedad X. 
- 
-- Comprender las estructuras de datos y las herramientas para el análisis de datos de rastreo de contactos. 
- 
-- Aprender a ajustar las estimaciones del intervalo serial y el período de incubación de la Enfermedad X teniendo en cuenta la censura por intervalo utilizando un marco de trabajo Bayesiano.
- 
-- Aprender a utilizar estos parámetros para informar estrategias de control en un brote de un patógeno desconocido. 
-::::::::::::::::::::::::::::::::::::::::::::::::
-
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-```
-
-## 1. Introducción
-
-La Enfermedad X representa un hipotético, pero plausible, brote de una enfermedad infecciosa en el futuro. Este término fue acuñado por la Organización Mundial de la Salud (OMS) y sirve como un término general para un patógeno desconocido que podría causar una epidemia grave a nivel internacional. Este concepto representa la naturaleza impredecible de la aparición de enfermedades infecciosas y resalta la necesidad de una preparación global y mecanismos de respuesta rápida. La Enfermedad X simboliza el potencial de una enfermedad inesperada y de rápida propagación, y resalta la necesidad de sistemas de salud flexibles y adaptables, así como capacidades de investigación para identificar, comprender y combatir patógenos desconocidos.
-
-En esta práctica, va a aprender a estimar los rezagos epidemiológicos, el tiempo entre dos eventos epidemiológicos, utilizando un conjunto de datos simulado de la Enfermedad X.
-
-La Enfermedad X es causada por un patógeno desconocido y se transmite directamente de persona a persona. Específicamente, la practica se centrará en estimar el período de incubación y el intervalo serial.
-
-
-## 2. Agenda
-
-Parte 1. Individual o en grupo.
-
-Parte 2. En grupos de 6 personas. Construir estrategia de rastreo de contactos  y aislamiento y preparar presentación de máximo 10 mins.
-
-
-
-## 3. Conceptos claves
-
-#### **3.1. Rezagos epidemiológicos: Período de incubación e intervalo serial**
-
-En epidemiología, las distribuciones de rezagos se refieren a los *retrasos temporales* entre dos eventos clave durante un brote. Por ejemplo: el tiempo entre el inicio de los síntomas y el diagnóstico, el tiempo entre la aparición de síntomas y la muerte, entre muchos otros.
-
-Este taller se enfocará en dos rezagos clave conocidos como el período de incubación y el intervalo serial. Ambos son cruciales para informar la respuesta de salud pública.
-
-El [**período de incubación**]{.underline} es el tiempo entre la infección y la aparición de síntomas.
-
-El [**intervalo serial**]{.underline} es el tiempo entre la aparición de síntomas entre el caso primario y secundario.
-
-La relación entre estos parámetros tiene un impacto en si la enfermedad se transmite antes [(**transmisión pre-sintomática**)]{.underline} o después de que los síntomas [(**transmisión sintomática**)]{.underline} se hayan desarrollado en el caso primario (Figura 1). 
-
-![](practicalfig.jpg)
-
-Figura 1. Relación entre el período de incubación y el intervalo serial en el momento de la transmisión (*Adaptado de Nishiura et al. 2020)*
-
-#### 3.2. Distribuciones comunes de rezagos y posibles sesgos
-
-##### **3.2.1 Sesgos potenciales**
-
-Cuando se estiman rezagos epidemiológicos, es importante considerar posibles sesgos:
-
-
-[**Censura**]{.underline} significa que sabemos que un evento ocurrió, pero no sabemos exactamente cuándo sucedió. La mayoría de los datos epidemiológicos están "doblemente censurados" debido a la incertidumbre que rodea tanto los tiempos de eventos primarios como secundarios. No tener en cuenta la censura puede llevar a estimaciones sesgadas de la desviación estándar del resago (Park et al. en progreso).
-
-
-[**Truncamiento a la derecha**]{.underline} es un tipo de sesgo de muestreo relacionado con el proceso de recolección de datos. Surge porque solo se pueden observar los casos que han sido reportados. No tener en cuenta el truncamiento a la derecha durante la fase de crecimiento de una epidemia puede llevar a una subestimación del rezago medio (Park et al. en progreso).
-
-
-El sesgo [**dinámico (o de fase epidémica**)]{.underline} es otro tipo de sesgo de muestreo. Afecta a los datos retrospectivos y está relacionado con la fase de la epidemia: durante la fase de crecimiento exponencial, los casos que desarrollaron síntomas recientemente están sobrerrepresentados en los datos observados, mientras que durante la fase de declive, estos casos están subrepresentados, lo que lleva a la estimación de intervalos de retraso más cortos y más largos, respectivamente (Park et al. en progreso).
-
-##### **3.2.2 Distribuciones de rezagos**
-
-Tres distribuciones de probabilidad comunes utilizadas para caracterizar rezagos en epidemiología de enfermedades infecciosas (Tabla 1):
-
-+----------------+-----------------------------------------+
-| Distribución   | Parámetros                              |
-+================+:=======================================:+
-| **Weibull**    | `shape` y `scale`  (forma y escala)     |
-+----------------+-----------------------------------------+
-| **gamma**      | `shape` y `scale`  (forma y escala)     |
-+----------------+-----------------------------------------+
-| **log normal** | `log mean` y `log standard deviation`   |
-|                |(media y desviación estándar logarítmica)|
-+----------------+-----------------------------------------+
-
-: Tabla 1. Tres de las distribuciones de probabilidad más comunes para rezagos epidemiológicos.
-
-
-## 4. Paquetes de *R* para la practica
-
-En esta practica se usarán los siguientes paquetes de `R`:
-
--   `dplyr` para manejo de datos 
-
--   `epicontacts` para visualizar los datos de rastreo de contactos 
-
--   `ggplot2` y `patchwork` para gráficar
-
--   `incidence` para visualizar curvas epidemicas
-
--   `rstan` para estimar el período de incubación
-
--   `coarseDataTools` vía `EpiEstim` para estimar el intervalo serial
-
-Instrucciones de instalación para los paquetes: 
-
-```{r install_packages, echo=FALSE}
-## Packages on CRAN
-#install.packages("dplyr")
-#install.packages("incidence")
-#install.packages("coarseDataTools")
-#install.packages("EpiEstim")
-#install.packages("ggplot2)
-#install.packages("loo")
-#install.packages("patchwork")
-#install.packages("rstan")
-#install.packages("parallel")
-#
-## Packages on GitHub
-#remotes::install_github("reconhub/epicontacts")
-```
-
-Para cargar los paquetes, escriba:
-
-```{r load_packages, warning=FALSE, message=FALSE}
-library(dplyr)
-library(epicontacts)
-library(incidence)
-library(coarseDataTools)
-library(EpiEstim)
-library(ggplot2)
-library(loo)
-library(patchwork)
-library(rstan)
 ```
 
 ## 5. Datos
