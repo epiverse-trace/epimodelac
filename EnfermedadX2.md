@@ -7,8 +7,6 @@ teaching: 90
 exercises: 8
 ---
 
-
-
 :::::::::::::::::::::::::::::::::::::: questions 
  
 - ¿Cómo responder ante un brote de una enfermedad desconocida?
@@ -131,6 +129,180 @@ library(ggplot2)
 library(loo)
 library(patchwork)
 library(rstan)
+```
+
+Para este taller, las autoras han creado algunas funciones que serán necesarias para el buen funcionamiento del mismo. Por favor, copie el siguiente texto, selecciónelo y ejecútelo para tener estas funciones en su ambiente global y poderlas utilizar. 
+
+
+```r
+## Calcule la verosimilitud DIC mediante integración
+diclik <- function(par1, par2, EL, ER, SL, SR, dist){
+	
+	## Si la ventana de síntomas es mayor que la ventana de exposición
+	if(SR-SL>ER-EL){
+		dic1 <- integrate(fw1, lower=SL-ER, upper=SL-EL,
+						  subdivisions=10,
+						  par1=par1, par2=par2,
+						  EL=EL, ER=ER, SL=SL, SR=SR,
+						  dist=dist)$value
+		if (dist == "W"){
+			dic2 <- (ER-EL)*
+				(pweibull(SR-ER, shape=par1, scale=par2) - pweibull(SL-EL, shape=par1, scale=par2))
+		} else if (dist == "off1W"){
+			dic2 <- (ER-EL)*
+				(pweibullOff1(SR-ER, shape=par1, scale=par2) - pweibullOff1(SL-EL, shape=par1, scale=par2))
+		} else if (dist == "G"){
+			dic2 <- (ER-EL)*
+				(pgamma(SR-ER, shape=par1, scale=par2) - pgamma(SL-EL, shape=par1, scale=par2))
+		} else if (dist == "off1G"){
+			dic2 <- (ER-EL)*
+				(pgammaOff1(SR-ER, shape=par1, scale=par2) - pgammaOff1(SL-EL, shape=par1, scale=par2))
+		} else if (dist == "L") {
+			dic2 <- (ER-EL)*
+				(plnorm(SR-ER, par1, par2) - plnorm(SL-EL, par1, par2))
+		} else if (dist == "off1L") {
+			dic2 <- (ER-EL)*
+				(plnormOff1(SR-ER, par1, par2) - plnormOff1(SL-EL, par1, par2))
+		} else {
+			stop("distribution not supported")
+		}
+		dic3 <- integrate(fw3, lower=SR-ER, upper=SR-EL,
+						  subdivisions=10,
+						  par1=par1, par2=par2,
+						  EL=EL, ER=ER, SL=SL, SR=SR,
+						  dist=dist)$value
+		return(dic1 + dic2 + dic3)
+	}
+	
+## Si la ventana de exposición es mayor que la ventana de síntomas
+	else{
+		dic1 <- integrate(fw1, lower=SL-ER, upper=SR-ER, subdivisions=10,
+						  par1=par1, par2=par2,
+						  EL=EL, ER=ER, SL=SL, SR=SR,
+						  dist=dist)$value
+		if (dist == "W"){
+			dic2 <- (SR-SL)*
+				(pweibull(SL-EL, shape=par1, scale=par2) - pweibull(SR-ER, shape=par1, scale=par2))
+		} else if (dist == "off1W"){
+			dic2 <- (SR-SL)*
+				(pweibullOff1(SL-EL, shape=par1, scale=par2) - pweibullOff1(SR-ER, shape=par1, scale=par2))
+		} else if (dist == "G"){
+			dic2 <- (SR-SL)*
+				(pgamma(SL-EL, shape=par1, scale=par2) - pgamma(SR-ER, shape=par1, scale=par2))
+		} else if (dist == "off1G"){
+			dic2 <- (SR-SL)*
+				(pgammaOff1(SL-EL, shape=par1, scale=par2) - pgammaOff1(SR-ER, shape=par1, scale=par2))
+		} else if (dist == "L"){
+			dic2 <- (SR-SL)*
+				(plnorm(SL-EL, par1, par2) - plnorm(SR-ER, par1, par2))
+		} else if (dist == "off1L"){
+			dic2 <- (SR-SL)*
+				(plnormOff1(SL-EL, par1, par2) - plnormOff1(SR-ER, par1, par2))
+		} else {
+			stop("distribution not supported")
+		}
+		dic3 <- integrate(fw3, lower=SL-EL, upper=SR-EL,
+						  subdivisions=10,
+						  par1=par1, par2=par2,
+						  EL=EL, ER=ER, SL=SL, SR=SR,
+						  dist=dist)$value
+		return(dic1 + dic2 + dic3)
+	}
+}
+
+## Esta verosimilitud DIC está diseñada para datos que tienen intervalos superpuestos
+diclik2 <- function(par1, par2, EL, ER, SL, SR, dist){
+	if(SL>ER) {
+		
+		return(diclik(par1, par2, EL, ER, SL, SR, dist))
+	} else {
+		
+		lik1 <- integrate(diclik2.helper1, lower=EL, upper=SL,
+						  SL=SL, SR=SR, par1=par1, par2=par2, dist=dist)$value
+		lik2 <- integrate(diclik2.helper2, lower=SL, upper=ER,
+						  SR=SR, par1=par1, par2=par2, dist=dist)$value
+		return(lik1+lik2)
+	}
+}
+
+## Funciones de verosimilitud para diclik2
+diclik2.helper1 <- function(x, SL, SR, par1, par2, dist){
+	if (dist =="W"){
+		pweibull(SR-x, shape=par1, scale=par2) - pweibull(SL-x, shape=par1, scale=par2)
+	} else if (dist =="off1W") {
+		pweibullOff1(SR-x, shape=par1, scale=par2) - pweibullOff1(SL-x, shape=par1, scale=par2)
+	} else if (dist =="G") {
+		pgamma(SR-x, shape=par1, scale=par2) - pgamma(SL-x, shape=par1, scale=par2)
+	} else if (dist=="off1G"){
+		pgammaOff1(SR-x, shape=par1, scale=par2) - pgammaOff1(SL-x, shape=par1, scale=par2)
+	} else if (dist == "L"){
+		plnorm(SR-x, par1, par2) - plnorm(SL-x, par1, par2)
+	} else if (dist == "off1L"){
+		plnormOff1(SR-x, par1, par2) - plnormOff1(SL-x, par1, par2)
+	} else {
+		stop("distribution not supported")     
+	}
+}
+
+diclik2.helper2 <- function(x, SR, par1, par2, dist){
+	if (dist =="W"){
+		pweibull(SR-x, shape=par1, scale=par2)
+	} else if (dist =="off1W") {
+		pweibullOff1(SR-x, shape=par1, scale=par2)
+	} else if (dist =="G") {
+		pgamma(SR-x, shape=par1, scale=par2)
+	} else if (dist =="off1G") {
+		pgammaOff1(SR-x, shape=par1, scale=par2)
+	} else if (dist=="L"){
+		plnorm(SR-x, par1, par2)
+	} else if (dist=="off1L"){
+		plnormOff1(SR-x, par1, par2)
+	} else {
+		stop("distribution not supported")     
+	}
+}
+
+
+## Funciones que manipulan/calculan la verosimilitud para los datos censurados
+## Las funciones codificadas aquí se toman directamente de las
+## notas de verosimilitud censurada por intervalos dobles.
+fw1 <- function(t, EL, ER, SL, SR, par1, par2, dist){
+	## Función que calcula la primera función para la integral DIC
+	if (dist=="W"){
+		(ER-SL+t) * dweibull(x=t,shape=par1,scale=par2)
+	} else if (dist=="off1W") {
+		(ER-SL+t) * dweibullOff1(x=t,shape=par1,scale=par2)
+	} else if (dist=="G") {
+		(ER-SL+t) * dgamma(x=t, shape=par1, scale=par2)
+	} else if (dist=="off1G") {
+		(ER-SL+t) * dgammaOff1(x=t, shape=par1, scale=par2)
+	} else if (dist =="L"){
+		(ER-SL+t) * dlnorm(x=t, meanlog=par1, sdlog=par2)
+	} else if (dist =="off1L"){
+		(ER-SL+t) * dlnormOff1(x=t, meanlog=par1, sdlog=par2)
+	} else {
+		stop("distribution not supported")
+	}
+}
+
+fw3 <- function(t, EL, ER, SL, SR, par1, par2, dist){
+## Función que calcula la tercera función para la integral DIC
+  if (dist == "W"){
+		(SR-EL-t) * dweibull(x=t, shape=par1, scale=par2)
+	} else if (dist == "off1W"){
+		(SR-EL-t) * dweibullOff1(x=t, shape=par1, scale=par2)
+	}  else if (dist == "G"){
+		(SR-EL-t) * dgamma(x=t, shape=par1, scale=par2)
+	}  else if (dist == "off1G"){
+		(SR-EL-t) * dgammaOff1(x=t, shape=par1, scale=par2)
+	} else if (dist == "L") {
+		(SR-EL-t) * dlnorm(x=t, meanlog=par1, sdlog=par2)
+	} else if (dist == "off1L"){
+		(SR-EL-t) * dlnormOff1(x=t, meanlog=par1, sdlog=par2)
+	} else {
+		stop("distribution not supported")
+	}
+}
 ```
 
 ## 5. Datos
@@ -292,8 +464,8 @@ x <- make_epicontacts(linelist = linelist,
 plot(x)
 ```
 
-<!--html_preserve--><div id="htmlwidget-167fc26d62ce47bcb6e5" style="width:90%;height:700px;" class="visNetwork html-widget"></div>
-<script type="application/json" data-for="htmlwidget-167fc26d62ce47bcb6e5">{"x":{"nodes":{"id":[2,3,5,6,7,8,11,12,13,15,18,20,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,39,40,42,43,44,45,46,47,48,49,50,51,55,56,57,58,59,60,61,62,64,65,66,68,69,71,73,77,78,79,81,83,84,87,90,92,93,94,96,97,102,104,105,106,107,109,110,115,119,120,122,127],"date_onset":["2023-05-10","2023-05-12","2023-05-18","2023-05-20","2023-05-22","2023-05-22","2023-05-27","2023-05-30","2023-05-31","2023-06-05","2023-06-08","2023-06-09","2023-06-10","2023-06-10","2023-06-10","2023-06-11","2023-06-14","2023-06-14","2023-06-14","2023-06-14","2023-06-15","2023-06-15","2023-06-15","2023-06-16","2023-06-16","2023-06-16","2023-06-16","2023-06-17","2023-06-17","2023-06-18","2023-06-18","2023-06-18","2023-06-18","2023-06-18","2023-06-19","2023-06-20","2023-06-20","2023-06-20","2023-06-20","2023-06-21","2023-06-21","2023-06-22","2023-06-22","2023-06-22","2023-06-22","2023-06-22","2023-06-22","2023-06-23","2023-06-23","2023-06-23","2023-06-23","2023-06-23","2023-06-24","2023-06-24","2023-06-24","2023-06-24","2023-06-24","2023-06-25","2023-06-25","2023-06-25","2023-06-26","2023-06-26","2023-06-26","2023-06-27","2023-06-27","2023-06-27","2023-06-27","2023-06-28","2023-06-28","2023-06-28","2023-06-28","2023-06-29","2023-06-29","2023-06-29","2023-06-29","2023-06-30","2023-06-30","2023-06-30","2023-06-30"],"sex":["F","F","F","F","M","M","F","M","M","M","M","M","M","M","M","M","F","M","F","F","M","M","M","M","M","M","F","F","F","F","M","F","M","M","F","M","M","F","M","M","M","M","F","M","F","F","M","M","M","F","M","M","M","M","M","M","M","F","M","M","M","F","F","M","M","M","M","F","M","M","M","M","M","M","M","M","F","F","M"],"age":[59,5,7,72,6,3,4,76,4,71,2,67,74,7,65,5,3,4,74,3,6,76,2,64,6,1,71,63,67,71,6,67,8,0,66,70,73,5,66,77,75,62,4,63,63,70,70,2,4,6,2,0,5,66,69,2,3,4,4,5,5,66,5,78,64,73,66,5,2,2,61,4,64,67,70,71,66,68,69],"exposure":["Breathing","Breathing","Breathing","Breathing","Breathing",null,"Breathing","Breathing",null,null,null,"Breathing","Breathing","Breathing",null,"Breathing","Breathing","Breathing","Breathing","Breathing",null,null,"Breathing","Breathing","Breathing","Breathing",null,"Breathing","Breathing","Breathing","Breathing","Breathing","Breathing","Breathing","Breathing","Breathing","Breathing","Breathing","Breathing",null,null,null,"Breathing","Breathing","Breathing","Breathing","Breathing","Breathing",null,null,"Breathing","Breathing","Breathing",null,null,"Breathing","Breathing","Breathing","Breathing","Breathing","Breathing","Breathing",null,"Breathing","Breathing",null,null,"Breathing","Breathing","Breathing",null,"Breathing","Breathing","Breathing","Breathing",null,"Breathing","Breathing","Breathing"],"exposure_start":["2023-05-01","2023-05-06","2023-05-07","2023-05-16","2023-05-11","2023-05-19","2023-05-18","2023-05-24","2023-05-21","2023-05-26","2023-05-24","2023-06-03","2023-06-02","2023-06-02","2023-06-05","2023-06-02","2023-06-05","2023-06-08","2023-06-01","2023-06-02","2023-06-08","2023-06-10","2023-06-03","2023-06-10","2023-06-12","2023-06-07","2023-06-01","2023-06-10","2023-06-12","2023-06-05","2023-06-13","2023-06-16","2023-06-13","2023-06-08","2023-06-07","2023-06-11","2023-06-13","2023-06-14","2023-06-11",null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],"exposure_end":["2023-05-01","2023-05-06","2023-05-07","2023-05-16","2023-05-11","2023-05-19","2023-05-18","2023-05-24","2023-05-21","2023-05-26","2023-05-25","2023-06-03","2023-06-02","2023-06-02","2023-06-05","2023-06-02","2023-06-07","2023-06-09","2023-06-01","2023-06-02","2023-06-08","2023-06-10","2023-06-03","2023-06-12","2023-06-12","2023-06-07","2023-06-01","2023-06-10","2023-06-12","2023-06-06","2023-06-14","2023-06-17","2023-06-13","2023-06-08","2023-06-09","2023-06-11","2023-06-13","2023-06-14","2023-06-11",null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],"label":["2","3","5","6","7","8","11","12","13","15","18","20","22","23","24","25","26","27","28","29","30","31","32","33","34","35","36","39","40","42","43","44","45","46","47","48","49","50","51","55","56","57","58","59","60","61","62","64","65","66","68","69","71","73","77","78","79","81","83","84","87","90","92","93","94","96","97","102","104","105","106","107","109","110","115","119","120","122","127"],"title":["<p> id: 2<br>date_onset: 2023-05-10<br>sex: F<br>age: 59<br>exposure: Breathing<br>exposure_start: 2023-05-01<br>exposure_end: 2023-05-01 <\/p>","<p> id: 3<br>date_onset: 2023-05-12<br>sex: F<br>age: 5<br>exposure: Breathing<br>exposure_start: 2023-05-06<br>exposure_end: 2023-05-06 <\/p>","<p> id: 5<br>date_onset: 2023-05-18<br>sex: F<br>age: 7<br>exposure: Breathing<br>exposure_start: 2023-05-07<br>exposure_end: 2023-05-07 <\/p>","<p> id: 6<br>date_onset: 2023-05-20<br>sex: F<br>age: 72<br>exposure: Breathing<br>exposure_start: 2023-05-16<br>exposure_end: 2023-05-16 <\/p>","<p> id: 7<br>date_onset: 2023-05-22<br>sex: M<br>age: 6<br>exposure: Breathing<br>exposure_start: 2023-05-11<br>exposure_end: 2023-05-11 <\/p>","<p> id: 8<br>date_onset: 2023-05-22<br>sex: M<br>age: 3<br>exposure: NA<br>exposure_start: 2023-05-19<br>exposure_end: 2023-05-19 <\/p>","<p> id: 11<br>date_onset: 2023-05-27<br>sex: F<br>age: 4<br>exposure: Breathing<br>exposure_start: 2023-05-18<br>exposure_end: 2023-05-18 <\/p>","<p> id: 12<br>date_onset: 2023-05-30<br>sex: M<br>age: 76<br>exposure: Breathing<br>exposure_start: 2023-05-24<br>exposure_end: 2023-05-24 <\/p>","<p> id: 13<br>date_onset: 2023-05-31<br>sex: M<br>age: 4<br>exposure: NA<br>exposure_start: 2023-05-21<br>exposure_end: 2023-05-21 <\/p>","<p> id: 15<br>date_onset: 2023-06-05<br>sex: M<br>age: 71<br>exposure: NA<br>exposure_start: 2023-05-26<br>exposure_end: 2023-05-26 <\/p>","<p> id: 18<br>date_onset: 2023-06-08<br>sex: M<br>age: 2<br>exposure: NA<br>exposure_start: 2023-05-24<br>exposure_end: 2023-05-25 <\/p>","<p> id: 20<br>date_onset: 2023-06-09<br>sex: M<br>age: 67<br>exposure: Breathing<br>exposure_start: 2023-06-03<br>exposure_end: 2023-06-03 <\/p>","<p> id: 22<br>date_onset: 2023-06-10<br>sex: M<br>age: 74<br>exposure: Breathing<br>exposure_start: 2023-06-02<br>exposure_end: 2023-06-02 <\/p>","<p> id: 23<br>date_onset: 2023-06-10<br>sex: M<br>age: 7<br>exposure: Breathing<br>exposure_start: 2023-06-02<br>exposure_end: 2023-06-02 <\/p>","<p> id: 24<br>date_onset: 2023-06-10<br>sex: M<br>age: 65<br>exposure: NA<br>exposure_start: 2023-06-05<br>exposure_end: 2023-06-05 <\/p>","<p> id: 25<br>date_onset: 2023-06-11<br>sex: M<br>age: 5<br>exposure: Breathing<br>exposure_start: 2023-06-02<br>exposure_end: 2023-06-02 <\/p>","<p> id: 26<br>date_onset: 2023-06-14<br>sex: F<br>age: 3<br>exposure: Breathing<br>exposure_start: 2023-06-05<br>exposure_end: 2023-06-07 <\/p>","<p> id: 27<br>date_onset: 2023-06-14<br>sex: M<br>age: 4<br>exposure: Breathing<br>exposure_start: 2023-06-08<br>exposure_end: 2023-06-09 <\/p>","<p> id: 28<br>date_onset: 2023-06-14<br>sex: F<br>age: 74<br>exposure: Breathing<br>exposure_start: 2023-06-01<br>exposure_end: 2023-06-01 <\/p>","<p> id: 29<br>date_onset: 2023-06-14<br>sex: F<br>age: 3<br>exposure: Breathing<br>exposure_start: 2023-06-02<br>exposure_end: 2023-06-02 <\/p>","<p> id: 30<br>date_onset: 2023-06-15<br>sex: M<br>age: 6<br>exposure: NA<br>exposure_start: 2023-06-08<br>exposure_end: 2023-06-08 <\/p>","<p> id: 31<br>date_onset: 2023-06-15<br>sex: M<br>age: 76<br>exposure: NA<br>exposure_start: 2023-06-10<br>exposure_end: 2023-06-10 <\/p>","<p> id: 32<br>date_onset: 2023-06-15<br>sex: M<br>age: 2<br>exposure: Breathing<br>exposure_start: 2023-06-03<br>exposure_end: 2023-06-03 <\/p>","<p> id: 33<br>date_onset: 2023-06-16<br>sex: M<br>age: 64<br>exposure: Breathing<br>exposure_start: 2023-06-10<br>exposure_end: 2023-06-12 <\/p>","<p> id: 34<br>date_onset: 2023-06-16<br>sex: M<br>age: 6<br>exposure: Breathing<br>exposure_start: 2023-06-12<br>exposure_end: 2023-06-12 <\/p>","<p> id: 35<br>date_onset: 2023-06-16<br>sex: M<br>age: 1<br>exposure: Breathing<br>exposure_start: 2023-06-07<br>exposure_end: 2023-06-07 <\/p>","<p> id: 36<br>date_onset: 2023-06-16<br>sex: F<br>age: 71<br>exposure: NA<br>exposure_start: 2023-06-01<br>exposure_end: 2023-06-01 <\/p>","<p> id: 39<br>date_onset: 2023-06-17<br>sex: F<br>age: 63<br>exposure: Breathing<br>exposure_start: 2023-06-10<br>exposure_end: 2023-06-10 <\/p>","<p> id: 40<br>date_onset: 2023-06-17<br>sex: F<br>age: 67<br>exposure: Breathing<br>exposure_start: 2023-06-12<br>exposure_end: 2023-06-12 <\/p>","<p> id: 42<br>date_onset: 2023-06-18<br>sex: F<br>age: 71<br>exposure: Breathing<br>exposure_start: 2023-06-05<br>exposure_end: 2023-06-06 <\/p>","<p> id: 43<br>date_onset: 2023-06-18<br>sex: M<br>age: 6<br>exposure: Breathing<br>exposure_start: 2023-06-13<br>exposure_end: 2023-06-14 <\/p>","<p> id: 44<br>date_onset: 2023-06-18<br>sex: F<br>age: 67<br>exposure: Breathing<br>exposure_start: 2023-06-16<br>exposure_end: 2023-06-17 <\/p>","<p> id: 45<br>date_onset: 2023-06-18<br>sex: M<br>age: 8<br>exposure: Breathing<br>exposure_start: 2023-06-13<br>exposure_end: 2023-06-13 <\/p>","<p> id: 46<br>date_onset: 2023-06-18<br>sex: M<br>age: 0<br>exposure: Breathing<br>exposure_start: 2023-06-08<br>exposure_end: 2023-06-08 <\/p>","<p> id: 47<br>date_onset: 2023-06-19<br>sex: F<br>age: 66<br>exposure: Breathing<br>exposure_start: 2023-06-07<br>exposure_end: 2023-06-09 <\/p>","<p> id: 48<br>date_onset: 2023-06-20<br>sex: M<br>age: 70<br>exposure: Breathing<br>exposure_start: 2023-06-11<br>exposure_end: 2023-06-11 <\/p>","<p> id: 49<br>date_onset: 2023-06-20<br>sex: M<br>age: 73<br>exposure: Breathing<br>exposure_start: 2023-06-13<br>exposure_end: 2023-06-13 <\/p>","<p> id: 50<br>date_onset: 2023-06-20<br>sex: F<br>age: 5<br>exposure: Breathing<br>exposure_start: 2023-06-14<br>exposure_end: 2023-06-14 <\/p>","<p> id: 51<br>date_onset: 2023-06-20<br>sex: M<br>age: 66<br>exposure: Breathing<br>exposure_start: 2023-06-11<br>exposure_end: 2023-06-11 <\/p>","<p> id: 55<br>date_onset: 2023-06-21<br>sex: M<br>age: 77<br>exposure: NA<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 56<br>date_onset: 2023-06-21<br>sex: M<br>age: 75<br>exposure: NA<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 57<br>date_onset: 2023-06-22<br>sex: M<br>age: 62<br>exposure: NA<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 58<br>date_onset: 2023-06-22<br>sex: F<br>age: 4<br>exposure: Breathing<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 59<br>date_onset: 2023-06-22<br>sex: M<br>age: 63<br>exposure: Breathing<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 60<br>date_onset: 2023-06-22<br>sex: F<br>age: 63<br>exposure: Breathing<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 61<br>date_onset: 2023-06-22<br>sex: F<br>age: 70<br>exposure: Breathing<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 62<br>date_onset: 2023-06-22<br>sex: M<br>age: 70<br>exposure: Breathing<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 64<br>date_onset: 2023-06-23<br>sex: M<br>age: 2<br>exposure: Breathing<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 65<br>date_onset: 2023-06-23<br>sex: M<br>age: 4<br>exposure: NA<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 66<br>date_onset: 2023-06-23<br>sex: F<br>age: 6<br>exposure: NA<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 68<br>date_onset: 2023-06-23<br>sex: M<br>age: 2<br>exposure: Breathing<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 69<br>date_onset: 2023-06-23<br>sex: M<br>age: 0<br>exposure: Breathing<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 71<br>date_onset: 2023-06-24<br>sex: M<br>age: 5<br>exposure: Breathing<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 73<br>date_onset: 2023-06-24<br>sex: M<br>age: 66<br>exposure: NA<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 77<br>date_onset: 2023-06-24<br>sex: M<br>age: 69<br>exposure: NA<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 78<br>date_onset: 2023-06-24<br>sex: M<br>age: 2<br>exposure: Breathing<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 79<br>date_onset: 2023-06-24<br>sex: M<br>age: 3<br>exposure: Breathing<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 81<br>date_onset: 2023-06-25<br>sex: F<br>age: 4<br>exposure: Breathing<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 83<br>date_onset: 2023-06-25<br>sex: M<br>age: 4<br>exposure: Breathing<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 84<br>date_onset: 2023-06-25<br>sex: M<br>age: 5<br>exposure: Breathing<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 87<br>date_onset: 2023-06-26<br>sex: M<br>age: 5<br>exposure: Breathing<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 90<br>date_onset: 2023-06-26<br>sex: F<br>age: 66<br>exposure: Breathing<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 92<br>date_onset: 2023-06-26<br>sex: F<br>age: 5<br>exposure: NA<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 93<br>date_onset: 2023-06-27<br>sex: M<br>age: 78<br>exposure: Breathing<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 94<br>date_onset: 2023-06-27<br>sex: M<br>age: 64<br>exposure: Breathing<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 96<br>date_onset: 2023-06-27<br>sex: M<br>age: 73<br>exposure: NA<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 97<br>date_onset: 2023-06-27<br>sex: M<br>age: 66<br>exposure: NA<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 102<br>date_onset: 2023-06-28<br>sex: F<br>age: 5<br>exposure: Breathing<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 104<br>date_onset: 2023-06-28<br>sex: M<br>age: 2<br>exposure: Breathing<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 105<br>date_onset: 2023-06-28<br>sex: M<br>age: 2<br>exposure: Breathing<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 106<br>date_onset: 2023-06-28<br>sex: M<br>age: 61<br>exposure: NA<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 107<br>date_onset: 2023-06-29<br>sex: M<br>age: 4<br>exposure: Breathing<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 109<br>date_onset: 2023-06-29<br>sex: M<br>age: 64<br>exposure: Breathing<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 110<br>date_onset: 2023-06-29<br>sex: M<br>age: 67<br>exposure: Breathing<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 115<br>date_onset: 2023-06-29<br>sex: M<br>age: 70<br>exposure: Breathing<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 119<br>date_onset: 2023-06-30<br>sex: M<br>age: 71<br>exposure: NA<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 120<br>date_onset: 2023-06-30<br>sex: F<br>age: 66<br>exposure: Breathing<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 122<br>date_onset: 2023-06-30<br>sex: F<br>age: 68<br>exposure: Breathing<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 127<br>date_onset: 2023-06-30<br>sex: M<br>age: 69<br>exposure: Breathing<br>exposure_start: NA<br>exposure_end: NA <\/p>"],"color.highlight.background":["#CCDDFF","#C2DBF4","#B8DAEA","#AFD9E0","#A5D7D5","#9CD6CB","#92D5C1","#88D4B7","#7FD2AC","#7ED0A6","#8DCDA8","#9DC9A9","#ACC6AB","#BCC2AC","#CBBEAE","#DABBAF","#EAB7B1","#F9B4B2","#F8B1B4","#EDB0B5","#E3AEB7","#D8ACB8","#CEAABA","#C3A9BC","#B8A7BD","#AEA5BF","#A4A4C1","#AEA8AA","#B9AD94","#C3B17E","#CEB667","#D8BB51","#E3BF3B","#EDC425","#F8C80E","#FFCA04","#FFC513","#FFBF22","#FFBA31","#FFB540","#FFB04E","#FFAB5D","#FFA56C","#FFA07B","#FBA681","#F5B184","#EFBC87","#E9C78A","#E3D28D","#DDDD90","#D7E893","#D1F396","#CCFF99","#CEF39D","#D0E8A1","#D2DDA6","#D4D2AA","#D6C7AE","#D9BCB3","#DBB1B7","#DDA6BC","#E0A0BD","#E3A5B9","#E7ABB4","#EBB0B0","#EFB5AC","#F2BAA7","#F6BFA3","#FAC59E","#FDCA9A","#FBCC9C","#F5CCA3","#EFCCA9","#E9CCAF","#E4CCB4","#DECCBA","#D8CCC1","#D2CCC6","#CDCDCD"],"color.background":["#CCDDFF","#C2DBF4","#B8DAEA","#AFD9E0","#A5D7D5","#9CD6CB","#92D5C1","#88D4B7","#7FD2AC","#7ED0A6","#8DCDA8","#9DC9A9","#ACC6AB","#BCC2AC","#CBBEAE","#DABBAF","#EAB7B1","#F9B4B2","#F8B1B4","#EDB0B5","#E3AEB7","#D8ACB8","#CEAABA","#C3A9BC","#B8A7BD","#AEA5BF","#A4A4C1","#AEA8AA","#B9AD94","#C3B17E","#CEB667","#D8BB51","#E3BF3B","#EDC425","#F8C80E","#FFCA04","#FFC513","#FFBF22","#FFBA31","#FFB540","#FFB04E","#FFAB5D","#FFA56C","#FFA07B","#FBA681","#F5B184","#EFBC87","#E9C78A","#E3D28D","#DDDD90","#D7E893","#D1F396","#CCFF99","#CEF39D","#D0E8A1","#D2DDA6","#D4D2AA","#D6C7AE","#D9BCB3","#DBB1B7","#DDA6BC","#E0A0BD","#E3A5B9","#E7ABB4","#EBB0B0","#EFB5AC","#F2BAA7","#F6BFA3","#FAC59E","#FDCA9A","#FBCC9C","#F5CCA3","#EFCCA9","#E9CCAF","#E4CCB4","#DECCBA","#D8CCC1","#D2CCC6","#CDCDCD"],"color.highlight.border":["black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black"],"color.border":["black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black"],"size":[20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20],"borderWidth":[2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2]},"edges":{"from":[2,3,6,5,8,8,13,12,18,18,20,22,24,15,22,20,27,26,29,26,36,26,34,33,46,47,51,49,45,44,32,58,50,56,59,61,61,69,61,66,65,40,83,96,97,77,105,97,66,87,94,105,62],"to":[3,5,7,8,11,13,15,18,20,23,25,27,28,29,30,31,33,35,39,40,42,43,48,50,55,57,59,60,62,64,66,68,71,73,77,78,79,81,84,90,92,93,102,104,106,107,109,110,115,119,120,122,127],"primary_onset_date":["2023-05-10","2023-05-12","2023-05-20","2023-05-18","2023-05-22","2023-05-22","2023-05-31","2023-05-30","2023-06-08","2023-06-08","2023-06-09","2023-06-10","2023-06-10","2023-06-05","2023-06-10","2023-06-09","2023-06-14","2023-06-14","2023-06-14","2023-06-14","2023-06-16","2023-06-14","2023-06-16","2023-06-16","2023-06-18","2023-06-19","2023-06-20","2023-06-20","2023-06-18","2023-06-18","2023-06-15","2023-06-22","2023-06-20","2023-06-21","2023-06-22","2023-06-22","2023-06-22","2023-06-23","2023-06-22","2023-06-23","2023-06-23","2023-06-17","2023-06-25","2023-06-27","2023-06-27","2023-06-24","2023-06-28","2023-06-27","2023-06-23","2023-06-26","2023-06-27","2023-06-28","2023-06-22"],"secondary_onset_date":["2023-05-12","2023-05-18","2023-05-22","2023-05-22","2023-05-27","2023-05-31","2023-06-05","2023-06-08","2023-06-09","2023-06-10","2023-06-11","2023-06-14","2023-06-14","2023-06-14","2023-06-15","2023-06-15","2023-06-16","2023-06-16","2023-06-17","2023-06-17","2023-06-18","2023-06-18","2023-06-20","2023-06-20","2023-06-21","2023-06-22","2023-06-22","2023-06-22","2023-06-22","2023-06-23","2023-06-23","2023-06-23","2023-06-24","2023-06-24","2023-06-24","2023-06-24","2023-06-24","2023-06-25","2023-06-25","2023-06-26","2023-06-26","2023-06-27","2023-06-28","2023-06-28","2023-06-28","2023-06-29","2023-06-29","2023-06-29","2023-06-29","2023-06-30","2023-06-30","2023-06-30","2023-06-30"],"width":[3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3],"color":["black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black"],"arrows.to":[true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true]},"nodesToDataframe":true,"edgesToDataframe":true,"options":{"width":"100%","height":"100%","nodes":{"shape":"dot"},"manipulation":{"enabled":false},"interaction":{"zoomSpeed":1},"edges":{"arrows":{"to":{"scaleFactor":2}}},"physics":{"stabilization":false}},"groups":null,"width":"90%","height":"700px","idselection":{"enabled":false,"style":"width: 150px; height: 26px","useLabels":true,"main":"Select by id"},"byselection":{"enabled":true,"style":"width: 150px; height: 26px","multiple":false,"hideColor":"rgba(200,200,200,0.5)","highlight":false,"variable":"id","main":"Select by id","values":[2,3,5,6,7,8,11,12,13,15,18,20,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,39,40,42,43,44,45,46,47,48,49,50,51,55,56,57,58,59,60,61,62,64,65,66,68,69,71,73,77,78,79,81,83,84,87,90,92,93,94,96,97,102,104,105,106,107,109,110,115,119,120,122,127]},"main":null,"submain":null,"footer":null,"background":"rgba(0, 0, 0, 0)","tooltipStay":300,"tooltipStyle":"position: fixed;visibility:hidden;padding: 5px;white-space: nowrap;font-family: verdana;font-size:14px;font-color:#000000;background-color: #EEEEEE;-moz-border-radius: 3px;-webkit-border-radius: 3px;border-radius: 3px;border: 1px solid #000000;","legend":{"width":0.1,"useGroups":false,"position":"left","ncol":1,"stepX":100,"stepY":100,"zoom":false},"opts_manipulation":{"datacss":"table.legend_table {\n  font-size: 11px;\n  border-width:1px;\n  border-color:#d3d3d3;\n  border-style:solid;\n}\ntable.legend_table td {\n  border-width:1px;\n  border-color:#d3d3d3;\n  border-style:solid;\n  padding: 2px;\n}\ndiv.table_content {\n  width:80px;\n  text-align:center;\n}\ndiv.table_description {\n  width:100px;\n}\n\n.operation {\n  font-size:20px;\n}\n\n.network-popUp {\n  display:none;\n  z-index:299;\n  width:250px;\n  /*height:150px;*/\n  background-color: #f9f9f9;\n  border-style:solid;\n  border-width:1px;\n  border-color: #0d0d0d;\n  padding:10px;\n  text-align: center;\n  position:fixed;\n  top:50%;  \n  left:50%;  \n  margin:-100px 0 0 -100px;  \n\n}","addNodeCols":["id","label"],"editNodeCols":["id","label"],"tab_add_node":"<span id=\"addnode-operation\" class = \"operation\">node<\/span> <br><table style=\"margin:auto;\"><tr><td>id<\/td><td><input id=\"addnode-id\"  type= \"text\" value=\"new value\"><\/td><\/tr><tr><td>label<\/td><td><input id=\"addnode-label\"  type= \"text\" value=\"new value\"><\/td><\/tr><\/table><input type=\"button\" value=\"save\" id=\"addnode-saveButton\"><\/button><input type=\"button\" value=\"cancel\" id=\"addnode-cancelButton\"><\/button>","tab_edit_node":"<span id=\"editnode-operation\" class = \"operation\">node<\/span> <br><table style=\"margin:auto;\"><tr><td>id<\/td><td><input id=\"editnode-id\"  type= \"text\" value=\"new value\"><\/td><\/tr><tr><td>label<\/td><td><input id=\"editnode-label\"  type= \"text\" value=\"new value\"><\/td><\/tr><\/table><input type=\"button\" value=\"save\" id=\"editnode-saveButton\"><\/button><input type=\"button\" value=\"cancel\" id=\"editnode-cancelButton\"><\/button>"},"highlight":{"enabled":true,"hoverNearest":false,"degree":1,"algorithm":"all","hideColor":"rgba(200,200,200,1)","labelOnly":true},"collapse":{"enabled":true,"fit":false,"resetHighlight":true,"clusterOptions":null,"keepCoord":true,"labelSuffix":"(cluster)"},"iconsRedraw":true},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
+<!--html_preserve--><div id="htmlwidget-2caf9ca87a0159d73bbd" style="width:90%;height:700px;" class="visNetwork html-widget"></div>
+<script type="application/json" data-for="htmlwidget-2caf9ca87a0159d73bbd">{"x":{"nodes":{"id":[2,3,5,6,7,8,11,12,13,15,18,20,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,39,40,42,43,44,45,46,47,48,49,50,51,55,56,57,58,59,60,61,62,64,65,66,68,69,71,73,77,78,79,81,83,84,87,90,92,93,94,96,97,102,104,105,106,107,109,110,115,119,120,122,127],"date_onset":["2023-05-10","2023-05-12","2023-05-18","2023-05-20","2023-05-22","2023-05-22","2023-05-27","2023-05-30","2023-05-31","2023-06-05","2023-06-08","2023-06-09","2023-06-10","2023-06-10","2023-06-10","2023-06-11","2023-06-14","2023-06-14","2023-06-14","2023-06-14","2023-06-15","2023-06-15","2023-06-15","2023-06-16","2023-06-16","2023-06-16","2023-06-16","2023-06-17","2023-06-17","2023-06-18","2023-06-18","2023-06-18","2023-06-18","2023-06-18","2023-06-19","2023-06-20","2023-06-20","2023-06-20","2023-06-20","2023-06-21","2023-06-21","2023-06-22","2023-06-22","2023-06-22","2023-06-22","2023-06-22","2023-06-22","2023-06-23","2023-06-23","2023-06-23","2023-06-23","2023-06-23","2023-06-24","2023-06-24","2023-06-24","2023-06-24","2023-06-24","2023-06-25","2023-06-25","2023-06-25","2023-06-26","2023-06-26","2023-06-26","2023-06-27","2023-06-27","2023-06-27","2023-06-27","2023-06-28","2023-06-28","2023-06-28","2023-06-28","2023-06-29","2023-06-29","2023-06-29","2023-06-29","2023-06-30","2023-06-30","2023-06-30","2023-06-30"],"sex":["F","F","F","F","M","M","F","M","M","M","M","M","M","M","M","M","F","M","F","F","M","M","M","M","M","M","F","F","F","F","M","F","M","M","F","M","M","F","M","M","M","M","F","M","F","F","M","M","M","F","M","M","M","M","M","M","M","F","M","M","M","F","F","M","M","M","M","F","M","M","M","M","M","M","M","M","F","F","M"],"age":[59,5,7,72,6,3,4,76,4,71,2,67,74,7,65,5,3,4,74,3,6,76,2,64,6,1,71,63,67,71,6,67,8,0,66,70,73,5,66,77,75,62,4,63,63,70,70,2,4,6,2,0,5,66,69,2,3,4,4,5,5,66,5,78,64,73,66,5,2,2,61,4,64,67,70,71,66,68,69],"exposure":["Breathing","Breathing","Breathing","Breathing","Breathing",null,"Breathing","Breathing",null,null,null,"Breathing","Breathing","Breathing",null,"Breathing","Breathing","Breathing","Breathing","Breathing",null,null,"Breathing","Breathing","Breathing","Breathing",null,"Breathing","Breathing","Breathing","Breathing","Breathing","Breathing","Breathing","Breathing","Breathing","Breathing","Breathing","Breathing",null,null,null,"Breathing","Breathing","Breathing","Breathing","Breathing","Breathing",null,null,"Breathing","Breathing","Breathing",null,null,"Breathing","Breathing","Breathing","Breathing","Breathing","Breathing","Breathing",null,"Breathing","Breathing",null,null,"Breathing","Breathing","Breathing",null,"Breathing","Breathing","Breathing","Breathing",null,"Breathing","Breathing","Breathing"],"exposure_start":["2023-05-01","2023-05-06","2023-05-07","2023-05-16","2023-05-11","2023-05-19","2023-05-18","2023-05-24","2023-05-21","2023-05-26","2023-05-24","2023-06-03","2023-06-02","2023-06-02","2023-06-05","2023-06-02","2023-06-05","2023-06-08","2023-06-01","2023-06-02","2023-06-08","2023-06-10","2023-06-03","2023-06-10","2023-06-12","2023-06-07","2023-06-01","2023-06-10","2023-06-12","2023-06-05","2023-06-13","2023-06-16","2023-06-13","2023-06-08","2023-06-07","2023-06-11","2023-06-13","2023-06-14","2023-06-11",null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],"exposure_end":["2023-05-01","2023-05-06","2023-05-07","2023-05-16","2023-05-11","2023-05-19","2023-05-18","2023-05-24","2023-05-21","2023-05-26","2023-05-25","2023-06-03","2023-06-02","2023-06-02","2023-06-05","2023-06-02","2023-06-07","2023-06-09","2023-06-01","2023-06-02","2023-06-08","2023-06-10","2023-06-03","2023-06-12","2023-06-12","2023-06-07","2023-06-01","2023-06-10","2023-06-12","2023-06-06","2023-06-14","2023-06-17","2023-06-13","2023-06-08","2023-06-09","2023-06-11","2023-06-13","2023-06-14","2023-06-11",null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],"label":["2","3","5","6","7","8","11","12","13","15","18","20","22","23","24","25","26","27","28","29","30","31","32","33","34","35","36","39","40","42","43","44","45","46","47","48","49","50","51","55","56","57","58","59","60","61","62","64","65","66","68","69","71","73","77","78","79","81","83","84","87","90","92","93","94","96","97","102","104","105","106","107","109","110","115","119","120","122","127"],"title":["<p> id: 2<br>date_onset: 2023-05-10<br>sex: F<br>age: 59<br>exposure: Breathing<br>exposure_start: 2023-05-01<br>exposure_end: 2023-05-01 <\/p>","<p> id: 3<br>date_onset: 2023-05-12<br>sex: F<br>age: 5<br>exposure: Breathing<br>exposure_start: 2023-05-06<br>exposure_end: 2023-05-06 <\/p>","<p> id: 5<br>date_onset: 2023-05-18<br>sex: F<br>age: 7<br>exposure: Breathing<br>exposure_start: 2023-05-07<br>exposure_end: 2023-05-07 <\/p>","<p> id: 6<br>date_onset: 2023-05-20<br>sex: F<br>age: 72<br>exposure: Breathing<br>exposure_start: 2023-05-16<br>exposure_end: 2023-05-16 <\/p>","<p> id: 7<br>date_onset: 2023-05-22<br>sex: M<br>age: 6<br>exposure: Breathing<br>exposure_start: 2023-05-11<br>exposure_end: 2023-05-11 <\/p>","<p> id: 8<br>date_onset: 2023-05-22<br>sex: M<br>age: 3<br>exposure: NA<br>exposure_start: 2023-05-19<br>exposure_end: 2023-05-19 <\/p>","<p> id: 11<br>date_onset: 2023-05-27<br>sex: F<br>age: 4<br>exposure: Breathing<br>exposure_start: 2023-05-18<br>exposure_end: 2023-05-18 <\/p>","<p> id: 12<br>date_onset: 2023-05-30<br>sex: M<br>age: 76<br>exposure: Breathing<br>exposure_start: 2023-05-24<br>exposure_end: 2023-05-24 <\/p>","<p> id: 13<br>date_onset: 2023-05-31<br>sex: M<br>age: 4<br>exposure: NA<br>exposure_start: 2023-05-21<br>exposure_end: 2023-05-21 <\/p>","<p> id: 15<br>date_onset: 2023-06-05<br>sex: M<br>age: 71<br>exposure: NA<br>exposure_start: 2023-05-26<br>exposure_end: 2023-05-26 <\/p>","<p> id: 18<br>date_onset: 2023-06-08<br>sex: M<br>age: 2<br>exposure: NA<br>exposure_start: 2023-05-24<br>exposure_end: 2023-05-25 <\/p>","<p> id: 20<br>date_onset: 2023-06-09<br>sex: M<br>age: 67<br>exposure: Breathing<br>exposure_start: 2023-06-03<br>exposure_end: 2023-06-03 <\/p>","<p> id: 22<br>date_onset: 2023-06-10<br>sex: M<br>age: 74<br>exposure: Breathing<br>exposure_start: 2023-06-02<br>exposure_end: 2023-06-02 <\/p>","<p> id: 23<br>date_onset: 2023-06-10<br>sex: M<br>age: 7<br>exposure: Breathing<br>exposure_start: 2023-06-02<br>exposure_end: 2023-06-02 <\/p>","<p> id: 24<br>date_onset: 2023-06-10<br>sex: M<br>age: 65<br>exposure: NA<br>exposure_start: 2023-06-05<br>exposure_end: 2023-06-05 <\/p>","<p> id: 25<br>date_onset: 2023-06-11<br>sex: M<br>age: 5<br>exposure: Breathing<br>exposure_start: 2023-06-02<br>exposure_end: 2023-06-02 <\/p>","<p> id: 26<br>date_onset: 2023-06-14<br>sex: F<br>age: 3<br>exposure: Breathing<br>exposure_start: 2023-06-05<br>exposure_end: 2023-06-07 <\/p>","<p> id: 27<br>date_onset: 2023-06-14<br>sex: M<br>age: 4<br>exposure: Breathing<br>exposure_start: 2023-06-08<br>exposure_end: 2023-06-09 <\/p>","<p> id: 28<br>date_onset: 2023-06-14<br>sex: F<br>age: 74<br>exposure: Breathing<br>exposure_start: 2023-06-01<br>exposure_end: 2023-06-01 <\/p>","<p> id: 29<br>date_onset: 2023-06-14<br>sex: F<br>age: 3<br>exposure: Breathing<br>exposure_start: 2023-06-02<br>exposure_end: 2023-06-02 <\/p>","<p> id: 30<br>date_onset: 2023-06-15<br>sex: M<br>age: 6<br>exposure: NA<br>exposure_start: 2023-06-08<br>exposure_end: 2023-06-08 <\/p>","<p> id: 31<br>date_onset: 2023-06-15<br>sex: M<br>age: 76<br>exposure: NA<br>exposure_start: 2023-06-10<br>exposure_end: 2023-06-10 <\/p>","<p> id: 32<br>date_onset: 2023-06-15<br>sex: M<br>age: 2<br>exposure: Breathing<br>exposure_start: 2023-06-03<br>exposure_end: 2023-06-03 <\/p>","<p> id: 33<br>date_onset: 2023-06-16<br>sex: M<br>age: 64<br>exposure: Breathing<br>exposure_start: 2023-06-10<br>exposure_end: 2023-06-12 <\/p>","<p> id: 34<br>date_onset: 2023-06-16<br>sex: M<br>age: 6<br>exposure: Breathing<br>exposure_start: 2023-06-12<br>exposure_end: 2023-06-12 <\/p>","<p> id: 35<br>date_onset: 2023-06-16<br>sex: M<br>age: 1<br>exposure: Breathing<br>exposure_start: 2023-06-07<br>exposure_end: 2023-06-07 <\/p>","<p> id: 36<br>date_onset: 2023-06-16<br>sex: F<br>age: 71<br>exposure: NA<br>exposure_start: 2023-06-01<br>exposure_end: 2023-06-01 <\/p>","<p> id: 39<br>date_onset: 2023-06-17<br>sex: F<br>age: 63<br>exposure: Breathing<br>exposure_start: 2023-06-10<br>exposure_end: 2023-06-10 <\/p>","<p> id: 40<br>date_onset: 2023-06-17<br>sex: F<br>age: 67<br>exposure: Breathing<br>exposure_start: 2023-06-12<br>exposure_end: 2023-06-12 <\/p>","<p> id: 42<br>date_onset: 2023-06-18<br>sex: F<br>age: 71<br>exposure: Breathing<br>exposure_start: 2023-06-05<br>exposure_end: 2023-06-06 <\/p>","<p> id: 43<br>date_onset: 2023-06-18<br>sex: M<br>age: 6<br>exposure: Breathing<br>exposure_start: 2023-06-13<br>exposure_end: 2023-06-14 <\/p>","<p> id: 44<br>date_onset: 2023-06-18<br>sex: F<br>age: 67<br>exposure: Breathing<br>exposure_start: 2023-06-16<br>exposure_end: 2023-06-17 <\/p>","<p> id: 45<br>date_onset: 2023-06-18<br>sex: M<br>age: 8<br>exposure: Breathing<br>exposure_start: 2023-06-13<br>exposure_end: 2023-06-13 <\/p>","<p> id: 46<br>date_onset: 2023-06-18<br>sex: M<br>age: 0<br>exposure: Breathing<br>exposure_start: 2023-06-08<br>exposure_end: 2023-06-08 <\/p>","<p> id: 47<br>date_onset: 2023-06-19<br>sex: F<br>age: 66<br>exposure: Breathing<br>exposure_start: 2023-06-07<br>exposure_end: 2023-06-09 <\/p>","<p> id: 48<br>date_onset: 2023-06-20<br>sex: M<br>age: 70<br>exposure: Breathing<br>exposure_start: 2023-06-11<br>exposure_end: 2023-06-11 <\/p>","<p> id: 49<br>date_onset: 2023-06-20<br>sex: M<br>age: 73<br>exposure: Breathing<br>exposure_start: 2023-06-13<br>exposure_end: 2023-06-13 <\/p>","<p> id: 50<br>date_onset: 2023-06-20<br>sex: F<br>age: 5<br>exposure: Breathing<br>exposure_start: 2023-06-14<br>exposure_end: 2023-06-14 <\/p>","<p> id: 51<br>date_onset: 2023-06-20<br>sex: M<br>age: 66<br>exposure: Breathing<br>exposure_start: 2023-06-11<br>exposure_end: 2023-06-11 <\/p>","<p> id: 55<br>date_onset: 2023-06-21<br>sex: M<br>age: 77<br>exposure: NA<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 56<br>date_onset: 2023-06-21<br>sex: M<br>age: 75<br>exposure: NA<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 57<br>date_onset: 2023-06-22<br>sex: M<br>age: 62<br>exposure: NA<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 58<br>date_onset: 2023-06-22<br>sex: F<br>age: 4<br>exposure: Breathing<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 59<br>date_onset: 2023-06-22<br>sex: M<br>age: 63<br>exposure: Breathing<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 60<br>date_onset: 2023-06-22<br>sex: F<br>age: 63<br>exposure: Breathing<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 61<br>date_onset: 2023-06-22<br>sex: F<br>age: 70<br>exposure: Breathing<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 62<br>date_onset: 2023-06-22<br>sex: M<br>age: 70<br>exposure: Breathing<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 64<br>date_onset: 2023-06-23<br>sex: M<br>age: 2<br>exposure: Breathing<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 65<br>date_onset: 2023-06-23<br>sex: M<br>age: 4<br>exposure: NA<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 66<br>date_onset: 2023-06-23<br>sex: F<br>age: 6<br>exposure: NA<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 68<br>date_onset: 2023-06-23<br>sex: M<br>age: 2<br>exposure: Breathing<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 69<br>date_onset: 2023-06-23<br>sex: M<br>age: 0<br>exposure: Breathing<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 71<br>date_onset: 2023-06-24<br>sex: M<br>age: 5<br>exposure: Breathing<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 73<br>date_onset: 2023-06-24<br>sex: M<br>age: 66<br>exposure: NA<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 77<br>date_onset: 2023-06-24<br>sex: M<br>age: 69<br>exposure: NA<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 78<br>date_onset: 2023-06-24<br>sex: M<br>age: 2<br>exposure: Breathing<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 79<br>date_onset: 2023-06-24<br>sex: M<br>age: 3<br>exposure: Breathing<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 81<br>date_onset: 2023-06-25<br>sex: F<br>age: 4<br>exposure: Breathing<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 83<br>date_onset: 2023-06-25<br>sex: M<br>age: 4<br>exposure: Breathing<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 84<br>date_onset: 2023-06-25<br>sex: M<br>age: 5<br>exposure: Breathing<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 87<br>date_onset: 2023-06-26<br>sex: M<br>age: 5<br>exposure: Breathing<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 90<br>date_onset: 2023-06-26<br>sex: F<br>age: 66<br>exposure: Breathing<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 92<br>date_onset: 2023-06-26<br>sex: F<br>age: 5<br>exposure: NA<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 93<br>date_onset: 2023-06-27<br>sex: M<br>age: 78<br>exposure: Breathing<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 94<br>date_onset: 2023-06-27<br>sex: M<br>age: 64<br>exposure: Breathing<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 96<br>date_onset: 2023-06-27<br>sex: M<br>age: 73<br>exposure: NA<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 97<br>date_onset: 2023-06-27<br>sex: M<br>age: 66<br>exposure: NA<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 102<br>date_onset: 2023-06-28<br>sex: F<br>age: 5<br>exposure: Breathing<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 104<br>date_onset: 2023-06-28<br>sex: M<br>age: 2<br>exposure: Breathing<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 105<br>date_onset: 2023-06-28<br>sex: M<br>age: 2<br>exposure: Breathing<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 106<br>date_onset: 2023-06-28<br>sex: M<br>age: 61<br>exposure: NA<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 107<br>date_onset: 2023-06-29<br>sex: M<br>age: 4<br>exposure: Breathing<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 109<br>date_onset: 2023-06-29<br>sex: M<br>age: 64<br>exposure: Breathing<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 110<br>date_onset: 2023-06-29<br>sex: M<br>age: 67<br>exposure: Breathing<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 115<br>date_onset: 2023-06-29<br>sex: M<br>age: 70<br>exposure: Breathing<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 119<br>date_onset: 2023-06-30<br>sex: M<br>age: 71<br>exposure: NA<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 120<br>date_onset: 2023-06-30<br>sex: F<br>age: 66<br>exposure: Breathing<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 122<br>date_onset: 2023-06-30<br>sex: F<br>age: 68<br>exposure: Breathing<br>exposure_start: NA<br>exposure_end: NA <\/p>","<p> id: 127<br>date_onset: 2023-06-30<br>sex: M<br>age: 69<br>exposure: Breathing<br>exposure_start: NA<br>exposure_end: NA <\/p>"],"color.highlight.background":["#CCDDFF","#C2DBF4","#B8DAEA","#AFD9E0","#A5D7D5","#9CD6CB","#92D5C1","#88D4B7","#7FD2AC","#7ED0A6","#8DCDA8","#9DC9A9","#ACC6AB","#BCC2AC","#CBBEAE","#DABBAF","#EAB7B1","#F9B4B2","#F8B1B4","#EDB0B5","#E3AEB7","#D8ACB8","#CEAABA","#C3A9BC","#B8A7BD","#AEA5BF","#A4A4C1","#AEA8AA","#B9AD94","#C3B17E","#CEB667","#D8BB51","#E3BF3B","#EDC425","#F8C80E","#FFCA04","#FFC513","#FFBF22","#FFBA31","#FFB540","#FFB04E","#FFAB5D","#FFA56C","#FFA07B","#FBA681","#F5B184","#EFBC87","#E9C78A","#E3D28D","#DDDD90","#D7E893","#D1F396","#CCFF99","#CEF39D","#D0E8A1","#D2DDA6","#D4D2AA","#D6C7AE","#D9BCB3","#DBB1B7","#DDA6BC","#E0A0BD","#E3A5B9","#E7ABB4","#EBB0B0","#EFB5AC","#F2BAA7","#F6BFA3","#FAC59E","#FDCA9A","#FBCC9C","#F5CCA3","#EFCCA9","#E9CCAF","#E4CCB4","#DECCBA","#D8CCC1","#D2CCC6","#CDCDCD"],"color.background":["#CCDDFF","#C2DBF4","#B8DAEA","#AFD9E0","#A5D7D5","#9CD6CB","#92D5C1","#88D4B7","#7FD2AC","#7ED0A6","#8DCDA8","#9DC9A9","#ACC6AB","#BCC2AC","#CBBEAE","#DABBAF","#EAB7B1","#F9B4B2","#F8B1B4","#EDB0B5","#E3AEB7","#D8ACB8","#CEAABA","#C3A9BC","#B8A7BD","#AEA5BF","#A4A4C1","#AEA8AA","#B9AD94","#C3B17E","#CEB667","#D8BB51","#E3BF3B","#EDC425","#F8C80E","#FFCA04","#FFC513","#FFBF22","#FFBA31","#FFB540","#FFB04E","#FFAB5D","#FFA56C","#FFA07B","#FBA681","#F5B184","#EFBC87","#E9C78A","#E3D28D","#DDDD90","#D7E893","#D1F396","#CCFF99","#CEF39D","#D0E8A1","#D2DDA6","#D4D2AA","#D6C7AE","#D9BCB3","#DBB1B7","#DDA6BC","#E0A0BD","#E3A5B9","#E7ABB4","#EBB0B0","#EFB5AC","#F2BAA7","#F6BFA3","#FAC59E","#FDCA9A","#FBCC9C","#F5CCA3","#EFCCA9","#E9CCAF","#E4CCB4","#DECCBA","#D8CCC1","#D2CCC6","#CDCDCD"],"color.highlight.border":["black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black"],"color.border":["black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black"],"size":[20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20],"borderWidth":[2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2]},"edges":{"from":[2,3,6,5,8,8,13,12,18,18,20,22,24,15,22,20,27,26,29,26,36,26,34,33,46,47,51,49,45,44,32,58,50,56,59,61,61,69,61,66,65,40,83,96,97,77,105,97,66,87,94,105,62],"to":[3,5,7,8,11,13,15,18,20,23,25,27,28,29,30,31,33,35,39,40,42,43,48,50,55,57,59,60,62,64,66,68,71,73,77,78,79,81,84,90,92,93,102,104,106,107,109,110,115,119,120,122,127],"primary_onset_date":["2023-05-10","2023-05-12","2023-05-20","2023-05-18","2023-05-22","2023-05-22","2023-05-31","2023-05-30","2023-06-08","2023-06-08","2023-06-09","2023-06-10","2023-06-10","2023-06-05","2023-06-10","2023-06-09","2023-06-14","2023-06-14","2023-06-14","2023-06-14","2023-06-16","2023-06-14","2023-06-16","2023-06-16","2023-06-18","2023-06-19","2023-06-20","2023-06-20","2023-06-18","2023-06-18","2023-06-15","2023-06-22","2023-06-20","2023-06-21","2023-06-22","2023-06-22","2023-06-22","2023-06-23","2023-06-22","2023-06-23","2023-06-23","2023-06-17","2023-06-25","2023-06-27","2023-06-27","2023-06-24","2023-06-28","2023-06-27","2023-06-23","2023-06-26","2023-06-27","2023-06-28","2023-06-22"],"secondary_onset_date":["2023-05-12","2023-05-18","2023-05-22","2023-05-22","2023-05-27","2023-05-31","2023-06-05","2023-06-08","2023-06-09","2023-06-10","2023-06-11","2023-06-14","2023-06-14","2023-06-14","2023-06-15","2023-06-15","2023-06-16","2023-06-16","2023-06-17","2023-06-17","2023-06-18","2023-06-18","2023-06-20","2023-06-20","2023-06-21","2023-06-22","2023-06-22","2023-06-22","2023-06-22","2023-06-23","2023-06-23","2023-06-23","2023-06-24","2023-06-24","2023-06-24","2023-06-24","2023-06-24","2023-06-25","2023-06-25","2023-06-26","2023-06-26","2023-06-27","2023-06-28","2023-06-28","2023-06-28","2023-06-29","2023-06-29","2023-06-29","2023-06-29","2023-06-30","2023-06-30","2023-06-30","2023-06-30"],"width":[3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3],"color":["black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black"],"arrows.to":[true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true]},"nodesToDataframe":true,"edgesToDataframe":true,"options":{"width":"100%","height":"100%","nodes":{"shape":"dot"},"manipulation":{"enabled":false},"interaction":{"zoomSpeed":1},"edges":{"arrows":{"to":{"scaleFactor":2}}},"physics":{"stabilization":false}},"groups":null,"width":"90%","height":"700px","idselection":{"enabled":false,"style":"width: 150px; height: 26px","useLabels":true,"main":"Select by id"},"byselection":{"enabled":true,"style":"width: 150px; height: 26px","multiple":false,"hideColor":"rgba(200,200,200,0.5)","highlight":false,"variable":"id","main":"Select by id","values":[2,3,5,6,7,8,11,12,13,15,18,20,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,39,40,42,43,44,45,46,47,48,49,50,51,55,56,57,58,59,60,61,62,64,65,66,68,69,71,73,77,78,79,81,83,84,87,90,92,93,94,96,97,102,104,105,106,107,109,110,115,119,120,122,127]},"main":null,"submain":null,"footer":null,"background":"rgba(0, 0, 0, 0)","tooltipStay":300,"tooltipStyle":"position: fixed;visibility:hidden;padding: 5px;white-space: nowrap;font-family: verdana;font-size:14px;font-color:#000000;background-color: #EEEEEE;-moz-border-radius: 3px;-webkit-border-radius: 3px;border-radius: 3px;border: 1px solid #000000;","legend":{"width":0.1,"useGroups":false,"position":"left","ncol":1,"stepX":100,"stepY":100,"zoom":false},"opts_manipulation":{"datacss":"table.legend_table {\n  font-size: 11px;\n  border-width:1px;\n  border-color:#d3d3d3;\n  border-style:solid;\n}\ntable.legend_table td {\n  border-width:1px;\n  border-color:#d3d3d3;\n  border-style:solid;\n  padding: 2px;\n}\ndiv.table_content {\n  width:80px;\n  text-align:center;\n}\ndiv.table_description {\n  width:100px;\n}\n\n.operation {\n  font-size:20px;\n}\n\n.network-popUp {\n  display:none;\n  z-index:299;\n  width:250px;\n  /*height:150px;*/\n  background-color: #f9f9f9;\n  border-style:solid;\n  border-width:1px;\n  border-color: #0d0d0d;\n  padding:10px;\n  text-align: center;\n  position:fixed;\n  top:50%;  \n  left:50%;  \n  margin:-100px 0 0 -100px;  \n\n}","addNodeCols":["id","label"],"editNodeCols":["id","label"],"tab_add_node":"<span id=\"addnode-operation\" class = \"operation\">node<\/span> <br><table style=\"margin:auto;\"><tr><td>id<\/td><td><input id=\"addnode-id\"  type= \"text\" value=\"new value\"><\/td><\/tr><tr><td>label<\/td><td><input id=\"addnode-label\"  type= \"text\" value=\"new value\"><\/td><\/tr><\/table><input type=\"button\" value=\"save\" id=\"addnode-saveButton\"><\/button><input type=\"button\" value=\"cancel\" id=\"addnode-cancelButton\"><\/button>","tab_edit_node":"<span id=\"editnode-operation\" class = \"operation\">node<\/span> <br><table style=\"margin:auto;\"><tr><td>id<\/td><td><input id=\"editnode-id\"  type= \"text\" value=\"new value\"><\/td><\/tr><tr><td>label<\/td><td><input id=\"editnode-label\"  type= \"text\" value=\"new value\"><\/td><\/tr><\/table><input type=\"button\" value=\"save\" id=\"editnode-saveButton\"><\/button><input type=\"button\" value=\"cancel\" id=\"editnode-cancelButton\"><\/button>"},"highlight":{"enabled":true,"hoverNearest":false,"degree":1,"algorithm":"all","hideColor":"rgba(200,200,200,1)","labelOnly":true},"collapse":{"enabled":true,"fit":false,"resetHighlight":true,"clusterOptions":null,"keepCoord":true,"labelSuffix":"(cluster)"},"iconsRedraw":true},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
 
 ::: {.alert .alert-secondary}
                                                                                 
@@ -476,10 +648,10 @@ Inference for Stan model: anon_model.
 post-warmup draws per chain=2000, total post-warmup draws=8000.
 
         mean se_mean    sd  2.5%   25%   50%   75% 97.5% n_eff Rhat
-par[1] 4.997   0.013 0.952 3.342 4.316 4.934 5.599 7.061  5286    1
-par[2] 0.627   0.002 0.126 0.408 0.539 0.617 0.708 0.901  5256    1
+par[1] 4.970   0.013 0.937 3.319 4.310 4.906 5.557 6.985  4821    1
+par[2] 0.623   0.002 0.124 0.407 0.536 0.615 0.699 0.893  4879    1
 
-Samples were drawn using NUTS(diag_e) at Mon Dec 11 20:40:39 2023.
+Samples were drawn using NUTS(diag_e) at Fri Dec 15 22:04:44 2023.
 For each parameter, n_eff is a crude measure of effective sample size,
 and Rhat is the potential scale reduction factor on split chains (at 
 convergence, Rhat=1).
@@ -504,10 +676,10 @@ Inference for Stan model: anon_model.
 post-warmup draws per chain=2000, total post-warmup draws=8000.
 
         mean se_mean    sd  2.5%   25%   50%   75% 97.5% n_eff Rhat
-par[1] 1.969   0.001 0.077 1.816 1.918 1.970 2.020 2.119  9676    1
-par[2] 0.537   0.001 0.058 0.439 0.496 0.532 0.572 0.663  9061    1
+par[1] 1.971   0.001 0.075 1.823 1.919 1.971 2.022 2.117 10498    1
+par[2] 0.538   0.001 0.057 0.442 0.498 0.532 0.572 0.665  9577    1
 
-Samples were drawn using NUTS(diag_e) at Mon Dec 11 20:40:46 2023.
+Samples were drawn using NUTS(diag_e) at Fri Dec 15 22:04:50 2023.
 For each parameter, n_eff is a crude measure of effective sample size,
 and Rhat is the potential scale reduction factor on split chains (at 
 convergence, Rhat=1).
@@ -531,11 +703,11 @@ Inference for Stan model: anon_model.
 4 chains, each with iter=3000; warmup=1000; thin=1; 
 post-warmup draws per chain=2000, total post-warmup draws=8000.
 
-        mean se_mean    sd  2.5%   25%   50%   75%  97.5% n_eff  Rhat
-par[1] 2.591   0.003 0.293 2.033 2.388 2.585 2.787  3.174  8697 1.001
-par[2] 9.067   0.006 0.537 8.025 8.710 9.055 9.426 10.147  8238 1.000
+        mean se_mean    sd  2.5%   25%   50%   75%  97.5% n_eff Rhat
+par[1] 2.591   0.003 0.285 2.061 2.397 2.588 2.776  3.165  9217    1
+par[2] 9.069   0.005 0.526 8.080 8.707 9.056 9.419 10.128  9896    1
 
-Samples were drawn using NUTS(diag_e) at Mon Dec 11 20:40:31 2023.
+Samples were drawn using NUTS(diag_e) at Fri Dec 15 22:04:35 2023.
 For each parameter, n_eff is a crude measure of effective sample size,
 and Rhat is the potential scale reduction factor on split chains (at 
 convergence, Rhat=1).
@@ -568,8 +740,8 @@ waic
 
 ```{.output}
             weibull     gamma lognormal
-Estimate 264.937608 270.16541 279.82647
-SE         9.073625  12.21056  14.60996
+Estimate 264.736669 270.08176 279.55658
+SE         9.041485  12.10039  14.40529
 ```
 
 ```r
@@ -589,7 +761,7 @@ loo_w[1]
 
 ```{.output}
 Estimate 
-264.9599 
+264.7548 
 ```
 
 ```r
@@ -602,7 +774,7 @@ loo_g[1]
 
 ```{.output}
 Estimate 
-270.3112 
+270.2118 
 ```
 
 ```r
@@ -615,7 +787,7 @@ loo_l[1]
 
 ```{.output}
 Estimate 
-280.1606 
+279.8647 
 ```
 
 #### **7.1.4. Reporte los resultados**
@@ -658,9 +830,9 @@ res_means
 
 ```{.output}
        weibull    gamma lognormal
-2.5%  7.118264 7.048002  7.091973
-50%   8.049038 7.972918  8.269517
-97.5% 9.034186 9.075284  9.842005
+2.5%  7.166408 7.048797  7.139865
+50%   8.050316 7.980002  8.280042
+97.5% 9.010865 9.084551  9.858300
 ```
 
 ```r
@@ -671,9 +843,9 @@ res_sds
 
 ```{.output}
        weibull    gamma lognormal
-2.5%  2.807775 2.907775  3.526666
-50%   3.331159 3.588429  4.719465
-97.5% 4.158545 4.567178  6.845290
+2.5%  2.816089 2.913013  3.550505
+50%   3.332498 3.598067  4.736706
+97.5% 4.122998 4.566864  6.926761
 ```
 
 ```r
@@ -689,9 +861,9 @@ print(cens_w_percentiles)
 
 ```{.output}
          0.025     0.05      0.5     0.95    0.975     0.99
-2.5%  1.421959 2.000563 6.854507 12.37013 13.31270 14.40757
-50%   2.186034 2.871114 7.858530 13.83276 14.98797 16.33081
-97.5% 2.980203 3.741019 8.868984 15.99277 17.55429 19.49200
+2.5%  1.453564 2.036469 6.881268 12.41027 13.36497 14.43399
+50%   2.187483 2.872388 7.858976 13.84891 15.00529 16.35318
+97.5% 2.974759 3.721743 8.858746 15.94222 17.48591 19.38428
 ```
 
 ```r
@@ -703,9 +875,9 @@ print(cens_g_percentiles)
 
 ```{.output}
          0.025     0.05      0.5     0.95    0.975     0.99
-2.5%  1.791365 2.309767 6.529235 12.68906 14.08458 15.79249
-50%   2.565600 3.119084 7.438351 14.63870 16.37865 18.57905
-97.5% 3.303186 3.877428 8.447658 17.42397 19.75855 22.70082
+2.5%  1.773134 2.287999 6.523371 12.72761 14.12862 15.83884
+50%   2.561557 3.114111 7.440398 14.68459 16.45753 18.65891
+97.5% 3.301291 3.870150 8.445851 17.39811 19.75913 22.72165
 ```
 
 ```r
@@ -717,9 +889,9 @@ print(cens_ln_percentiles)
 
 ```{.output}
          0.025     0.05      0.5     0.95    0.975     0.99
-2.5%  1.846671 2.265175 6.149465 14.00011 16.22211 19.18793
-50%   2.529950 2.989710 7.170738 17.16996 20.31866 24.66504
-97.5% 3.168053 3.665578 8.326815 22.41297 27.38780 34.66741
+2.5%  1.873328 2.286128 6.189757 14.09790 16.28170 19.27680
+50%   2.529552 2.988317 7.180109 17.23603 20.36840 24.77764
+97.5% 3.148927 3.643249 8.305818 22.69852 27.76931 35.17777
 ```
 
 Para cada modelo, encuentre estos elementos para el período de incubación estimado en la salida de arriba y escribalos abajo.
