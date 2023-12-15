@@ -74,9 +74,9 @@ En esta práctica se desarrollarán los siguientes conceptos:
 
 - Transmisión de enfermedades infecciosas de persona a persona 
 
-- Número reproductivo básico 
+- Número de reproducción básico 
 
-- Número reproductivo efectivo 
+- Número de reproducción instantáneo
 
 - Probabilidad de muerte (IFR, CFR) 
 
@@ -663,7 +663,7 @@ Si no lo recuerda, vuelva por pistas a la sección [Ajuste un modelo log-lineal 
 Ahora que ya ha obtenido la tasa de crecimiento diaria y sus intervalos de confianza, puede pasar a estimar el tiempo de duplicación.
 
 
-#### Estimacion del tiempo de duplicación
+#### Estimación del tiempo de duplicación
 
 
 Esta información también la encontrará calculada y lista para utilizar en el objeto `ajuste_modelo_truncado`, que tiene los datos ajustados de incidencia semanal truncada. 
@@ -704,15 +704,15 @@ cat("Intervalo de confianza del tiempo de duplicación (95%):", tiempo_duplicaci
 
 Si no lo recuerda vuelva por pistas a la sección [Ajuste un modelo log-lineal a los datos de incidencia semanal](#interpretación-del-modelo)
 
-## 5. Estimación de numero de reproduccion
+## 5. Estimación de número de reproducción
 
 Evaluar la velocidad a la que se propaga una infección en una población es una tarea importante a la hora de informar la respuesta de salud pública a una epidemia. 
 
-Los números de reproducción son métricas típicas para monitorear el desarrollo de epidemias y son informativos sobre su velocidad de propagación. El **número reproductivo básico** $R_0$, por ejemplo, mide el número promedio de casos secundarios producidos por un individuo infeccioso dada una población completamente susceptible. Esta hipótesis suele ser válida solo al inicio de una epidemia.
+Los números de reproducción son métricas típicas para monitorear el desarrollo de epidemias y son informativos sobre su velocidad de propagación. El **Número de reproducción básico** $R_0$, por ejemplo, mide el número promedio de casos secundarios producidos por un individuo infeccioso dada una población completamente susceptible. Esta hipótesis suele ser válida solo al inicio de una epidemia.
 
-Para caracterizar el la propagación en tiempo real es más común utilizar el **número reproductivo instantáneo** $R_t$, el cual describe el número promedio de casos secundarios generados por un individuo infeccioso en el tiempo $t$ dado que no han habido cambios en las condiciones actuales.
+Para caracterizar el la propagación en tiempo real es más común utilizar el **Número de reproducción instantáneo** $R_t$, el cual describe el número promedio de casos secundarios generados por un individuo infeccioso en el tiempo $t$ dado que no han habido cambios en las condiciones actuales.
 
-En esta sección exploraremos los conceptos necesarios para calcular el número reproductivo instantáneo, así como los pasos a seguir para estimarlo por medio del paquete de R `{EpiEstim}`.
+En esta sección exploraremos los conceptos necesarios para calcular el Número de reproducción instantáneo, así como los pasos a seguir para estimarlo por medio del paquete de R `{EpiEstim}`.
 
 ### 5.1. Intervalo serial (SI) 
 
@@ -736,7 +736,7 @@ config <- make_config(list(mean_si = mean_si, std_si = std_si))
 
 ### 5.2. Estimación de la transmisibilidad variable en el tiempo, R(t) 
 
-Cuando la suposición de que ($R$) es constante en el tiempo se vuelve insostenible, una alternativa es estimar la transmisibilidad variable en el tiempo utilizando el número de reproducción instantánea ($R_t$). Este enfoque, introducido por Cori et al. (2013),  se implementa en el paquete `EpiEstim`, el cual estima el $R_t$ para ventanas de tiempo personalizadas, utilizando una distribución de Poisson.  A continuación, estimamos la transmisibilidad para ventanas de tiempo deslizantes de 1 semana (el valor predeterminado de `estimate_R`):
+Cuando la suposición de que ($R$) es constante en el tiempo se vuelve insostenible, una alternativa es estimar la transmisibilidad variable en el tiempo utilizando el Número de reproducción instantáneo ($R_t$). Este enfoque, introducido por Cori et al. (2013),  se implementa en el paquete `EpiEstim`, el cual estima el $R_t$ para ventanas de tiempo personalizadas, utilizando una distribución de Poisson.  A continuación, estimamos la transmisibilidad para ventanas de tiempo deslizantes de 1 semana (el valor predeterminado de `estimate_R`):
 
 ***
 
