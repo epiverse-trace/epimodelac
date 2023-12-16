@@ -374,7 +374,7 @@ con la función `get_immunization_date()`. Esta calcula la fecha de inmunizació
 seleccionando la vacuna que cumpla con el criterio de *fecha límite* 
 presentado en la siguiente figura.
 
-![Esquema de fecha límite para selección de vacunas](img/limit_imm.png)
+![Esquema de fecha límite para selección de vacunas](fig/limit_imm.png)
 
 #### **4.2.2 Tiempo de inducción del efecto *(delay)***
 
@@ -487,7 +487,7 @@ información sobre la fecha de inmunización en el parámetro
 "immunization_date_col". En la figura a continuación se presenta un esquema
 de los dos métodos de cálculo del tiempo al evento.
 
-![a) Tiempo al evento evaludado desde inicio de la cohorte. b) tiempo al evento desde la fecha de immunización](img/time-to-event.png)
+![a) Tiempo al evento evaludado desde inicio de la cohorte. b) tiempo al evento desde la fecha de immunización](fig/time-to-event.png)
 
 ### 4.3. Curvas de riesgo acumulado y supervivencia al desenlace en cada cohorte
 
@@ -614,7 +614,7 @@ para contrarestas dichos sesgos es el emparejamiento dinámico de la población.
 En la siguiente figura se presenta un esquema de emparejamiento orientado a
 disminuir los sesgos muestrales.
 
-![](img/matching.png)
+![](fig/matching.png)
 
 ### **4.7 Próximos características**
 
