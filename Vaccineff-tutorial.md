@@ -258,20 +258,21 @@ datos de ejemplo del `vaccineff` ejecute:
 
 ```r
 library("vaccineff")
+```
+
+```{.error}
+Error in library("vaccineff"): there is no package called 'vaccineff'
+```
+
+```r
 library("ggplot2")
 library("cowplot")
 data(cohortdata)
 head(cohortdata)
 ```
 
-```{.output}
-  sex age subsidy death_date vaccine_date_1 vaccine_date_2 vaccine_1 vaccine_2
-1   F   6       0       <NA>           <NA>           <NA>      <NA>      <NA>
-2   M  79       0       <NA>     2044-03-31     2044-05-07    BRAND2    BRAND2
-3   F  34       0       <NA>     2044-07-26     2044-09-03    BRAND2    BRAND2
-4   M  26       0       <NA>           <NA>           <NA>      <NA>      <NA>
-5   F  66       0       <NA>     2044-05-20     2044-06-17    BRAND2    BRAND2
-6   M  10       1       <NA>           <NA>           <NA>      <NA>      <NA>
+```{.error}
+Error in eval(expr, envir, enclos): object 'cohortdata' not found
 ```
 
 Este tabla contiene información de una epidemia simulada ocurrida en 2044 sobre 
@@ -300,6 +301,10 @@ cohortdata$age_group <- get_age_group(
   step = 9)
 ```
 
+```{.error}
+Error in get_age_group(data = cohortdata, col_age = "age", max_val = 80, : could not find function "get_age_group"
+```
+
 Esta función permite agrupar la población en intervalos etarios a partir
 de la variable "age" del conjunto de datos. En particular, para
 construir la agrupación por decenios se asigna el ancho del intervalo
@@ -319,7 +324,9 @@ ggplot(data = cohortdata,
   theme_classic()
 ```
 
-<img src="fig/Vaccineff-tutorial-rendered-unnamed-chunk-4-1.png" style="display: block; margin: auto;" />
+```{.error}
+Error in eval(expr, envir, enclos): object 'cohortdata' not found
+```
 
 #### **4.1.2. Cobertura vacunal en las cohortes**
 
@@ -342,7 +349,9 @@ plot_coverage(
   cumulative = FALSE)
 ```
 
-<img src="fig/Vaccineff-tutorial-rendered-unnamed-chunk-5-1.png" style="display: block; margin: auto;" />
+```{.error}
+Error in plot_coverage(data = cohortdata, vacc_date_col = "vaccine_date_1", : could not find function "plot_coverage"
+```
 
 Esta función calcula la cobertura con base en alguna dosis, la cual se
 especifica en el parámetro "vacc_date_col". En particular, en el ejemplo
@@ -406,6 +415,10 @@ cohortdata$immunization <-
     take_first = FALSE)
 ```
 
+```{.error}
+Error in get_immunization_date(data = cohortdata, outcome_date_col = "death_date", : could not find function "get_immunization_date"
+```
+
 Al ejecutar este comando, se añadirá una columna nueva al conjunto de
 datos del caso de estudio, esta columna contiene una variable de tipo
 "Date" que corresponde la fecha 14 días posteriores a la última dosis de
@@ -426,6 +439,10 @@ cohortdata$vaccine_status <- set_status(
   data = cohortdata,
   col_names = "immunization",
   status = c("vacc", "unvacc"))
+```
+
+```{.error}
+Error in set_status(data = cohortdata, col_names = "immunization", status = c("vacc", : could not find function "set_status"
 ```
 
 Al ejecutar el comando encontrará que se ha creado una nueva columna en
@@ -452,6 +469,10 @@ cohortdata$death_status <- set_status(
   col_names = "death_date")
 ```
 
+```{.error}
+Error in set_status(data = cohortdata, col_names = "death_date"): could not find function "set_status"
+```
+
 Al ejecutar este comando, nuevamente aparecerá una nueva columna en el
 conjunto de datos con el que se está realizando el caso de estudio. Al
 explorar la base de datos completa, se verifica que en la nueva columna
@@ -473,6 +494,10 @@ cohortdata$time_to_death <- get_time_to_event(
   start_cohort = start_cohort,
   end_cohort = end_cohort,
   start_from_immunization = FALSE)
+```
+
+```{.error}
+Error in get_time_to_event(data = cohortdata, outcome_date_col = "death_date", : could not find function "get_time_to_event"
 ```
 
 Nuevamente, al ejecutar este comando se creará una nueva variable en el
@@ -515,7 +540,9 @@ plot_survival(data = cohortdata,
   cumulative = TRUE)
 ```
 
-<img src="fig/Vaccineff-tutorial-rendered-unnamed-chunk-11-1.png" style="display: block; margin: auto;" />
+```{.error}
+Error in plot_survival(data = cohortdata, outcome_status_col = "death_status", : could not find function "plot_survival"
+```
 
 A partir de la función anterior también es posible realizar la gráfica
 de supervivencia de las cohortes o gráfica de Kaplan-Meier en la cual se
@@ -541,10 +568,19 @@ plt_surv <- plot_survival(data = cohortdata,
   end_cohort = end_cohort,
   percentage = TRUE,
   cumulative = FALSE)
+```
+
+```{.error}
+Error in plot_survival(data = cohortdata, outcome_status_col = "death_status", : could not find function "plot_survival"
+```
+
+```r
 plt_surv
 ```
 
-<img src="fig/Vaccineff-tutorial-rendered-unnamed-chunk-12-1.png" style="display: block; margin: auto;" />
+```{.error}
+Error in eval(expr, envir, enclos): object 'plt_surv' not found
+```
 
 ### **4.4. Evaluación de la hipótesis riesgos proporcionales**
 
@@ -567,7 +603,18 @@ cálculo dinámico de los tiempos no satisface riesgos proporcionales,
 por lo que pontencialmente necesitará algún tipo de estrategia para contrarestar 
 los posibles sesgos muestrales.
 
-<img src="fig/Vaccineff-tutorial-rendered-unnamed-chunk-13-1.png" style="display: block; margin: auto;" />
+
+```{.error}
+Error in get_immunization_date(data = df_cohort, outcome_date_col = outcome_date_col, : could not find function "get_immunization_date"
+```
+
+```{.error}
+Error in get_immunization_date(data = df_cohort, outcome_date_col = outcome_date_col, : could not find function "get_immunization_date"
+```
+
+```{.error}
+Error in eval(expr, envir, enclos): object 'p1' not found
+```
 
 ### **4.5. Estimación de la efectividad vacunal**
 #### **Modelo de Cox**
@@ -597,9 +644,8 @@ coh_eff_noconf(
   status_vacc_col = "vaccine_status")
 ```
 
-```{.output}
-      HR HR_low HR_high  V_eff V_eff_low V_eff_high     PH      p_value
-1 0.6129 0.5209  0.7211 0.3871    0.2789     0.4791 reject 7.389662e-17
+```{.error}
+Error in coh_eff_noconf(data = cohortdata, outcome_status_col = "death_status", : could not find function "coh_eff_noconf"
 ```
 
 ### **4.6 Cohorte dinámica - Emparejamiento poblacional**
