@@ -633,7 +633,7 @@ función <code>binom.confint</code>. Y obtenga este resultado:</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1">Pista</h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
 <div class="accordion-body">
 <p>Recuerde diligenciar los espacios donde dice <code>COMPLETE</code>. Y
 obtenga este resultado</p>
@@ -781,9 +781,9 @@ escogido como el primer argumento.</p>
 <div class="codewrapper sourceCode" id="cb19">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode r" tabindex="0"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>incidencia_semanal <span class="ot">&lt;-</span> <span class="fu">incidence</span>(PRIMER ARGUMENTO,  <span class="co">#COMPLETE</span></span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>                                SEGUNDO ARGUMENTO, <span class="co">#COMPLETE </span></span>
-<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>                                TERCER ARGUMENTO)  <span class="co">#COMPLETE</span></span></code></pre>
+<pre class="sourceCode r" tabindex="0"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" tabindex="-1"></a>incidencia_semanal <span class="ot">&lt;-</span> <span class="fu">incidence</span>(PRIMER ARGUMENTO,  <span class="co">#COMPLETE</span></span>
+<span id="cb19-2"><a href="#cb19-2" tabindex="-1"></a>                                SEGUNDO ARGUMENTO, <span class="co">#COMPLETE </span></span>
+<span id="cb19-3"><a href="#cb19-3" tabindex="-1"></a>                                TERCER ARGUMENTO)  <span class="co">#COMPLETE</span></span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">SALIDA<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -887,7 +887,7 @@ $info: list containing the following items:
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
   <h4 class="accordion-header" id="headingSolution2">Solución</h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
 <div class="accordion-body">
 <p><code>$model</code>: Indica que se ha realizado una regresión
 logarítmica de la incidencia en función del tiempo. Esto implica que la
@@ -1509,28 +1509,28 @@ tienen la misma unidad de tiempo (días).</p>
 <div class="codewrapper sourceCode" id="cb2">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode r" tabindex="0"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>Lv       <span class="ot">&lt;-</span>        <span class="co"># Esperanza de vida de los mosquitos (en días)</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>Lh       <span class="ot">&lt;-</span>        <span class="co"># Esperanza de vida de los humanos (en días)</span></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>PIh      <span class="ot">&lt;-</span>        <span class="co"># Periodo infeccioso en humanos (en días)</span></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>PIv      <span class="ot">&lt;-</span>        <span class="co"># Periodo infeccioso en vectores (en días)</span></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>PEI      <span class="ot">&lt;-</span>        <span class="co"># Período extrínseco de incubación en mosquitos adultos (en días)</span></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>muv      <span class="ot">&lt;-</span>        <span class="co"># Tasa per capita de mortalidad del vector (1/Lv)</span></span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>muh      <span class="ot">&lt;-</span>        <span class="co"># Tasa per capita de mortalidad del hospedador (1/Lh)</span></span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>alphav   <span class="ot">&lt;-</span>        <span class="co"># Tasa per capita de natalidad del vector</span></span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>alphah   <span class="ot">&lt;-</span>        <span class="co"># Tasa per capita de natalidad del hospedador</span></span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>gamma    <span class="ot">&lt;-</span>        <span class="co"># Tasa de recuperación en humanos (1/PIh)</span></span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>delta    <span class="ot">&lt;-</span>        <span class="co"># Tasa extrínseca de incubación (1/PEI)</span></span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>ph       <span class="ot">&lt;-</span>        <span class="co"># Probabilidad de transmisión del vector al hospedador dada una picadura por un mosquito infeccioso a un humano susceptible</span></span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>pv       <span class="ot">&lt;-</span>        <span class="co"># Probabilidad de transmisión del hospedador al vector dada una picadura por un mosquito susceptible a un humano infeccioso</span></span>
-<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>Nh       <span class="ot">&lt;-</span>        <span class="co"># Número de humanos</span></span>
-<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>m        <span class="ot">&lt;-</span>        <span class="co"># Densidad de mosquitos hembra por humano</span></span>
-<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>Nv       <span class="ot">&lt;-</span>        <span class="co"># Número de vectores (m * Nh)</span></span>
-<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>R0       <span class="ot">&lt;-</span>        <span class="co"># Número reproductivo básico</span></span>
-<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>b        <span class="ot">&lt;-</span>        <span class="fu">sqrt</span>((R0 <span class="sc">*</span> muv<span class="sc">*</span>(muv<span class="sc">+</span>delta) <span class="sc">*</span> (muh<span class="sc">+</span>gamma)) <span class="sc">/</span></span>
-<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>                   (m <span class="sc">*</span> ph <span class="sc">*</span> pv <span class="sc">*</span> delta)) <span class="co"># Tasa de picadura</span></span>
-<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>betah    <span class="ot">&lt;-</span>        <span class="co"># Coeficiente de transmisión del mosquito al humano</span></span>
-<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>betav    <span class="ot">&lt;-</span>        <span class="co"># Coeficiente de transmisión del humano al mosquito</span></span>
-<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>TIME     <span class="ot">&lt;-</span>        <span class="co"># Número de años que se va a simular </span></span></code></pre>
+<pre class="sourceCode r" tabindex="0"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a>Lv       <span class="ot">&lt;-</span>        <span class="co"># Esperanza de vida de los mosquitos (en días)</span></span>
+<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a>Lh       <span class="ot">&lt;-</span>        <span class="co"># Esperanza de vida de los humanos (en días)</span></span>
+<span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a>PIh      <span class="ot">&lt;-</span>        <span class="co"># Periodo infeccioso en humanos (en días)</span></span>
+<span id="cb2-4"><a href="#cb2-4" tabindex="-1"></a>PIv      <span class="ot">&lt;-</span>        <span class="co"># Periodo infeccioso en vectores (en días)</span></span>
+<span id="cb2-5"><a href="#cb2-5" tabindex="-1"></a>PEI      <span class="ot">&lt;-</span>        <span class="co"># Período extrínseco de incubación en mosquitos adultos (en días)</span></span>
+<span id="cb2-6"><a href="#cb2-6" tabindex="-1"></a>muv      <span class="ot">&lt;-</span>        <span class="co"># Tasa per capita de mortalidad del vector (1/Lv)</span></span>
+<span id="cb2-7"><a href="#cb2-7" tabindex="-1"></a>muh      <span class="ot">&lt;-</span>        <span class="co"># Tasa per capita de mortalidad del hospedador (1/Lh)</span></span>
+<span id="cb2-8"><a href="#cb2-8" tabindex="-1"></a>alphav   <span class="ot">&lt;-</span>        <span class="co"># Tasa per capita de natalidad del vector</span></span>
+<span id="cb2-9"><a href="#cb2-9" tabindex="-1"></a>alphah   <span class="ot">&lt;-</span>        <span class="co"># Tasa per capita de natalidad del hospedador</span></span>
+<span id="cb2-10"><a href="#cb2-10" tabindex="-1"></a>gamma    <span class="ot">&lt;-</span>        <span class="co"># Tasa de recuperación en humanos (1/PIh)</span></span>
+<span id="cb2-11"><a href="#cb2-11" tabindex="-1"></a>delta    <span class="ot">&lt;-</span>        <span class="co"># Tasa extrínseca de incubación (1/PEI)</span></span>
+<span id="cb2-12"><a href="#cb2-12" tabindex="-1"></a>ph       <span class="ot">&lt;-</span>        <span class="co"># Probabilidad de transmisión del vector al hospedador dada una picadura por un mosquito infeccioso a un humano susceptible</span></span>
+<span id="cb2-13"><a href="#cb2-13" tabindex="-1"></a>pv       <span class="ot">&lt;-</span>        <span class="co"># Probabilidad de transmisión del hospedador al vector dada una picadura por un mosquito susceptible a un humano infeccioso</span></span>
+<span id="cb2-14"><a href="#cb2-14" tabindex="-1"></a>Nh       <span class="ot">&lt;-</span>        <span class="co"># Número de humanos</span></span>
+<span id="cb2-15"><a href="#cb2-15" tabindex="-1"></a>m        <span class="ot">&lt;-</span>        <span class="co"># Densidad de mosquitos hembra por humano</span></span>
+<span id="cb2-16"><a href="#cb2-16" tabindex="-1"></a>Nv       <span class="ot">&lt;-</span>        <span class="co"># Número de vectores (m * Nh)</span></span>
+<span id="cb2-17"><a href="#cb2-17" tabindex="-1"></a>R0       <span class="ot">&lt;-</span>        <span class="co"># Número reproductivo básico</span></span>
+<span id="cb2-18"><a href="#cb2-18" tabindex="-1"></a>b        <span class="ot">&lt;-</span>        <span class="fu">sqrt</span>((R0 <span class="sc">*</span> muv<span class="sc">*</span>(muv<span class="sc">+</span>delta) <span class="sc">*</span> (muh<span class="sc">+</span>gamma)) <span class="sc">/</span></span>
+<span id="cb2-19"><a href="#cb2-19" tabindex="-1"></a>                   (m <span class="sc">*</span> ph <span class="sc">*</span> pv <span class="sc">*</span> delta)) <span class="co"># Tasa de picadura</span></span>
+<span id="cb2-20"><a href="#cb2-20" tabindex="-1"></a>betah    <span class="ot">&lt;-</span>        <span class="co"># Coeficiente de transmisión del mosquito al humano</span></span>
+<span id="cb2-21"><a href="#cb2-21" tabindex="-1"></a>betav    <span class="ot">&lt;-</span>        <span class="co"># Coeficiente de transmisión del humano al mosquito</span></span>
+<span id="cb2-22"><a href="#cb2-22" tabindex="-1"></a>TIME     <span class="ot">&lt;-</span>        <span class="co"># Número de años que se va a simular </span></span></code></pre>
 </div>
 </div>
 </div>
@@ -1583,12 +1583,12 @@ los que se calculará el sistema (argumento <code>parms</code>).</p>
 <div class="codewrapper sourceCode" id="cb4">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode r" tabindex="0"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># NO la copie a R sólo tiene fines ilustrativos.</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ode</span>(<span class="at">y      =</span> <span class="co"># Condiciones iniciales,</span></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">times  =</span> <span class="co"># Tiempo,</span></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">fun    =</span> <span class="co"># Modelo o función que lo contenga,</span></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">parms  =</span> <span class="co"># Parámetros</span></span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>)</span></code></pre>
+<pre class="sourceCode r" tabindex="0"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a><span class="co"># NO la copie a R sólo tiene fines ilustrativos.</span></span>
+<span id="cb4-2"><a href="#cb4-2" tabindex="-1"></a><span class="fu">ode</span>(<span class="at">y      =</span> <span class="co"># Condiciones iniciales,</span></span>
+<span id="cb4-3"><a href="#cb4-3" tabindex="-1"></a>    <span class="at">times  =</span> <span class="co"># Tiempo,</span></span>
+<span id="cb4-4"><a href="#cb4-4" tabindex="-1"></a>    <span class="at">fun    =</span> <span class="co"># Modelo o función que lo contenga,</span></span>
+<span id="cb4-5"><a href="#cb4-5" tabindex="-1"></a>    <span class="at">parms  =</span> <span class="co"># Parámetros</span></span>
+<span id="cb4-6"><a href="#cb4-6" tabindex="-1"></a>)</span></code></pre>
 </div>
 <div id="desafío-2" class="callout discussion">
 <div class="callout-square">
@@ -1661,33 +1661,33 @@ el paquete <strong>deSolve</strong>.</p></li>
 <div class="codewrapper sourceCode" id="cb7">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode r" tabindex="0"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Secuencia temporal (times)</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>times  <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">1</span>, <span class="dv">365</span> <span class="sc">*</span> TIME , <span class="at">by =</span> <span class="dv">1</span>)</span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Los parámetros (parms)</span></span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>params <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">muv      =</span> muv,     </span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">muh      =</span> muh, </span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">alphav   =</span> alphav,</span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">alphah   =</span> alphah,</span>
-<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">gamma    =</span> gamma,   </span>
-<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">delta    =</span> delta,   </span>
-<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">betav    =</span> betav,       </span>
-<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">betah    =</span> betah,   </span>
-<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">Nh       =</span> Nh,      </span>
-<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">Nv       =</span> Nv</span>
-<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Condiciones iniciales del sistema (y)</span></span>
-<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>xstart <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="at">Sh =</span> VALOR?,        <span class="co"># COMPLETE Y COMENTE</span></span>
-<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a>            <span class="at">Ih =</span> VALOR?,        <span class="co"># COMPLETE Y COMENTE</span></span>
-<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a>            <span class="at">Rh =</span> VALOR?,        <span class="co"># COMPLETE Y COMENTE</span></span>
-<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a>            <span class="at">Sv =</span> VALOR?,        <span class="co"># COMPLETE Y COMENTE</span></span>
-<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a>            <span class="at">Ev =</span> VALOR?,        <span class="co"># COMPLETE Y COMENTE</span></span>
-<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a>            <span class="at">Iv =</span> VALOR?)        <span class="co"># COMPLETE Y COMENTE</span></span>
-<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a><span class="co"># Resuelva las ecuaciones</span></span>
-<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a>out <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(<span class="fu">ode</span>(<span class="at">y      =</span> ARGUMENTO?,   <span class="co"># COMPLETE Y COMENTE</span></span>
-<span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a>                         <span class="at">times  =</span> ARGUMENTO?,   <span class="co"># COMPLETE Y COMENTE</span></span>
-<span id="cb7-26"><a href="#cb7-26" aria-hidden="true" tabindex="-1"></a>                         <span class="at">fun    =</span> ARGUMENTO?,   <span class="co"># COMPLETE Y COMENTE</span></span>
-<span id="cb7-27"><a href="#cb7-27" aria-hidden="true" tabindex="-1"></a>                         <span class="at">parms  =</span> ARGUMENTO?))  <span class="co"># COMPLETE Y COMENTE</span></span></code></pre>
+<pre class="sourceCode r" tabindex="0"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a><span class="co"># Secuencia temporal (times)</span></span>
+<span id="cb7-2"><a href="#cb7-2" tabindex="-1"></a>times  <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">1</span>, <span class="dv">365</span> <span class="sc">*</span> TIME , <span class="at">by =</span> <span class="dv">1</span>)</span>
+<span id="cb7-3"><a href="#cb7-3" tabindex="-1"></a><span class="co"># Los parámetros (parms)</span></span>
+<span id="cb7-4"><a href="#cb7-4" tabindex="-1"></a>params <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
+<span id="cb7-5"><a href="#cb7-5" tabindex="-1"></a>  <span class="at">muv      =</span> muv,     </span>
+<span id="cb7-6"><a href="#cb7-6" tabindex="-1"></a>  <span class="at">muh      =</span> muh, </span>
+<span id="cb7-7"><a href="#cb7-7" tabindex="-1"></a>  <span class="at">alphav   =</span> alphav,</span>
+<span id="cb7-8"><a href="#cb7-8" tabindex="-1"></a>  <span class="at">alphah   =</span> alphah,</span>
+<span id="cb7-9"><a href="#cb7-9" tabindex="-1"></a>  <span class="at">gamma    =</span> gamma,   </span>
+<span id="cb7-10"><a href="#cb7-10" tabindex="-1"></a>  <span class="at">delta    =</span> delta,   </span>
+<span id="cb7-11"><a href="#cb7-11" tabindex="-1"></a>  <span class="at">betav    =</span> betav,       </span>
+<span id="cb7-12"><a href="#cb7-12" tabindex="-1"></a>  <span class="at">betah    =</span> betah,   </span>
+<span id="cb7-13"><a href="#cb7-13" tabindex="-1"></a>  <span class="at">Nh       =</span> Nh,      </span>
+<span id="cb7-14"><a href="#cb7-14" tabindex="-1"></a>  <span class="at">Nv       =</span> Nv</span>
+<span id="cb7-15"><a href="#cb7-15" tabindex="-1"></a>)</span>
+<span id="cb7-16"><a href="#cb7-16" tabindex="-1"></a><span class="co"># Condiciones iniciales del sistema (y)</span></span>
+<span id="cb7-17"><a href="#cb7-17" tabindex="-1"></a>xstart <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="at">Sh =</span> VALOR?,        <span class="co"># COMPLETE Y COMENTE</span></span>
+<span id="cb7-18"><a href="#cb7-18" tabindex="-1"></a>            <span class="at">Ih =</span> VALOR?,        <span class="co"># COMPLETE Y COMENTE</span></span>
+<span id="cb7-19"><a href="#cb7-19" tabindex="-1"></a>            <span class="at">Rh =</span> VALOR?,        <span class="co"># COMPLETE Y COMENTE</span></span>
+<span id="cb7-20"><a href="#cb7-20" tabindex="-1"></a>            <span class="at">Sv =</span> VALOR?,        <span class="co"># COMPLETE Y COMENTE</span></span>
+<span id="cb7-21"><a href="#cb7-21" tabindex="-1"></a>            <span class="at">Ev =</span> VALOR?,        <span class="co"># COMPLETE Y COMENTE</span></span>
+<span id="cb7-22"><a href="#cb7-22" tabindex="-1"></a>            <span class="at">Iv =</span> VALOR?)        <span class="co"># COMPLETE Y COMENTE</span></span>
+<span id="cb7-23"><a href="#cb7-23" tabindex="-1"></a><span class="co"># Resuelva las ecuaciones</span></span>
+<span id="cb7-24"><a href="#cb7-24" tabindex="-1"></a>out <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(<span class="fu">ode</span>(<span class="at">y      =</span> ARGUMENTO?,   <span class="co"># COMPLETE Y COMENTE</span></span>
+<span id="cb7-25"><a href="#cb7-25" tabindex="-1"></a>                         <span class="at">times  =</span> ARGUMENTO?,   <span class="co"># COMPLETE Y COMENTE</span></span>
+<span id="cb7-26"><a href="#cb7-26" tabindex="-1"></a>                         <span class="at">fun    =</span> ARGUMENTO?,   <span class="co"># COMPLETE Y COMENTE</span></span>
+<span id="cb7-27"><a href="#cb7-27" tabindex="-1"></a>                         <span class="at">parms  =</span> ARGUMENTO?))  <span class="co"># COMPLETE Y COMENTE</span></span></code></pre>
 </div>
 </div>
 </div>
@@ -1710,9 +1710,9 @@ convierta las unidades de tiempo de <em>días</em> a <em>años</em> y a
 <div class="codewrapper sourceCode" id="cb9">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode r" tabindex="0"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Cree las opciones de tiempo para años y semanas </span></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>out<span class="sc">$</span>years <span class="ot">&lt;-</span> </span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>out<span class="sc">$</span>weeks <span class="ot">&lt;-</span> </span></code></pre>
+<pre class="sourceCode r" tabindex="0"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a><span class="co"># Cree las opciones de tiempo para años y semanas </span></span>
+<span id="cb9-2"><a href="#cb9-2" tabindex="-1"></a>out<span class="sc">$</span>years <span class="ot">&lt;-</span> </span>
+<span id="cb9-3"><a href="#cb9-3" tabindex="-1"></a>out<span class="sc">$</span>weeks <span class="ot">&lt;-</span> </span></code></pre>
 </div>
 </div>
 </div>
@@ -7542,7 +7542,9 @@ particular del conjunto de datos ejemplo contenidos es
 <code>get_immunization_date()</code>. Esta calcula la fecha de
 inmunización seleccionando la vacuna que cumpla con el criterio de
 <em>fecha límite</em> presentado en la siguiente figura.</p>
-<figure><img src="fig/limit_imm.png" alt="" class="figure mx-auto d-block"><figcaption>Esquema de fecha límite para selección de vacunas</figcaption></figure><div class="section level4">
+<figure><img src="fig/limit_imm.png" alt="Esquema de fecha límite para selección de vacunas" class="figure mx-auto d-block"><div class="figcaption">Esquema de fecha límite para selección de
+vacunas</div>
+</figure><div class="section level4">
 <h4 id="tiempo-de-inducción-del-efecto-delay">
 <strong>4.2.2 Tiempo de inducción del efecto
 <em>(delay)</em></strong><a class="anchor" aria-label="anchor" href="#tiempo-de-inducci%C3%B3n-del-efecto-delay"></a>
@@ -7664,8 +7666,9 @@ inmunización. Para este último caso es necesario asignar
 información sobre la fecha de inmunización en el parámetro
 “immunization_date_col”. En la figura a continuación se presenta un
 esquema de los dos métodos de cálculo del tiempo al evento.</p>
-<figure><img src="fig/time-to-event.png" alt="" class="figure mx-auto d-block"><figcaption>a) Tiempo al evento evaludado desde inicio de la
-cohorte. b) tiempo al evento desde la fecha de immunización</figcaption></figure>
+<figure><img src="fig/time-to-event.png" alt="a) Tiempo al evento evaludado desde inicio de la cohorte. b) tiempo al evento desde la fecha de immunización" class="figure mx-auto d-block"><div class="figcaption">a) Tiempo al evento evaludado desde inicio de la
+cohorte. b) tiempo al evento desde la fecha de immunización</div>
+</figure>
 </div>
 </div>
 <div class="section level3">
@@ -8739,8 +8742,8 @@ any links that you are not going to use.
   "url": "https://epiverse-trace.github.io/epimodelac/aio.html",
   "identifier": "https://epiverse-trace.github.io/epimodelac/aio.html",
   "dateCreated": "2023-11-10",
-  "dateModified": "2024-02-27",
-  "datePublished": "2024-02-27"
+  "dateModified": "2024-03-05",
+  "datePublished": "2024-03-05"
 }
 
   </script><script>

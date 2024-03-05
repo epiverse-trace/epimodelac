@@ -1984,7 +1984,7 @@
       "Package": "ragg",
       "Version": "1.2.6",
       "Source": "Repository",
-      "Repository": "https://carpentries.r-universe.dev",
+      "Repository": "CRAN",
       "Requirements": [
         "systemfonts",
         "textshaping"
@@ -2513,7 +2513,7 @@
       "Package": "systemfonts",
       "Version": "1.0.5",
       "Source": "Repository",
-      "Repository": "https://carpentries.r-universe.dev",
+      "Repository": "CRAN",
       "Requirements": [
         "R",
         "cpp11"
@@ -2547,7 +2547,7 @@
       "Package": "textshaping",
       "Version": "0.3.7",
       "Source": "Repository",
-      "Repository": "https://carpentries.r-universe.dev",
+      "Repository": "CRAN",
       "Requirements": [
         "R",
         "cpp11",
@@ -2746,6 +2746,27 @@
       ],
       "Hash": "3d78edfb977a69fc7a0341bee25e163f"
     },
+    "vaccineff": {
+      "Package": "vaccineff",
+      "Version": "0.0.1",
+      "Source": "GitHub",
+      "RemoteType": "github",
+      "RemoteHost": "api.github.com",
+      "RemoteUsername": "epiverse-trace",
+      "RemoteRepo": "vaccineff",
+      "RemoteRef": "main",
+      "RemoteSha": "666ddf4f1272f835f0faaed796ed2aa824c63946",
+      "Requirements": [
+        "R",
+        "checkmate",
+        "ggplot2",
+        "rlang",
+        "scales",
+        "stats",
+        "survival"
+      ],
+      "Hash": "dff57d6aacd7046dca5edd79fdebb552"
+    },
     "vctrs": {
       "Package": "vctrs",
       "Version": "0.6.5",
@@ -2865,7 +2886,7 @@
       "Package": "xml2",
       "Version": "1.3.5",
       "Source": "Repository",
-      "Repository": "https://carpentries.r-universe.dev",
+      "Repository": "CRAN",
       "Requirements": [
         "R",
         "methods"
