@@ -1,6 +1,6 @@
 {
   "R": {
-    "Version": "4.3.2",
+    "Version": "4.3.3",
     "Repositories": [
       {
         "Name": "carpentries",
@@ -1744,7 +1744,7 @@
     },
     "pak": {
       "Package": "pak",
-      "Version": "0.7.1",
+      "Version": "0.7.2",
       "Source": "Repository",
       "Repository": "CRAN",
       "Requirements": [
@@ -1752,7 +1752,7 @@
         "tools",
         "utils"
       ],
-      "Hash": "17c4c32b4bdc087508f35e8b7dcf4191"
+      "Hash": "93288e19455e09f590b56db4d50248fe"
     },
     "patchwork": {
       "Package": "patchwork",
