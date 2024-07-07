@@ -1,5 +1,5 @@
 ---
-title: "Tutorial Vaccineff: Introducción al cálculo de efectividad vacunal con cohortes usando vaccineff"
+title: "Introducción al cálculo de efectividad vacunal con cohortes usando vaccineff"
 author: "David Santiago Quevedo, Santiago Loaiza, Zulma M. Cucunubá"
 date: "2023-11-03"
 output: html_document

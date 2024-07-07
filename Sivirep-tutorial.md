@@ -1,5 +1,5 @@
 ---
-title: "Taller sivirep "
+title: "Generar reportes a partir de bases de datos de vigilancia epidemiológica usando sivirep"
 author: "Geraldine Gómez Millán"
 date: "2023-11-03"
 output: html_document
