@@ -89,7 +89,7 @@ head(divipola_table)
 Los usuarios pueden realizar consultas a **epiCo** utilizando la función `population_pyramid`, la cual requiere el codigo DIVIPOLA de la entidad de interés y el año que se desea consultar.
 
 ```{r}
-tolima_codigo <- 73 # Código DIVIPOLA para el departamento del Tolima.
+tolima_codigo <- "73" # Código DIVIPOLA para el departamento del Tolima.
 año <- 2021 # Año a consultar.
 tolima_piramide_2021 <- population_pyramid(tolima_codigo, año) # Pirámide 
 # poblacional del departamento del tolima para el año 2021.
@@ -99,14 +99,14 @@ head(tolima_piramide_2021)
 **epiCo** presenta los datos agrupados en intervalos de 5 años *de forma predeterminada*; sin embargo, puede modificar parámetros para tener rangos distintos, separar la pirámide por género binario, obtener los datos como conteos totales o proporciones y/o desplegar una gráfica de la pirámide.
 
 ```{r}
-tolima_codigo <- 73 # Código DIVIPOLA para el departamento del Tolima.
+tolima_codigo <- "73" # Código DIVIPOLA para el departamento del Tolima.
 año <- 2021 # Año a consultar.
 rango_edad <- 10 #Rango de edades o ventana.
 # Pirámide poblacional del departamento del tolima para el año 2021.
 tolima_piramide_2021 <- population_pyramid(divipola_code = tolima_codigo,
                                            year = año,
                                            range = rango_edad,
-                                           gender = TRUE, total = TRUE,
+                                           sex = TRUE, total = TRUE,
                                            plot = TRUE)
 ```
 
@@ -135,7 +135,7 @@ Para calcular la distribución de las ocupaciones en estos años, **epiCo** usa 
 data("isco88_table")
 head(isco88_table)
 # Se calcula la distribución de ocupaciones.
-occupation_plot(isco_codes = as.integer(epi_data$ocupacion), gender = epi_data$sexo)
+describe_occupation(isco_codes = as.integer(epi_data$ocupacion), sex = epi_data$sexo,plot = "treemap")
 ```
 
 ### 5.	Estimación de las tasas de incidencia
@@ -168,7 +168,7 @@ data_tolima_2021 <-  epi_data[lubridate::year(epi_data$fec_not) == 2021, ]
 # Se calcula las tasas por edades para el año 2021.
 incidence_rate_2019 <- age_risk(age = as.integer(data_tolima_2021$edad),
                                 population_pyramid = tolima_piramide_2021,
-                                gender = data_tolima_2021$sexo,
+                                sex = data_tolima_2021$sexo,
                                 plot = TRUE)
 ```
 
@@ -317,8 +317,8 @@ incidence_object <- incidence(
 
 # Se realiza el analisis espaciotemporal, especificando la escala de nivel 
 # municipal
-monrans_tolima <- morans_index(incidence_object = incidence_object, level = 2)
-monrans_tolima$leaflet_map
+monrans_tolima <- morans_index(incidence_object = incidence_object, threshold = 2)
+monrans_tolima$plot
 ```
 
 
