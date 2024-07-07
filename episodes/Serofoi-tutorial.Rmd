@@ -1,5 +1,5 @@
 ---
-title: "Tutorial Serofoi"
+title: "Estima la fuerza de infección a partir de encuestas serológicas usando serofoi"
 author: "Nicolás Torres, Zulma Cucunubá"
 date: "2023-11-03"
 bibliography: RMarkdown.bib

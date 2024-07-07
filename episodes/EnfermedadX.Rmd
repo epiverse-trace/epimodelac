@@ -1,5 +1,5 @@
 ---
-title: "Taller Día 4 - Grupo 1 - Estimación de las distribuciones de rezagos epidemiológicos: Enfermedad X"
+title: "Estimación de las distribuciones de rezagos epidemiológicos: Enfermedad X"
 author: "Kelly Charniga, PhD MPH & Zulma Cucunubá MD, PhD"
 date: "2023-11-23"
 output: html_document
