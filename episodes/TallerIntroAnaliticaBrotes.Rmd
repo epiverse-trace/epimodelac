@@ -86,15 +86,24 @@ En esta práctica se desarrollarán los siguientes conceptos:
 
 - Incidencia
 
-## 1. Estructura de datos
-
+::::::::::::::::::::: prereq
 
 #### Preparación previa
 
-Antes de comenzar, descargue la carpeta con los datos y el proyecto desde [Carpetas de datos](https://drive.google.com/drive/folders/1T0uZ2FNhwFAnFcCNxfLX8V6Ir3IsJO6y?usp=sharing) . Ahí mismo encontrará un archivo .R para instalar las dependencias necesarias para este taller.
+Antes de comenzar, 
 
-Recuerde abrir el archivo `RProject` denominado `Taller-Brotes-Ebola.Rproj` antes de empezar a trabajar. Este paso no solo le ayudará a cumplir con las buenas prácticas de programación en R, sino también a mantener un directorio organizado, permitiendo un desarrollo exitoso del taller.
+1. descargue la carpeta con los datos y el proyecto desde [Carpetas de datos](https://drive.google.com/drive/folders/1T0uZ2FNhwFAnFcCNxfLX8V6Ir3IsJO6y?usp=sharing) . 
 
+2. Ahí mismo encontrará un archivo `.R` para instalar las dependencias necesarias para este taller.
+
+3. Recuerde abrir el archivo `RProject` denominado `Taller-Brotes-Ebola.Rproj` antes de empezar a trabajar. 
+
+Este paso no solo le ayudará a cumplir con las buenas prácticas de programación en R, sino también a mantener un directorio organizado, permitiendo un desarrollo exitoso del taller.
+
+:::::::::::::::::::::
+
+
+## 1. Estructura de datos
 
 #### Cargue de librerías: 
 
