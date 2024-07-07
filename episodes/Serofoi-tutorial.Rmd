@@ -404,14 +404,14 @@ mismo, corra las siguientes líneas de código:
 ```{r chik2015_constant, include = TRUE, echo = TRUE, eval = FALSE}
 chik_constant <- run_seromodel(serodata = chik2015p,
                                foi_model = "constant",
-                               n_iters = 1000)
+                               iter = 1000)
 
 chik_constant_plot <- plot_seromodel(chik_constant, 
                                      serodata = chik2015p, 
                                      size_text = 12)
 ```
 
-Ahora, corra los modelos dependientes del tiempo con `n_iters =1500`.
+Ahora, corra los modelos dependientes del tiempo con `iter =1500`.
 Luego visualice conjuntamente las tres gráficas por medio de la función
 `plot_grid()` del paquete `cowplot`:
 
@@ -435,18 +435,15 @@ minutos.
 # Implementation of the models
 m1_chik <- run_seromodel(serodata = chik2015p,
                          foi_model = "constant",
-                         n_iters = 1000,
-                         n_thin = 2)
+                         iter = 1000)
 
 m2_chik <- run_seromodel(serodata = chik2015p,
                          foi_model = "tv_normal",
-                         n_iters = 1500,
-                         n_thin = 2)
+                         iter = 1500)
 
 m3_chik <- run_seromodel(serodata = chik2015p,
                          foi_model = "tv_normal_log",
-                         n_iters = 1500,
-                         n_thin = 2)
+                         iter = 1500)
 ```
 
 ```{r chik2015_vis, include = TRUE, echo = FALSE, results="hide", errors = FALSE, warning = FALSE, message = FALSE, fig.width=5, fig.asp=1, fig.align="center", fig.keep="all"}
