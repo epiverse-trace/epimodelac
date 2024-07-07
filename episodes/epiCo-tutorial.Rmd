@@ -1,5 +1,5 @@
 ---
-title: "Tutorial epiCo"
+title: "Indicadores demográficos, canales endémicos y clusters de incidencia usando epiCo"
 author: "Juan D. Umaña, Juan Montenegro-Torres"
 date: "2023-12-08"
 image: null
