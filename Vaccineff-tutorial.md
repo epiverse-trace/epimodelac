@@ -247,7 +247,7 @@ paquetes `ggplot2` y `cowplot` para vizualizar algunos resultados.
 Para installar `vaccineff` ejecute las siguientes líneas en R:
 
 
-```r
+``` r
 # if(!require("pak")) install.packages("pak")
 # pak::pak("epiverse-trace/vaccineff@dev")
 ```
@@ -256,7 +256,7 @@ Posteriormente, para cargar los paquetes en el espacio de trabajo y el set de
 datos de ejemplo del `vaccineff` ejecute:
 
 
-```r
+``` r
 library("vaccineff")
 library("ggplot2")
 library("cowplot")
@@ -264,14 +264,21 @@ data(cohortdata)
 head(cohortdata)
 ```
 
-```{.output}
-  sex age subsidy death_date vaccine_date_1 vaccine_date_2 vaccine_1 vaccine_2
-1   F   6       0       <NA>           <NA>           <NA>      <NA>      <NA>
-2   M  79       0       <NA>     2044-03-31     2044-05-07    BRAND2    BRAND2
-3   F  34       0       <NA>     2044-07-26     2044-09-03    BRAND2    BRAND2
-4   M  26       0       <NA>           <NA>           <NA>      <NA>      <NA>
-5   F  66       0       <NA>     2044-05-20     2044-06-17    BRAND2    BRAND2
-6   M  10       1       <NA>           <NA>           <NA>      <NA>      <NA>
+``` output
+        id sex age death_date death_other_causes vaccine_date_1 vaccine_date_2
+1 afade1b2   F  37       <NA>               <NA>           <NA>           <NA>
+2 556c8c76   M  19       <NA>               <NA>           <NA>           <NA>
+3 04edf85a   M  50       <NA>               <NA>           <NA>           <NA>
+4 7e51a18e   F   8       <NA>               <NA>           <NA>           <NA>
+5 c5a83f56   M  66       <NA>               <NA>           <NA>           <NA>
+6 7f675ec3   M  29       <NA>               <NA>     2044-04-09     2044-04-30
+  vaccine_1 vaccine_2
+1      <NA>      <NA>
+2      <NA>      <NA>
+3      <NA>      <NA>
+4      <NA>      <NA>
+5      <NA>      <NA>
+6    BRAND1    BRAND1
 ```
 
 Este tabla contiene información de una epidemia simulada ocurrida en 2044 sobre 
@@ -291,7 +298,7 @@ por edad utilizaremos la función "get_age_group". Para esto, ejectute el
 siguiente comando en R:
 
 
-```r
+``` r
 cohortdata$age_group <- get_age_group(
   data = cohortdata,
   col_age = "age",
@@ -312,7 +319,7 @@ variable "age_group" utilizando la función "geom_bar" de la librería
 ggplot2. Para esto, ejecute el siguiente comando en R:
 
 
-```r
+``` r
 ggplot(data = cohortdata,
   aes(x = age_group)) +
   geom_bar() +
@@ -331,7 +338,7 @@ ofrece la función "plot_coverage" que permite llevar a cabo esta tarea
 con facilidad. Para esto, ejecute el siguiente comando en R:
 
 
-```r
+``` r
 plot_coverage(
   data = cohortdata,
   vacc_date_col = "vaccine_date_1",
@@ -364,7 +371,7 @@ en su exploración de las bases de datos. Para el caso particular del conjunto
 de datos ejemplo contenidos es `vaccineff` se utiliza:
 
 
-```r
+``` r
 start_cohort <- as.Date("2044-01-01")
 end_cohort <- as.Date("2044-12-31")
 ```
@@ -394,7 +401,7 @@ Para calcular la fecha de immunización de cada individiduo escriba la siguiente
 instrucción en R y ejecútela:
 
 
-```r
+``` r
 cohortdata$immunization <-
   get_immunization_date(
     data = cohortdata,
@@ -421,7 +428,7 @@ sujetos según su estado vacunal, vacunados como "v" y no vacunados como
 R:
 
 
-```r
+``` r
 cohortdata$vaccine_status <- set_status(
   data = cohortdata,
   col_names = "immunization",
@@ -446,7 +453,7 @@ definir el desenlace de interés de acuerdo a la condición vital de los
 participantes en la cohorte, ejecute el siguiente comando en R:
 
 
-```r
+``` r
 cohortdata$death_status <- set_status(
   data = cohortdata,
   col_names = "death_date")
@@ -466,7 +473,7 @@ cuando se presenta el desenlace de interés. Para obtener este dato
 ejecute el siguiente comando en R:
 
 
-```r
+``` r
 cohortdata$time_to_death <- get_time_to_event(
   data = cohortdata,
   outcome_date_col = "death_date",
@@ -500,7 +507,7 @@ sobre la cohorte. Para graficar el riesgo acumulado ejecute el siguiente
 comando en R:
 
 
-```r
+``` r
 plot_survival(data = cohortdata,
   outcome_status_col = "death_status",
   time_to_event_col = "time_to_death",
@@ -528,7 +535,7 @@ ejecuta la misma función y se cambia el argumento "percentage" por
 FALSE:
 
 
-```r
+``` r
 plt_surv <- plot_survival(data = cohortdata,
   outcome_status_col = "death_status",
   time_to_event_col = "time_to_death",
@@ -589,7 +596,7 @@ Para estimar la efectividad vacunal en términos de HR, ejecute el
 siguiente comando en R:
 
 
-```r
+``` r
 coh_eff_noconf(
   data = cohortdata,
   outcome_status_col = "death_status",
@@ -597,9 +604,9 @@ coh_eff_noconf(
   status_vacc_col = "vaccine_status")
 ```
 
-```{.output}
+``` output
       HR HR_low HR_high  V_eff V_eff_low V_eff_high     PH      p_value
-1 0.6129 0.5209  0.7211 0.3871    0.2789     0.4791 reject 7.389662e-17
+1 0.2684 0.1855  0.3884 0.7316    0.6116     0.8145 reject 0.0009088627
 ```
 
 ### **4.6 Cohorte dinámica - Emparejamiento poblacional**

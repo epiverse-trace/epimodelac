@@ -108,7 +108,7 @@ afectadas en Colombia a lo largo del tiempo por esta enfermedad.
 Iniciaremos instalando e importando el paquete a través de los siguientes comandos:
 
 
-```r
+``` r
 remove.packages("sivirep")
 if (!require("pak")) install.packages("pak")
 pak::pak("epiverse-trace/sivirep") # Comando para instalar sivirep
@@ -198,7 +198,7 @@ Realizaremos la configuración y preparación del documento en R Markdown a trav
 2. Insertar un chunk en el documento con las siguientes opciones de configuración:
 
 
-```r
+``` r
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>",
@@ -218,7 +218,7 @@ datos desde la fuente de SIVIGILA utilizando un formato parametrizado
 basado en el nombre del evento y el año.
 
 
-```r
+``` r
 data_dengue <-  import_data_event(nombre_event = "dengue",
                                   year = 2022)
 ```
@@ -249,7 +249,7 @@ códigos de geolocalización y estandarizar los nombres de las columnas y
 las categorías de edad.
 
 
-```r
+``` r
 data_limpia <- limpiar_data_sivigila(data_event = data_dengue)
 data_limpia
 ```
@@ -263,7 +263,7 @@ subnacional, seleccionando casos específicos basados en la ubicación
 geográfica.
 
 
-```r
+``` r
 data_filtrada <- geo_filtro(data_event = data_limpia, dpto = "Cauca")
 data_filtrada
 ```
@@ -275,7 +275,7 @@ visualizar su distribución y obtener los porcentajes a través de la
 función que proporciona `sivirep`:
 
 
-```r
+``` r
 casos_sex <- agrupar_sex(data_event = data_filtrada,
                          porcentaje = TRUE)
 casos_sex
@@ -285,7 +285,7 @@ Además, `sivirep` cuenta con una función para generar el gráfico por
 esta variable llamada `plot_sex`:
 
 
-```r
+``` r
 plot_sex(data_agrupada = casos_sex)
 ```
 
@@ -294,7 +294,7 @@ generar utilizando la función `agrupar_sex_semanaepi` proporcionada por
 `sivirep`.
 
 
-```r
+``` r
 casos_sex_semanaepi <- agrupar_sex_semanaepi(data_event = data_filtrada)
 casos_sex_semanaepi
 ```
@@ -304,7 +304,7 @@ La función de visualización correspondiente es `plot_sex_semanaepi`, que
 semana epidemiológica.
 
 
-```r
+``` r
 plot_sex_semanaepi(data_agrupada = casos_sex_semanaepi)
 ```
 
@@ -316,7 +316,7 @@ predeterminada, esta función produce rangos de edad con intervalos de 10
 años.
 
 
-```r
+``` r
 casos_edad <- agrupar_edad(data_event = data_limpia, interval_edad = 10)
 casos_edad
 ```
@@ -324,7 +324,7 @@ casos_edad
 La función de visualización correspondiente es `plot_edad`.
 
 
-```r
+``` r
 plot_edad(data_agrupada = casos_edad)
 ```
 
@@ -340,7 +340,7 @@ llamadas departamentos. `sivirep` proporciona una función llamada
 departamento o municipio.
 
 
-```r
+``` r
 dist_esp_dept <- agrupar_mpio(data_event = data_filtrada)
 dist_esp_dept
 ```
@@ -349,7 +349,7 @@ Con la función llamada `plot_map`, podremos generar un mapa estático que
 muestra la distribución de casos por municipios.
 
 
-```r
+``` r
 mapa <- plot_map(data_agrupada = dist_esp_dept)
 mapa
 ```

@@ -98,7 +98,7 @@ Recuerde abrir el archivo `RProject` denominado `Taller-Brotes-Ebola.Rproj` ante
 Cargue las librerías necesarias para el análisis epidemiológico. Los datos serán manipulados con tidyverse que es una colección de paquetes para la ciencia de datos.
 
 
-```r
+``` r
 library(tidyverse) # contiene ggplot2, dplyr, tidyr, readr, purrr, tibble
 library(readxl) # para leer archivos Excel
 library(binom) # para intervalos de confianza binomiales
@@ -117,7 +117,7 @@ Se le ha proporcionado la siguiente base de datos:
 Para leer en R este archivo, utilice la función `read_rds` de `tidyverse`. Se creará una tabla de datos almacenada como objeto de clase `tibble.`
 
 
-```r
+``` r
 casos <- read_rds("data/casos.rds")
 ```
 
@@ -127,11 +127,11 @@ casos <- read_rds("data/casos.rds")
 Explore la estructura de los datos. Para esto puede utilizar la función `glimpse` de `tidyverse`, la cual nos proporciona una visión rápida y legible de la estructura interna de nuestro conjunto de datos.
 
 
-```r
+``` r
 glimpse(casos)
 ```
 
-```{.output}
+``` output
 Rows: 166
 Columns: 11
 $ id_caso                  <chr> "d1fafd", "53371b", "f5c3d8", "6c286a", "0f58…
@@ -176,11 +176,11 @@ Note que las fechas ya están en formato fecha (`date`).
 ### Probabilidad de muerte en los casos reportados (`CFR`, por *Case Fatality Ratio*)
 
 
-```r
+``` r
 table(casos$desenlace, useNA = "ifany")
 ```
 
-```{.output}
+``` output
 
       Muerte Recuperacion         <NA> 
           60           43           63 
@@ -195,7 +195,7 @@ Calcule la probabilidad de muerte en los casos reportados (`CFR`) tomando el nú
 Durante este taller se le presentarán algunos retos, para los cuales obtendrá algunas pistas, por ejemplo en el presente reto se le presenta una pista, la cual es un fragmento del código que usted debe completar para alcanzar la solución. En los espacios donde dice `COMPLETE` por favor diligencie el código faltante.
 
 
-```r
+``` r
 muertes <-  COMPLETE
 
 casos_desenlace_final_conocido <- sum(casos$desenlace %in% c("Muerte", "Recuperacion")) 
@@ -206,7 +206,7 @@ CFR <- COMPLETE / COMPLETE
 Ejemplo, 
 
 
-```r
+``` r
 # Reto
 muertes <-  COMPLETE
 #Solución
@@ -214,7 +214,7 @@ muertes <- sum(casos$desenlace %in% "Muerte")
 ```
 
 
-```{.output}
+``` output
 [1] 0.5825243
 ```
 :::::::::::::::::::::::::::::::::
@@ -224,7 +224,7 @@ muertes <- sum(casos$desenlace %in% "Muerte")
 ## Solución 1  
 
 
-```r
+``` r
 muertes <- sum(casos$desenlace %in% "Muerte") 
 
 casos_desenlace_final_conocido <- sum(casos$desenlace %in% c("Muerte", "Recuperacion")) 
@@ -234,7 +234,7 @@ CFR <- muertes / casos_desenlace_final_conocido
 print(CFR)
 ```
 
-```{.output}
+``` output
 [1] 0.5825243
 ```
  
@@ -261,7 +261,7 @@ Table: **CFR con intervalos de confianza**
 Recuerde diligenciar los espacios donde dice `COMPLETE`. Y obtenga este resultado
 
 
-```r
+``` r
 CFR_con_CI <- binom.confint(COMPLETE, COMPLETE, method = "COMPLETE") %>%
   kable(caption = "**COMPLETE ¿QUE TITULO LE PONDRÍA?**")
 
@@ -275,7 +275,7 @@ CFR_con_CI
 ## Solución 2  
 
 
-```r
+``` r
 CFR_con_CI <- binom.confint(muertes, 
                                        casos_desenlace_final_conocido, method = "exact") %>%
   kable(caption = "**CFR con intervalos de confianza**")
@@ -316,7 +316,7 @@ Con esta información la función agrupa los casos según el intervalo de tiempo
 Calcule la incidencia diaria usando únicamente el primer argumento de la función `incidence` ¿Qué fecha sería la más adecuada? Tenga en cuenta que se espera que esta sea la que pueda dar mejor información, es decir la menor cantidad de `NA`s.
 
 
-```r
+``` r
 incidencia_diaria <- incidence(COMPLETE)
 incidencia_diaria
 ```
@@ -325,7 +325,7 @@ incidencia_diaria
 El resultado es un objeto de clase incidencia (`incidence`) que contiene el recuento de casos para cada intervalo de tiempo, lo que facilita su visualización y análisis posterior. Como puede observar la función produjo los siguientes datos: 
 
 
-```{.output}
+``` output
 <incidence object>
 [166 cases from days 2014-04-07 to 2014-06-29]
 
@@ -342,12 +342,12 @@ $cumulative: FALSE
 ## Solución 3  
 
 
-```r
+``` r
 incidencia_diaria <- incidence(casos$fecha_inicio_sintomas)
 incidencia_diaria
 ```
 
-```{.output}
+``` output
 <incidence object>
 [166 cases from days 2014-04-07 to 2014-06-29]
 
@@ -366,7 +366,7 @@ Como resultado de la función se produjo un objeto tipo lista. Este objeto arroj
 Ahora haga una gráfica de la incidencia diaria. 
 
 
-```r
+``` r
 plot(incidencia_diaria, border = "black")
 ```
 
@@ -399,7 +399,7 @@ Teniendo en cuenta lo aprendido con respecto a la incidencia diaria, cree una va
 ## Desafío 4  
 
 
-```r
+``` r
 incidencia_semanal <- incidence(PRIMER ARGUMENTO,  #COMPLETE
                                 SEGUNDO ARGUMENTO, #COMPLETE 
                                 TERCER ARGUMENTO)  #COMPLETE
@@ -407,7 +407,7 @@ incidencia_semanal <- incidence(PRIMER ARGUMENTO,  #COMPLETE
 
 
 
-```{.output}
+``` output
 <incidence object>
 [166 cases from days 2014-04-07 to 2014-06-30]
 [166 cases from ISO weeks 2014-W15 to 2014-W27]
@@ -429,7 +429,7 @@ $cumulative: FALSE
 ## Solución 4  
 
 
-```r
+``` r
 incidencia_semanal <- incidence(casos$fecha_inicio_sintomas, 
                                 interval = 7, 
                                 last_date = max(casos$fecha_de_hospitalizacion,
@@ -437,7 +437,7 @@ incidencia_semanal <- incidence(casos$fecha_inicio_sintomas,
 incidencia_semanal
 ```
 
-```{.output}
+``` output
 <incidence object>
 [166 cases from days 2014-04-07 to 2014-06-30]
 [166 cases from ISO weeks 2014-W15 to 2014-W27]
@@ -450,7 +450,7 @@ $timespan: 85 days
 $cumulative: FALSE
 ```
 
-```r
+``` r
 plot(incidencia_semanal, border = "black")
 ```
 
@@ -473,7 +473,7 @@ Para observar mejor las tendencias de crecimiento en el número de casos se pued
 Grafique la incidencia transformada logarítmicamente:
 
 
-```r
+``` r
 ggplot(as.data.frame(incidencia_semanal)) + 
   geom_point(aes(x = dates, y = log(counts))) + 
   scale_x_incidence(incidencia_semanal) +
@@ -488,12 +488,12 @@ ggplot(as.data.frame(incidencia_semanal)) +
 #### Ajuste un modelo log-lineal a los datos de incidencia semanal {#interpretación-del-modelo}
 
 
-```r
+``` r
 ajuste_modelo <- incidence::fit(incidencia_semanal)
 ajuste_modelo
 ```
 
-```{.output}
+``` output
 <incidence_fit object>
 
 $model: regression of log-incidence over time
@@ -539,12 +539,12 @@ La tasa de crecimiento diaria estimada del brote es de `0.0415`. Esto significa 
 Si quisiera acceder a esta información sin ingresar al modelo podría hacerlo con el siguiente código:
 
 
-```r
+``` r
 tasa_crecimiento_diaria <- ajuste_modelo$info$r
 cat("La tasa de crecimiento diaria es:", tasa_crecimiento_diaria, "\n")
 ```
 
-```{.output}
+``` output
 La tasa de crecimiento diaria es: 0.04145251 
 ```
 
@@ -565,19 +565,19 @@ El intervalo de confianza del `95%` para la tasa de crecimiento diaria está ent
 Si quiere conocer un poco más de este componente puede explorarlo con la función `glimpse`.
 
 
-```r
+``` r
 glimpse(ajuste_modelo$info$pred)
 ```
 
 ¿El modelo se ajusta bien a los datos? Verifique el $R^2$
 
 
-```r
+``` r
 AjusteR2modelo <- summary(ajuste_modelo$model)$adj.r.squared
 cat("El R cuadrado ajustado es:", AjusteR2modelo, "\n")
 ```
 
-```{.output}
+``` output
 El R cuadrado ajustado es: 0.7551113 
 ```
 
@@ -613,7 +613,7 @@ Grafique la incidencia incluyendo una línea que represente el modelo.
 
 Con `plot`
 
-```r
+``` r
 plot(incidencia_semanal, fit = ajuste_modelo)
 ```
 
@@ -640,11 +640,11 @@ Si se grafica por fecha de inicio de síntomas mientras el brote está creciendo
 Dado que esta epidemia es de Ébola y la mayoría de los casos van a ser hospitalizados, es muy probable que la mayoría de las notificaciones ocurran en el momento de la hospitalización. De tal manera que podríamos examinar cuánto tiempo transcurre entre la fecha de inicio de síntomas y la fecha de hospitalización para hacernos una idea del rezago para esta epidemia.
 
 
-```r
+``` r
 summary(as.numeric(casos$fecha_de_hospitalizacion - casos$fecha_inicio_sintomas))
 ```
 
-```{.output}
+``` output
    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
    0.00    1.00    2.00    3.53    5.00   22.00 
 ```
@@ -657,7 +657,7 @@ Para evitar el sesgo debido a rezagos en la notificación, se pueden truncar los
 Semanas a descartar al final de la epicurva
 
 
-```r
+``` r
 semanas_a_descartar <- 2
 fecha_minima <- min(incidencia_diaria$dates)
 fecha_maxima <- max(incidencia_diaria$dates) - semanas_a_descartar * 7
@@ -682,7 +682,7 @@ incidencia_diaria_truncada <- subset(incidencia_diaria,
 Ahora utilizando los datos truncados `incidencia_semanal_truncada` vuelva a ajustar el modelo logarítmico lineal.
 
 
-```{.output}
+``` output
 <incidence_fit object>
 
 $model: regression of log-incidence over time
@@ -711,12 +711,12 @@ $info: list containing the following items:
 ## Solución 6  
 
 
-```r
+``` r
 ajuste_modelo_truncado <- incidence::fit(incidencia_semanal_truncada)
 ajuste_modelo_truncado
 ```
 
-```{.output}
+``` output
 <incidence_fit object>
 
 $model: regression of log-incidence over time
@@ -739,13 +739,13 @@ $info: list containing the following items:
   $pred: data.frame of incidence predictions (10 rows, 5 columns)
 ```
 
-```r
+``` r
 AjusteR2modelo <- summary(ajuste_modelo_truncado$model)$adj.r.squared 
 
 cat("El R cuadrado ajustado es:", AjusteR2modelo, "\n")
 ```
 
-```{.output}
+``` output
 El R cuadrado ajustado es: 0.8131106 
 ```
 ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
@@ -766,7 +766,7 @@ Ahora utilizando los datos truncados `incidencia_semanal_truncada` vuelva a graf
 ## Solución 7  
 
 
-```r
+``` r
 plot(incidencia_semanal_truncada, fit = ajuste_modelo_truncado)
 ```
 
@@ -780,11 +780,11 @@ plot(incidencia_semanal_truncada, fit = ajuste_modelo_truncado)
 Observe las estadísticas resumidas del ajuste:
 
 
-```r
+``` r
 summary(ajuste_modelo_truncado$model)
 ```
 
-```{.output}
+``` output
 
 Call:
 stats::lm(formula = log(counts) ~ dates.x, data = df)
@@ -825,11 +825,11 @@ Con el modelo ajustado truncado, es hora de realizar la estimación de la tasa d
 Por favor escriba el código para obtener los siguientes valores:
 
 
-```{.output}
+``` output
 La tasa de crecimiento diaria es: 0.05224047 
 ```
 
-```{.output}
+``` output
 Intervalo de confianza de la tasa de crecimiento diaria (95%): 0.03323024 0.0712507 
 ```
 :::::::::::::::::::::::::::::::::
@@ -839,25 +839,25 @@ Intervalo de confianza de la tasa de crecimiento diaria (95%): 0.03323024 0.0712
 ## Solución  8 
 
 
-```r
+``` r
 # Estimación de la tasa de crecimiento diaria
 tasa_crecimiento_diaria <- ajuste_modelo_truncado$info$r
 
 cat("La tasa de crecimiento diaria es:", tasa_crecimiento_diaria, "\n")
 ```
 
-```{.output}
+``` output
 La tasa de crecimiento diaria es: 0.05224047 
 ```
 
-```r
+``` r
 # Intervalo de confianza de la tasa de crecimiento diaria
 tasa_crecimiento_IC <- ajuste_modelo_truncado$info$r.conf
 
 cat("Intervalo de confianza de la tasa de crecimiento diaria (95%):", tasa_crecimiento_IC, "\n")
 ```
 
-```{.output}
+``` output
 Intervalo de confianza de la tasa de crecimiento diaria (95%): 0.03323024 0.0712507 
 ```
 
@@ -881,11 +881,11 @@ Esta información también la encontrará calculada y lista para utilizar en el 
 Por favor escriba el código para obtener los siguientes valores:
 
 
-```{.output}
+``` output
 El tiempo de duplicación de la epidemia es 13.2684 días
 ```
 
-```{.output}
+``` output
 Intervalo de confianza del tiempo de duplicación (95%): 9.728286 20.85893 
 ```
 :::::::::::::::::::::::::::::::::
@@ -895,23 +895,23 @@ Intervalo de confianza del tiempo de duplicación (95%): 9.728286 20.85893
 ## Solución 9  
 
 
-```r
+``` r
 # Estimación del tiempo de duplicación en días
 tiempo_duplicacion_dias <- ajuste_modelo_truncado$info$doubling
 cat("El tiempo de duplicación de la epidemia es", tiempo_duplicacion_dias, "días\n")
 ```
 
-```{.output}
+``` output
 El tiempo de duplicación de la epidemia es 13.2684 días
 ```
 
-```r
+``` r
 # Intervalo de confianza del tiempo de duplicación
 tiempo_duplicacion_IC <- ajuste_modelo_truncado$info$doubling.conf
 cat("Intervalo de confianza del tiempo de duplicación (95%):", tiempo_duplicacion_IC, "\n")
 ```
 
-```{.output}
+``` output
 Intervalo de confianza del tiempo de duplicación (95%): 9.728286 20.85893 
 ```
 ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
@@ -939,7 +939,7 @@ Este intervalo es importante porque ayuda a entender qué tan rápido se está p
 Para este brote de Ébola asumiremos que el intervalo serial está descrito por una distribución Gamma de media (`mean_si`) de `8.7 días` y con una desviación estándar (`std_si`) de `6.1 días`. En la práctica del día 4 estudiaremos cómo estimar el intervalo serial.
 
 
-```r
+``` r
 # Parametros de la distribución gamma para el invertavlo serial
 mean_si <- 8.7
 std_si <-  6.1
@@ -959,13 +959,13 @@ Cuando la suposición de que ($R$) es constante en el tiempo se vuelve insosteni
 
 
 
-```r
+``` r
 config <- make_config(list(mean_si = mean_si, std_si = std_si)) 
 # t_start y t_end se configuran automáticamente para estimar R en ventanas deslizantes para 1 semana de forma predeterminada.
 ```
 
 
-```r
+``` r
 # use estimate_R using method = "parametric_si"
 estimacion_rt <- estimate_R(incidencia_diaria_truncada, method = "parametric_si", 
                             si_data = si_data,
@@ -975,7 +975,7 @@ head(estimacion_rt$R[, c("t_start", "t_end", "Median(R)",
                          "Quantile.0.025(R)", "Quantile.0.975(R)")])
 ```
 
-```{.output}
+``` output
   t_start t_end Median(R) Quantile.0.025(R) Quantile.0.975(R)
 1       2     8        NA                NA                NA
 2       3     9  2.173592         0.3136801          7.215718
@@ -989,7 +989,7 @@ head(estimacion_rt$R[, c("t_start", "t_end", "Median(R)",
 Grafique la estimación de $R$ como función del tiempo:
 
 
-```r
+``` r
 plot(estimacion_rt, legend = FALSE)
 ```
 

@@ -290,20 +290,20 @@ Previo a la instalación de **serofoi**, cree un proyecto en R en la carpeta de 
 Antes de realizar la instalación de **serofoi**, es necesario instalar y configurar C++ Toolchain (instrucciones para [windows](https://github.com/stan-dev/rstan/wiki/Configuring-C---Toolchain-for-Windows)/ [mac](https://github.com/stan-dev/rstan/wiki/Configuring-C---Toolchain-for-Mac)/[linux](https://github.com/stan-dev/rstan/wiki/Configuring-C-Toolchain-for-Linux)). Después de haber configurado C++ Toolchain, ejecute las siguientes líneas de código para instalar el paquete:
 
 
-```r
+``` r
 if(!require("pak")) install.packages("pak")
 pak::pak("epiverse-trace/serofoi")
 ```
 Opcionalmente, es posible modificar la configuración de R para que los modelos a implementar corran en paralelo, aprovechando los núcleos del procesador de su computador. Esto tiene el efecto de disminuir los tiempos de cómputo de las implementaciones en Stan. Para activar esta opción ejecute:
 
 
-```r
+``` r
 options(mc.cores=parallel::detectCores())
 ```
 
 Finalmente, cargue el paquete ejecutando:
 
-```r
+``` r
 library(serofoi)
 ```
 
@@ -320,13 +320,13 @@ que utilizaremos en este análisis. La base `chik2015` contiene los datos
 correspondientes a esta encuesta serológica:
 
 
-```r
+``` r
 data(chik2015)
 chik2015p <- prepare_serodata(chik2015)
 str(chik2015p)
 ```
 
-```{.output}
+``` output
 'data.frame':	4 obs. of  16 variables:
  $ survey        : chr  "BRA 2015(S019)" "BRA 2015(S019)" "BRA 2015(S019)" "BRA 2015(S019)"
  $ total         : int  45 109 144 148
@@ -350,22 +350,22 @@ Para correr el modelo de FoI constante y visualizar los resultados del
 mismo, corra las siguientes líneas de código:
 
 
-```r
+``` r
 chik_constant <- run_seromodel(serodata = chik2015p,
                                foi_model = "constant",
-                               n_iters = 1000)
+                               iter = 1000)
 
 chik_constant_plot <- plot_seromodel(chik_constant, 
                                      serodata = chik2015p, 
                                      size_text = 12)
 ```
 
-Ahora, corra los modelos dependientes del tiempo con `n_iters =1500`.
+Ahora, corra los modelos dependientes del tiempo con `iter =1500`.
 Luego visualice conjuntamente las tres gráficas por medio de la función
 `plot_grid()` del paquete `cowplot`:
 
 
-```r
+``` r
 install.packages("cowplot")
 
 cowplot::plot_grid(chik_constant_plot, 

@@ -75,7 +75,7 @@ En esta práctica se desarrollarán los siguientes conceptos:
 Cargue los paquetes necesarios ingresando en R los siguientes comandos:
 
 
-```r
+``` r
 library(deSolve)   # Paquete deSolve para resolver las ecuaciones diferenciales
 library(tidyverse) # Paquetes ggplot2 y dplyr de tidyverse
 library(cowplot) # Paquete gridExtra para unir gráficos.
@@ -104,7 +104,7 @@ Busque los valores de los parámetros del modelo y diligéncielos en el recuadro
 
 
 
-```r
+``` r
 Lv       <-        # Esperanza de vida de los mosquitos (en días)
 Lh       <-        # Esperanza de vida de los humanos (en días)
 PIh      <-        # Periodo infeccioso en humanos (en días)
@@ -136,7 +136,7 @@ TIME     <-        # Número de años que se va a simular
 ## Solución 1 
  
 
-```r
+``` r
 # Parámetros
 ph       <- 0.7       # Probabilidad de transmisión del vector al hospedador dada una picadura por un mosquito infeccioso a un humano susceptible
 pv       <- 0.7       # Probabilidad de transmisión del hospedador al vector dada una picadura por un mosquito susceptible a un humano infeccioso
@@ -205,7 +205,7 @@ $$ R_0 = \frac{mb^2 p_h p_v \delta}{\mu_v (\mu_v+\delta)(\mu_h+\gamma)} $$
 Es hora de implementar el modelo en R. Para lograrlo, usaremos la función `ode` del paquete _desolve_. Para el ejercicio se emplearán 4 argumentos de la función esta función: el primero son las condiciones iniciales del modelo (argumento `y`); el segundo es la secuencia temporal donde se ejecutará el modelo (argumento `times`); el tercero es una función que contiene las ecuaciones diferenciales que entrarán al sistema (argumento `fun`); por último un vector que contiene los parámetros con los que se calculará el sistema (argumento `parms`). 
 
 
-```r
+``` r
 # NO la copie a R sólo tiene fines ilustrativos.
 ode(y      = # Condiciones iniciales,
     times  = # Tiempo,
@@ -222,7 +222,7 @@ ode(y      = # Condiciones iniciales,
 En esta sección se empezará por crear la función (argumento `fun`), para ello es necesario traducir las ecuaciones del modelo a R. Abajo encontrará la función ya construida, por favor reemplace los parámetros faltantes (Cambie *PAR* por los parámetro correspondientes) en las  ecuaciones:
 
 
-```r
+``` r
 arbovmodel <- function(t, x, params) {
   
   Sh <- x[1]    # Humanos susceptibles
@@ -257,7 +257,7 @@ arbovmodel <- function(t, x, params) {
 ## Solución 2 
  
 
-```r
+``` r
 arbovmodel <- function(t, x, params) {
   
   Sh <- x[1]    # Humanos susceptibles
@@ -300,7 +300,7 @@ En esta sección se crearán los tres argumentos faltantes para usar la función
 ## Desafío 3 
  
 
-```r
+``` r
 # Secuencia temporal (times)
 times  <- seq(1, 365 * TIME , by = 1)
 # Los parámetros (parms)
@@ -336,7 +336,7 @@ out <- as.data.frame(ode(y      = ARGUMENTO?,   # COMPLETE Y COMENTE
 ## Solución 3 
  
 
-```r
+``` r
 # ----------- Resuelva el modelo
 #Tiempo
 times  <- seq(1, 365 * TIME , by = 1)
@@ -378,7 +378,7 @@ out <- as.data.frame(ode(y      = xstart,     # Condiciones iniciales
 Para tener una visualización más significativa de los resultados, convierta las unidades de tiempo de *días* a *años* y a *semanas*.
 
 
-```r
+``` r
 # Cree las opciones de tiempo para años y semanas 
 out$years <- 
 out$weeks <- 
@@ -390,7 +390,7 @@ out$weeks <-
 ## Solución 4 
  
 
-```r
+``` r
 # Cree las opciones de tiempo a mostrar 
 out$years <- out$time / 365
 out$weeks <- out$time / 7
@@ -402,7 +402,7 @@ Observe el comportamiento del modelo en distintas escalas de tiempo (semanas y a
 ### 11.1 Comportamiento General (Población humana) 
  
 
-```r
+``` r
 # Revise el comportamiento general del modelo para 100 años
 p1h <- ggplot(data = out, aes(y = (Rh + Ih + Sh), x = years)) +
   geom_line(color = 'grey68', size = 1) +
@@ -428,7 +428,7 @@ plot_grid(p1h, p2h, p3h, p4h, ncol = 2)
 ### 11.2 Comportamiento General (Población de vectores) 
  
 
-```r
+``` r
 # Revise el comportamiento general del modelo
 p1v <- ggplot(data = out, aes(y = (Sv + Ev + Iv), x = years)) +
   geom_line(color = 'grey68', size = 1) +
@@ -456,7 +456,7 @@ plot_grid(p1v, p2v, p3v, p4v, ncol = 2)
 Por favor dé una mirada más cuidadosa a las proporciones y discútalas 
  
 
-```r
+``` r
 p1 <- ggplot(data = out, aes(y = Sh/(Sh+Ih+Rh), x = years)) +
   geom_line(color = 'royalblue', size = 1) +
   ggtitle('Población humana susceptible') +
@@ -480,7 +480,7 @@ plot_grid(p1, p2, p3, ncol = 2)
 ### 11.4 La primera epidemia 
  
 
-```r
+``` r
 # Revise la primera epidemia
 dat <- out %>% filter(weeks < 54)
 p1e <- ggplot(dat, aes(y = Ih, x = weeks)) +
