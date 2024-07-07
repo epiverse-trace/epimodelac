@@ -248,13 +248,13 @@
     },
     "RcppParallel": {
       "Package": "RcppParallel",
-      "Version": "5.1.7",
+      "Version": "5.1.8",
       "Source": "Repository",
-      "Repository": "RSPM",
+      "Repository": "CRAN",
       "Requirements": [
         "R"
       ],
-      "Hash": "a45594a00f5dbb073d5ec9f48592a08a"
+      "Hash": "21c1466a17de6b1f5f4bc0569868775e"
     },
     "RcppProgress": {
       "Package": "RcppProgress",
