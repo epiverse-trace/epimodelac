@@ -182,7 +182,7 @@ Note que las fechas ya están en formato fecha (`date`).
 
 ## 2. CFR 
 
-### Probabilidad de muerte en los casos reportados (`CFR`, por *Case Fatality Ratio*)
+### Probabilidad de muerte en los casos reportados (`CFR`, por *Case Fatality Risk*)
 
 
 ``` r
