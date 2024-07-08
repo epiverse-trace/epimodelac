@@ -166,7 +166,7 @@ Note que las fechas ya están en formato fecha (`date`).
 
 ## 2. CFR 
 
-### Probabilidad de muerte en los casos reportados (`CFR`, por *Case Fatality Ratio*)
+### Probabilidad de muerte en los casos reportados (`CFR`, por *Case Fatality Risk*)
 
 ```{r echo=TRUE, message=FALSE, warning=FALSE,comment=""}
 table(casos$desenlace, useNA = "ifany")
