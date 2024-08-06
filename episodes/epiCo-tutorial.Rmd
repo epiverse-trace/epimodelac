@@ -134,8 +134,9 @@ Para calcular la distribución de las ocupaciones en estos años, **epiCo** usa 
 # Tabla de ocupaciones del sistema ISCO-88.
 data("isco88_table")
 head(isco88_table)
+
 # Se calcula la distribución de ocupaciones.
-describe_occupation(isco_codes = as.integer(epi_data$ocupacion), sex = epi_data$sexo,plot = "treemap")
+occupation <- describe_occupation(isco_codes = as.integer(epi_data$ocupacion), sex = epi_data$sexo, plot = "treemap")
 ```
 
 ### 5.	Estimación de las tasas de incidencia
