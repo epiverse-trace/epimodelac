@@ -335,15 +335,13 @@ diferentes estrategias de control de la infección</li>
 </div>
 </div>
 </div>
-<section><h2 class="section-heading" id="introducción">1. Introducción<a class="anchor" aria-label="anclaje" href="#introducci%C3%B3n"></a>
-<a class="anchor" aria-label="anchor" href="#introducci%C3%B3n"></a></h2>
+<section><h2 class="section-heading" id="introducción">1. Introducción<a class="anchor" aria-label="anchor" href="#introducci%C3%B3n"></a></h2>
 <hr class="half-width"><p>En este taller usted aplicará los conceptos básicos del
 <strong>modelamiento de Enfermedades Transmitidas por Vectores
 (ETV)</strong> mediante el uso del lenguaje R con énfasis en el
 funcionamiento de los métodos, utilizando como ejemplo un modelo básico
 de infección por un arbovirus: el virus del Zika.</p>
-</section><section><h2 class="section-heading" id="agenda">2. Agenda<a class="anchor" aria-label="anclaje" href="#agenda"></a>
-<a class="anchor" aria-label="anchor" href="#agenda"></a></h2>
+</section><section><h2 class="section-heading" id="agenda">2. Agenda<a class="anchor" aria-label="anchor" href="#agenda"></a></h2>
 <hr class="half-width"><ul><li>Instrucciones (5 mins)</li>
 <li>Desarrollo taller Zika Parte B (45 mins con acompañamiento de
 monitores)</li>
@@ -351,16 +349,14 @@ monitores)</li>
 <li>Revisión de resultados (20 mins)</li>
 <li>Descanso (25 mins)</li>
 <li>Discusión final (60 mins)</li>
-</ul></section><section><h2 class="section-heading" id="conceptos-básicos-a-desarrollar">3. Conceptos básicos a desarrollar<a class="anchor" aria-label="anclaje" href="#conceptos-b%C3%A1sicos-a-desarrollar"></a>
-<a class="anchor" aria-label="anchor" href="#conceptos-b%C3%A1sicos-a-desarrollar"></a></h2>
+</ul></section><section><h2 class="section-heading" id="conceptos-básicos-a-desarrollar">3. Conceptos básicos a desarrollar<a class="anchor" aria-label="anchor" href="#conceptos-b%C3%A1sicos-a-desarrollar"></a></h2>
 <hr class="half-width"><p>En esta práctica se desarrollarán los siguientes conceptos:</p>
 <ul><li>Modelo SIR para ETV Zika</li>
 <li>Parametrización de un modelo dinámico</li>
 <li>Evaluación de un modelo dinámico</li>
 <li>Parametrización de intervenciones de control (fumigación,
 mosquiteros y vacunación) para una ETV</li>
-</ul></section><section><h2 class="section-heading" id="paquetes-requeridos">4. Paquetes requeridos<a class="anchor" aria-label="anclaje" href="#paquetes-requeridos"></a>
-<a class="anchor" aria-label="anchor" href="#paquetes-requeridos"></a></h2>
+</ul></section><section><h2 class="section-heading" id="paquetes-requeridos">4. Paquetes requeridos<a class="anchor" aria-label="anchor" href="#paquetes-requeridos"></a></h2>
 <hr class="half-width"><p>Cargue los paquetes necesarios ingresando en R los siguientes
 comandos:</p>
 <div class="codewrapper sourceCode" id="cb1">
@@ -375,8 +371,7 @@ comandos:</p>
 recomienda usar el símbolo de comentario <em>#</em> después de cada
 línea de código (ver ejemplo arriba). O podría utilizar un archivo Rmd
 para tener un aspecto similar al del taller.</li>
-</ul></section><section><h2 class="section-heading" id="compartimentos-del-modelo-básico-de-zika">5. Compartimentos del modelo básico de Zika<a class="anchor" aria-label="anclaje" href="#compartimentos-del-modelo-b%C3%A1sico-de-zika"></a>
-<a class="anchor" aria-label="anchor" href="#compartimentos-del-modelo-b%C3%A1sico-de-zika"></a></h2>
+</ul></section><section><h2 class="section-heading" id="compartimentos-del-modelo-básico-de-zika">5. Compartimentos del modelo básico de Zika<a class="anchor" aria-label="anchor" href="#compartimentos-del-modelo-b%C3%A1sico-de-zika"></a></h2>
 <hr class="half-width"><ul><li>
 <span class="math inline">\(S_h\)</span> : Humanos susceptibles</li>
 <li>
@@ -391,8 +386,7 @@ susceptibles</li>
 <span class="math inline">\(E_v\)</span> : Vectores expuestos</li>
 <li>
 <span class="math inline">\(I_v\)</span> : Vectores infecciosos</li>
-</ul></section><section><h2 class="section-heading" id="parámetros-del-modelo">6. Parámetros del modelo<a class="anchor" aria-label="anclaje" href="#par%C3%A1metros-del-modelo"></a>
-<a class="anchor" aria-label="anchor" href="#par%C3%A1metros-del-modelo"></a></h2>
+</ul></section><section><h2 class="section-heading" id="parámetros-del-modelo">6. Parámetros del modelo<a class="anchor" aria-label="anchor" href="#par%C3%A1metros-del-modelo"></a></h2>
 <hr class="half-width"><p>Ahora se usarán los parámetros que discutimos en la parte A del
 taller. Si aún no los tiene, estos se pueden encontrar en la guía de
 aprendizaje de la parte A del taller.</p>
@@ -401,8 +395,7 @@ aprendizaje de la parte A del taller.</p>
 <i class="callout-icon" data-feather="message-circle"></i>
 </div>
 <div id="desafío-1" class="callout-inner">
-<h3 class="callout-title">Desafío 1<a class="anchor" aria-label="anclaje" href="#desaf%C3%ADo-1"></a>
-</h3>
+<h3 class="callout-title">Desafío 1</h3>
 <div class="callout-content">
 <p>Busque los valores de los parámetros del modelo y diligéncielos en el
 recuadro de abajo. Tenga en cuenta que todos los parámetros usados
@@ -437,8 +430,7 @@ tienen la misma unidad de tiempo (días).</p>
 </div>
 </div>
 
-</section><section><h2 class="section-heading" id="ecuaciones-del-modelo">7. Ecuaciones del modelo<a class="anchor" aria-label="anclaje" href="#ecuaciones-del-modelo"></a>
-<a class="anchor" aria-label="anchor" href="#ecuaciones-del-modelo"></a></h2>
+</section><section><h2 class="section-heading" id="ecuaciones-del-modelo">7. Ecuaciones del modelo<a class="anchor" aria-label="anchor" href="#ecuaciones-del-modelo"></a></h2>
 <hr class="half-width"><p>Para este modelo emplearemos las siguientes ecuaciones
 diferenciales:</p>
 <div class="section level3">
@@ -460,13 +452,11 @@ R_h\]</span></p>
 I_v\]</span></p>
 </div>
 </section><section><h2 class="section-heading" id="fórmula-para-calcular-r_0-número-reproductivo-básico">8. Fórmula para calcular <span class="math inline">\(R_0\)</span>
-(Número reproductivo básico)<a class="anchor" aria-label="anclaje" href="#f%C3%B3rmula-para-calcular-r_0-n%C3%BAmero-reproductivo-b%C3%A1sico"></a>
-<a class="anchor" aria-label="anchor" href="#f%C3%B3rmula-para-calcular-r_0-n%C3%BAmero-reproductivo-b%C3%A1sico"></a></h2>
+(Número reproductivo básico)<a class="anchor" aria-label="anchor" href="#f%C3%B3rmula-para-calcular-r_0-n%C3%BAmero-reproductivo-b%C3%A1sico"></a></h2>
 <hr class="half-width"><p>Fórmula necesaria para estimar <span class="math inline">\(R_0\)</span>:</p>
 <p><span class="math display">\[ R_0 = \frac{mb^2 p_h p_v \delta}{\mu_v
 (\mu_v+\delta)(\mu_h+\gamma)} \]</span></p>
-</section><section><h2 class="section-heading" id="modelo-en-r">9. Modelo en R<a class="anchor" aria-label="anclaje" href="#modelo-en-r"></a>
-<a class="anchor" aria-label="anchor" href="#modelo-en-r"></a></h2>
+</section><section><h2 class="section-heading" id="modelo-en-r">9. Modelo en R<a class="anchor" aria-label="anchor" href="#modelo-en-r"></a></h2>
 <hr class="half-width"><p>Es hora de implementar el modelo en R. Para lograrlo, usaremos la
 función <code>ode</code> del paquete <em>desolve</em>. Para el ejercicio
 se emplearán 4 argumentos de la función esta función: el primero son las
@@ -491,8 +481,7 @@ los que se calculará el sistema (argumento <code>parms</code>).</p>
 <i class="callout-icon" data-feather="message-circle"></i>
 </div>
 <div id="desafío-2" class="callout-inner">
-<h3 class="callout-title">Desafío 2<a class="anchor" aria-label="anclaje" href="#desaf%C3%ADo-2"></a>
-</h3>
+<h3 class="callout-title">Desafío 2</h3>
 <div class="callout-content">
 <p>En esta sección se empezará por crear la función (argumento
 <code>fun</code>), para ello es necesario traducir las ecuaciones del
@@ -534,8 +523,7 @@ parámetro correspondientes) en las ecuaciones:</p>
 </div>
 </div>
 
-</section><section><h2 class="section-heading" id="resuelva-el-sistema">10. Resuelva el Sistema<a class="anchor" aria-label="anclaje" href="#resuelva-el-sistema"></a>
-<a class="anchor" aria-label="anchor" href="#resuelva-el-sistema"></a></h2>
+</section><section><h2 class="section-heading" id="resuelva-el-sistema">10. Resuelva el Sistema<a class="anchor" aria-label="anchor" href="#resuelva-el-sistema"></a></h2>
 <hr class="half-width"><p>En esta sección se crearán los tres argumentos faltantes para usar la
 función <code>ode</code> y se creará un objeto de clase
 <code>data.frame</code> con los resultados de la función
@@ -548,8 +536,7 @@ el paquete <strong>deSolve</strong>.</p></li>
 <i class="callout-icon" data-feather="message-circle"></i>
 </div>
 <div id="desafío-3" class="callout-inner">
-<h3 class="callout-title">Desafío 3<a class="anchor" aria-label="anclaje" href="#desaf%C3%ADo-3"></a>
-</h3>
+<h3 class="callout-title">Desafío 3</h3>
 <div class="callout-content">
 <div class="codewrapper sourceCode" id="cb7">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -586,15 +573,13 @@ el paquete <strong>deSolve</strong>.</p></li>
 </div>
 </div>
 
-</section><section><h2 class="section-heading" id="resultados">11. Resultados<a class="anchor" aria-label="anclaje" href="#resultados"></a>
-<a class="anchor" aria-label="anchor" href="#resultados"></a></h2>
+</section><section><h2 class="section-heading" id="resultados">11. Resultados<a class="anchor" aria-label="anchor" href="#resultados"></a></h2>
 <hr class="half-width"><div id="desafío-4" class="callout discussion">
 <div class="callout-square">
 <i class="callout-icon" data-feather="message-circle"></i>
 </div>
 <div id="desafío-4" class="callout-inner">
-<h3 class="callout-title">Desafío 4<a class="anchor" aria-label="anclaje" href="#desaf%C3%ADo-4"></a>
-</h3>
+<h3 class="callout-title">Desafío 4</h3>
 <div class="callout-content">
 <p>Para tener una visualización más significativa de los resultados,
 convierta las unidades de tiempo de <em>días</em> a <em>años</em> y a
@@ -729,8 +714,7 @@ de las siguientes intervenciones:</p>
 describa cómo parametrizará el modelo. ¿Todas estas intervenciones son
 viables en la actualidad?</p></li>
 </ol></div>
-</section><section><h2 class="section-heading" id="sobre-este-documento">Sobre este documento<a class="anchor" aria-label="anclaje" href="#sobre-este-documento"></a>
-<a class="anchor" aria-label="anchor" href="#sobre-este-documento"></a></h2>
+</section><section><h2 class="section-heading" id="sobre-este-documento">Sobre este documento<a class="anchor" aria-label="anchor" href="#sobre-este-documento"></a></h2>
 <hr class="half-width"><div class="section level3">
 <h3 id="contribuciones">Contribuciones<a class="anchor" aria-label="anchor" href="#contribuciones"></a></h3>
 <ul><li>Zulma Cucunuba &amp; Pierre Nouvellet: Versión inicial</li>
@@ -752,8 +736,7 @@ archivo fuente del documento original puede ser encontrado <a href="https://raw.
 <i class="callout-icon" data-feather="key"></i>
 </div>
 <div id="puntos-clave" class="callout-inner">
-<h3 class="callout-title">Puntos clave<a class="anchor" aria-label="anclaje" href="#puntos-clave"></a>
-</h3>
+<h3 class="callout-title">Puntos clave</h3>
 <div class="callout-content">
 <p>Revise si al final de esta lección adquirió estas competencias:</p>
 <ul><li>Aplicar conceptos como parámetros, <span class="math inline">\(R_0\)</span> e inmunidad de rebaño, aprendidos en
@@ -808,7 +791,7 @@ any links that you are not going to use.
         <p>Materiales bajo la <a href="LICENSE.html">CC-BY 4.0</a> por las autoras</p>
 
         <p>Plantilla compartida bajo <a href="https://creativecommons.org/licenses/by-sa/4.0/" class="external-link">CC-BY 4.0</a> por <a href="https://carpentries.org/" class="external-link">The Carpentries</a></p>
-        <p>Construido con <a href="https://github.com/epiverse-trace/sandpaper/tree/patch-renv-github-bug" class="external-link">sandpaper (0.16.5)</a>, <a href="https://github.com/carpentries/pegboard/tree/ad2542f7f7b9c3f90cc871b355ff81ec14a09ca9" class="external-link">pegboard (0.7.6)</a> y <a href="https://github.com/epiverse-trace/varnish/tree/tracelactheme" class="external-link">varnish (1.0.1.9000)</a></p>
+        <p>Construido con <a href="https://github.com/epiverse-trace/sandpaper/tree/patch-renv-github-bug" class="external-link">sandpaper (0.16.6)</a>, <a href="https://github.com/carpentries/pegboard/tree/ad2542f7f7b9c3f90cc871b355ff81ec14a09ca9" class="external-link">pegboard (0.7.6)</a> y <a href="https://github.com/epiverse-trace/varnish/tree/tracelactheme" class="external-link">varnish (1.0.1.9000)</a></p>
 			</div>
 		</footer></div> <!-- / div.container -->
 	<div id="to-top">
@@ -831,7 +814,7 @@ any links that you are not going to use.
   "identifier": "https://epiverse-trace.github.io/epimodelac/ZIKAB.html",
   "dateCreated": "2023-11-10",
   "dateModified": "2024-07-07",
-  "datePublished": "2024-08-27"
+  "datePublished": "2024-09-03"
 }
 
   </script><script>
