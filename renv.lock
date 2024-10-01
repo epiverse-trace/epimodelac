@@ -2409,7 +2409,6 @@
       "RemoteRepo": "serofoi",
       "RemoteUsername": "epiverse-trace",
       "RemotePkgRef": "epiverse-trace/serofoi",
-      "RemoteRef": "HEAD",
       "RemoteSha": "bf3b465e577360eded381a04d70c3b643e478a51",
       "Requirements": [
         "BH",
@@ -2494,7 +2493,6 @@
       "RemoteRepo": "sivirep",
       "RemoteUsername": "epiverse-trace",
       "RemotePkgRef": "epiverse-trace/sivirep",
-      "RemoteRef": "HEAD",
       "RemoteSha": "8684a074691a2505724ea9841e7554e26bccb720",
       "Requirements": [
         "R",
@@ -2929,7 +2927,6 @@
       "RemoteRepo": "vaccineff",
       "RemoteUsername": "epiverse-trace",
       "RemotePkgRef": "epiverse-trace/vaccineff",
-      "RemoteRef": "HEAD",
       "RemoteSha": "f68ec19567676ad30c4b4fdb346e9cd92fc5cb55",
       "Requirements": [
         "MatchIt",
