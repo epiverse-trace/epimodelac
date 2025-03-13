@@ -166,6 +166,7 @@ betah    <- ph*b     # Coeficiente de transmisión del mosquito al humano
 betav    <- pv*b     # Coeficiente de transmisión del humano al mosquito
 
 TIME     <- 100       # Número de años a simular
+
 ```
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
