@@ -6361,7 +6361,6 @@
       "RemoteRepo": "serofoi",
       "RemoteUsername": "epiverse-trace",
       "RemotePkgRef": "epiverse-trace/serofoi",
-      "RemoteRef": "HEAD",
       "RemoteSha": "bf3b465e577360eded381a04d70c3b643e478a51"
     },
     "sf": {
@@ -6442,7 +6441,7 @@
       "NeedsCompilation": "yes",
       "Author": "Edzer Pebesma [aut, cre] (<https://orcid.org/0000-0001-8049-7069>), Roger Bivand [ctb] (<https://orcid.org/0000-0003-2392-6140>), Etienne Racine [ctb], Michael Sumner [ctb], Ian Cook [ctb], Tim Keitt [ctb], Robin Lovelace [ctb], Hadley Wickham [ctb], Jeroen Ooms [ctb] (<https://orcid.org/0000-0002-4035-0289>), Kirill Müller [ctb], Thomas Lin Pedersen [ctb], Dan Baston [ctb], Dewey Dunnington [ctb] (<https://orcid.org/0000-0002-9415-4582>)",
       "Maintainer": "Edzer Pebesma <edzer.pebesma@uni-muenster.de>",
-      "Repository": "CRAN"
+      "Repository": "RSPM"
     },
     "shades": {
       "Package": "shades",
@@ -6572,7 +6571,6 @@
       "RemoteRepo": "sivirep",
       "RemoteUsername": "epiverse-trace",
       "RemotePkgRef": "epiverse-trace/sivirep",
-      "RemoteRef": "HEAD",
       "RemoteSha": "8684a074691a2505724ea9841e7554e26bccb720"
     },
     "sodium": {
@@ -7650,7 +7648,6 @@
       "RemoteRepo": "vaccineff",
       "RemoteUsername": "epiverse-trace",
       "RemotePkgRef": "epiverse-trace/vaccineff",
-      "RemoteRef": "HEAD",
       "RemoteSha": "f68ec19567676ad30c4b4fdb346e9cd92fc5cb55"
     },
     "vctrs": {
