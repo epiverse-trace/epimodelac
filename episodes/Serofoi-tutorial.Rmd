@@ -394,20 +394,19 @@ correspondientes a esta encuesta serológica:
 
 ```{r chik2015, include = TRUE, echo = TRUE, errors = FALSE, warning = FALSE, message = FALSE}
 data(chik2015)
-chik2015p <- prepare_serodata(chik2015)
-str(chik2015p)
+chik2015
 ```
 
 Para correr el modelo de FoI constante y visualizar los resultados del
 mismo, corra las siguientes líneas de código:
 
 ```{r chik2015_constant, include = TRUE, echo = TRUE, eval = FALSE}
-chik_constant <- fit_seromodel(serodata = chik2015p,
-                               foi_model = "constant",
+chik_constant <- fit_seromodel(serosurvey = chik2015,
+                               model_type = "constant",
                                iter = 1000)
 
-chik_constant_plot <- plot_seromodel(chik_constant,
-                                     serodata = chik2015p,
+chik_constant_plot <- plot_seromodel(seromodel = chik_constant,
+                                     serosurvey = chik2015,
                                      size_text = 12)
 ```
 
@@ -433,31 +432,31 @@ minutos.
 
 ```{r chik2015_models, include = FALSE, echo = TRUE, results="hide", errors = FALSE, warning = FALSE, message = FALSE, fig.width=5, fig.asp=1, fig.align="center", fig.keep="all"}
 # Implementation of the models
-m1_chik <- fit_seromodel(serodata = chik2015p,
-                         foi_model = "constant",
+m1_chik <- fit_seromodel(serosurvey = chik2015,
+                         model_type = "constant",
                          iter = 1000)
 
-m2_chik <- fit_seromodel(serodata = chik2015p,
-                         foi_model = "tv_normal",
+m2_chik <- fit_seromodel(serosurvey = chik2015,
+                         model_type = "tv_normal",
                          iter = 1500)
 
-m3_chik <- fit_seromodel(serodata = chik2015p,
-                         foi_model = "tv_normal_log",
+m3_chik <- fit_seromodel(serosurvey = chik2015,
+                         model_type = "tv_normal_log",
                          iter = 1500)
 ```
 
 ```{r chik2015_vis, include = TRUE, echo = FALSE, results="hide", errors = FALSE, warning = FALSE, message = FALSE, fig.width=5, fig.asp=1, fig.align="center", fig.keep="all"}
 # Visualisation of the results
-chik_constant_plot <- plot_seromodel(m1_chik,
-                          serodata = chik2015p,
+chik_constant_plot <- plot_seromodel(seromodel = m1_chik,
+                          serosurvey = chik2015,
                           size_text = 6,
                           max_lambda = 0.1)
-chik_normal_plot <- plot_seromodel(m2_chik,
-                          serodata = chik2015p,
+chik_normal_plot <- plot_seromodel(seromodel = m2_chik,
+                          serosurvey = chik2015,
                           size_text = 6,
                           max_lambda = 0.1)
-chik_normal_log_plot <- plot_seromodel(m3_chik,
-                          serodata = chik2015p,
+chik_normal_log_plot <- plot_seromodel(seromodel = m3_chik,
+                          serosurvey = chik2015,
                           size_text = 6,
                           max_lambda = 0.1)
 
