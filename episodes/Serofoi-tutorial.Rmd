@@ -451,15 +451,17 @@ m3_chik <- fit_seromodel(serosurvey = chik2015,
 chik_constant_plot <- plot_seromodel(seromodel = m1_chik,
                           serosurvey = chik2015,
                           size_text = 6,
-                          max_lambda = 0.1)
+                          foi_max = 0.1, 
+                          plot_constant = TRUE,
+                          x_axis = "time")
 chik_normal_plot <- plot_seromodel(seromodel = m2_chik,
                           serosurvey = chik2015,
                           size_text = 6,
-                          max_lambda = 0.1)
+                          foi_max = 0.1)
 chik_normal_log_plot <- plot_seromodel(seromodel = m3_chik,
                           serosurvey = chik2015,
                           size_text = 6,
-                          max_lambda = 0.1)
+                          foi_max = 0.1)
 
 cowplot::plot_grid(chik_constant_plot, chik_normal_plot, chik_normal_log_plot, ncol=3)
 ```
