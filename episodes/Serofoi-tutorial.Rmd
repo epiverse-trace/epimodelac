@@ -335,11 +335,11 @@ Cada uno de ellos se basa en distintas distribuciones previas para
 $\lambda$, las cuales se muestran en la tabla 1.
 
 
-| Model Option | Logarithmic Scale | Probability of positive case at age $a$ | Prior distribution |
+| Model Type | Logarithmic Scale | Probability of positive case at age $a$ | Prior distribution |
 |---|---|---|---|
-| `constant` | FALSE | $\sim binom(n(a,t), P(a,t))$ | $\lambda\sim uniform(0,2)$ |
-| `tv_normal` | FALSE | $\sim binom(n(a,t), P(a,t))$ | $\lambda\sim normal(\lambda(t-1),\sigma)\\ \lambda(t=1)\sim normal(0,1)$ |
-| `tv_normal_log` | TRUE | $\sim binom(n(a,t), P(a,t))$ | $\lambda\sim normal(log(\lambda(t-1)),\sigma)\\ \lambda(t=1)\sim normal(-6,4)$ |
+| `"constant"` | `FALSE` | $\sim binom(n(a,t), P(a,t))$ | $\lambda\sim uniform(0,2)$ |
+| `"time"` | `FALSE` | $\sim binom(n(a,t), P(a,t))$ | $\lambda\sim normal(\lambda(t-1),\sigma)\\ \lambda(t=1)\sim normal(0,1)$ |
+| `"time"` | `TRUE` | $\sim binom(n(a,t), P(a,t))$ | $\lambda\sim normal(log(\lambda(t-1)),\sigma)\\ \lambda(t=1)\sim normal(-6,4)$ |
 
 
 **Tabla 1.** Distribuciones a priori de los distintos modelos soportados
@@ -348,11 +348,11 @@ por **serofoi**. $\sigma$ representa la desviación estándar.
 Como se puede observar, las distribuciones previas de $\lambda$ en ambos
 casos están dadas por distribuciones Gaussianas con desviación estándar
 $\sigma$ y centradas en $\lambda$ (modelo de variación lenta -
-`tv_normal`) y $\log(\lambda)$ (modelo de variación rápida -
-`tv_normal_log`). De esta manera, la FoI en un tiempo $t$ está
+`"time"`) y $\log(\lambda)$ (modelo de variación rápida -
+`"time"` con `is_log_foi = TRUE`). De esta manera, la FoI en un tiempo $t$ está
 distribuida de acuerdo a una distribución normal alrededor del valor que
 esta tenía en el tiempo inmediatamente anterior. El logaritmo en el
-modelo `tv_normal_log` permite identificar cambios drásticos en la
+modelo $\log(\lambda)$ permite identificar cambios drásticos en la
 tendencia temporal de la FoI.
 
 ### 4. Contenido del taller
@@ -437,11 +437,12 @@ m1_chik <- fit_seromodel(serosurvey = chik2015,
                          iter = 1000)
 
 m2_chik <- fit_seromodel(serosurvey = chik2015,
-                         model_type = "tv_normal",
+                         model_type = "time",
                          iter = 1500)
 
 m3_chik <- fit_seromodel(serosurvey = chik2015,
-                         model_type = "tv_normal_log",
+                         model_type = "time",
+                         is_log_foi = TRUE,
                          iter = 1500)
 ```
 
