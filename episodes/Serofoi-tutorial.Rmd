@@ -335,11 +335,11 @@ Cada uno de ellos se basa en distintas distribuciones previas para
 $\lambda$, las cuales se muestran en la tabla 1.
 
 
-| Model Option    | Probability of positive case at age $a$ | Prior distribution                                                             |
-|:-----------------|:-----------------------------|:-----------------------|
-| `constant`      | $\sim binom(n(a,t), P(a,t))$            | $\lambda\sim uniform(0,2)$                                                     |
-| `tv_normal`     | $\sim binom(n(a,t), P(a,t))$            | $\lambda\sim normal(\lambda(t-1),\sigma)\\ \lambda(t=1)\sim normal(0,1)$       |
-| `tv_normal_log` | $\sim binom(n(a,t), P(a,t))$            | $\lambda\sim normal(log(\lambda(t-1)),\sigma)\\ \lambda(t=1)\sim normal(-6,4)$ |
+| Model Option | Logarithmic Scale | Probability of positive case at age $a$ | Prior distribution |
+|---|---|---|---|
+| `constant` | FALSE | $\sim binom(n(a,t), P(a,t))$ | $\lambda\sim uniform(0,2)$ |
+| `tv_normal` | FALSE | $\sim binom(n(a,t), P(a,t))$ | $\lambda\sim normal(\lambda(t-1),\sigma)\\ \lambda(t=1)\sim normal(0,1)$ |
+| `tv_normal_log` | TRUE | $\sim binom(n(a,t), P(a,t))$ | $\lambda\sim normal(log(\lambda(t-1)),\sigma)\\ \lambda(t=1)\sim normal(-6,4)$ |
 
 
 **Tabla 1.** Distribuciones a priori de los distintos modelos soportados
