@@ -317,6 +317,7 @@ ofrece la función `make_vaccineff_data` y `plot` que permiten llevar a cabo est
 con facilidad. Para esto, ejecute el siguiente comando en R:
 
 ```{r}
+# Create `vaccineff_data`
 vaccineff_data <- make_vaccineff_data(
   data_set = cohortdata,
   outcome_date_col = "death_date",
@@ -642,12 +643,12 @@ disminuir los sesgos muestrales.
 Para realizar el emparejamiento poblacional use los argumentos `match = TRUE` y `exact = c("age", "sex")` para emparejar por edad y sexo exactos:
 
 ```{r}
-# Create `vaccineff_data`
+# Create `vaccineff_data_matched`
 vaccineff_data_matched <- make_vaccineff_data(
   data_set = cohortdata,
   outcome_date_col = "death_date",
-  censoring_date_col = "death_other_causes", # needs error message
-  vacc_date_col = "vaccine_date_2", # date of last dose
+  censoring_date_col = "death_other_causes", 
+  vacc_date_col = "vaccine_date_2", 
   end_cohort = as.Date("2021-12-31"),
   immunization_delay = 14,
   # Performe cohort matching
