@@ -167,7 +167,7 @@ La normalización de los datos es un aspecto clave de la epidemiología. **epiCo
 data_tolima_2021 <-  epi_data[lubridate::year(epi_data$fec_not) == 2021, ]
 
 # Se calcula las tasas por edades para el año 2021.
-incidence_rate_2019 <- age_risk(age = as.integer(data_tolima_2021$edad),
+incidence_rate_2019 <- age_risk(age = data_tolima_2021$edad,
                                 population_pyramid = tolima_piramide_2021,
                                 sex = data_tolima_2021$sexo,
                                 plot = TRUE)
