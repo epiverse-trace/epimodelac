@@ -9,21 +9,21 @@ teaching: 50
 exercises: 5
 ---
 
-:::::::::::::::::::::::::::::::::::::: questions 
- 
+:::::::::::::::::::::::::::::::::::::: questions
+
 - ¿Cómo estimar retrospectivamente la *Fuerza de Infección* de un patógeno a partir de *encuestas serológicas poblacionales de prevalencia desagregadas por edad* mediante la implementación de *modelos Bayesianos* usando **serofoi**?
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
 ::::::::::::::::::::::::::::::::::::: objectives
 
-Al final de este taller usted podrá: 
- 
--   Explorar y analizar una encuesta serológica típica. 
+Al final de este taller usted podrá:
 
--   Aprender a estimar la Fuerza de Infección en un caso de uso específico. 
+-   Explorar y analizar una encuesta serológica típica.
 
--   Visualizar e interpretar los resultados. 
+-   Aprender a estimar la Fuerza de Infección en un caso de uso específico.
+
+-   Visualizar e interpretar los resultados.
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
@@ -36,20 +36,20 @@ Al final de este taller usted podrá:
 (También es posible pedir a los participantes que describan la base de datos)
 -->
 
-**serofoi** es un paquete de R para estimar retrospectivamente la *Fuerza de Infección* de un patógeno a partir de *encuestas serológicas poblacionales de prevalencia desagregadas por edad* mediante la implementación de *modelos Bayesianos*. Para ello, **serofoi** utiliza el paquete *Rstan*, que proporciona una interfaz para el lenguaje de programación estadística *Stan*, mediante el cual se implementan métodos de Monte-Carlo basados en cadenas de Markov. 
+**serofoi** es un paquete de R para estimar retrospectivamente la *Fuerza de Infección* de un patógeno a partir de *encuestas serológicas poblacionales de prevalencia desagregadas por edad* mediante la implementación de *modelos Bayesianos*. Para ello, **serofoi** utiliza el paquete *Rstan*, que proporciona una interfaz para el lenguaje de programación estadística *Stan*, mediante el cual se implementan métodos de Monte-Carlo basados en cadenas de Markov.
 
 Como un caso particular, estudiaremos un brote de Chikungunya, una enfermedad viral descubierta en Tanzania en el año 1952 que se caracteriza por causar fuertes fiebres, dolor articular,
 jaqueca, sarpullidos, entre otros síntomas. Desde el año 2013, casos de esta enfermedad comenzaron a ser reportados en América y desde entonces la enfermedad ha sido endémica en varios países latinoamericanos. Durante este tutorial, vamos a analizar una encuesta serológica realizada entre octubre y diciembre de 2015 en Bahía, Brasil, la cual fue realizada poco tiempo después de una epidemia de esta enfermedad, con el fin de caracterizar los patrones endémicos o epidémicos en la zona.
 
-## 2. Objetivos 
+## 2. Objetivos
 
 <!-- Aquí se espera que usted incluya los objetivos del taller. ¿Qué es lo que usted espera que los estudiantes aprendan del taller? ¿Qué se espera que los estudiantes puedan hacer al terminar el taller? Los objetivos deben empezar con un verbo en infinitivo. -->
 
--   Explorar y analizar una encuesta serológica típica. 
+-   Explorar y analizar una encuesta serológica típica.
 
--   Aprender a estimar la Fuerza de Infección en un caso de uso específico. 
+-   Aprender a estimar la Fuerza de Infección en un caso de uso específico.
 
--   Visualizar e interpretar los resultados.  
+-   Visualizar e interpretar los resultados.
 
 
 
@@ -171,7 +171,7 @@ supuestos biológicos:
 -   Bajos o nulos niveles de migración en las poblaciones.
 -   Diferencias pequeñas entre las tasas de mortalidad de susceptibles e
     infectados.
-    
+
 ## 3.2. Modelos Bayesianos
 
 A diferencia del enfoque frecuentista, donde la probabilidad se asocia
@@ -189,20 +189,20 @@ previo del fenómeno y de las mediciones realizadas (datos).
 La inferencia Bayesiana se sustenta en el teorema de Bayes, el cual
 establece que: dado un conjunto de datos $\vec{y} = (y_1, …, y_N)$, el
 cual representa un único evento, y la variable aleatoria $\theta$, que
-representa un parámetro de interés para nosotros (en nuestro caso, la FoI $\lambda$), 
+representa un parámetro de interés para nosotros (en nuestro caso, la FoI $\lambda$),
 la distribución de probabilidad conjunta de las variables aleatorias asociadas está dada
 por:
 
 $$ \tag{4}
-p(\vec{y}, \theta) = p(\vec{y} | \theta) p(\theta) = p(\theta | \vec{y}) p(\vec{y}),  
-$$ 
+p(\vec{y}, \theta) = p(\vec{y} | \theta) p(\theta) = p(\theta | \vec{y}) p(\vec{y}),
+$$
 
 de donde se desprende la distribución aposteriori de $\theta$, es
 decir una versión actualizada de la distribución de probabilidad de la
 FoI condicionada a nuestros datos:
 
 $$\tag{5}
-p(\theta, \vec{y}) =  \frac{p(\vec{y} | \theta) p(\theta)}{p(\vec{y})},$$ 
+p(\theta, \vec{y}) =  \frac{p(\vec{y} | \theta) p(\theta)}{p(\vec{y})},$$
 
 La distribución $p(\vec{y} | \theta)$, que corresponde a la
 información interna a los datos condicionada al valor del parámetro
@@ -220,10 +220,10 @@ En nuestro caso particular, el parámetro que queremos estimar es la FoI
 representa nuestras suposiciones informadas o el conocimiento previo que
 tengamos sobre el comportamiento de la FoI. En este contexto, el estado
 de mínima información sobre $\lambda$ está representado por una
-distribución uniforme: 
+distribución uniforme:
 
 $$\tag{6}
-\lambda \sim U(0, 2),$$ 
+\lambda \sim U(0, 2),$$
 
 lo que significa que partimos de la premisa de que todos los valores
 de la fuerza de infección entre $0$ y $2$ son igualmente probables. Por
@@ -232,12 +232,12 @@ seroprevalencia en un año dado está descrita por un proceso cumulativo
 con la edad (Hens et al, 2010):
 
 $$\tag{7}
-P(a, t) = 1 - \exp\left(  -\sum_{i=t-a+1}^{t} \lambda_i  \right),  
+P(a, t) = 1 - \exp\left(  -\sum_{i=t-a+1}^{t} \lambda_i  \right),
 $$ en donde $\lambda_i$ corresponde a la FoI al tiempo $t$. Como en este
 caso la FoI es constante, la ec. (7) se reduce a:
 
 $$\tag{8}
-P(a, t) = 1 - \exp\left(  -\lambda a \right),$$ 
+P(a, t) = 1 - \exp\left(  -\lambda a \right),$$
 
 Si $n(a, t_{sur})$ es el número de muestras positivas por edad
 obtenidas en un estudio serológico desarrollado en el año $t_{sur}$,
@@ -259,11 +259,11 @@ Cada uno de ellos se basa en distintas distribuciones previas para
 $\lambda$, las cuales se muestran en la tabla 1.
 
 
-| Model Option    | Probability of positive case at age $a$ | Prior distribution                                                             |
-|:-----------------|:-----------------------------|:-----------------------|
-| `constant`      | $\sim binom(n(a,t), P(a,t))$            | $\lambda\sim uniform(0,2)$                                                     |
-| `tv_normal`     | $\sim binom(n(a,t), P(a,t))$            | $\lambda\sim normal(\lambda(t-1),\sigma)\\ \lambda(t=1)\sim normal(0,1)$       |
-| `tv_normal_log` | $\sim binom(n(a,t), P(a,t))$            | $\lambda\sim normal(log(\lambda(t-1)),\sigma)\\ \lambda(t=1)\sim normal(-6,4)$ |
+| Model Type | Logarithmic Scale | Probability of positive case at age $a$ | Prior distribution |
+|---|---|---|---|
+| `"constant"` | `FALSE` | $\sim binom(n(a,t), P(a,t))$ | $\lambda\sim uniform(0,2)$ |
+| `"time"` | `FALSE` | $\sim binom(n(a,t), P(a,t))$ | $\lambda\sim normal(\lambda(t-1),\sigma)\\ \lambda(t=1)\sim normal(0,1)$ |
+| `"time"` | `TRUE` | $\sim binom(n(a,t), P(a,t))$ | $\lambda\sim normal(log(\lambda(t-1)),\sigma)\\ \lambda(t=1)\sim normal(-6,4)$ |
 
 
 **Tabla 1.** Distribuciones a priori de los distintos modelos soportados
@@ -272,11 +272,11 @@ por **serofoi**. $\sigma$ representa la desviación estándar.
 Como se puede observar, las distribuciones previas de $\lambda$ en ambos
 casos están dadas por distribuciones Gaussianas con desviación estándar
 $\sigma$ y centradas en $\lambda$ (modelo de variación lenta -
-`tv_normal`) y $\log(\lambda)$ (modelo de variación rápida -
-`tv_normal_log`). De esta manera, la FoI en un tiempo $t$ está
+`"time"`) y $\log(\lambda)$ (modelo de variación rápida -
+`"time"` con `is_log_foi = TRUE`). De esta manera, la FoI en un tiempo $t$ está
 distribuida de acuerdo a una distribución normal alrededor del valor que
 esta tenía en el tiempo inmediatamente anterior. El logaritmo en el
-modelo `tv_normal_log` permite identificar cambios drásticos en la
+modelo $\log(\lambda)$ permite identificar cambios drásticos en la
 tendencia temporal de la FoI.
 
 ### 4. Contenido del taller
@@ -285,7 +285,7 @@ tendencia temporal de la FoI.
 
 #### 4.1 Instalación de **serofoi**
 
-Previo a la instalación de **serofoi**, cree un proyecto en R en la carpeta de su escogencia en su máquina local; esto con el fin de organizar el espacio de trabajo en donde se guardarán los códigos que desarrolle durante la sesión. 
+Previo a la instalación de **serofoi**, cree un proyecto en R en la carpeta de su escogencia en su máquina local; esto con el fin de organizar el espacio de trabajo en donde se guardarán los códigos que desarrolle durante la sesión.
 
 Antes de realizar la instalación de **serofoi**, es necesario instalar y configurar C++ Toolchain (instrucciones para [windows](https://github.com/stan-dev/rstan/wiki/Configuring-C---Toolchain-for-Windows)/ [mac](https://github.com/stan-dev/rstan/wiki/Configuring-C---Toolchain-for-Mac)/[linux](https://github.com/stan-dev/rstan/wiki/Configuring-C-Toolchain-for-Linux)). Después de haber configurado C++ Toolchain, ejecute las siguientes líneas de código para instalar el paquete:
 
@@ -322,28 +322,15 @@ correspondientes a esta encuesta serológica:
 
 ``` r
 data(chik2015)
-chik2015p <- prepare_serodata(chik2015)
-str(chik2015p)
+chik2015
 ```
 
 ``` output
-'data.frame':	4 obs. of  16 variables:
- $ survey        : chr  "BRA 2015(S019)" "BRA 2015(S019)" "BRA 2015(S019)" "BRA 2015(S019)"
- $ total         : int  45 109 144 148
- $ counts        : num  17 55 63 69
- $ age_min       : num  1 20 40 60
- $ age_max       : num  19 39 59 79
- $ tsur          : num  2015 2015 2015 2015
- $ country       : Factor w/ 256 levels "ABW","AFG","AGO",..: 33 33 33 33
- $ test          : chr  "ELISA" "ELISA" "ELISA" "ELISA"
- $ antibody      : chr  "IgG anti-CHIKV" "IgG anti-CHIKV" "IgG anti-CHIKV" "IgG anti-CHIKV"
- $ reference     : chr  "Dias et al. 2018" "Dias et al. 2018" "Dias et al. 2018" "Dias et al. 2018"
- $ age_mean_f    : num  10 29 49 69
- $ sample_size   : int  446 446 446 446
- $ birth_year    : num  2005 1986 1966 1946
- $ prev_obs      : num  0.378 0.505 0.438 0.466
- $ prev_obs_lower: num  0.238 0.407 0.355 0.384
- $ prev_obs_upper: num  0.535 0.602 0.523 0.55
+  survey_year n_sample n_seropositive age_min age_max
+1        2015      144             63      40      59
+2        2015      148             69      60      79
+3        2015       45             17       1      19
+4        2015      109             55      20      39
 ```
 
 Para correr el modelo de FoI constante y visualizar los resultados del
@@ -351,12 +338,12 @@ mismo, corra las siguientes líneas de código:
 
 
 ``` r
-chik_constant <- run_seromodel(serodata = chik2015p,
-                               foi_model = "constant",
+chik_constant <- fit_seromodel(serosurvey = chik2015,
+                               model_type = "constant",
                                iter = 1000)
 
-chik_constant_plot <- plot_seromodel(chik_constant, 
-                                     serodata = chik2015p, 
+chik_constant_plot <- plot_seromodel(seromodel = chik_constant,
+                                     serosurvey = chik2015,
                                      size_text = 12)
 ```
 
@@ -368,8 +355,8 @@ Luego visualice conjuntamente las tres gráficas por medio de la función
 ``` r
 install.packages("cowplot")
 
-cowplot::plot_grid(chik_constant_plot, 
-                   chik_normal_plot, 
+cowplot::plot_grid(chik_constant_plot,
+                   chik_normal_plot,
                    chik_normal_log_plot,
                    ncol = 3)
 ```
@@ -409,16 +396,16 @@ Según los criterios explicados anteriormente, responda:
 
 [Reto](https://docs.google.com/document/d/11j99fA8SBMUn1FD6oJBOvc-Nmr9aq5hd/edit?usp=sharing&ouid=108718106243006326200&rtpof=true&sd=true)
 
-::::::::::::::::::::::::::::::::::::: keypoints 
+::::::::::::::::::::::::::::::::::::: keypoints
 
 Revise si al final de esta lección adquirió estas competencias:
 
 
--   Explorar y analizar una encuesta serológica típica. 
+-   Explorar y analizar una encuesta serológica típica.
 
--   Aprender a estimar la Fuerza de Infección en un caso de uso específico. 
+-   Aprender a estimar la Fuerza de Infección en un caso de uso específico.
 
--   Visualizar e interpretar los resultados.  
+-   Visualizar e interpretar los resultados.
 
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
