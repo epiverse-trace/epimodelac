@@ -577,10 +577,10 @@ El desafío consiste en que usted y su grupo deben identificar cuál o cuáles d
 
 Los datos de las 4 encuestas vienen en archivos .RDS independientes que podrá encontrar en estos enlaces:
 
-- <https://epiverse-trace.github.io/epimodelac/data/virus_01.RDS>
-- <https://epiverse-trace.github.io/epimodelac/data/virus_02.RDS>
-- <https://epiverse-trace.github.io/epimodelac/data/virus_03.RDS>
-- <https://epiverse-trace.github.io/epimodelac/data/virus_04.RDS>
+- <https://epiverse-trace.github.io/epimodelac/data/serosurvey_01.RDS>
+- <https://epiverse-trace.github.io/epimodelac/data/serosurvey_02.RDS>
+- <https://epiverse-trace.github.io/epimodelac/data/serosurvey_03.RDS>
+- <https://epiverse-trace.github.io/epimodelac/data/serosurvey_04.RDS>
 
 Lea los datos haciendo uso de la función `readRDS()`. En esta etapa del desafío se espera que:
 
@@ -611,13 +611,13 @@ Con base en los resultados obtenidos anteriormente, ¿Cuál virus cree que estuv
 
 ::::::::::::::::: solution
 
-Para adaptar la base de datos al formato necesario para {serofoi}, puede usar el siguiente código:
+Para adaptar una de las cuatro bases de datos al formato necesario para {serofoi}, puede usar el siguiente código:
 
 ```{r,eval=TRUE,message=FALSE,warning=FALSE}
 library(tidyverse)
 
 virus_serosurvey <- readr::read_rds(
-  "https://epiverse-trace.github.io/epimodelac/data/virus_01.RDS"
+  "https://epiverse-trace.github.io/epimodelac/data/serosurvey_01.RDS"
 ) %>%
   dplyr::mutate(
     age_group = vaccineff::get_age_group(
