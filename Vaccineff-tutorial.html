@@ -287,7 +287,7 @@
       </div>
       <hr></nav><main id="main-content" class="main-content"><div class="container lesson-content">
         <h1>Introducción al cálculo de efectividad vacunal con cohortes usando vaccineff</h1>
-        <p>Última actualización: 2025-04-15 |
+        <p>Última actualización: 2025-06-13 |
 
         <a href="https://github.com/epiverse-trace/epimodelac/edit/main/episodes/Vaccineff-tutorial.Rmd" class="external-link">Mejora esta página <i aria-hidden="true" data-feather="edit"></i></a></p>
 
@@ -544,19 +544,19 @@ el set de datos de ejemplo del <code>vaccineff</code> ejecute:</p>
 <h3 class="code-label">SALIDA<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="output" tabindex="0"><code>        id sex age death_date death_other_causes vaccine_date_1 vaccine_date_2
-1 afade1b2   F  37       &lt;NA&gt;               &lt;NA&gt;           &lt;NA&gt;           &lt;NA&gt;
-2 556c8c76   M  19       &lt;NA&gt;               &lt;NA&gt;           &lt;NA&gt;           &lt;NA&gt;
-3 04edf85a   M  50       &lt;NA&gt;               &lt;NA&gt;           &lt;NA&gt;           &lt;NA&gt;
-4 7e51a18e   F   8       &lt;NA&gt;               &lt;NA&gt;           &lt;NA&gt;           &lt;NA&gt;
-5 c5a83f56   M  66       &lt;NA&gt;               &lt;NA&gt;           &lt;NA&gt;           &lt;NA&gt;
-6 7f675ec3   M  29       &lt;NA&gt;               &lt;NA&gt;     2044-04-09     2044-04-30
+1 04edf85a   M  50       &lt;NA&gt;               &lt;NA&gt;           &lt;NA&gt;           &lt;NA&gt;
+2 c5a83f56   M  66       &lt;NA&gt;               &lt;NA&gt;           &lt;NA&gt;           &lt;NA&gt;
+3 82991731   M  81       &lt;NA&gt;               &lt;NA&gt;           &lt;NA&gt;           &lt;NA&gt;
+4 afbab268   M  74       &lt;NA&gt;               &lt;NA&gt;     2021-03-30     2021-05-16
+5 3faf2474   M  54       &lt;NA&gt;               &lt;NA&gt;     2021-06-01     2021-06-22
+6 97df7bdc   M  79       &lt;NA&gt;               &lt;NA&gt;     2021-03-21     2021-05-02
   vaccine_1 vaccine_2
 1      &lt;NA&gt;      &lt;NA&gt;
 2      &lt;NA&gt;      &lt;NA&gt;
 3      &lt;NA&gt;      &lt;NA&gt;
-4      &lt;NA&gt;      &lt;NA&gt;
-5      &lt;NA&gt;      &lt;NA&gt;
-6    BRAND1    BRAND1</code></pre>
+4    BRAND2    BRAND2
+5    BRAND1    BRAND1
+6    BRAND2    BRAND2</code></pre>
 </div>
 <p>Este tabla contiene información de una epidemia simulada ocurrida en
 2044 sobre una población hipotética, compuesta por 100.000 habitantes,
@@ -568,7 +568,7 @@ uno de los participantes.</p>
 <div class="section level3">
 <h3 id="funciones-básicas-de-exploración-de-datos"><strong>4.1 Funciones básicas de exploración de datos</strong><a class="anchor" aria-label="anchor" href="#funciones-b%C3%A1sicas-de-exploraci%C3%B3n-de-datos"></a></h3>
 <div class="section level4">
-<h4 id="grupo-etario"><strong>4.1.2 Grupo etario</strong><a class="anchor" aria-label="anchor" href="#grupo-etario"></a></h4>
+<h4 id="grupo-etario"><strong>4.1.1 Grupo etario</strong><a class="anchor" aria-label="anchor" href="#grupo-etario"></a></h4>
 <p>Para agrupar la población por grupo etario y graficar la distribución
 por edad utilizaremos la función “get_age_group”. Para esto, ejectute el
 siguiente comando en R:</p>
@@ -608,32 +608,82 @@ ggplot2. Para esto, ejecute el siguiente comando en R:</p>
 información desagregada por persona de la(s) dosis aplicada(s) durante
 el seguimiento. En este sentido, es importante dimensionar el nivel de
 cobertura en la vacunación alcanzado durante el seguimiento. vaccineff
-ofrece la función “plot_coverage” que permite llevar a cabo esta tarea
-con facilidad. Para esto, ejecute el siguiente comando en R:</p>
+ofrece la función <code>make_vaccineff_data</code> y <code>plot</code>
+que permiten llevar a cabo esta tarea con facilidad. Para esto, ejecute
+el siguiente comando en R:</p>
 <div class="codewrapper sourceCode" id="cb6">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">plot_coverage</span><span class="op">(</span></span>
-<span>  data <span class="op">=</span> <span class="va">cohortdata</span>,</span>
-<span>  vacc_date_col <span class="op">=</span> <span class="st">"vaccine_date_1"</span>,</span>
-<span>  unit <span class="op">=</span> <span class="st">"month"</span>,</span>
-<span>  doses_count_color <span class="op">=</span> <span class="st">"steelblue"</span>,</span>
-<span>  coverage_color <span class="op">=</span> <span class="st">"mediumpurple"</span>,</span>
-<span>  date_interval <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  cumulative <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre>
+<code class="sourceCode R"><span><span class="co"># Create `vaccineff_data`</span></span>
+<span><span class="va">vaccineff_data</span> <span class="op">&lt;-</span> <span class="fu">make_vaccineff_data</span><span class="op">(</span></span>
+<span>  data_set <span class="op">=</span> <span class="va">cohortdata</span>,</span>
+<span>  outcome_date_col <span class="op">=</span> <span class="st">"death_date"</span>,</span>
+<span>  censoring_date_col <span class="op">=</span> <span class="st">"death_other_causes"</span>,</span>
+<span>  vacc_date_col <span class="op">=</span> <span class="st">"vaccine_date_2"</span>, <span class="co"># date of last dose</span></span>
+<span>  end_cohort <span class="op">=</span> <span class="fu">as.Date</span><span class="op">(</span><span class="st">"2021-12-31"</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Plot the vaccine coverage of the total population</span></span>
+<span><span class="fu">plot</span><span class="op">(</span><span class="va">vaccineff_data</span><span class="op">)</span></span></code></pre>
 </div>
-<figure><img src="fig/Vaccineff-tutorial-rendered-unnamed-chunk-5-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>Esta función calcula la cobertura con base en alguna dosis, la cual
+<figure><img src="fig/Vaccineff-tutorial-rendered-unnamed-chunk-5-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>Esta función calcula la cobertura con base a la última dosis, la cual
 se especifica en el parámetro “vacc_date_col”. En particular, en el
-ejemplo anterior se utiliza la <u>primera dosi</u>s del conjunto de
-datos de ejemplo (“vaccine_date_1”). Además, es posible agrupar el
-conteo de dosis y el cálculo de cobertura en días, meses y años
-utilizando el parámetro “unit” y personalizar los colores de la gráfica
-con los parámetros “doses_count_color” y “coverage_color”. El parámetro
-“date_interval” se utiliza para personalizar el intervalo de datos que
-se quiere observar, en caso de usar “FALSE” la función toma las fechas
-mínima y máxima de la tabla. Finalmente, el parámetro “cumulative”
-permite graficar el conteo de dosis de forma acumulada en el tiempo.</p>
+ejemplo anterior se utiliza la <u>segunda dosis</u> del conjunto de
+datos de ejemplo (“vaccine_date_2”).
+<!-- Además, es posible agrupar el conteo de
+dosis y el cálculo de cobertura en días, meses y años utilizando el
+parámetro "unit" y personalizar los colores de la gráfica con los
+parámetros "doses_count_color" y "coverage_color". El parámetro
+"date_interval" se utiliza para personalizar el intervalo de datos que
+se quiere observar, en caso de usar "FALSE" la función toma las fechas
+mínima y máxima de la tabla. Finalmente, el parámetro "cumulative"
+permite graficar el conteo de dosis de forma acumulada en el tiempo. --></p>
+<p>La función <code>make_vaccineff_data()</code> genera nuevas columnas
+en la base de datos de cohorte. La columna
+<code>immunization_date</code> describe la fecha de inmunización según
+la úlima dosis. La columna <code>t0_follow_up</code> describe la fecha
+del inicio del periodo de seguimiento que, por defecto, es la fecha de
+inicio del estudio o última dosis de vacunación. La fecha de inicio del
+estudio está definida por la mínima fecha de inmunización.</p>
+<div class="codewrapper sourceCode" id="cb7">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># New columns: immunization_date, vaccine_status, t0_follow_up</span></span>
+<span><span class="fu">head</span><span class="op">(</span><span class="va">vaccineff_data</span><span class="op">$</span><span class="va">cohort_data</span><span class="op">)</span> </span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">SALIDA<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="output" tabindex="0"><code>
+// linelist object
+        id sex age death_date death_other_causes vaccine_date_1 vaccine_date_2
+1 04edf85a   M  50       &lt;NA&gt;               &lt;NA&gt;           &lt;NA&gt;           &lt;NA&gt;
+2 c5a83f56   M  66       &lt;NA&gt;               &lt;NA&gt;           &lt;NA&gt;           &lt;NA&gt;
+3 82991731   M  81       &lt;NA&gt;               &lt;NA&gt;           &lt;NA&gt;           &lt;NA&gt;
+4 afbab268   M  74       &lt;NA&gt;               &lt;NA&gt;     2021-03-30     2021-05-16
+5 3faf2474   M  54       &lt;NA&gt;               &lt;NA&gt;     2021-06-01     2021-06-22
+6 97df7bdc   M  79       &lt;NA&gt;               &lt;NA&gt;     2021-03-21     2021-05-02
+  vaccine_1 vaccine_2 age_group immunization_date vaccine_status t0_follow_up
+1      &lt;NA&gt;      &lt;NA&gt;     45-53              &lt;NA&gt;              u   2021-03-11
+2      &lt;NA&gt;      &lt;NA&gt;     63-71              &lt;NA&gt;              u   2021-03-11
+3      &lt;NA&gt;      &lt;NA&gt;       &gt;72              &lt;NA&gt;              u   2021-03-11
+4    BRAND2    BRAND2       &gt;72        2021-05-16              v   2021-05-16
+5    BRAND1    BRAND1     54-62        2021-06-22              v   2021-06-22
+6    BRAND2    BRAND2       &gt;72        2021-05-02              v   2021-05-02
+
+// tags: outcome_date_col:death_date, censoring_date_col:death_other_causes, vacc_date_col:vaccine_date_2, immunization_date_col:immunization_date, vacc_status_col:vaccine_status, t0_follow_up_col:t0_follow_up </code></pre>
+</div>
+</div>
+<div class="section level4">
+<h4 id="definir-la-exposición-cohorte-vacunada-y-cohorte-no-vacunada"><strong>4.1.3. Definir la exposición: cohorte vacunada y cohorte no
+vacunada</strong><a class="anchor" aria-label="anchor" href="#definir-la-exposici%C3%B3n-cohorte-vacunada-y-cohorte-no-vacunada"></a></h4>
+<p>La columna <code>vaccine_status</code> categoriza cada uno de los
+sujetos según su estado vacunal, vacunados como “v” y no vacunados como
+“u” (unvaccinated, en inglés) para cada uno de los registros de acuerdo
+con su estado de vacunación, el cual se determina a partir de la
+variable <code>"immunization_date"</code>.</p>
 </div>
 </div>
 <div class="section level3">
@@ -643,17 +693,11 @@ evento</strong><a class="anchor" aria-label="anchor" href="#seguimiento-de-la-co
 debe definir la fecha de inicio y fin del seguimiento de cohortes, esto
 con base en su exploración de las bases de datos. Para el caso
 particular del conjunto de datos ejemplo contenidos es
-<code>vaccineff</code> se utiliza:</p>
-<div class="codewrapper sourceCode" id="cb7">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">start_cohort</span> <span class="op">&lt;-</span> <span class="fu">as.Date</span><span class="op">(</span><span class="st">"2044-01-01"</span><span class="op">)</span></span>
-<span><span class="va">end_cohort</span> <span class="op">&lt;-</span> <span class="fu">as.Date</span><span class="op">(</span><span class="st">"2044-12-31"</span><span class="op">)</span></span></code></pre>
-</div>
+<code>vaccineff</code> se utiliza en la funcion
+<code>make_vaccineff_data()</code> el argumento
+<code>end_cohort</code>.</p>
 <p>Para determinar la fecha de immunización, de un individuo
-<code>vaccineff</code> cuenta con la función
-<code>get_immunization_date()</code>. Esta calcula la fecha de
+<code>vaccineff::make_vaccineff_data()</code> calcula la fecha de
 inmunización seleccionando la vacuna que cumpla con el criterio de
 <em>fecha límite</em> presentado en la siguiente figura.</p>
 <figure><img src="fig/limit_imm.png" alt="Esquema de fecha límite para selección de vacunas" class="figure mx-auto d-block"><div class="figcaption">Esquema de fecha límite para selección de
@@ -662,61 +706,65 @@ vacunas</div>
 <h4 id="tiempo-de-inducción-del-efecto-delay"><strong>4.2.2 Tiempo de inducción del efecto
 <em>(delay)</em></strong><a class="anchor" aria-label="anchor" href="#tiempo-de-inducci%C3%B3n-del-efecto-delay"></a></h4>
 <p>En la figura anterior se introdujo el concepto de <em>delay</em>. El
-<em>delay del desenlace</em> hace referencia al tiempo característico al
-desenlace desde que se un individuo se infecta. Por otra parte, el
 <em>delay de la immunización</em> se refiere al tiempo que se espera que
-transcurra antes de considerar que existe inmunidad protectora. Cada uno
-de estas variables puede controlarse en la función mediante los
-parámetros <code>outcome_delay</code> e <code>immunization_delay</code>,
-respectivamente. El valor que se asigne a estas depende de la naturaleza
-del estudio. En particular, para nuestra epidemia ejemplo utilizaremos
-<code>outcome_delay = 0</code> dado que no es considerado como una
-variable relevante para determinar la fecha límite en que la vacuna
-podría hacer efecto. Por otra parte, el valor asumido para el de
-immunización es de 14 días.</p>
-<p>Para calcular la fecha de immunización de cada individiduo escriba la
-siguiente instrucción en R y ejecútela:</p>
-<div class="codewrapper sourceCode" id="cb8">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">cohortdata</span><span class="op">$</span><span class="va">immunization</span> <span class="op">&lt;-</span></span>
-<span>  <span class="fu">get_immunization_date</span><span class="op">(</span></span>
-<span>    data <span class="op">=</span> <span class="va">cohortdata</span>,</span>
-<span>    outcome_date_col <span class="op">=</span> <span class="st">"death_date"</span>,</span>
-<span>    outcome_delay <span class="op">=</span> <span class="fl">0</span>,</span>
-<span>    immunization_delay <span class="op">=</span> <span class="fl">14</span>,</span>
-<span>    vacc_date_col <span class="op">=</span> <span class="fu">c</span><span class="op">(</span><span class="st">"vaccine_date_1"</span>, <span class="st">"vaccine_date_2"</span><span class="op">)</span>,</span>
-<span>    end_cohort <span class="op">=</span> <span class="va">end_cohort</span>,</span>
-<span>    take_first <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre>
-</div>
-<p>Al ejecutar este comando, se añadirá una columna nueva al conjunto de
-datos del caso de estudio, esta columna contiene una variable de tipo
-“Date” que corresponde la fecha 14 días posteriores a la última dosis de
-cualquiera de las dos vacunas utilizadas en el caso de estudio, que
-cumpla con el criterio de <em>fecha límite</em>. Puede evidenciar la
-nueva columna en el conjunto de datos.</p>
-</div>
-<div class="section level4">
-<h4 id="definir-la-exposición-cohorte-vacunada-y-cohorte-no-vacunada"><strong>4.2.3. Definir la exposición: cohorte vacunada y cohorte no
-vacunada</strong><a class="anchor" aria-label="anchor" href="#definir-la-exposici%C3%B3n-cohorte-vacunada-y-cohorte-no-vacunada"></a></h4>
-<p>A continuación, cree una columna nueva donde categorice cada uno de
-los sujetos según su estado vacunal, vacunados como “v” y no vacunados
-como “u” (unvaccinated, en inglés). Para esto ejecute el siguiente
-comando en R:</p>
+transcurra antes de considerar que existe inmunidad protectora. Esta
+variable puede controlarse en la función mediante el parámetro
+<code>immunization_delay</code>. El valor que se asigne a esta depende
+de la naturaleza del estudio. En particular, para nuestra epidemia
+ejemplo utilizaremos <code>immunization_delay = 14</code>.</p>
+<p>Para actualizar el objeto <code>vaccineff_data</code> agregue el
+argumento <code>immunization_delay = 14</code> en la anterior función y
+ejecútela:</p>
 <div class="codewrapper sourceCode" id="cb9">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">cohortdata</span><span class="op">$</span><span class="va">vaccine_status</span> <span class="op">&lt;-</span> <span class="fu">set_status</span><span class="op">(</span></span>
-<span>  data <span class="op">=</span> <span class="va">cohortdata</span>,</span>
-<span>  col_names <span class="op">=</span> <span class="st">"immunization"</span>,</span>
-<span>  status <span class="op">=</span> <span class="fu">c</span><span class="op">(</span><span class="st">"vacc"</span>, <span class="st">"unvacc"</span><span class="op">)</span><span class="op">)</span></span></code></pre>
+<code class="sourceCode R"><span><span class="co"># Create `vaccineff_data`</span></span>
+<span><span class="va">vaccineff_data</span> <span class="op">&lt;-</span> <span class="fu">make_vaccineff_data</span><span class="op">(</span></span>
+<span>  data_set <span class="op">=</span> <span class="va">cohortdata</span>,</span>
+<span>  outcome_date_col <span class="op">=</span> <span class="st">"death_date"</span>,</span>
+<span>  censoring_date_col <span class="op">=</span> <span class="st">"death_other_causes"</span>,</span>
+<span>  vacc_date_col <span class="op">=</span> <span class="st">"vaccine_date_2"</span>,</span>
+<span>  end_cohort <span class="op">=</span> <span class="fu">as.Date</span><span class="op">(</span><span class="st">"2021-12-31"</span><span class="op">)</span>,</span>
+<span>  <span class="co"># Time in days before the patient is considered immune. Default is 0.</span></span>
+<span>  immunization_delay <span class="op">=</span> <span class="fl">14</span></span>
+<span><span class="op">)</span></span></code></pre>
 </div>
-<p>Al ejecutar el comando encontrará que se ha creado una nueva columna
-en el conjunto de datos con los valores “vacc” o “unvacc”, para cada uno
-de los registros de acuerdo con su estado de vacunación, el cual se
-determina a partir de la variable <code>"immunization"</code>.</p>
+<p>Al ejecutar este comando, se le sumará el <em>delay</em> a las fechas
+de las columnas <code>immunization_date</code> y
+<code>t0_follow_up</code> que corresponde la fecha 14 días posteriores a
+la última dosis de cualquiera de las dos vacunas utilizadas en el caso
+de estudio, que cumpla con el criterio de <em>fecha límite</em>. Puede
+evidenciar la nueva columna en el conjunto de datos.</p>
+<div class="codewrapper sourceCode" id="cb10">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Updated columns: immunization_date, t0_follow_up</span></span>
+<span><span class="fu">head</span><span class="op">(</span><span class="va">vaccineff_data</span><span class="op">$</span><span class="va">cohort_data</span><span class="op">)</span></span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">SALIDA<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="output" tabindex="0"><code>
+// linelist object
+        id sex age death_date death_other_causes vaccine_date_1 vaccine_date_2
+1 04edf85a   M  50       &lt;NA&gt;               &lt;NA&gt;           &lt;NA&gt;           &lt;NA&gt;
+2 c5a83f56   M  66       &lt;NA&gt;               &lt;NA&gt;           &lt;NA&gt;           &lt;NA&gt;
+3 82991731   M  81       &lt;NA&gt;               &lt;NA&gt;           &lt;NA&gt;           &lt;NA&gt;
+4 afbab268   M  74       &lt;NA&gt;               &lt;NA&gt;     2021-03-30     2021-05-16
+5 3faf2474   M  54       &lt;NA&gt;               &lt;NA&gt;     2021-06-01     2021-06-22
+6 97df7bdc   M  79       &lt;NA&gt;               &lt;NA&gt;     2021-03-21     2021-05-02
+  vaccine_1 vaccine_2 age_group immunization_date vaccine_status t0_follow_up
+1      &lt;NA&gt;      &lt;NA&gt;     45-53              &lt;NA&gt;              u   2021-03-25
+2      &lt;NA&gt;      &lt;NA&gt;     63-71              &lt;NA&gt;              u   2021-03-25
+3      &lt;NA&gt;      &lt;NA&gt;       &gt;72              &lt;NA&gt;              u   2021-03-25
+4    BRAND2    BRAND2       &gt;72        2021-05-30              v   2021-05-30
+5    BRAND1    BRAND1     54-62        2021-07-06              v   2021-07-06
+6    BRAND2    BRAND2       &gt;72        2021-05-16              v   2021-05-16
+
+// tags: outcome_date_col:death_date, censoring_date_col:death_other_causes, vacc_date_col:vaccine_date_2, immunization_date_col:immunization_date, vacc_status_col:vaccine_status, t0_follow_up_col:t0_follow_up </code></pre>
+</div>
 </div>
 <div class="section level4">
 <h4 id="definir-el-desenlace-estado-vivo-vs-estado-fallecido"><strong>4.2.3 Definir el desenlace: estado vivo vs estado
@@ -728,19 +776,9 @@ utilizado.</p>
 <p>Tenga en cuenta que en conjunto de datos del caso de estudio todas
 las defunciones son debidas a la infección por el virus de interés. Para
 definir el desenlace de interés de acuerdo a la condición vital de los
-participantes en la cohorte, ejecute el siguiente comando en R:</p>
-<div class="codewrapper sourceCode" id="cb10">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">cohortdata</span><span class="op">$</span><span class="va">death_status</span> <span class="op">&lt;-</span> <span class="fu">set_status</span><span class="op">(</span></span>
-<span>  data <span class="op">=</span> <span class="va">cohortdata</span>,</span>
-<span>  col_names <span class="op">=</span> <span class="st">"death_date"</span><span class="op">)</span></span></code></pre>
-</div>
-<p>Al ejecutar este comando, nuevamente aparecerá una nueva columna en
-el conjunto de datos con el que se está realizando el caso de estudio.
-Al explorar la base de datos completa, se verifica que en la nueva
-columna aparece 0 = vivo y 1 = fallecido.</p>
+participantes en la cohorte, en la funcion
+<code>make_vaccineff_data()</code> el argumento
+<code>outcome_date_col</code>.</p>
 </div>
 <div class="section level4">
 <h4 id="calcular-el-tiempo-al-evento-desde-exposición-hasta-desenlace"><strong>4.2.4. Calcular el tiempo al evento (desde exposición hasta
@@ -750,28 +788,21 @@ seguido en el estudio. Recuerde que el seguimiento se hace igual para
 ambas cohortes (vacunada y no vacunada) y finaliza cuando termina el
 estudio o cuando se presenta el desenlace de interés. Para obtener este
 dato ejecute el siguiente comando en R:</p>
-<div class="codewrapper sourceCode" id="cb11">
+<div class="codewrapper sourceCode" id="cb12">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">cohortdata</span><span class="op">$</span><span class="va">time_to_death</span> <span class="op">&lt;-</span> <span class="fu">get_time_to_event</span><span class="op">(</span></span>
-<span>  data <span class="op">=</span> <span class="va">cohortdata</span>,</span>
-<span>  outcome_date_col <span class="op">=</span> <span class="st">"death_date"</span>,</span>
-<span>  start_cohort <span class="op">=</span> <span class="va">start_cohort</span>,</span>
-<span>  end_cohort <span class="op">=</span> <span class="va">end_cohort</span>,</span>
-<span>  start_from_immunization <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre>
+<code class="sourceCode R"><span><span class="co"># Estimate the Vaccine Effectiveness (VE)</span></span>
+<span><span class="va">ve</span> <span class="op">&lt;-</span> <span class="fu">estimate_vaccineff</span><span class="op">(</span>vaccineff_data <span class="op">=</span> <span class="va">vaccineff_data</span>, at <span class="op">=</span> <span class="fl">350</span><span class="op">)</span></span></code></pre>
 </div>
-<p>Nuevamente, al ejecutar este comando se creará una nueva variable en
-el conjunto de datos y como se puede evidenciar al explorar los datos
-completos, la nueva variable estima los días de seguimiento para cada
-una de las personas. Esta función permite crear tiempos al evento desde
-el inicio del seguimiento en el caso de estudio, en este caso se utiliza
-la opción “start_from_immunization = FALSE” o desde la fecha de
-inmunización. Para este último caso es necesario asignar
-“start_from_immunization = TRUE” y pasar el nombre de la columna con la
-información sobre la fecha de inmunización en el parámetro
-“immunization_date_col”. En la figura a continuación se presenta un
-esquema de los dos métodos de cálculo del tiempo al evento.</p>
+<p>Al ejecutar este comando se calcula la efectividad vacunal. Este
+cálculo se basa en el estimador de Kaplan-Meier y en el modelo de Cox
+para riesgos proporcionales del paquete <a href="https://github.com/therneau/survival" class="external-link">survival</a>. El
+argumento <code>at</code> define el el número de días en los que se
+estima la efectividad vacunal desde el inicio del periodo de
+seguimiento.</p>
+<p>En la figura a continuación se presenta un esquema de los dos métodos
+de cálculo del tiempo al evento.</p>
 <figure><img src="fig/time-to-event.png" alt="a) Tiempo al evento evaludado desde inicio de la cohorte. b) tiempo al evento desde la fecha de immunización" class="figure mx-auto d-block"><div class="figcaption">a) Tiempo al evento evaludado desde inicio de la
 cohorte. b) tiempo al evento desde la fecha de immunización</div>
 </figure></div>
@@ -786,51 +817,38 @@ poblaciones acumula mayor riesgo durante el estudio de cohorte. Y por
 tanto, evaluar hipótesis sobre el potencial efecto de la vacunación
 sobre la cohorte. Para graficar el riesgo acumulado ejecute el siguiente
 comando en R:</p>
-<div class="codewrapper sourceCode" id="cb12">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">plot_survival</span><span class="op">(</span>data <span class="op">=</span> <span class="va">cohortdata</span>,</span>
-<span>  outcome_status_col <span class="op">=</span> <span class="st">"death_status"</span>,</span>
-<span>  time_to_event_col <span class="op">=</span> <span class="st">"time_to_death"</span>,</span>
-<span>  vacc_status_col <span class="op">=</span> <span class="st">"vaccine_status"</span>,</span>
-<span>  vaccinated_status <span class="op">=</span> <span class="st">"vacc"</span>,</span>
-<span>  unvaccinated_status <span class="op">=</span> <span class="st">"unvacc"</span>,</span>
-<span>  vaccinated_color <span class="op">=</span> <span class="st">"steelblue"</span>,</span>
-<span>  unvaccinated_color <span class="op">=</span> <span class="st">"darkred"</span>,</span>
-<span>  start_cohort <span class="op">=</span> <span class="va">start_cohort</span>,</span>
-<span>  end_cohort <span class="op">=</span> <span class="va">end_cohort</span>,</span>
-<span>  percentage <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>  cumulative <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre>
-</div>
-<figure><img src="fig/Vaccineff-tutorial-rendered-unnamed-chunk-11-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>A partir de la función anterior también es posible realizar la
-gráfica de supervivencia de las cohortes o gráfica de Kaplan-Meier en la
-cual se parte del 100% de ambas cohortes en el eje de las ordenadas y en
-el eje de las abscisas se representa el tiempo y se observa la
-disminución que hay debido a las defunciones en cada cohorte. Tenga en
-cuenta que este no es el estimador de Kaplan-Meir, es sólo la gráfica
-sobre las curvas de supervivencia y de riesgo acumulado. Para obtener
-este gráfico, se ejecuta la misma función y se cambia el argumento
-“percentage” por FALSE:</p>
 <div class="codewrapper sourceCode" id="cb13">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">plt_surv</span> <span class="op">&lt;-</span> <span class="fu">plot_survival</span><span class="op">(</span>data <span class="op">=</span> <span class="va">cohortdata</span>,</span>
-<span>  outcome_status_col <span class="op">=</span> <span class="st">"death_status"</span>,</span>
-<span>  time_to_event_col <span class="op">=</span> <span class="st">"time_to_death"</span>,</span>
-<span>  vacc_status_col <span class="op">=</span> <span class="st">"vaccine_status"</span>,</span>
-<span>  vaccinated_status <span class="op">=</span> <span class="st">"vacc"</span>,</span>
-<span>  unvaccinated_status <span class="op">=</span> <span class="st">"unvacc"</span>,</span>
-<span>  vaccinated_color <span class="op">=</span> <span class="st">"steelblue"</span>,</span>
-<span>  unvaccinated_color <span class="op">=</span> <span class="st">"darkred"</span>,</span>
-<span>  start_cohort <span class="op">=</span> <span class="va">start_cohort</span>,</span>
-<span>  end_cohort <span class="op">=</span> <span class="va">end_cohort</span>,</span>
-<span>  percentage <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>  cumulative <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
-<span><span class="va">plt_surv</span></span></code></pre>
+<code class="sourceCode R"><span><span class="co"># Cumulative incidence</span></span>
+<span><span class="fu">plot</span><span class="op">(</span><span class="va">ve</span>, type <span class="op">=</span> <span class="st">"surv"</span>, cumulative <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre>
 </div>
-<figure><img src="fig/Vaccineff-tutorial-rendered-unnamed-chunk-12-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure></div>
+<figure><img src="fig/Vaccineff-tutorial-rendered-unnamed-chunk-10-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>A partir de la función anterior también es posible realizar la
+gráfica de supervivencia de las cohortes o gráfica de Kaplan-Meier en la
+cual se parte del 100% de ambas cohortes en el eje de las ordenadas y en
+el eje de las abscisas se representa el tiempo y se observa la
+disminución que hay debido a las defunciones en cada cohorte. Tenga en
+cuenta que este no es el estimador de Kaplan-Meier, es sólo la gráfica
+sobre las curvas de supervivencia y de riesgo acumulado. Para obtener
+este gráfico, se ejecuta la misma función y se cambia el argumento
+“percentage” por FALSE:</p>
+<div class="codewrapper sourceCode" id="cb14">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Generate Survival plot</span></span>
+<span><span class="fu">plot</span><span class="op">(</span><span class="va">ve</span>, type <span class="op">=</span> <span class="st">"surv"</span>, cumulative <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre>
+</div>
+<figure><img src="fig/Vaccineff-tutorial-rendered-unnamed-chunk-11-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>La función <code>estimate_vaccineff()</code> crea internamente una
+tabla Kaplan-Meier.</p>
+<div class="codewrapper sourceCode" id="cb15">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">head</span><span class="op">(</span><span class="va">ve</span><span class="op">$</span><span class="va">kaplan_meier</span><span class="op">)</span></span></code></pre>
+</div>
+</div>
 <div class="section level3">
 <h3 id="evaluación-de-la-hipótesis-riesgos-proporcionales"><strong>4.4. Evaluación de la hipótesis riesgos
 proporcionales</strong><a class="anchor" aria-label="anchor" href="#evaluaci%C3%B3n-de-la-hip%C3%B3tesis-riesgos-proporcionales"></a></h3>
@@ -846,13 +864,13 @@ logaritmo natural como <span class="math inline">\(\log[-\log[S(t)]]\)</span>. A
 función contra el logaritmo del tiempo al evento, es posible identificar
 si los grupos representan riesgos proporcionales cuando sus curvas se
 comportan de forma aproximadamente paralela.</p>
-<p>A continuación se presentan las gráficas loglog obtenidas al
-construir los tiempos al evento de forma dinámica (panel de la izquiera)
-y con punto de inicio fijo (panel de la derecha). Particularmente, se
-observa que el cálculo dinámico de los tiempos no satisface riesgos
-proporcionales, por lo que pontencialmente necesitará algún tipo de
-estrategia para contrarestar los posibles sesgos muestrales.</p>
-<figure><img src="fig/Vaccineff-tutorial-rendered-unnamed-chunk-13-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure></div>
+<!-- A continuación se presentan las gráficas loglog obtenidas al construir
+los tiempos al evento de forma  dinámica (panel de la izquiera) y con punto
+de inicio fijo (panel de la derecha). Particularmente, se observa que el
+cálculo dinámico de los tiempos no satisface riesgos proporcionales,
+por lo que pontencialmente necesitará algún tipo de estrategia para contrarestar
+los posibles sesgos muestrales. -->
+</div>
 <div class="section level3">
 <h3 id="estimación-de-la-efectividad-vacunal"><strong>4.5. Estimación de la efectividad vacunal</strong><a class="anchor" aria-label="anchor" href="#estimaci%C3%B3n-de-la-efectividad-vacunal"></a></h3>
 <div class="section level4">
@@ -869,23 +887,33 @@ medida estimar la efectividad mediante</p>
 <p><code>VE= 1-HR</code></p>
 <p>Para estimar la efectividad vacunal en términos de HR, ejecute el
 siguiente comando en R:</p>
-<div class="codewrapper sourceCode" id="cb14">
+<div class="codewrapper sourceCode" id="cb16">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">coh_eff_noconf</span><span class="op">(</span></span>
-<span>  data <span class="op">=</span> <span class="va">cohortdata</span>,</span>
-<span>  outcome_status_col <span class="op">=</span> <span class="st">"death_status"</span>,</span>
-<span>  time_to_event_col <span class="op">=</span> <span class="st">"time_to_death"</span>,</span>
-<span>  status_vacc_col <span class="op">=</span> <span class="st">"vaccine_status"</span><span class="op">)</span></span></code></pre>
+<code class="sourceCode R"><span><span class="co"># Print summary of VE</span></span>
+<span><span class="fu">summary</span><span class="op">(</span><span class="va">ve</span><span class="op">)</span></span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">SALIDA<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="output" tabindex="0"><code>      HR HR_low HR_high  V_eff V_eff_low V_eff_high     PH      p_value
-1 0.2684 0.1855  0.3884 0.7316    0.6116     0.8145 reject 0.0009088627</code></pre>
+<pre class="output" tabindex="0"><code>Vaccine Effectiveness at 350 days computed as VE = 1 - HR:
+    VE lower.95 upper.95
+ 0.872   0.8122   0.9128
+
+Schoenfeld test for Proportional Hazards assumption:
+p-value = 0.0078</code></pre>
 </div>
+<p>Podemos usar la función <code>plot()</code> para evaluar la hipótesis
+de riesgos proporcionales:</p>
+<div class="codewrapper sourceCode" id="cb18">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Generate loglog plot to check proportional hazards</span></span>
+<span><span class="fu">plot</span><span class="op">(</span><span class="va">ve</span>, type <span class="op">=</span> <span class="st">"loglog"</span><span class="op">)</span></span></code></pre>
 </div>
+<figure><img src="fig/Vaccineff-tutorial-rendered-unnamed-chunk-15-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure></div>
 </div>
 <div class="section level3">
 <h3 id="cohorte-dinámica---emparejamiento-poblacional"><strong>4.6 Cohorte dinámica - Emparejamiento
@@ -900,12 +928,113 @@ de vacunación desplegada sobre la población. Una estrategia para
 contrarestas dichos sesgos es el emparejamiento dinámico de la
 población. En la siguiente figura se presenta un esquema de
 emparejamiento orientado a disminuir los sesgos muestrales.</p>
-<figure><img src="fig/matching.png" class="figure mx-auto d-block"></figure></div>
+<figure><img src="fig/matching.png" class="figure mx-auto d-block"></figure><p>Para realizar el emparejamiento poblacional use los argumentos
+<code>match = TRUE</code> y <code>exact = c("age", "sex")</code> para
+emparejar por edad y sexo exactos:</p>
+<div class="codewrapper sourceCode" id="cb19">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Create `vaccineff_data_matched`</span></span>
+<span><span class="va">vaccineff_data_matched</span> <span class="op">&lt;-</span> <span class="fu">make_vaccineff_data</span><span class="op">(</span></span>
+<span>  data_set <span class="op">=</span> <span class="va">cohortdata</span>,</span>
+<span>  outcome_date_col <span class="op">=</span> <span class="st">"death_date"</span>,</span>
+<span>  censoring_date_col <span class="op">=</span> <span class="st">"death_other_causes"</span>, </span>
+<span>  vacc_date_col <span class="op">=</span> <span class="st">"vaccine_date_2"</span>, </span>
+<span>  end_cohort <span class="op">=</span> <span class="fu">as.Date</span><span class="op">(</span><span class="st">"2021-12-31"</span><span class="op">)</span>,</span>
+<span>  immunization_delay <span class="op">=</span> <span class="fl">14</span>,</span>
+<span>  <span class="co"># Performe cohort matching</span></span>
+<span>  match <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  exact <span class="op">=</span> <span class="fu">c</span><span class="op">(</span><span class="st">"age"</span>, <span class="st">"sex"</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre>
+</div>
+<p>Por ejemplo, si usamos el argumento
+<code>nearest = c("age" = 2)</code> podemos calibrar el emparejamiento
+por una distancia de 2 unidades de edad.</p>
+<p>En la base de datos emparejada identificamos nuevas columnas como
+<code>subclass</code>, que agrupa con un código a los
+emparejamientos.</p>
+<div class="codewrapper sourceCode" id="cb20">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">head</span><span class="op">(</span><span class="va">vaccineff_data_matched</span><span class="op">$</span><span class="va">matching</span><span class="op">$</span><span class="va">match</span><span class="op">)</span></span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">SALIDA<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="output" tabindex="0"><code>
+// linelist object
+        id sex age death_date death_other_causes vaccine_date_1 vaccine_date_2
+1 04edf85a   M  50       &lt;NA&gt;               &lt;NA&gt;           &lt;NA&gt;           &lt;NA&gt;
+2 c5a83f56   M  66       &lt;NA&gt;               &lt;NA&gt;           &lt;NA&gt;           &lt;NA&gt;
+3 82991731   M  81       &lt;NA&gt;               &lt;NA&gt;           &lt;NA&gt;           &lt;NA&gt;
+4 afbab268   M  74       &lt;NA&gt;               &lt;NA&gt;     2021-03-30     2021-05-16
+5 3faf2474   M  54       &lt;NA&gt;               &lt;NA&gt;     2021-06-01     2021-06-22
+6 97df7bdc   M  79       &lt;NA&gt;               &lt;NA&gt;     2021-03-21     2021-05-02
+  vaccine_1 vaccine_2 age_group immunization_date vaccine_status subclass
+1      &lt;NA&gt;      &lt;NA&gt;     45-53              &lt;NA&gt;              u     6226
+2      &lt;NA&gt;      &lt;NA&gt;     63-71              &lt;NA&gt;              u     5023
+3      &lt;NA&gt;      &lt;NA&gt;       &gt;72              &lt;NA&gt;              u     7170
+4    BRAND2    BRAND2       &gt;72        2021-05-30              v        1
+5    BRAND1    BRAND1     54-62        2021-07-06              v        2
+6    BRAND2    BRAND2       &gt;72        2021-05-16              v        3
+  t0_follow_up censoring_after_match
+1   2021-07-16                  &lt;NA&gt;
+2   2021-05-24                  &lt;NA&gt;
+3   2021-05-18                  &lt;NA&gt;
+4   2021-05-30                  &lt;NA&gt;
+5   2021-07-06                  &lt;NA&gt;
+6   2021-05-16                  &lt;NA&gt;
+
+// tags: outcome_date_col:death_date, censoring_date_col:censoring_after_match, vacc_date_col:vaccine_date_2, immunization_date_col:immunization_date, vacc_status_col:vaccine_status, t0_follow_up_col:t0_follow_up </code></pre>
+</div>
+<p>Las salidas de las funciones de <code>summary()</code> y
+<code>plot()</code> cambiarán luego de configurado el emparejamiento.
+Corre nuevamente todo el flujo de trabajo escrito en este episodio con
+el objeto <code>vaccineff_data_matched</code>, incluyendo el gráfico de
+cobertura y la estimación de la .</p>
+<div id="accordionSpoiler1" class="accordion spoiler-accordion accordion-flush">
+<div class="accordion-item">
+<button class="accordion-button spoiler-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSpoiler1" aria-expanded="false" aria-controls="collapseSpoiler1">
+  <h3 class="accordion-header" id="headingSpoiler1">  <div class="note-square"><i aria-hidden="true" class="callout-icon" data-feather="eye"></i></div> Mostrar detalles </h3>
+</button>
+<div id="collapseSpoiler1" class="accordion-collapse collapse" data-bs-parent="#accordionSpoiler1" aria-labelledby="headingSpoiler1">
+<div class="accordion-body">
+<div class="codewrapper sourceCode" id="cb22">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Print summary of vaccineff data object</span></span>
+<span><span class="fu">summary</span><span class="op">(</span><span class="va">vaccineff_data_matched</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Plot the vaccine coverage of the total population</span></span>
+<span><span class="fu">plot</span><span class="op">(</span><span class="va">vaccineff_data_matched</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Estimate the Vaccine Effectiveness (VE)</span></span>
+<span><span class="va">ve_matched</span> <span class="op">&lt;-</span> <span class="fu">estimate_vaccineff</span><span class="op">(</span>vaccineff_data <span class="op">=</span> <span class="va">vaccineff_data_matched</span>, at <span class="op">=</span> <span class="fl">350</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Generate Survival plot</span></span>
+<span><span class="fu">plot</span><span class="op">(</span><span class="va">ve_matched</span>, type <span class="op">=</span> <span class="st">"surv"</span>, cumulative <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span><span class="co"># plot(ve, type = "surv", percentage = TRUE, cumulative = FALSE)</span></span>
+<span></span>
+<span><span class="co"># Cumulative incidence</span></span>
+<span><span class="fu">plot</span><span class="op">(</span><span class="va">ve_matched</span>, type <span class="op">=</span> <span class="st">"surv"</span>, cumulative <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Print summary of VE</span></span>
+<span><span class="fu">summary</span><span class="op">(</span><span class="va">ve_matched</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Generate loglog plot to check proportional hazards</span></span>
+<span><span class="fu">plot</span><span class="op">(</span><span class="va">ve_matched</span>, type <span class="op">=</span> <span class="st">"loglog"</span><span class="op">)</span></span></code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
 <div class="section level3">
 <h3 id="próximos-características"><strong>4.7 Próximos características</strong><a class="anchor" aria-label="anchor" href="#pr%C3%B3ximos-caracter%C3%ADsticas"></a></h3>
 <ul><li><p>Estimador Kaplan-Meier</p></li>
-<li><p>Curva loglog para evaluación de riesgos proporcionales</p></li>
-<li><p>Matching dinámico</p></li>
 <li><p>Censura</p></li>
 </ul></div>
 </section><section><h2 class="section-heading" id="reflexión">5. Reflexión<a class="anchor" aria-label="anchor" href="#reflexi%C3%B3n"></a></h2>
@@ -996,7 +1125,7 @@ any links that you are not going to use.
         <p>Materials licensed under <a href="LICENSE.html">CC-BY 4.0</a> by the authors</p>
 
         <p>Plantilla compartida bajo <a href="https://creativecommons.org/licenses/by-sa/4.0/" class="external-link">CC-BY 4.0</a> por <a href="https://carpentries.org/" class="external-link">The Carpentries</a></p>
-        <p>Construido con <a href="https://github.com/epiverse-trace/sandpaper/tree/patch-renv-github-bug" class="external-link">sandpaper (0.16.11)</a>, <a href="https://github.com/carpentries/pegboard/tree/5e0d711121a581777d83cf270e298c933f112d52" class="external-link">pegboard (0.7.9)</a> y <a href="https://github.com/epiverse-trace/varnish/tree/tracelactheme" class="external-link">varnish (1.0.1.9000)</a></p>
+        <p>Construido con <a href="https://github.com/epiverse-trace/sandpaper/tree/patch-renv-github-bug" class="external-link">sandpaper (0.16.13.9000)</a>, <a href="https://github.com/carpentries/pegboard/tree/5e0d711121a581777d83cf270e298c933f112d52" class="external-link">pegboard (0.7.9)</a> y <a href="https://github.com/epiverse-trace/varnish/tree/tracelactheme" class="external-link">varnish (1.0.1.9000)</a></p>
 			</div>
 		</footer></div> <!-- / div.container -->
 	<div id="to-top">
@@ -1007,10 +1136,10 @@ any links that you are not going to use.
   <script type="application/ld+json">
     {
   "@context": "https://schema.org",
-  "@type": "TrainingMaterial",
+  "@type": "LearningResource",
   "@id": "https://epiverse-trace.github.io/epimodelac/Vaccineff-tutorial.html",
   "inLanguage": "es",
-  "dct:conformsTo": "https://bioschemas.org/profiles/TrainingMaterial/1.0-RELEASE",
+  "dct:conformsTo": "https://bioschemas.org/profiles/LearningResource/1.0-RELEASE",
   "description": "A Carpentries Lesson teaching foundational data and coding skills to researchers worldwide",
   "keywords": "software, data, lesson, The Carpentries",
   "name": "Introducción al cálculo de efectividad vacunal con cohortes usando vaccineff",
@@ -1018,8 +1147,8 @@ any links that you are not going to use.
   "url": "https://epiverse-trace.github.io/epimodelac/Vaccineff-tutorial.html",
   "identifier": "https://epiverse-trace.github.io/epimodelac/Vaccineff-tutorial.html",
   "dateCreated": "2023-11-10",
-  "dateModified": "2025-04-15",
-  "datePublished": "2025-04-15"
+  "dateModified": "2025-06-13",
+  "datePublished": "2025-06-13"
 }
 
   </script><script>
