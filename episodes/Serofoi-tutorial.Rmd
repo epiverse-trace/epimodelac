@@ -438,12 +438,12 @@ m1_chik <- fit_seromodel(serosurvey = chik2015,
 
 m2_chik <- fit_seromodel(serosurvey = chik2015,
                          model_type = "time",
-                         iter = 5000)
+                         iter = 4000)
 
 m3_chik <- fit_seromodel(serosurvey = chik2015,
                          model_type = "time",
                          is_log_foi = TRUE,
-                         iter = 1500)
+                         iter = 3000)
 ```
 
 ```{r chik2015_vis, include = TRUE, echo = FALSE, results="hide", errors = FALSE, warning = FALSE, message = FALSE, fig.width=5, fig.asp=1, fig.align="center", fig.keep="all"}
