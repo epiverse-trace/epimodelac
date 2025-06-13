@@ -505,24 +505,7 @@ $$
 \hat{lpd} = \log(\mathbb{E}_{\text{post}}[p(y_i|\theta)])
 $$
 
-El objetivo de restar el número efectivo de parámetros del modelo es dar cuenta de la posibilidad de sobreajustar el modelo (*overfitting*). El WAIC nos permite caracterizar la capacidad predictiva del modelo: cuanto más bajo sea su valor, mejor. Es posible estimar el WAIC de cada modelo por medio de la función `waic` del paquete `loo`:
-
-```{r}
-fit <- list(constant = m1_chik, normal = m2_chik, normal_log = m3_chik)
-
-waic <- mapply(
-  function(z) {
-    loo::waic(loo::extract_log_lik(
-      z,
-      parameter_name = "logLikelihood"
-    ))$estimates[3, ]
-  },
-  fit
-)
-waic
-```
-
-De acuerdo con este criterio, ¿cuál modelo se ajusta mejor a los datos?
+El objetivo de restar el número efectivo de parámetros del modelo es dar cuenta de la posibilidad de sobreajustar el modelo (*overfitting*). El WAIC nos permite caracterizar la capacidad predictiva del modelo: cuanto más bajo sea su valor, mejor.
 
 Similarmente, podemos computar el *looic* (*leave-one-out information criterion*), también conocido como *loo-cv* (*leave-one-out cross-validation*), el cual consiste en utilizar un único punto de los datos para probar el poder predictivo del modelo usando el resto de la muestra como muestra de entrenamiento. Este proceso se repite con cada dato de la muestra y sus respectivas densidades posteriores logarítmicas se suman (Lambert 2018), es decir:
 
@@ -654,7 +637,7 @@ virus_serosurvey %>%
   serofoi::plot_serosurvey()
 ```
 
-```{r}
+```{r, message = FALSE}
 virus_serosurvey %>%
   serofoi::fit_seromodel(model_type = "time", iter = 1000) %>% 
   serofoi::plot_seromodel(serosurvey = virus_serosurvey)
