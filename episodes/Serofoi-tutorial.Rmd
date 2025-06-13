@@ -340,7 +340,7 @@ $$
 
 Actualmente, **serofoi** permite la implementación de dos modelos
 dependientes del tiempo: uno de variación lenta de la FoI
-(**tv-normal**) y otro de variación rápida (**tv-normal-log**) de la
+(**time**) y otro de variación rápida (**time-log**) de la
 FoI.
 
 Cada uno de ellos se basa en distintas distribuciones previas para
@@ -479,29 +479,189 @@ chik_normal_log_plot <- plot_seromodel(seromodel = m3_chik,
 cowplot::plot_grid(chik_constant_plot, chik_normal_plot, chik_normal_log_plot, ncol=3)
 ```
 
-Explicación de *elpd* (*expected log pointwise predictive density*)
+El poder predictivo de un modelo Bayesiano se puede caracterizar por medio del *elpd* (Expected Log Predictive Density). El modelo que mejor ajusta la encuesta epidemiológica es aquel que tiene valores más altos de *elpd* y valores más bajos de error estándar (se).
 
+:::::::::::::::::::::::::::::::::: instructor
 
+**Comparación de los modelos:**
+
+El poder predictivo de un modelo Bayesiano se puede caracterizar por medio del *elpd* (Expected Log Predictive Density), el cuál corresponde al valor esperado de la log-verosimilitud (*log-likelihood*) de un único dato nuevo $y'$ respecto a su distribución real (la cual queremos aproximar con el modelo):
+
+$$
+\text{elpd} = \mathbb{E}_{\text{real}}[\log(p(y'|\vec{y}))] = \int p^{\text{real}}(y') \log(p(y'|\vec{y})) \, dy'
+$$
+
+donde $\vec{y}$ corresponde a los datos.
+
+Existen varios métodos para estimar el *elpd* que permiten aproximar la precisión predictiva de un modelo Bayesiano. El criterio de información de Watanabe-Akaike (WAIC) es uno de ellos:
+
+$$
+\text{WAIC} = -2 \hat{lpd} + 2 p_{\text{waic}}
+$$
+
+donde $p_{\text{waic}}$ es el número efectivo de parámetros y $\hat{lpd}$ corresponde al logaritmo del promedio de la verosimilitud respecto a la distribución posterior para un dato $y_i \in \vec{y}$:
+
+$$
+\hat{lpd} = \log(\mathbb{E}_{\text{post}}[p(y_i|\theta)])
+$$
+
+El objetivo de restar el número efectivo de parámetros del modelo es dar cuenta de la posibilidad de sobreajustar el modelo (*overfitting*). El WAIC nos permite caracterizar la capacidad predictiva del modelo: cuanto más bajo sea su valor, mejor. Es posible estimar el WAIC de cada modelo por medio de la función `waic` del paquete `loo`:
+
+```{r}
+fit <- list(constant = m1_chik, normal = m2_chik, normal_log = m3_chik)
+
+waic <- mapply(
+  function(z) {
+    loo::waic(loo::extract_log_lik(
+      z,
+      parameter_name = "logLikelihood"
+    ))$estimates[3, ]
+  },
+  fit
+)
+waic
+```
+
+De acuerdo con este criterio, ¿cuál modelo se ajusta mejor a los datos?
+
+Similarmente, podemos computar el *looic* (*leave-one-out information criterion*), también conocido como *loo-cv* (*leave-one-out cross-validation*), el cual consiste en utilizar un único punto de los datos para probar el poder predictivo del modelo usando el resto de la muestra como muestra de entrenamiento. Este proceso se repite con cada dato de la muestra y sus respectivas densidades posteriores logarítmicas se suman (Lambert 2018), es decir:
+
+$$
+\text{looic} = \sum_{y_i} \log(p(y_i | \vec{y}_{i}))
+$$
+
+donde $\vec{y}_{i}$ representa a la muestra de datos extrayendo $y_i$.
+
+::::::::::::::::::::::::::::::::::
 
 ## 5. Reflexión
 
 <!-- Aquí se espera que incluya preguntas/actividades que permita reflexionar al grupo sobre los alcances y limitaciones de lo aprendido en la resolución del problema expuesto en el taller. Así como reflexiones que conlleven a un mejor aprendizaje y aplicación al campo de la salud pública. -->
 
+::::::::::::::::::::: discussion
+
 Según los criterios explicados anteriormente, responda:
 
-¿Cuál de los tres modelos se ajusta mejor a esta encuesta serológica?\
-\
-\
-\
-\
+- ¿Cuál de los tres modelos se ajusta mejor a esta encuesta serológica?
 
-¿Cómo interpreta estos resultados?\
-\
-\
+- ¿Cómo interpreta estos resultados?
 
-***
+:::::::::::::::::::::
 
+::::::::::::::::::: instructor
+
+**Desafío: caso simulado**
+
+El desafío se realiza con 4 equipos (cada uno de 4-5 personas), que contarán con el apoyo de un coordinador y 4 monitores. 
+
+Cada equipo debe generar un diagnóstico de la situación en las diferentes regiones, así como comparar la evolución de la enfermedad con el fin de evaluar las estrategías de control en cada región.
+
+Fuente:
 [Reto](https://docs.google.com/document/d/11j99fA8SBMUn1FD6oJBOvc-Nmr9aq5hd/edit?usp=sharing&ouid=108718106243006326200&rtpof=true&sd=true)
+
+:::::::::::::::::::
+
+::::::::::::::::::::::::::::::::: challenge
+
+**Desafío: caso simulado**
+
+En los pasados 3 años, en zonas rurales fronterizas de dos países contíguos de América Latina se han identificado casos de encefalitis de origen desconocido en humanos. Algunos de estos casos de encefalitis han requerido hospitalización e incluso se han reportado fallecimientos. Los habitantes de la zona también señalan que una epidemia similar de casos en que las personas *"perdían la conciencia después de una fuerte fiebre"*  habían ocurrido en la misma zona algunas décadas atrás.
+
+En  2023 se realizó una encuesta de seroprevalencia para los 4 virus con mayor sospecha de estar circulando en la zona fronteriza donde se presentan los casos de encefalitis. Estos 4 virus son biológicamente distintivos entre ellos, es decir no tienen reacción cruzada en las pruebas serológicas. Para cada uno de estos virus, la encuesta de seroprevalencia recoge una muestra probabilística y representativa de la población de residentes de la zona con un total de 1306 individuos muestreados entre 1 y 60 años de edad. Los resultados de las pruebas serológicas para cada virus se presentan como número total de personas muestreadas por cada grupo de edad y número de personas positivas para anticuerpos IgG contra uno de los 4 virus en ese grupo de edad.
+
+El desafío consiste en que usted y su grupo deben identificar cuál o cuáles de los 4 virus es el más probablemente implicado en esta emergencia de encefalitis viral haciendo uso de la librería serofoi.
+
+::::::::::::::::: hint
+
+**Exploración de los datos y visualización de la seroprevalencia (30 min)**
+
+Los datos de las 4 encuestas vienen en archivos .RDS independientes que podrá encontrar en estos enlaces:
+
+- <https://epiverse-trace.github.io/epimodelac/data/virus_01.RDS>
+- <https://epiverse-trace.github.io/epimodelac/data/virus_02.RDS>
+- <https://epiverse-trace.github.io/epimodelac/data/virus_03.RDS>
+- <https://epiverse-trace.github.io/epimodelac/data/virus_04.RDS>
+
+Lea los datos haciendo uso de la función `readRDS()`. En esta etapa del desafío se espera que:
+
+1. Exploren la estructura de los datos y analicen las características generales de una encuesta serológica transversal desagregada por edad.
+
+2. Preparen los datos para el proceso de visualización por medio de funciones del paquete `{dplyr}`. 
+
+3. Visualicen la seroprevalencia de cada encuesta por medio de la función `plot_seroprev()` y analicen cualitativamente su tendencia en cada caso.
+
+:::::::::::::::::
+
+::::::::::::::::: hint
+
+**Estimación de la fuerza de infección histórica (30 min)**
+
+Implemente los modelos que considere pertinentes a cada encuesta serológica y compare los resultados obtenidos usando métricas de comparación Bayesianas. En esta etapa se espera que:
+
+1. Implementen los modelos Bayesianos disponibles en serofoi por medio de la función `fit_seromodel()`. ¿Cómo afecta a sus resultados usar más o menos iteraciones?
+
+2. Comparación de los ajustes obtenidos por medio de la función `plot_seromodel()`. ¿Cuál modelo se ajusta mejor en cada caso?
+
+**Análisis de resultados (30 min)**
+
+Con base en los resultados obtenidos anteriormente, ¿Cuál virus cree que estuvo involucrado en la epidemia reciente de encefalitis?
+
+
+::::::::::::::::::::::
+
+::::::::::::::::: solution
+
+Para adaptar la base de datos al formato necesario para {serofoi}, puede usar el siguiente código:
+
+```{r,eval=TRUE,message=FALSE,warning=FALSE}
+library(tidyverse)
+
+virus_serosurvey <- readr::read_rds(
+  "https://epiverse-trace.github.io/epimodelac/data/virus_01.RDS"
+) %>%
+  dplyr::mutate(
+    age_group = vaccineff::get_age_group(
+      data_set = .,
+      col_age = "age_max",
+      max_val = 60,
+      step = 5
+    )
+  ) %>%
+  dplyr::group_by(age_group, survey_year = tsur) %>%
+  dplyr::summarise(
+    n_sample = sum(total),
+    n_seropositive = sum(counts),
+    age_min = min(age_min),
+    age_max = max(age_max)
+  ) %>%
+  dplyr::ungroup() %>%
+  dplyr::select(-age_group)
+```
+
+Ahora, ¿Cómo implementaría los modelos Bayesianos disponibles en serofoi por medio de la función `fit_seromodel()`?
+
+:::::::::::::::::
+
+:::::::::::::::::::::::::::::::::::::::::::
+
+
+::::::::::::::::: instructor
+
+Muestra de la solución para una base de datos:
+
+```{r}
+virus_serosurvey %>%
+  serofoi::plot_serosurvey()
+```
+
+```{r}
+virus_serosurvey %>%
+  serofoi::fit_seromodel(model_type = "time", iter = 1000) %>% 
+  serofoi::plot_seromodel(serosurvey = virus_serosurvey)
+```
+
+::::::::::::::::::::::::::
+
 
 ::::::::::::::::::::::::::::::::::::: keypoints
 
