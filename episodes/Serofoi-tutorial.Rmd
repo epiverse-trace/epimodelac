@@ -91,8 +91,9 @@ sero-reversión, la cantidad $1 - P(t)$ representa la cantidad de
 individuos susceptibles a la enfermedad, de tal forma que la velocidad
 de infección está dada por:
 
-$$ \tag{1}
-\frac{dP(t)}{d t} = \lambda(t) (1- P(t)),$$
+$$
+\tag{1} \frac{dP(t)}{d t} = \lambda(t) (1- P(t)),
+$$
 
 en donde $\lambda(t)$ representa la tasa a la que los individuos
 susceptibles se infectan por unidad de tiempo (días, meses, años, ...), es decir la FoI. La
@@ -102,9 +103,11 @@ contacto con un reactivo catalítico, por lo que este tipo de modelos se
 conocen como **modelos serocatalíticos** (Muench, 1959).
 
 A pesar de la simpleza del modelo representado por la ecuación (1), en comparación con modelos compartimentales (por ejemplo), la dificultad para conocer una condición inicial para la seropositividad en algún punto del pasado imposibilita su uso práctico. Para sortear esta limitación, es común aplicar el modelo para cohortes de edad en lugar de para el total de la población. Para ello, etiquetemos cada cohorte de edad de acuerdo con su año de nacimiento $\tau$, y supongamos que los individuos son seronegativos al nacer:
+
 $$
 \frac{dP^\tau (t)}{dt} = \lambda(t) (1 - P^\tau(t)).
 $$
+
 Con condiciones iniciales dadas por $P^\tau(\tau) = 0$. Esta ecuación se puede resolver analíticamente, dando como resultado (Hens et al, 2010):
 
 $$
@@ -117,6 +120,7 @@ $$
 \tag{2}
 P^\tau(t) = 1 - \exp\left(-\sum_{i = \tau}^{t} \lambda_i \right),
 $$
+
 Como un ejemplo, consideremos la FoI representada en la siguiente figura:
 
 ```{r, echo=FALSE, eval=TRUE}
@@ -167,6 +171,7 @@ $$
 \tag{3}
 P^{t_{sur}}(a^\tau) = 1 - \exp\left(-\sum_{i = \tau}^{t_{sur}} \lambda_i \right).
 $$
+
 En el caso del ejemplo, esto nos da la siguiente gráfica:
 ```{r, echo=FALSE}
 df_serosurvey <- df_seroprev %>%
@@ -178,6 +183,7 @@ serosurvey_plot <- ggplot(data = df_serosurvey,
   theme_classic()
 plot(serosurvey_plot)
 ```
+
 Note que los valores de seroprevalencia de cada edad en esta gráfica corresponden a los valores de seroprevalencia al momento de la encuesta (2020) en la gráfica anterior.
 
 La misión que cumple **serofoi** es estimar la fuerza de infección histórica $\lambda(t)$ a partir de esta fotografía del perfil serológico de la población al momento de la encuesta. para lo cual se requieren encuestas serológicas que cumplan con los siguientes criterios de
@@ -278,7 +284,8 @@ decir una versión actualizada de la distribución de probabilidad de la
 FoI condicionada a nuestros datos:
 
 $$\tag{5}
-p(\theta, \vec{y}) =  \frac{p(\vec{y} | \theta) p(\theta)}{p(\vec{y})},$$
+p(\theta, \vec{y}) =  \frac{p(\vec{y} | \theta) p(\theta)}{p(\vec{y})},
+$$
 
 La distribución $p(\vec{y} | \theta)$, que corresponde a la
 información interna a los datos condicionada al valor del parámetro
@@ -299,7 +306,8 @@ de mínima información sobre $\lambda$ está representado por una
 distribución uniforme:
 
 $$\tag{6}
-\lambda \sim U(0, 2),$$
+\lambda \sim U(0, 2),
+$$
 
 lo que significa que partimos de la premisa de que todos los valores
 de la fuerza de infección entre $0$ y $2$ son igualmente probables. Por
@@ -309,11 +317,14 @@ con la edad (Hens et al, 2010):
 
 $$\tag{7}
 P(a, t) = 1 - \exp\left(  -\sum_{i=t-a+1}^{t} \lambda_i  \right),
-$$ en donde $\lambda_i$ corresponde a la FoI al tiempo $t$. Como en este
+$$ 
+
+en donde $\lambda_i$ corresponde a la FoI al tiempo $t$. Como en este
 caso la FoI es constante, la ec. (7) se reduce a:
 
 $$\tag{8}
-P(a, t) = 1 - \exp\left(  -\lambda a \right),$$
+P(a, t) = 1 - \exp\left(  -\lambda a \right),
+$$
 
 Si $n(a, t_{sur})$ es el número de muestras positivas por edad
 obtenidas en un estudio serológico desarrollado en el año $t_{sur}$,
@@ -322,7 +333,8 @@ edad condicionada al valor de $\lambda$ como una distribución binomial:
 
 $$\tag{9}
 p(a, t) \sim Binom(n(a, t), P(a, t)) \\
-\lambda \sim U(0, 2)$$
+\lambda \sim U(0, 2)
+$$
 
 ### 3.3.2. Modelo FOI dependientes del tiempo
 
@@ -369,6 +381,7 @@ Antes de realizar la instalación de **serofoi**, es necesario instalar y config
 if(!require("pak")) install.packages("pak")
 pak::pak("epiverse-trace/serofoi")
 ```
+
 Opcionalmente, es posible modificar la configuración de R para que los modelos a implementar corran en paralelo, aprovechando los núcleos del procesador de su computador. Esto tiene el efecto de disminuir los tiempos de cómputo de las implementaciones en Stan. Para activar esta opción ejecute:
 
 ```{r, eval=FALSE}
