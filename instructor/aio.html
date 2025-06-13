@@ -1882,7 +1882,7 @@ tienen la misma unidad de tiempo (días).</p>
   Solución 1
   </h3>
 </button>
-<div id="collapseInstructor1" class="accordion-collapse collapse" aria-labelledby="headingInstructor1" data-bs-parent="#accordionInstructor1">
+<div id="collapseInstructor1" class="accordion-collapse collapse" data-bs-parent="#accordionInstructor1" aria-labelledby="headingInstructor1">
 <div class="accordion-body">
 <div class="codewrapper sourceCode" id="cb3">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -2030,7 +2030,7 @@ parámetro correspondientes) en las ecuaciones:</p>
   Solución 2
   </h3>
 </button>
-<div id="collapseInstructor2" class="accordion-collapse collapse" aria-labelledby="headingInstructor2" data-bs-parent="#accordionInstructor2">
+<div id="collapseInstructor2" class="accordion-collapse collapse" data-bs-parent="#accordionInstructor2" aria-labelledby="headingInstructor2">
 <div class="accordion-body">
 <div class="codewrapper sourceCode" id="cb6">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -2128,7 +2128,7 @@ el paquete <strong>deSolve</strong>.</p></li>
   Solución 3
   </h3>
 </button>
-<div id="collapseInstructor3" class="accordion-collapse collapse" aria-labelledby="headingInstructor3" data-bs-parent="#accordionInstructor3">
+<div id="collapseInstructor3" class="accordion-collapse collapse" data-bs-parent="#accordionInstructor3" aria-labelledby="headingInstructor3">
 <div class="accordion-body">
 <div class="codewrapper sourceCode" id="cb8">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -2198,7 +2198,7 @@ convierta las unidades de tiempo de <em>días</em> a <em>años</em> y a
   Solución 4
   </h3>
 </button>
-<div id="collapseInstructor4" class="accordion-collapse collapse" aria-labelledby="headingInstructor4" data-bs-parent="#accordionInstructor4">
+<div id="collapseInstructor4" class="accordion-collapse collapse" data-bs-parent="#accordionInstructor4" aria-labelledby="headingInstructor4">
 <div class="accordion-body">
 <div class="codewrapper sourceCode" id="cb10">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -5079,8 +5079,9 @@ han sido infectados al tiempo <span class="math inline">\(t\)</span>.
 Suponiendo que no hay sero-reversión, la cantidad <span class="math inline">\(1 - P(t)\)</span> representa la cantidad de
 individuos susceptibles a la enfermedad, de tal forma que la velocidad
 de infección está dada por:</p>
-<p><span class="math display">\[ \tag{1}
-\frac{dP(t)}{d t} = \lambda(t) (1- P(t)),\]</span></p>
+<p><span class="math display">\[
+\tag{1} \frac{dP(t)}{d t} = \lambda(t) (1- P(t)),
+\]</span></p>
 <p>en donde <span class="math inline">\(\lambda(t)\)</span> representa
 la tasa a la que los individuos susceptibles se infectan por unidad de
 tiempo (días, meses, años, …), es decir la FoI. La ecuación diferencial
@@ -5095,9 +5096,11 @@ punto del pasado imposibilita su uso práctico. Para sortear esta
 limitación, es común aplicar el modelo para cohortes de edad en lugar de
 para el total de la población. Para ello, etiquetemos cada cohorte de
 edad de acuerdo con su año de nacimiento <span class="math inline">\(\tau\)</span>, y supongamos que los individuos son
-seronegativos al nacer: <span class="math display">\[
+seronegativos al nacer:</p>
+<p><span class="math display">\[
 \frac{dP^\tau (t)}{dt} = \lambda(t) (1 - P^\tau(t)).
-\]</span> Con condiciones iniciales dadas por <span class="math inline">\(P^\tau(\tau) = 0\)</span>. Esta ecuación se puede
+\]</span></p>
+<p>Con condiciones iniciales dadas por <span class="math inline">\(P^\tau(\tau) = 0\)</span>. Esta ecuación se puede
 resolver analíticamente, dando como resultado (Hens et al, 2010):</p>
 <p><span class="math display">\[
 P^{\tau} (t) = 1 - \exp\left(-\int_{\tau}^{t} \lambda (t') dt'
@@ -5108,8 +5111,9 @@ la versión discreta de esta ecuación es:</p>
 <p><span class="math display">\[
 \tag{2}
 P^\tau(t) = 1 - \exp\left(-\sum_{i = \tau}^{t} \lambda_i \right),
-\]</span> Como un ejemplo, consideremos la FoI representada en la
-siguiente figura:</p>
+\]</span></p>
+<p>Como un ejemplo, consideremos la FoI representada en la siguiente
+figura:</p>
 <figure><img src="../fig/Serofoi-tutorial-rendered-unnamed-chunk-1-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>A partir de esta FoI, es posible calcular la seroprevalencia para
 distintas cohortes por medio de la ecuación (2):</p>
 <figure><img src="../fig/Serofoi-tutorial-rendered-unnamed-chunk-2-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>Cuando conocemos los datos de una encuesta serológica, la información
@@ -5122,9 +5126,10 @@ que pasa el tiempo; es decir:</p>
 \tag{3}
 P^{t_{sur}}(a^\tau) = 1 - \exp\left(-\sum_{i = \tau}^{t_{sur}} \lambda_i
 \right).
-\]</span> En el caso del ejemplo, esto nos da la siguiente gráfica:
-<img src="../fig/Serofoi-tutorial-rendered-unnamed-chunk-3-1.png" style="display: block; margin: auto;" class="figure">
-Note que los valores de seroprevalencia de cada edad en esta gráfica
+\]</span></p>
+<p>En el caso del ejemplo, esto nos da la siguiente gráfica:
+<img src="../fig/Serofoi-tutorial-rendered-unnamed-chunk-3-1.png" style="display: block; margin: auto;" class="figure"></p>
+<p>Note que los valores de seroprevalencia de cada edad en esta gráfica
 corresponden a los valores de seroprevalencia al momento de la encuesta
 (2020) en la gráfica anterior.</p>
 <p>La misión que cumple <strong>serofoi</strong> es estimar la fuerza de
@@ -5197,8 +5202,8 @@ p(\vec{y}),
 de la distribución de probabilidad de la FoI condicionada a nuestros
 datos:</p>
 <p><span class="math display">\[\tag{5}
-p(\theta, \vec{y}) =  \frac{p(\vec{y} | \theta)
-p(\theta)}{p(\vec{y})},\]</span></p>
+p(\theta, \vec{y}) =  \frac{p(\vec{y} | \theta) p(\theta)}{p(\vec{y})},
+\]</span></p>
 <p>La distribución <span class="math inline">\(p(\vec{y} |
 \theta)\)</span>, que corresponde a la información interna a los datos
 condicionada al valor del parámetro <span class="math inline">\(\theta\)</span>, suele estar determinada por la
@@ -5219,7 +5224,8 @@ tengamos sobre el comportamiento de la FoI. En este contexto, el estado
 de mínima información sobre <span class="math inline">\(\lambda\)</span>
 está representado por una distribución uniforme:</p>
 <p><span class="math display">\[\tag{6}
-\lambda \sim U(0, 2),\]</span></p>
+\lambda \sim U(0, 2),
+\]</span></p>
 <p>lo que significa que partimos de la premisa de que todos los valores
 de la fuerza de infección entre <span class="math inline">\(0\)</span> y
 <span class="math inline">\(2\)</span> son igualmente probables. Por
@@ -5228,11 +5234,13 @@ seroprevalencia en un año dado está descrita por un proceso cumulativo
 con la edad (Hens et al, 2010):</p>
 <p><span class="math display">\[\tag{7}
 P(a, t) = 1 - \exp\left(  -\sum_{i=t-a+1}^{t} \lambda_i  \right),
-\]</span> en donde <span class="math inline">\(\lambda_i\)</span>
-corresponde a la FoI al tiempo <span class="math inline">\(t\)</span>.
-Como en este caso la FoI es constante, la ec. (7) se reduce a:</p>
+\]</span></p>
+<p>en donde <span class="math inline">\(\lambda_i\)</span> corresponde a
+la FoI al tiempo <span class="math inline">\(t\)</span>. Como en este
+caso la FoI es constante, la ec. (7) se reduce a:</p>
 <p><span class="math display">\[\tag{8}
-P(a, t) = 1 - \exp\left(  -\lambda a \right),\]</span></p>
+P(a, t) = 1 - \exp\left(  -\lambda a \right),
+\]</span></p>
 <p>Si <span class="math inline">\(n(a, t_{sur})\)</span> es el número de
 muestras positivas por edad obtenidas en un estudio serológico
 desarrollado en el año <span class="math inline">\(t_{sur}\)</span>,
@@ -5241,15 +5249,16 @@ edad condicionada al valor de <span class="math inline">\(\lambda\)</span> como 
 binomial:</p>
 <p><span class="math display">\[\tag{9}
 p(a, t) \sim Binom(n(a, t), P(a, t)) \\
-\lambda \sim U(0, 2)\]</span></p>
+\lambda \sim U(0, 2)
+\]</span></p>
 </div>
 <div class="section level3">
 <h3 id="modelo-foi-dependientes-del-tiempo">3.3.2. Modelo FOI dependientes del tiempo<a class="anchor" aria-label="anchor" href="#modelo-foi-dependientes-del-tiempo"></a>
 </h3>
 <p>Actualmente, <strong>serofoi</strong> permite la implementación de
 dos modelos dependientes del tiempo: uno de variación lenta de la FoI
-(<strong>tv-normal</strong>) y otro de variación rápida
-(<strong>tv-normal-log</strong>) de la FoI.</p>
+(<strong>time</strong>) y otro de variación rápida
+(<strong>time-log</strong>) de la FoI.</p>
 <p>Cada uno de ellos se basa en distintas distribuciones previas para
 <span class="math inline">\(\lambda\)</span>, las cuales se muestran en
 la tabla 1.</p>
@@ -5409,19 +5418,382 @@ relativamente alto, con el fin de asegurar la convergencia de los
 modelos, el tiempo de cómputo de los modelos dependientes del tiempo
 puede tardar varios minutos.</p>
 <p><em>Pista: Debería obtener la siguiente gráfica:</em></p>
-<figure><img src="../fig/Serofoi-tutorial-rendered-chik2015_vis-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>Explicación de <em>elpd</em> (<em>expected log pointwise predictive
-density</em>)</p>
+<figure><img src="../fig/Serofoi-tutorial-rendered-chik2015_vis-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>El poder predictivo de un modelo Bayesiano se puede caracterizar por
+medio del <em>elpd</em> (Expected Log Predictive Density). El modelo que
+mejor ajusta la encuesta epidemiológica es aquel que tiene valores más
+altos de <em>elpd</em> y valores más bajos de error estándar (se).</p>
+<div id="accordionInstructor1" class="accordion instructor-note accordion-flush">
+<div class="accordion-item">
+<button class="accordion-button instructor-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseInstructor1" aria-expanded="false" aria-controls="collapseInstructor1">
+  <h3 class="accordion-header" id="headingInstructor1">  <div class="note-square"><i aria-hidden="true" class="callout-icon" data-feather="edit-2"></i></div> Notas de la instructora </h3>
+</button>
+<div id="collapseInstructor1" class="accordion-collapse collapse" data-bs-parent="#accordionInstructor1" aria-labelledby="headingInstructor1">
+<div class="accordion-body">
+<p><strong>Comparación de los modelos:</strong></p>
+<p>El poder predictivo de un modelo Bayesiano se puede caracterizar por
+medio del <em>elpd</em> (Expected Log Predictive Density), el cuál
+corresponde al valor esperado de la log-verosimilitud
+(<em>log-likelihood</em>) de un único dato nuevo <span class="math inline">\(y'\)</span> respecto a su distribución real
+(la cual queremos aproximar con el modelo):</p>
+<p><span class="math display">\[
+\text{elpd} = \mathbb{E}_{\text{real}}[\log(p(y'|\vec{y}))] = \int
+p^{\text{real}}(y') \log(p(y'|\vec{y})) \, dy'
+\]</span></p>
+<p>donde <span class="math inline">\(\vec{y}\)</span> corresponde a los
+datos.</p>
+<p>Existen varios métodos para estimar el <em>elpd</em> que permiten
+aproximar la precisión predictiva de un modelo Bayesiano. El criterio de
+información de Watanabe-Akaike (WAIC) es uno de ellos:</p>
+<p><span class="math display">\[
+\text{WAIC} = -2 \hat{lpd} + 2 p_{\text{waic}}
+\]</span></p>
+<p>donde <span class="math inline">\(p_{\text{waic}}\)</span> es el
+número efectivo de parámetros y <span class="math inline">\(\hat{lpd}\)</span> corresponde al logaritmo del
+promedio de la verosimilitud respecto a la distribución posterior para
+un dato <span class="math inline">\(y_i \in \vec{y}\)</span>:</p>
+<p><span class="math display">\[
+\hat{lpd} = \log(\mathbb{E}_{\text{post}}[p(y_i|\theta)])
+\]</span></p>
+<p>El objetivo de restar el número efectivo de parámetros del modelo es
+dar cuenta de la posibilidad de sobreajustar el modelo
+(<em>overfitting</em>). El WAIC nos permite caracterizar la capacidad
+predictiva del modelo: cuanto más bajo sea su valor, mejor.</p>
+<p>Similarmente, podemos computar el <em>looic</em> (<em>leave-one-out
+information criterion</em>), también conocido como <em>loo-cv</em>
+(<em>leave-one-out cross-validation</em>), el cual consiste en utilizar
+un único punto de los datos para probar el poder predictivo del modelo
+usando el resto de la muestra como muestra de entrenamiento. Este
+proceso se repite con cada dato de la muestra y sus respectivas
+densidades posteriores logarítmicas se suman (Lambert 2018), es
+decir:</p>
+<p><span class="math display">\[
+\text{looic} = \sum_{y_i} \log(p(y_i | \vec{y}_{i}))
+\]</span></p>
+<p>donde <span class="math inline">\(\vec{y}_{i}\)</span> representa a
+la muestra de datos extrayendo <span class="math inline">\(y_i\)</span>.</p>
+</div>
+</div>
+</div>
+</div>
 </div>
 </div>
 </section><section><h2 class="section-heading" id="reflexión">5. Reflexión<a class="anchor" aria-label="anchor" href="#reflexi%C3%B3n"></a>
 </h2>
 <hr class="half-width">
-<!-- Aquí se espera que incluya preguntas/actividades que permita reflexionar al grupo sobre los alcances y limitaciones de lo aprendido en la resolución del problema expuesto en el taller. Así como reflexiones que conlleven a un mejor aprendizaje y aplicación al campo de la salud pública. --><p>Según los criterios explicados anteriormente, responda:</p>
-<p>¿Cuál de los tres modelos se ajusta mejor a esta encuesta
-serológica?<br><br><br><br><br></p>
-<p>¿Cómo interpreta estos resultados?<br><br><br></p>
-<hr>
-<p><a href="https://docs.google.com/document/d/11j99fA8SBMUn1FD6oJBOvc-Nmr9aq5hd/edit?usp=sharing&amp;ouid=108718106243006326200&amp;rtpof=true&amp;sd=true" class="external-link">Reto</a></p>
+<!-- Aquí se espera que incluya preguntas/actividades que permita reflexionar al grupo sobre los alcances y limitaciones de lo aprendido en la resolución del problema expuesto en el taller. Así como reflexiones que conlleven a un mejor aprendizaje y aplicación al campo de la salud pública. --><div id="discussion1" class="callout discussion">
+<div class="callout-square">
+<i class="callout-icon" data-feather="message-circle"></i>
+</div>
+<div class="callout-inner">
+<h3 class="callout-title">Discusión</h3>
+<div class="callout-content">
+<p>Según los criterios explicados anteriormente, responda:</p>
+<ul>
+<li><p>¿Cuál de los tres modelos se ajusta mejor a esta encuesta
+serológica?</p></li>
+<li><p>¿Cómo interpreta estos resultados?</p></li>
+</ul>
+</div>
+</div>
+</div>
+<div id="accordionInstructor2" class="accordion instructor-note accordion-flush">
+<div class="accordion-item">
+<button class="accordion-button instructor-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseInstructor2" aria-expanded="false" aria-controls="collapseInstructor2">
+  <h3 class="accordion-header" id="headingInstructor2">  <div class="note-square"><i aria-hidden="true" class="callout-icon" data-feather="edit-2"></i></div> Notas de la instructora </h3>
+</button>
+<div id="collapseInstructor2" class="accordion-collapse collapse" data-bs-parent="#accordionInstructor2" aria-labelledby="headingInstructor2">
+<div class="accordion-body">
+<p><strong>Desafío: caso simulado</strong></p>
+<p>El desafío se realiza con 4 equipos (cada uno de 4-5 personas), que
+contarán con el apoyo de un coordinador y 4 monitores.</p>
+<p>Cada equipo debe generar un diagnóstico de la situación en las
+diferentes regiones, así como comparar la evolución de la enfermedad con
+el fin de evaluar las estrategías de control en cada región.</p>
+<p>Fuente: <a href="https://docs.google.com/document/d/11j99fA8SBMUn1FD6oJBOvc-Nmr9aq5hd/edit?usp=sharing&amp;ouid=108718106243006326200&amp;rtpof=true&amp;sd=true" class="external-link">Reto</a></p>
+</div>
+</div>
+</div>
+</div>
+<div id="challenge1" class="callout challenge">
+<div class="callout-square">
+<i class="callout-icon" data-feather="zap"></i>
+</div>
+<div class="callout-inner">
+<h3 class="callout-title">Desafío</h3>
+<div class="callout-content">
+<p><strong>Desafío: caso simulado</strong></p>
+<p>En los pasados 3 años, en zonas rurales fronterizas de dos países
+contíguos de América Latina se han identificado casos de encefalitis de
+origen desconocido en humanos. Algunos de estos casos de encefalitis han
+requerido hospitalización e incluso se han reportado fallecimientos. Los
+habitantes de la zona también señalan que una epidemia similar de casos
+en que las personas <em>“perdían la conciencia después de una fuerte
+fiebre”</em> habían ocurrido en la misma zona algunas décadas atrás.</p>
+<p>En 2023 se realizó una encuesta de seroprevalencia para los 4 virus
+con mayor sospecha de estar circulando en la zona fronteriza donde se
+presentan los casos de encefalitis. Estos 4 virus son biológicamente
+distintivos entre ellos, es decir no tienen reacción cruzada en las
+pruebas serológicas. Para cada uno de estos virus, la encuesta de
+seroprevalencia recoge una muestra probabilística y representativa de la
+población de residentes de la zona con un total de 1306 individuos
+muestreados entre 1 y 60 años de edad. Los resultados de las pruebas
+serológicas para cada virus se presentan como número total de personas
+muestreadas por cada grupo de edad y número de personas positivas para
+anticuerpos IgG contra uno de los 4 virus en ese grupo de edad.</p>
+<p>El desafío consiste en que usted y su grupo deben identificar cuál o
+cuáles de los 4 virus es el más probablemente implicado en esta
+emergencia de encefalitis viral haciendo uso de la librería serofoi.</p>
+</div>
+</div>
+</div>
+<div id="accordionHint1" class="accordion challenge-accordion accordion-flush">
+<div class="accordion-item">
+<button class="accordion-button hint-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseHint1" aria-expanded="false" aria-controls="collapseHint1">
+  <h4 class="accordion-header" id="headingHint1"> Dar una pista </h4>
+</button>
+<div id="collapseHint1" class="accordion-collapse collapse" data-bs-parent="#accordionHint1" aria-labelledby="headingHint1">
+<div class="accordion-body">
+<p><strong>Exploración de los datos y visualización de la
+seroprevalencia (30 min)</strong></p>
+<p>Los datos de las 4 encuestas vienen en archivos .RDS independientes
+que podrá encontrar en estos enlaces:</p>
+<ul>
+<li><a href="https://epiverse-trace.github.io/epimodelac/data/serosurvey_01.RDS" class="external-link uri">https://epiverse-trace.github.io/epimodelac/data/serosurvey_01.RDS</a></li>
+<li><a href="https://epiverse-trace.github.io/epimodelac/data/serosurvey_02.RDS" class="external-link uri">https://epiverse-trace.github.io/epimodelac/data/serosurvey_02.RDS</a></li>
+<li><a href="https://epiverse-trace.github.io/epimodelac/data/serosurvey_03.RDS" class="external-link uri">https://epiverse-trace.github.io/epimodelac/data/serosurvey_03.RDS</a></li>
+<li><a href="https://epiverse-trace.github.io/epimodelac/data/serosurvey_04.RDS" class="external-link uri">https://epiverse-trace.github.io/epimodelac/data/serosurvey_04.RDS</a></li>
+</ul>
+<p>Lea los datos haciendo uso de la función <code>readRDS()</code>. En
+esta etapa del desafío se espera que:</p>
+<ol style="list-style-type: decimal">
+<li><p>Exploren la estructura de los datos y analicen las
+características generales de una encuesta serológica transversal
+desagregada por edad.</p></li>
+<li><p>Preparen los datos para el proceso de visualización por medio de
+funciones del paquete <a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a>.</p></li>
+<li><p>Visualicen la seroprevalencia de cada encuesta por medio de la
+función <code>plot_seroprev()</code> y analicen cualitativamente su
+tendencia en cada caso.</p></li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+<div id="accordionHint2" class="accordion challenge-accordion accordion-flush">
+<div class="accordion-item">
+<button class="accordion-button hint-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseHint2" aria-expanded="false" aria-controls="collapseHint2">
+  <h4 class="accordion-header" id="headingHint2"> Dar una pista </h4>
+</button>
+<div id="collapseHint2" class="accordion-collapse collapse" data-bs-parent="#accordionHint2" aria-labelledby="headingHint2">
+<div class="accordion-body">
+<p><strong>Estimación de la fuerza de infección histórica (30
+min)</strong></p>
+<p>Implemente los modelos que considere pertinentes a cada encuesta
+serológica y compare los resultados obtenidos usando métricas de
+comparación Bayesianas. En esta etapa se espera que:</p>
+<ol style="list-style-type: decimal">
+<li><p>Implementen los modelos Bayesianos disponibles en serofoi por
+medio de la función <code>fit_seromodel()</code>. ¿Cómo afecta a sus
+resultados usar más o menos iteraciones?</p></li>
+<li><p>Comparación de los ajustes obtenidos por medio de la función
+<code>plot_seromodel()</code>. ¿Cuál modelo se ajusta mejor en cada
+caso?</p></li>
+</ol>
+<p><strong>Análisis de resultados (30 min)</strong></p>
+<p>Con base en los resultados obtenidos anteriormente, ¿Cuál virus cree
+que estuvo involucrado en la epidemia reciente de encefalitis?</p>
+</div>
+</div>
+</div>
+</div>
+<div id="accordionSolution1" class="accordion challenge-accordion accordion-flush">
+<div class="accordion-item">
+<button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
+  <h4 class="accordion-header" id="headingSolution1"> Mostrar la solución </h4>
+</button>
+<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
+<div class="accordion-body">
+<p>Para adaptar una de las cuatro bases de datos al formato necesario
+para {serofoi}, puede usar el siguiente código:</p>
+<div class="codewrapper sourceCode" id="cb8">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw">library</span><span class="op">(</span><span class="va">tidyverse</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">virus_serosurvey</span> <span class="op">&lt;-</span> <span class="fu">readr</span><span class="fu">::</span><span class="fu">read_rds</span><span class="op">(</span></span>
+<span>  <span class="st">"https://epiverse-trace.github.io/epimodelac/data/serosurvey_01.RDS"</span></span>
+<span><span class="op">)</span> <span class="op">%&gt;%</span></span>
+<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu">mutate</span><span class="op">(</span></span>
+<span>    age_group <span class="op">=</span> <span class="fu">vaccineff</span><span class="fu">::</span><span class="fu">get_age_group</span><span class="op">(</span></span>
+<span>      data_set <span class="op">=</span> <span class="va">.</span>,</span>
+<span>      col_age <span class="op">=</span> <span class="st">"age_max"</span>,</span>
+<span>      max_val <span class="op">=</span> <span class="fl">60</span>,</span>
+<span>      step <span class="op">=</span> <span class="fl">5</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">)</span> <span class="op">%&gt;%</span></span>
+<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu">group_by</span><span class="op">(</span><span class="va">age_group</span>, survey_year <span class="op">=</span> <span class="va">tsur</span><span class="op">)</span> <span class="op">%&gt;%</span></span>
+<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu">summarise</span><span class="op">(</span></span>
+<span>    n_sample <span class="op">=</span> <span class="fu">sum</span><span class="op">(</span><span class="va">total</span><span class="op">)</span>,</span>
+<span>    n_seropositive <span class="op">=</span> <span class="fu">sum</span><span class="op">(</span><span class="va">counts</span><span class="op">)</span>,</span>
+<span>    age_min <span class="op">=</span> <span class="fu">min</span><span class="op">(</span><span class="va">age_min</span><span class="op">)</span>,</span>
+<span>    age_max <span class="op">=</span> <span class="fu">max</span><span class="op">(</span><span class="va">age_max</span><span class="op">)</span></span>
+<span>  <span class="op">)</span> <span class="op">%&gt;%</span></span>
+<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu">ungroup</span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span></span>
+<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu">select</span><span class="op">(</span><span class="op">-</span><span class="va">age_group</span><span class="op">)</span></span></code></pre>
+</div>
+<p>Ahora, ¿Cómo implementaría los modelos Bayesianos disponibles en
+serofoi por medio de la función <code>fit_seromodel()</code>?</p>
+</div>
+</div>
+</div>
+</div>
+<div id="accordionInstructor3" class="accordion instructor-note accordion-flush">
+<div class="accordion-item">
+<button class="accordion-button instructor-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseInstructor3" aria-expanded="false" aria-controls="collapseInstructor3">
+  <h3 class="accordion-header" id="headingInstructor3">  <div class="note-square"><i aria-hidden="true" class="callout-icon" data-feather="edit-2"></i></div> Notas de la instructora </h3>
+</button>
+<div id="collapseInstructor3" class="accordion-collapse collapse" data-bs-parent="#accordionInstructor3" aria-labelledby="headingInstructor3">
+<div class="accordion-body">
+<p>Muestra de la solución para una base de datos:</p>
+<div class="codewrapper sourceCode" id="cb9">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">virus_serosurvey</span> <span class="op">%&gt;%</span></span>
+<span>  <span class="fu">serofoi</span><span class="fu">::</span><span class="fu">plot_serosurvey</span><span class="op">(</span><span class="op">)</span></span></code></pre>
+</div>
+<figure><img src="../fig/Serofoi-tutorial-rendered-unnamed-chunk-9-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><div class="codewrapper sourceCode" id="cb10">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">virus_serosurvey</span> <span class="op">%&gt;%</span></span>
+<span>  <span class="fu">serofoi</span><span class="fu">::</span><span class="fu">fit_seromodel</span><span class="op">(</span>model_type <span class="op">=</span> <span class="st">"time"</span>, iter <span class="op">=</span> <span class="fl">1000</span><span class="op">)</span> <span class="op">%&gt;%</span> </span>
+<span>  <span class="fu">serofoi</span><span class="fu">::</span><span class="fu">plot_seromodel</span><span class="op">(</span>serosurvey <span class="op">=</span> <span class="va">virus_serosurvey</span><span class="op">)</span></span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">SALIDA<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="output" tabindex="0"><code>
+SAMPLING FOR MODEL 'time_no_seroreversion' NOW (CHAIN 1).
+Chain 1:
+Chain 1: Gradient evaluation took 0.000106 seconds
+Chain 1: 1000 transitions using 10 leapfrog steps per transition would take 1.06 seconds.
+Chain 1: Adjust your expectations accordingly!
+Chain 1:
+Chain 1:
+Chain 1: Iteration:   1 / 1000 [  0%]  (Warmup)
+Chain 1: Iteration: 100 / 1000 [ 10%]  (Warmup)
+Chain 1: Iteration: 200 / 1000 [ 20%]  (Warmup)
+Chain 1: Iteration: 300 / 1000 [ 30%]  (Warmup)
+Chain 1: Iteration: 400 / 1000 [ 40%]  (Warmup)
+Chain 1: Iteration: 500 / 1000 [ 50%]  (Warmup)
+Chain 1: Iteration: 501 / 1000 [ 50%]  (Sampling)
+Chain 1: Iteration: 600 / 1000 [ 60%]  (Sampling)
+Chain 1: Iteration: 700 / 1000 [ 70%]  (Sampling)
+Chain 1: Iteration: 800 / 1000 [ 80%]  (Sampling)
+Chain 1: Iteration: 900 / 1000 [ 90%]  (Sampling)
+Chain 1: Iteration: 1000 / 1000 [100%]  (Sampling)
+Chain 1:
+Chain 1:  Elapsed Time: 3.823 seconds (Warm-up)
+Chain 1:                2.534 seconds (Sampling)
+Chain 1:                6.357 seconds (Total)
+Chain 1:
+
+SAMPLING FOR MODEL 'time_no_seroreversion' NOW (CHAIN 2).
+Chain 2:
+Chain 2: Gradient evaluation took 0.00014 seconds
+Chain 2: 1000 transitions using 10 leapfrog steps per transition would take 1.4 seconds.
+Chain 2: Adjust your expectations accordingly!
+Chain 2:
+Chain 2:
+Chain 2: Iteration:   1 / 1000 [  0%]  (Warmup)
+Chain 2: Iteration: 100 / 1000 [ 10%]  (Warmup)
+Chain 2: Iteration: 200 / 1000 [ 20%]  (Warmup)
+Chain 2: Iteration: 300 / 1000 [ 30%]  (Warmup)
+Chain 2: Iteration: 400 / 1000 [ 40%]  (Warmup)
+Chain 2: Iteration: 500 / 1000 [ 50%]  (Warmup)
+Chain 2: Iteration: 501 / 1000 [ 50%]  (Sampling)
+Chain 2: Iteration: 600 / 1000 [ 60%]  (Sampling)
+Chain 2: Iteration: 700 / 1000 [ 70%]  (Sampling)
+Chain 2: Iteration: 800 / 1000 [ 80%]  (Sampling)
+Chain 2: Iteration: 900 / 1000 [ 90%]  (Sampling)
+Chain 2: Iteration: 1000 / 1000 [100%]  (Sampling)
+Chain 2:
+Chain 2:  Elapsed Time: 4.101 seconds (Warm-up)
+Chain 2:                3.22 seconds (Sampling)
+Chain 2:                7.321 seconds (Total)
+Chain 2:
+
+SAMPLING FOR MODEL 'time_no_seroreversion' NOW (CHAIN 3).
+Chain 3:
+Chain 3: Gradient evaluation took 0.0001 seconds
+Chain 3: 1000 transitions using 10 leapfrog steps per transition would take 1 seconds.
+Chain 3: Adjust your expectations accordingly!
+Chain 3:
+Chain 3:
+Chain 3: Iteration:   1 / 1000 [  0%]  (Warmup)
+Chain 3: Iteration: 100 / 1000 [ 10%]  (Warmup)
+Chain 3: Iteration: 200 / 1000 [ 20%]  (Warmup)
+Chain 3: Iteration: 300 / 1000 [ 30%]  (Warmup)
+Chain 3: Iteration: 400 / 1000 [ 40%]  (Warmup)
+Chain 3: Iteration: 500 / 1000 [ 50%]  (Warmup)
+Chain 3: Iteration: 501 / 1000 [ 50%]  (Sampling)
+Chain 3: Iteration: 600 / 1000 [ 60%]  (Sampling)
+Chain 3: Iteration: 700 / 1000 [ 70%]  (Sampling)
+Chain 3: Iteration: 800 / 1000 [ 80%]  (Sampling)
+Chain 3: Iteration: 900 / 1000 [ 90%]  (Sampling)
+Chain 3: Iteration: 1000 / 1000 [100%]  (Sampling)
+Chain 3:
+Chain 3:  Elapsed Time: 4.683 seconds (Warm-up)
+Chain 3:                3.384 seconds (Sampling)
+Chain 3:                8.067 seconds (Total)
+Chain 3:
+
+SAMPLING FOR MODEL 'time_no_seroreversion' NOW (CHAIN 4).
+Chain 4:
+Chain 4: Gradient evaluation took 0.0001 seconds
+Chain 4: 1000 transitions using 10 leapfrog steps per transition would take 1 seconds.
+Chain 4: Adjust your expectations accordingly!
+Chain 4:
+Chain 4:
+Chain 4: Iteration:   1 / 1000 [  0%]  (Warmup)
+Chain 4: Iteration: 100 / 1000 [ 10%]  (Warmup)
+Chain 4: Iteration: 200 / 1000 [ 20%]  (Warmup)
+Chain 4: Iteration: 300 / 1000 [ 30%]  (Warmup)
+Chain 4: Iteration: 400 / 1000 [ 40%]  (Warmup)
+Chain 4: Iteration: 500 / 1000 [ 50%]  (Warmup)
+Chain 4: Iteration: 501 / 1000 [ 50%]  (Sampling)
+Chain 4: Iteration: 600 / 1000 [ 60%]  (Sampling)
+Chain 4: Iteration: 700 / 1000 [ 70%]  (Sampling)
+Chain 4: Iteration: 800 / 1000 [ 80%]  (Sampling)
+Chain 4: Iteration: 900 / 1000 [ 90%]  (Sampling)
+Chain 4: Iteration: 1000 / 1000 [100%]  (Sampling)
+Chain 4:
+Chain 4:  Elapsed Time: 4.033 seconds (Warm-up)
+Chain 4:                3.141 seconds (Sampling)
+Chain 4:                7.174 seconds (Total)
+Chain 4: </code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">ADVERTENCIA<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="warning" tabindex="0"><code>Warning: Bulk Effective Samples Size (ESS) is too low, indicating posterior means and medians may be unreliable.
+Running the chains for more iterations may help. See
+https://mc-stan.org/misc/warnings.html#bulk-ess</code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">ADVERTENCIA<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="warning" tabindex="0"><code>Warning: Tail Effective Samples Size (ESS) is too low, indicating posterior variances and tail quantiles may be unreliable.
+Running the chains for more iterations may help. See
+https://mc-stan.org/misc/warnings.html#tail-ess</code></pre>
+</div>
+<figure><img src="../fig/Serofoi-tutorial-rendered-unnamed-chunk-10-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure>
+</div>
+</div>
+</div>
+</div>
 <div id="keypoints1" class="callout keypoints">
 <div class="callout-square">
 <i class="callout-icon" data-feather="key"></i>
@@ -6250,7 +6622,7 @@ cobertura y la estimación de la .</p>
 <button class="accordion-button spoiler-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSpoiler1" aria-expanded="false" aria-controls="collapseSpoiler1">
   <h3 class="accordion-header" id="headingSpoiler1">  <div class="note-square"><i aria-hidden="true" class="callout-icon" data-feather="eye"></i></div> Mostrar detalles </h3>
 </button>
-<div id="collapseSpoiler1" class="accordion-collapse collapse" aria-labelledby="headingSpoiler1" data-bs-parent="#accordionSpoiler1">
+<div id="collapseSpoiler1" class="accordion-collapse collapse" data-bs-parent="#accordionSpoiler1" aria-labelledby="headingSpoiler1">
 <div class="accordion-body">
 <div class="codewrapper sourceCode" id="cb22">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>

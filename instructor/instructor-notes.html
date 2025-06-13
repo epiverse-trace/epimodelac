@@ -741,7 +741,203 @@ $info: list containing the following items:
 <br></section><section id="EnfermedadX"><h2 class="section-heading"><a href="EnfermedadX.html">Estimación de las distribuciones de rezagos epidemiológicos: Enfermedad X<em><code>_______Pausa 1 _________</code></em><a class="anchor" aria-label="anchor" href="#pausa-1-_________"></a><em><code>_______Pausa 2 _________</code></em><a class="anchor" aria-label="anchor" href="#pausa-2-_________"></a><em><code>_______Pausa 3 _________</code></em><a class="anchor" aria-label="anchor" href="#pausa-3-_________"></a></a></h2>
 <hr class="half-width"></section><section id="Sivirep-tutorial"><h2 class="section-heading"><a href="Sivirep-tutorial.html">Generar reportes a partir de bases de datos de vigilancia epidemiológica usando sivirep</a></h2>
 <hr class="half-width"></section><section id="Serofoi-tutorial"><h2 class="section-heading"><a href="Serofoi-tutorial.html">Estima la fuerza de infección a partir de encuestas serológicas usando serofoi</a></h2>
-<hr class="half-width"></section><section id="Vaccineff-tutorial"><h2 class="section-heading"><a href="Vaccineff-tutorial.html">Introducción al cálculo de efectividad vacunal con cohortes usando vaccineff</a></h2>
+<hr class="half-width">
+<h3 id="Serofoi-tutorial-headingInstructor1">
+<a href="Serofoi-tutorial.html#headingInstructor1">Notas de la instructora</a><a class="anchor" aria-label="anclaje" href="#Serofoi-tutorial-headingInstructor1"></a>
+</h3>
+<p><strong>Comparación de los modelos:</strong></p>
+<p>El poder predictivo de un modelo Bayesiano se puede caracterizar por
+medio del <em>elpd</em> (Expected Log Predictive Density), el cuál
+corresponde al valor esperado de la log-verosimilitud
+(<em>log-likelihood</em>) de un único dato nuevo <span class="math inline">\(y'\)</span> respecto a su distribución real
+(la cual queremos aproximar con el modelo):</p>
+<p><span class="math display">\[
+\text{elpd} = \mathbb{E}_{\text{real}}[\log(p(y'|\vec{y}))] = \int
+p^{\text{real}}(y') \log(p(y'|\vec{y})) \, dy'
+\]</span></p>
+<p>donde <span class="math inline">\(\vec{y}\)</span> corresponde a los
+datos.</p>
+<p>Existen varios métodos para estimar el <em>elpd</em> que permiten
+aproximar la precisión predictiva de un modelo Bayesiano. El criterio de
+información de Watanabe-Akaike (WAIC) es uno de ellos:</p>
+<p><span class="math display">\[
+\text{WAIC} = -2 \hat{lpd} + 2 p_{\text{waic}}
+\]</span></p>
+<p>donde <span class="math inline">\(p_{\text{waic}}\)</span> es el
+número efectivo de parámetros y <span class="math inline">\(\hat{lpd}\)</span> corresponde al logaritmo del
+promedio de la verosimilitud respecto a la distribución posterior para
+un dato <span class="math inline">\(y_i \in \vec{y}\)</span>:</p>
+<p><span class="math display">\[
+\hat{lpd} = \log(\mathbb{E}_{\text{post}}[p(y_i|\theta)])
+\]</span></p>
+<p>El objetivo de restar el número efectivo de parámetros del modelo es
+dar cuenta de la posibilidad de sobreajustar el modelo
+(<em>overfitting</em>). El WAIC nos permite caracterizar la capacidad
+predictiva del modelo: cuanto más bajo sea su valor, mejor.</p>
+<p>Similarmente, podemos computar el <em>looic</em> (<em>leave-one-out
+information criterion</em>), también conocido como <em>loo-cv</em>
+(<em>leave-one-out cross-validation</em>), el cual consiste en utilizar
+un único punto de los datos para probar el poder predictivo del modelo
+usando el resto de la muestra como muestra de entrenamiento. Este
+proceso se repite con cada dato de la muestra y sus respectivas
+densidades posteriores logarítmicas se suman (Lambert 2018), es
+decir:</p>
+<p><span class="math display">\[
+\text{looic} = \sum_{y_i} \log(p(y_i | \vec{y}_{i}))
+\]</span></p>
+<p>donde <span class="math inline">\(\vec{y}_{i}\)</span> representa a
+la muestra de datos extrayendo <span class="math inline">\(y_i\)</span>.</p>
+<hr>
+<br><h3 id="Serofoi-tutorial-headingInstructor2">
+<a href="Serofoi-tutorial.html#headingInstructor2">Notas de la instructora</a><a class="anchor" aria-label="anclaje" href="#Serofoi-tutorial-headingInstructor2"></a>
+</h3>
+<p><strong>Desafío: caso simulado</strong></p>
+<p>El desafío se realiza con 4 equipos (cada uno de 4-5 personas), que
+contarán con el apoyo de un coordinador y 4 monitores.</p>
+<p>Cada equipo debe generar un diagnóstico de la situación en las
+diferentes regiones, así como comparar la evolución de la enfermedad con
+el fin de evaluar las estrategías de control en cada región.</p>
+<p>Fuente: <a href="https://docs.google.com/document/d/11j99fA8SBMUn1FD6oJBOvc-Nmr9aq5hd/edit?usp=sharing&amp;ouid=108718106243006326200&amp;rtpof=true&amp;sd=true" class="external-link">Reto</a></p>
+<hr>
+<br><h3 id="Serofoi-tutorial-headingInstructor3">
+<a href="Serofoi-tutorial.html#headingInstructor3">Notas de la instructora</a><a class="anchor" aria-label="anclaje" href="#Serofoi-tutorial-headingInstructor3"></a>
+</h3>
+<p>Muestra de la solución para una base de datos:</p>
+<div class="codewrapper sourceCode" id="cb9">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">virus_serosurvey</span> <span class="op">%&gt;%</span></span>
+<span>  <span class="fu">serofoi</span><span class="fu">::</span><span class="fu">plot_serosurvey</span><span class="op">(</span><span class="op">)</span></span></code></pre>
+</div>
+<figure><img src="../fig/Serofoi-tutorial-rendered-unnamed-chunk-9-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><div class="codewrapper sourceCode" id="cb10">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">virus_serosurvey</span> <span class="op">%&gt;%</span></span>
+<span>  <span class="fu">serofoi</span><span class="fu">::</span><span class="fu">fit_seromodel</span><span class="op">(</span>model_type <span class="op">=</span> <span class="st">"time"</span>, iter <span class="op">=</span> <span class="fl">1000</span><span class="op">)</span> <span class="op">%&gt;%</span> </span>
+<span>  <span class="fu">serofoi</span><span class="fu">::</span><span class="fu">plot_seromodel</span><span class="op">(</span>serosurvey <span class="op">=</span> <span class="va">virus_serosurvey</span><span class="op">)</span></span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">SALIDA<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="output" tabindex="0"><code>
+SAMPLING FOR MODEL 'time_no_seroreversion' NOW (CHAIN 1).
+Chain 1:
+Chain 1: Gradient evaluation took 0.000106 seconds
+Chain 1: 1000 transitions using 10 leapfrog steps per transition would take 1.06 seconds.
+Chain 1: Adjust your expectations accordingly!
+Chain 1:
+Chain 1:
+Chain 1: Iteration:   1 / 1000 [  0%]  (Warmup)
+Chain 1: Iteration: 100 / 1000 [ 10%]  (Warmup)
+Chain 1: Iteration: 200 / 1000 [ 20%]  (Warmup)
+Chain 1: Iteration: 300 / 1000 [ 30%]  (Warmup)
+Chain 1: Iteration: 400 / 1000 [ 40%]  (Warmup)
+Chain 1: Iteration: 500 / 1000 [ 50%]  (Warmup)
+Chain 1: Iteration: 501 / 1000 [ 50%]  (Sampling)
+Chain 1: Iteration: 600 / 1000 [ 60%]  (Sampling)
+Chain 1: Iteration: 700 / 1000 [ 70%]  (Sampling)
+Chain 1: Iteration: 800 / 1000 [ 80%]  (Sampling)
+Chain 1: Iteration: 900 / 1000 [ 90%]  (Sampling)
+Chain 1: Iteration: 1000 / 1000 [100%]  (Sampling)
+Chain 1:
+Chain 1:  Elapsed Time: 3.823 seconds (Warm-up)
+Chain 1:                2.534 seconds (Sampling)
+Chain 1:                6.357 seconds (Total)
+Chain 1:
+
+SAMPLING FOR MODEL 'time_no_seroreversion' NOW (CHAIN 2).
+Chain 2:
+Chain 2: Gradient evaluation took 0.00014 seconds
+Chain 2: 1000 transitions using 10 leapfrog steps per transition would take 1.4 seconds.
+Chain 2: Adjust your expectations accordingly!
+Chain 2:
+Chain 2:
+Chain 2: Iteration:   1 / 1000 [  0%]  (Warmup)
+Chain 2: Iteration: 100 / 1000 [ 10%]  (Warmup)
+Chain 2: Iteration: 200 / 1000 [ 20%]  (Warmup)
+Chain 2: Iteration: 300 / 1000 [ 30%]  (Warmup)
+Chain 2: Iteration: 400 / 1000 [ 40%]  (Warmup)
+Chain 2: Iteration: 500 / 1000 [ 50%]  (Warmup)
+Chain 2: Iteration: 501 / 1000 [ 50%]  (Sampling)
+Chain 2: Iteration: 600 / 1000 [ 60%]  (Sampling)
+Chain 2: Iteration: 700 / 1000 [ 70%]  (Sampling)
+Chain 2: Iteration: 800 / 1000 [ 80%]  (Sampling)
+Chain 2: Iteration: 900 / 1000 [ 90%]  (Sampling)
+Chain 2: Iteration: 1000 / 1000 [100%]  (Sampling)
+Chain 2:
+Chain 2:  Elapsed Time: 4.101 seconds (Warm-up)
+Chain 2:                3.22 seconds (Sampling)
+Chain 2:                7.321 seconds (Total)
+Chain 2:
+
+SAMPLING FOR MODEL 'time_no_seroreversion' NOW (CHAIN 3).
+Chain 3:
+Chain 3: Gradient evaluation took 0.0001 seconds
+Chain 3: 1000 transitions using 10 leapfrog steps per transition would take 1 seconds.
+Chain 3: Adjust your expectations accordingly!
+Chain 3:
+Chain 3:
+Chain 3: Iteration:   1 / 1000 [  0%]  (Warmup)
+Chain 3: Iteration: 100 / 1000 [ 10%]  (Warmup)
+Chain 3: Iteration: 200 / 1000 [ 20%]  (Warmup)
+Chain 3: Iteration: 300 / 1000 [ 30%]  (Warmup)
+Chain 3: Iteration: 400 / 1000 [ 40%]  (Warmup)
+Chain 3: Iteration: 500 / 1000 [ 50%]  (Warmup)
+Chain 3: Iteration: 501 / 1000 [ 50%]  (Sampling)
+Chain 3: Iteration: 600 / 1000 [ 60%]  (Sampling)
+Chain 3: Iteration: 700 / 1000 [ 70%]  (Sampling)
+Chain 3: Iteration: 800 / 1000 [ 80%]  (Sampling)
+Chain 3: Iteration: 900 / 1000 [ 90%]  (Sampling)
+Chain 3: Iteration: 1000 / 1000 [100%]  (Sampling)
+Chain 3:
+Chain 3:  Elapsed Time: 4.683 seconds (Warm-up)
+Chain 3:                3.384 seconds (Sampling)
+Chain 3:                8.067 seconds (Total)
+Chain 3:
+
+SAMPLING FOR MODEL 'time_no_seroreversion' NOW (CHAIN 4).
+Chain 4:
+Chain 4: Gradient evaluation took 0.0001 seconds
+Chain 4: 1000 transitions using 10 leapfrog steps per transition would take 1 seconds.
+Chain 4: Adjust your expectations accordingly!
+Chain 4:
+Chain 4:
+Chain 4: Iteration:   1 / 1000 [  0%]  (Warmup)
+Chain 4: Iteration: 100 / 1000 [ 10%]  (Warmup)
+Chain 4: Iteration: 200 / 1000 [ 20%]  (Warmup)
+Chain 4: Iteration: 300 / 1000 [ 30%]  (Warmup)
+Chain 4: Iteration: 400 / 1000 [ 40%]  (Warmup)
+Chain 4: Iteration: 500 / 1000 [ 50%]  (Warmup)
+Chain 4: Iteration: 501 / 1000 [ 50%]  (Sampling)
+Chain 4: Iteration: 600 / 1000 [ 60%]  (Sampling)
+Chain 4: Iteration: 700 / 1000 [ 70%]  (Sampling)
+Chain 4: Iteration: 800 / 1000 [ 80%]  (Sampling)
+Chain 4: Iteration: 900 / 1000 [ 90%]  (Sampling)
+Chain 4: Iteration: 1000 / 1000 [100%]  (Sampling)
+Chain 4:
+Chain 4:  Elapsed Time: 4.033 seconds (Warm-up)
+Chain 4:                3.141 seconds (Sampling)
+Chain 4:                7.174 seconds (Total)
+Chain 4: </code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">ADVERTENCIA<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="warning" tabindex="0"><code>Warning: Bulk Effective Samples Size (ESS) is too low, indicating posterior means and medians may be unreliable.
+Running the chains for more iterations may help. See
+https://mc-stan.org/misc/warnings.html#bulk-ess</code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">ADVERTENCIA<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="warning" tabindex="0"><code>Warning: Tail Effective Samples Size (ESS) is too low, indicating posterior variances and tail quantiles may be unreliable.
+Running the chains for more iterations may help. See
+https://mc-stan.org/misc/warnings.html#tail-ess</code></pre>
+</div>
+<figure><img src="../fig/Serofoi-tutorial-rendered-unnamed-chunk-10-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><hr>
+<br></section><section id="Vaccineff-tutorial"><h2 class="section-heading"><a href="Vaccineff-tutorial.html">Introducción al cálculo de efectividad vacunal con cohortes usando vaccineff</a></h2>
 <hr class="half-width"></section><section id="epiCo-tutorial"><h2 class="section-heading"><a href="epiCo-tutorial.html">Indicadores demográficos, canales endémicos y clusters de incidencia usando epiCo<strong>epiCo</strong><a class="anchor" aria-label="anchor" href="#epico"></a></a></h2>
 <hr class="half-width"></section></section>
 </div>
