@@ -438,7 +438,7 @@ m1_chik <- fit_seromodel(serosurvey = chik2015,
 
 m2_chik <- fit_seromodel(serosurvey = chik2015,
                          model_type = "time",
-                         iter = 3000)
+                         iter = 5000)
 
 m3_chik <- fit_seromodel(serosurvey = chik2015,
                          model_type = "time",
