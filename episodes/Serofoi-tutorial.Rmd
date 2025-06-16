@@ -38,7 +38,7 @@ library(serofoi)
 library(cowplot)
 ```
 
-## 1\. Introducción
+## 1. Introducción
 
 <!-- Aquí se espera que usted comparta información sobre un problema de salud pública. La metodología es de resolución de casos.
 (También es posible pedir a los participantes que describan la base de datos)
@@ -51,7 +51,7 @@ Como un caso particular, estudiaremos un brote de Chikungunya, una enfermedad vi
 Desde el año 2013, casos de esta enfermedad comenzaron a ser reportados en América y desde entonces la enfermedad ha sido endémica en varios países latinoamericanos.
 Durante este tutorial, vamos a analizar una encuesta serológica realizada entre octubre y diciembre de 2015 en Bahía, Brasil, la cual fue realizada poco tiempo después de una epidemia de esta enfermedad, con el fin de caracterizar los patrones endémicos o epidémicos en la zona.
 
-## 2\. Objetivos
+## 2. Objetivos
 
 <!-- Aquí se espera que usted incluya los objetivos del taller. ¿Qué es lo que usted espera que los estudiantes aprendan del taller? ¿Qué se espera que los estudiantes puedan hacer al terminar el taller? Los objetivos deben empezar con un verbo en infinitivo. -->
 
@@ -61,7 +61,7 @@ Durante este tutorial, vamos a analizar una encuesta serológica realizada entre
 
 - Visualizar e interpretar los resultados.
 
-## 3\. Conceptos básicos a desarrollar
+## 3. Conceptos básicos a desarrollar
 
 <!-- En esta práctica se desarrollarán los siguientes conceptos: -->
 
@@ -239,7 +239,7 @@ Los modelos actuales del paquete **serofoi** asumen los siguientes supuestos bio
 - Diferencias pequeñas entre las tasas de mortalidad de susceptibles e
   infectados.
 
-## 3\.2. Modelos Bayesianos
+## 3.2. Modelos Bayesianos
 
 A diferencia del enfoque frecuentista, donde la probabilidad se asocia con la frecuencia relativa de la ocurrencia de los eventos, la estadística Bayesiana se basa en el uso de la probabilidad condicional de los eventos respecto al conocimiento (o estado de información) que podamos tener sobre los datos o sobre los parámetros que queramos estimar.
 
@@ -260,7 +260,7 @@ $$
 La distribución $p(\vec{y} | \theta)$, que corresponde a la información interna a los datos condicionada al valor del parámetro $\theta$, suele estar determinada por la naturaleza del experimento: no es lo mismo escoger pelotas dentro de una caja reemplazándolas que dejándolas por fuera de la caja (e.g.).
 En el caso particular de la FoI, contamos con datos como el número total de encuestas por edad y el número de casos positivos, por lo que es razonable asignar una distribución binomial a la probabilidad, como veremos a continuación.
 
-### 3\.3.1. Modelo FoI constante
+### 3.3.1. Modelo FoI constante
 
 En nuestro caso particular, el parámetro que queremos estimar es la FoI ($\lambda$).
 La distribución de probabilidad apriori de $\lambda$ representa nuestras suposiciones informadas o el conocimiento previo que tengamos sobre el comportamiento de la FoI.
@@ -291,7 +291,7 @@ p(a, t) \sim Binom(n(a, t), P(a, t)) \\
 \lambda \sim U(0, 2)
 $$
 
-### 3\.3.2. Modelo FOI dependientes del tiempo
+### 3.3.2. Modelo FOI dependientes del tiempo
 
 Actualmente, **serofoi** permite la implementación de dos modelos dependientes del tiempo: uno de variación lenta de la FoI (**time**) y otro de variación rápida (**time-log**) de la FoI.
 
@@ -310,11 +310,11 @@ Como se puede observar, las distribuciones previas de $\lambda$ en ambos casos e
 De esta manera, la FoI en un tiempo $t$ está distribuida de acuerdo a una distribución normal alrededor del valor que esta tenía en el tiempo inmediatamente anterior.
 El logaritmo en el modelo $\log(\lambda)$ permite identificar cambios drásticos en la tendencia temporal de la FoI.
 
-### 4\. Contenido del taller
+### 4. Contenido del taller
 
 <!-- Aquí debe agregar el contenido del taller. Sea claro. Pruebe los códigos. Recuerde que si bien estará usted para dirigir el taller, el taller debe ser claro para poder ser ejecutado. -->
 
-#### 4\.1 Instalación de **serofoi**
+#### 4.1 Instalación de **serofoi**
 
 Previo a la instalación de **serofoi**, cree un proyecto en R en la carpeta de su escogencia en su máquina local; esto con el fin de organizar el espacio de trabajo en donde se guardarán los códigos que desarrolle durante la sesión.
 
@@ -340,7 +340,7 @@ Finalmente, cargue el paquete ejecutando:
 library(serofoi)
 ```
 
-#### 4\.2 Caso de uso: Chikungunya
+#### 4.2 Caso de uso: Chikungunya
 
 En esta sección vamos a analizar una encuesta serológica realizada entre octubre y diciembre de 2015 en Bahía, Brasil, la cual fue realizada poco tiempo después de una epidemia de esta enfermedad en la zona.
 Nuestro objetivo es caracterizar la propagación de la enfermedad por medio de la implementación de los distintos modelos y determinar cuál de estos describe mejor la situación.
@@ -459,7 +459,7 @@ donde $\vec{y}_{i}$ representa a la muestra de datos extrayendo $y_i$.
 
 ::::::::::::::::::::::::::::::::::
 
-## 5\. Reflexión
+## 5. Reflexión
 
 <!-- Aquí se espera que incluya preguntas/actividades que permita reflexionar al grupo sobre los alcances y limitaciones de lo aprendido en la resolución del problema expuesto en el taller. Así como reflexiones que conlleven a un mejor aprendizaje y aplicación al campo de la salud pública. -->
 
