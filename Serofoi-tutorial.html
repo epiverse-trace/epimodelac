@@ -287,7 +287,7 @@
       </div>
       <hr></nav><main id="main-content" class="main-content"><div class="container lesson-content">
         <h1>Estima la fuerza de infección a partir de encuestas serológicas usando serofoi</h1>
-        <p>Última actualización: 2025-06-13 |
+        <p>Última actualización: 2025-06-16 |
 
         <a href="https://github.com/epiverse-trace/epimodelac/edit/main/episodes/Serofoi-tutorial.Rmd" class="external-link">Mejora esta página <i aria-hidden="true" data-feather="edit"></i></a></p>
 
@@ -422,9 +422,8 @@ que pasa el tiempo; es decir:</p>
 P^{t_{sur}}(a^\tau) = 1 - \exp\left(-\sum_{i = \tau}^{t_{sur}} \lambda_i
 \right).
 \]</span></p>
-<p>En el caso del ejemplo, esto nos da la siguiente gráfica:
-<img src="fig/Serofoi-tutorial-rendered-unnamed-chunk-3-1.png" style="display: block; margin: auto;" class="figure"></p>
-<p>Note que los valores de seroprevalencia de cada edad en esta gráfica
+<p>En el caso del ejemplo, esto nos da la siguiente gráfica:</p>
+<figure><img src="fig/Serofoi-tutorial-rendered-unnamed-chunk-3-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>Note que los valores de seroprevalencia de cada edad en esta gráfica
 corresponden a los valores de seroprevalencia al momento de la encuesta
 (2020) en la gráfica anterior.</p>
 <p>La misión que cumple <strong>serofoi</strong> es estimar la fuerza de
@@ -455,8 +454,8 @@ edad para distintos valores de FoI constante.</p>
 constante; sin embargo, este no es necesariamente el caso. Identificar
 si la FoI sigue una tendencia constante o variante en el tiempo puede
 ser de vital importancia para la identificación y caracterización de la
-propagación de una enfermedad. Es acá donde el paquete de R
-<strong>serofoi</strong> juega un papel importante, ya que este permite
+propagación de una enfermedad. Es acá donde el paquete de
+R<strong>serofoi</strong> juega un papel importante, ya que este permite
 estimar retrospectivamente la FoI de un patógeno, recuperando así su
 evolución temporal, por medio de modelos Bayesianos
 pre-establecidos.</p>
@@ -550,7 +549,7 @@ dos modelos dependientes del tiempo: uno de variación lenta de la FoI
 <p>Cada uno de ellos se basa en distintas distribuciones previas para
 <span class="math inline">\(\lambda\)</span>, las cuales se muestran en
 la tabla 1.</p>
-<table class="table"><colgroup><col width="25%"><col width="25%"><col width="25%"><col width="25%"></colgroup><thead><tr class="header"><th>Model Type</th>
+<table class="table"><colgroup><col width="6%"><col width="11%"><col width="27%"><col width="53%"></colgroup><thead><tr class="header"><th>Model Type</th>
 <th>Logarithmic Scale</th>
 <th>Probability of positive case at age <span class="math inline">\(a\)</span>
 </th>
@@ -562,13 +561,13 @@ la tabla 1.</p>
 </tr><tr class="even"><td><code>"time"</code></td>
 <td><code>FALSE</code></td>
 <td><span class="math inline">\(\sim binom(n(a,t), P(a,t))\)</span></td>
-<td><span class="math inline">\(\lambda\sim
-normal(\lambda(t-1),\sigma)\\ \lambda(t=1)\sim normal(0,1)\)</span></td>
+<td><span class="math inline">\(\lambda\sim normal(\lambda(t-1),\sigma)\
+\lambda(t=1)\sim normal(0,1)\)</span></td>
 </tr><tr class="odd"><td><code>"time"</code></td>
 <td><code>TRUE</code></td>
 <td><span class="math inline">\(\sim binom(n(a,t), P(a,t))\)</span></td>
 <td><span class="math inline">\(\lambda\sim
-normal(log(\lambda(t-1)),\sigma)\\ \lambda(t=1)\sim
+normal(log(\lambda(t-1)),\sigma)\ \lambda(t=1)\sim
 normal(-6,4)\)</span></td>
 </tr></tbody></table><p><strong>Tabla 1.</strong> Distribuciones a priori de los distintos
 modelos soportados por <strong>serofoi</strong>. <span class="math inline">\(\sigma\)</span> representa la desviación
@@ -595,7 +594,8 @@ de organizar el espacio de trabajo en donde se guardarán los códigos que
 desarrolle durante la sesión.</p>
 <p>Antes de realizar la instalación de <strong>serofoi</strong>, es
 necesario instalar y configurar C++ Toolchain (instrucciones para <a href="https://github.com/stan-dev/rstan/wiki/Configuring-C---Toolchain-for-Windows" class="external-link">windows</a>/
-<a href="https://github.com/stan-dev/rstan/wiki/Configuring-C---Toolchain-for-Mac" class="external-link">mac</a>/<a href="https://github.com/stan-dev/rstan/wiki/Configuring-C-Toolchain-for-Linux" class="external-link">linux</a>).
+<a href="https://github.com/stan-dev/rstan/wiki/Configuring-C---Toolchain-for-Mac" class="external-link">mac</a>/
+<a href="https://github.com/stan-dev/rstan/wiki/Configuring-C-Toolchain-for-Linux" class="external-link">linux</a>).
 Después de haber configurado C++ Toolchain, ejecute las siguientes
 líneas de código para instalar el paquete:</p>
 <div class="codewrapper sourceCode" id="cb1">
@@ -632,8 +632,8 @@ realizada poco tiempo después de una epidemia de esta enfermedad en la
 zona. Nuestro objetivo es caracterizar la propagación de la enfermedad
 por medio de la implementación de los distintos modelos y determinar
 cuál de estos describe mejor la situación. Primero, carguemos y
-preparemos los datos que utilizaremos en este análisis. La base
-<code>chik2015</code> contiene los datos correspondientes a esta
+preparemos los datos que utilizaremos en este análisis. La
+base<code>chik2015</code> contiene los datos correspondientes a esta
 encuesta serológica:</p>
 <div class="codewrapper sourceCode" id="cb4">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -686,9 +686,9 @@ modelos, el tiempo de cómputo de los modelos dependientes del tiempo
 puede tardar varios minutos.</p>
 <p><em>Pista: Debería obtener la siguiente gráfica:</em></p>
 <figure><img src="fig/Serofoi-tutorial-rendered-chik2015_vis-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>El poder predictivo de un modelo Bayesiano se puede caracterizar por
-medio del <em>elpd</em> (Expected Log Predictive Density). El modelo que
+medio del <em>elpd</em>(Expected Log Predictive Density). El modelo que
 mejor ajusta la encuesta epidemiológica es aquel que tiene valores más
-altos de <em>elpd</em> y valores más bajos de error estándar (se).</p>
+altos de<em>elpd</em> y valores más bajos de error estándar (se).</p>
 
 </div>
 </div>
@@ -721,7 +721,7 @@ contíguos de América Latina se han identificado casos de encefalitis de
 origen desconocido en humanos. Algunos de estos casos de encefalitis han
 requerido hospitalización e incluso se han reportado fallecimientos. Los
 habitantes de la zona también señalan que una epidemia similar de casos
-en que las personas <em>“perdían la conciencia después de una fuerte
+en que las personas<em>“perdían la conciencia después de una fuerte
 fiebre”</em> habían ocurrido en la misma zona algunas décadas atrás.</p>
 <p>En 2023 se realizó una encuesta de seroprevalencia para los 4 virus
 con mayor sospecha de estar circulando en la zona fronteriza donde se
@@ -745,11 +745,11 @@ emergencia de encefalitis viral haciendo uso de la librería serofoi.</p>
 <button class="accordion-button hint-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseHint1" aria-expanded="false" aria-controls="collapseHint1">
   <h4 class="accordion-header" id="headingHint1"> Dar una pista </h4>
 </button>
-<div id="collapseHint1" class="accordion-collapse collapse" data-bs-parent="#accordionHint1" aria-labelledby="headingHint1">
+<div id="collapseHint1" class="accordion-collapse collapse" aria-labelledby="headingHint1" data-bs-parent="#accordionHint1">
 <div class="accordion-body">
 <p><strong>Exploración de los datos y visualización de la
 seroprevalencia (30 min)</strong></p>
-<p>Los datos de las 4 encuestas vienen en archivos .RDS independientes
+<p>Los datos de las 4 encuestas vienen en archivos . RDS independientes
 que podrá encontrar en estos enlaces:</p>
 <ul><li><a href="https://epiverse-trace.github.io/epimodelac/data/serosurvey_01.RDS" class="external-link uri">https://epiverse-trace.github.io/epimodelac/data/serosurvey_01.RDS</a></li>
 <li><a href="https://epiverse-trace.github.io/epimodelac/data/serosurvey_02.RDS" class="external-link uri">https://epiverse-trace.github.io/epimodelac/data/serosurvey_02.RDS</a></li>
@@ -774,7 +774,7 @@ tendencia en cada caso.</p></li>
 <button class="accordion-button hint-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseHint2" aria-expanded="false" aria-controls="collapseHint2">
   <h4 class="accordion-header" id="headingHint2"> Dar una pista </h4>
 </button>
-<div id="collapseHint2" class="accordion-collapse collapse" data-bs-parent="#accordionHint2" aria-labelledby="headingHint2">
+<div id="collapseHint2" class="accordion-collapse collapse" aria-labelledby="headingHint2" data-bs-parent="#accordionHint2">
 <div class="accordion-body">
 <p><strong>Estimación de la fuerza de infección histórica (30
 min)</strong></p>
@@ -799,7 +799,7 @@ que estuvo involucrado en la epidemia reciente de encefalitis?</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1"> Mostrar la solución </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
 <div class="accordion-body">
 <p>Para adaptar una de las cuatro bases de datos al formato necesario
 para {serofoi}, puede usar el siguiente código:</p>
@@ -854,9 +854,9 @@ específico.</p></li>
 </div>
 <div class="section level3">
 <h3 id="sobre-este-documento">Sobre este documento<a class="anchor" aria-label="anchor" href="#sobre-este-documento"></a></h3>
-<p>Este documento ha sido diseñado por NOMBRE_DE_AUTORES para el Curso
-Internacional: Análisis de Brotes y Modelamiento en Salud Pública,
-Bogotá 2023. TRACE-LAC/Javeriana.</p>
+<p>Este documento ha sido diseñado para el Curso Internacional: Análisis
+de Brotes y Modelamiento en Salud Pública, Bogotá 2023.
+TRACE-LAC/Javeriana.</p>
 <div class="section level4">
 <h4 id="contribuciones">Contribuciones<a class="anchor" aria-label="anchor" href="#contribuciones"></a></h4>
 <ul><li>Nicolás Torres Domínguez</li>
@@ -938,8 +938,8 @@ any links that you are not going to use.
   "url": "https://epiverse-trace.github.io/epimodelac/Serofoi-tutorial.html",
   "identifier": "https://epiverse-trace.github.io/epimodelac/Serofoi-tutorial.html",
   "dateCreated": "2023-11-10",
-  "dateModified": "2025-06-13",
-  "datePublished": "2025-06-13"
+  "dateModified": "2025-06-16",
+  "datePublished": "2025-06-16"
 }
 
   </script><script>
