@@ -1,5 +1,5 @@
 ---
-title: "Estima la fuerza de infección a partir de encuestas serológicas usando serofoi"
+title: "Estimation of force of infection from serological surveys using serofoi"
 author: "Nicolás Torres, Zulma Cucunubá"
 date: "2023-11-03"
 bibliography: RMarkdown.bib
@@ -11,19 +11,19 @@ exercises: 5
 
 :::::::::::::::::::::::::::::::::::::: questions
 
-- ¿Cómo estimar retrospectivamente la *Fuerza de Infección* de un patógeno a partir de *encuestas serológicas poblacionales de prevalencia desagregadas por edad* mediante la implementación de *modelos Bayesianos* usando **serofoi**?
+- How to retrospectively estimate the *Force of Infection* of a pathogen from *age-disaggregated population-based serological prevalence surveys* by implementing *Bayesian models* using **serofoi**?
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
 ::::::::::::::::::::::::::::::::::::: objectives
 
-Al final de este taller usted podrá:
+At the end of this workshop you will be able to:
 
-- Explorar y analizar una encuesta serológica típica.
+- Explore and analyze a typical serological survey.
 
-- Aprender a estimar la Fuerza de Infección en un caso de uso específico.
+- Learn how to estimate the Infection Strength in a specific use case.
 
-- Visualizar e interpretar los resultados.
+- Visualize and interpret the results.
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
@@ -38,84 +38,81 @@ library(serofoi)
 library(cowplot)
 ```
 
-## 1. Introducción
+## 1. Introduction
 
-<!-- Aquí se espera que usted comparta información sobre un problema de salud pública. La metodología es de resolución de casos.
-(También es posible pedir a los participantes que describan la base de datos)
+<!-- Here you are expected to share information about a public health problem. The methodology is case resolution.
+(It is also possible to ask participants to describe the database).
 -->
 
-**serofoi** es un paquete de R para estimar retrospectivamente la *Fuerza de Infección* de un patógeno a partir de *encuestas serológicas poblacionales de prevalencia desagregadas por edad* mediante la implementación de *modelos Bayesianos*.
-Para ello, **serofoi** utiliza el paquete *Rstan*, que proporciona una interfaz para el lenguaje de programación estadística *Stan*, mediante el cual se implementan métodos de Monte-Carlo basados en cadenas de Markov.
+**serofoi** is an R package for retrospectively estimating the *Force of Infection* of a pathogen from *age-disaggregated population-based serological prevalence surveys* by implementing *Bayesian models*.
+For this purpose, **serofoi** uses the *Rstan* package, which provides an interface to the statistical programming language *Stan*, through which Monte-Carlo methods based on Markov chains are implemented.
 
-Como un caso particular, estudiaremos un brote de Chikungunya, una enfermedad viral descubierta en Tanzania en el año 1952 que se caracteriza por causar fuertes fiebres, dolor articular, jaqueca, sarpullidos, entre otros síntomas.
-Desde el año 2013, casos de esta enfermedad comenzaron a ser reportados en América y desde entonces la enfermedad ha sido endémica en varios países latinoamericanos.
-Durante este tutorial, vamos a analizar una encuesta serológica realizada entre octubre y diciembre de 2015 en Bahía, Brasil, la cual fue realizada poco tiempo después de una epidemia de esta enfermedad, con el fin de caracterizar los patrones endémicos o epidémicos en la zona.
+As a particular case, we will study an outbreak of Chikungunya, a viral disease discovered in Tanzania in 1952 that is characterized by severe fevers, joint pain, headache, rashes, among other symptoms.
+Since 2013, cases of this disease began to be reported in the Americas and since then the disease has been endemic in several Latin American countries.
+During this tutorial, we will analyze a serological survey conducted between October and December 2015 in Bahia, Brazil, which was conducted shortly after an epidemic of this disease, in order to characterize the endemic or epidemic patterns in the area.
 
-## 2. Objetivos
+## 2. Objectives
 
-<!-- Aquí se espera que usted incluya los objetivos del taller. ¿Qué es lo que usted espera que los estudiantes aprendan del taller? ¿Qué se espera que los estudiantes puedan hacer al terminar el taller? Los objetivos deben empezar con un verbo en infinitivo. -->
+<!-- Here you are expected to include the objectives of the workshop. What do you expect the students to learn from the workshop? What are the students expected to be able to do at the end of the workshop? Objectives should begin with an infinitive verb. -->
 
-- Explorar y analizar una encuesta serológica típica.
+- Explore and analyze a typical serological survey.
 
-- Aprender a estimar la Fuerza de Infección en un caso de uso específico.
+- Learn how to estimate the Infection Strength in a specific use case.
 
-- Visualizar e interpretar los resultados.
+- Visualize and interpret the results.
 
-## 3. Conceptos básicos a desarrollar
+## 3. Basic concepts to be developed
 
-<!-- En esta práctica se desarrollarán los siguientes conceptos: -->
+<!-- The following concepts will be developed in this practice: -->
 
-<!-- Aquí se espera que usted mencione los conceptos más importantes del taller (deben ser conceptos técnicos que se puedan encontrar en la literatura) -->
+<!-- Here you are expected to mention the most important concepts of the workshop (must be technical concepts that can be found in the literature) -->
 
-En esta práctica se desarrollarán los siguientes conceptos:
+The following concepts will be developed in this practice:
 
-- Encuestas serologícas (*sero*)
+- Serological surveys (*sero*)
 
-- Fuerza de infección (*foi*)
+- Infection strength (*foi*)
 
-- Modelos serocatalíticos
+- Serocatalytic models
 
-- Estadística Bayesiana
+- Bayesian Statistics
 
-- Visualización e interpretación de resultados de modelos FoI
+- Visualization and interpretation of FoI model results
 
-La Fuerza de Infección (FoI, por sus siglas en inglés), también conocida cómo la tasa de riesgo o la presión de infección, representa la tasa a la que los individuos susceptibles se infectan dado que estuvieron expuestos a un patógeno.
-En otras palabras, la FoI cuantifica el riesgo de que un individuo susceptible se infecte en un periodo de tiempo.
+The Force of Infection (FoI), also known as the risk rate or infection pressure, represents the rate at which susceptible individuals become infected given exposure to a pathogen.
+In other words, FoI quantifies the risk of a susceptible individual becoming infected over a period of time.
 
-Como veremos a continuación, este concepto es clave en el modelamiento de enfermedades infecciosas.
-Para ilustrar el concepto, consideremos una población expuesta a un patógeno y llamemos $P(t)$ a la proporción de individuos que han sido infectados al tiempo $t$.
-Suponiendo que no hay sero-reversión, la cantidad $1 - P(t)$ representa la cantidad de individuos susceptibles a la enfermedad, de tal forma que la velocidad de infección está dada por:
+As we will see below, this concept is key in modeling infectious diseases.
+To illustrate the concept, let us consider a population exposed to a pathogen and call $P(t)$ the proportion of individuals that have been infected at time $t$.
+Assuming no sero-reversion, the quantity $1 - P(t)$ represents the number of individuals susceptible to the disease, such that the rate of infection is given by:
 
 $$
 \tag{1} \frac{dP(t)}{d t} = \lambda(t) (1- P(t)),
 $$
 
-en donde $\lambda(t)$ representa la tasa a la que los individuos susceptibles se infectan por unidad de tiempo (días, meses, años, ...), es decir la FoI.
-La ecuación diferencial (1) se asemeja a la de una reacción química en donde $P(t)$ representa la proporción de sustrato que no ha entrado en contacto con un reactivo catalítico, por lo que este tipo de modelos se conocen como **modelos serocatalíticos** (Muench, 1959).
+where $lambda(t)$ represents the rate at which susceptible individuals become infected per unit time (days, months, years, ...), i.e.
+FoI.
+The differential equation (1) resembles that of a chemical reaction where $P(t)$ represents the proportion of substrate that has not come into contact with a catalytic reagent, so these types of models are known as **serocatalytic models** (Muench, 1959).
 
-A pesar de la simpleza del modelo representado por la ecuación (1), en comparación con modelos compartimentales (por ejemplo), la dificultad para conocer una condición inicial para la seropositividad en algún punto del pasado imposibilita su uso práctico.
-Para sortear esta limitación, es común aplicar el modelo para cohortes de edad en lugar de para el total de la población.
-Para ello, etiquetemos cada cohorte de edad de acuerdo con su año de nacimiento $\tau$, y supongamos que los individuos son seronegativos al nacer:
+Despite the simplicity of the model represented by equation (1), compared to compartmental models (for example), the difficulty in knowing an initial condition for seropositivity at some point in the past makes its practical use impossible.
+To circumvent this limitation, it is common to apply the model for age cohorts rather than for the total population.
+To do this, let us label each age cohort according to its year of birth $tau$, and assume that individuals are seronegative at birth:
 
-$$
-\frac{dP^\tau (t)}{dt} = \lambda(t) (1 - P^\tau(t)).
-$$
-
-Con condiciones iniciales dadas por $P^\tau(\tau) = 0$.
-Esta ecuación se puede resolver analíticamente, dando como resultado (Hens et al, 2010):
-
-$$
-P^{\tau} (t) = 1 - \exp\left(-\int_{\tau}^{t} \lambda (t') dt' \right).
+$$ \frac{dP^\tau (t)}{dt} = \lambda(t) (1 - P^\tau(t)).
 $$
 
-Suponiendo que la FoI se mantiene constante a lo largo de cada año, la versión discreta de esta ecuación es:
+With initial conditions given by $P^\tau(\tau) = 0$.
+This equation can be solved analytically, yielding the result (Hens et al, 2010):
 
-$$
-\tag{2}
-P^\tau(t) = 1 - \exp\left(-\sum_{i = \tau}^{t} \lambda_i \right),
+$$ P^{\tau} (t) = 1 - \exp\left(-\int_{\tau}^{t} \lambda (t') dt' \right).
 $$
 
-Como un ejemplo, consideremos la FoI representada en la siguiente figura:
+Assuming that FoI remains constant throughout each year, the discrete version of this equation is:
+
+$$ \tag{2} P^\tau(t) = 1 - \exp\left(-\sum_{i = \tau}^{t} \lambda_i \right),
+$$
+
+As an example, consider the FoI represented in the following figure:
 
 ```{r, echo=FALSE, eval=TRUE}
 # Arbitrary FoI
@@ -125,7 +122,7 @@ years_total <- birth_year_max - birth_year_min
 years <- seq(birth_year_min, birth_year_max, 1)
 
 foi <- c(rep(0., 15), rep(0.065, 15), rep(0.03, 20),
-         rep(0.005, birth_year_max - birth_year_min - 15 - 15 - 20 + 1)
+         rep(0.005, birth_year_max - birth_year_min - 15 - 15 - 20 - 20 + 1)
          )
 
 foi_plot <- ggplot(data = data.frame(years = years, foi = foi),
@@ -134,7 +131,7 @@ foi_plot <- ggplot(data = data.frame(years = years, foi = foi),
 plot(foi_plot)
 ```
 
-A partir de esta FoI, es posible calcular la seroprevalencia para distintas cohortes por medio de la ecuación (2):
+From this FoI, it is possible to calculate the seroprevalence for different cohorts by means of equation (2):
 
 ```{r, echo=FALSE, eval=TRUE}
 years_plot <- c(1940, 1960, 1980, 2000, 2010)
@@ -154,23 +151,23 @@ for (cohort_birth_year in years) {
 
 seroprev_plot <- ggplot(data = df_seroprev %>% filter(cohort_birth_year %in% years_plot), aes(x = year, y = seroprev)) +
   geom_line(aes(color=as.factor(cohort_birth_year))) +
-  labs(color = "Año de naciemiento\nde la cohorte") +
+  labs(color = "cohort_birth_year") +
   theme_classic()
 plot(seroprev_plot)
 ```
 
-Cuando conocemos los datos de una encuesta serológica, la información a la que tenemos acceso es a una fotografía de la seroprevalencia en el momento su realización $t_{sur}$ como función de la edad de los individuos en ese momento, la cual coincide con la ecuación (2) ya que los individuos envejecen al mismo ritmo al que pasa el tiempo; es decir:
+When we know the data from a serological survey, the information we have access to is a snapshot of the seroprevalence at the time $t_{sur}$ as a function of the age of the individuals at that time, which coincides with equation (2) since individuals age at the same rate as time passes; that is:
 
 $$
 \tag{3}
 P^{t_{sur}}(a^\tau) = 1 - \exp\left(-\sum_{i = \tau}^{t_{sur}} \lambda_i \right).
 $$
 
-En el caso del ejemplo, esto nos da la siguiente gráfica:
+In the case of the example, this gives us the following graph:
 
 ```{r, echo=FALSE}
-df_serosurvey <- df_seroprev %>%
-  filter(year == birth_year_max) %>%
+df_serosurvey <- df_seroprev %>%%
+  filter(year == birth_year_max) %>%%
   mutate(age = year - cohort_birth_year)
 serosurvey_plot <- ggplot(data = df_serosurvey,
                           aes(x = age, y = seroprev)) +
@@ -179,24 +176,24 @@ serosurvey_plot <- ggplot(data = df_serosurvey,
 plot(serosurvey_plot)
 ```
 
-Note que los valores de seroprevalencia de cada edad en esta gráfica corresponden a los valores de seroprevalencia al momento de la encuesta (2020) en la gráfica anterior.
+Note that the seroprevalence values for each age in this graph correspond to the seroprevalence values at the time of the survey (2020) in the previous graph.
 
-La misión que cumple **serofoi** es estimar la fuerza de infección histórica $\lambda(t)$ a partir de esta fotografía del perfil serológico de la población al momento de la encuesta. para lo cual se requieren encuestas serológicas que cumplan con los siguientes criterios de inclusión:
+The mission that **serofoi** fulfills is to estimate the historical force of infection $"tambda(t)$ from this snapshot of the serologic profile of the population at the time of the survey. for which serologic surveys that meet the following inclusion criteria are required:
 
-- Basadas en poblacionales (no hospitalaria).
-- Estudio de tipo transversal (un solo tiempo) .
-- Que indique la prueba diagnóstica utilizada.
-- Que identifique la edad del paciente en el momento de la encuesta.
+- Population-based (non-hospital).
+- Cross-sectional study (single time).
+- Indicate the diagnostic test used.
+- Identifying the patient's age at the time of the survey.
 
-En casos donde la FoI pueda considerarse constante, la ecuación (3) da como resultado:
+In cases where FoI can be considered constant, equation (3) gives the result:
 
 $$
 \tag{4}
 P_{sur}(a^\tau(t_{sur})) = 1 - \exp (-\lambda a^\tau),
 $$
 
-en donde se tuvo en cuenta qué, al momento de la introducción del patógeno ($t = 0$), la proporción de individuos infectados fue $P(0) = 0$ (condición inicial).
-Note que el término de la suma en la ecuación (3) da como resultado la edad de cada cohorte al considerar la fuerza de infección constante.
+where it was taken into account that, at the time of pathogen introduction ($t = 0$), the proportion of infected individuals was $P(0) = 0$ (initial condition).
+Note that the summation term in equation (3) results in the age of each cohort when considering constant force of infection.
 
 ```{r, include=TRUE, echo=FALSE, message=FALSE, warning=FALSE, error=FALSE, fig.width=10, fig.height=5}
 age <- seq.int(0, 50)
@@ -216,7 +213,7 @@ for (lambda in lambda_list){
   seroprev <- rbind(seroprev, seroprev_lamba)
 }
 
-seroprev_plot <- ggplot(data = seroprev, aes(x = age, y = P, colour = factor(lambda))) +
+seroprev_plot <- ggplot(data = seroprev, aes(x = age, y = P, color = factor(lambda))) +
   geom_line() +
   geom_point() +
   labs(colour = expression(lambda)) +
@@ -224,151 +221,155 @@ seroprev_plot <- ggplot(data = seroprev, aes(x = age, y = P, colour = factor(lam
 print(seroprev_plot)
 ```
 
-**Figura 1.**
-Curvas de prevalencia en función de la edad para distintos valores de FoI constante.
+**Figure 1.**
+Prevalence curves as a function of age for different values of constant FoI.
 
-En este ejemplo hemos escogido, por simplicidad, que la FoI fuese constante; sin embargo, este no es necesariamente el caso.
-Identificar si la FoI sigue una tendencia constante o variante en el tiempo puede ser de vital importancia para la identificación y caracterización de la propagación de una enfermedad.
-Es acá donde el paquete de R**serofoi** juega un papel importante, ya que este permite estimar retrospectivamente la FoI de un patógeno, recuperando así su evolución temporal, por medio de modelos Bayesianos pre-establecidos.
+In this example we have chosen, for simplicity, that the FoI was constant; however, this is not necessarily the case.
+Identifying whether the FoI follows a constant or time-varying trend can be of vital importance in identifying and characterizing the spread of a disease.
+This is where the R **serofoi** package plays an important role, as it allows to retrospectively estimate the FoI of a pathogen, thus recovering its temporal evolution, by means of pre-established Bayesian models.
 
-Los modelos actuales del paquete **serofoi** asumen los siguientes supuestos biológicos:
+Current models in the **serofoi** package assume the following biological assumptions:
 
-- No hay sero-reversión (sin pérdida de inmunidad).
-- La FoI no depende de la edad.
-- Bajos o nulos niveles de migración en las poblaciones.
-- Diferencias pequeñas entre las tasas de mortalidad de susceptibles e
-  infectados.
+- No sero-reversion (no loss of immunity).
+- FoI is not age-dependent.
+- Low or no levels of migration in the populations.
+- Small differences between susceptible and infected mortality rates.
+  infected.
 
-## 3.2. Modelos Bayesianos
+## 3.2. Bayesian models
 
-A diferencia del enfoque frecuentista, donde la probabilidad se asocia con la frecuencia relativa de la ocurrencia de los eventos, la estadística Bayesiana se basa en el uso de la probabilidad condicional de los eventos respecto al conocimiento (o estado de información) que podamos tener sobre los datos o sobre los parámetros que queramos estimar.
+Unlike the frequentist approach, where the probability is associated with the relative frequency of occurrence of events, Bayesian statistics is based on the use of the conditional probability of events with respect to the knowledge (or state of information) that we may have about the data or about the parameters we want to estimate.
 
-Por lo general, cuando proponemos un modelo lo que buscamos es disminuir la incertidumbre sobre algún parámetro, de tal forma que nos aproximemos a su valor tan óptimamente como nos lo permita nuestro conocimiento previo del fenómeno y de las mediciones realizadas (datos).
+In general, when we propose a model what we seek is to reduce the uncertainty about some parameter, so that we approach its value as optimally as our previous knowledge of the phenomenon and the measurements (data) allow us to do.
 
-La inferencia Bayesiana se sustenta en el teorema de Bayes, el cual establece que: dado un conjunto de datos $\vec{y} = (y_1, …, y_N)$, el cual representa un único evento, y la variable aleatoria $\theta$, que representa un parámetro de interés para nosotros (en nuestro caso, la FoI $\lambda$), la distribución de probabilidad conjunta de las variables aleatorias asociadas está dada por:
+Bayesian inference is supported by Bayes' theorem, which states that: given a data set $\vec{y} = (y_1, ..., y_N)$, which represents a single event, and the random variable $\theta$, which represents a parameter of interest to us (in our case, the FoI $\lambda$), the joint probability distribution of the associated random variables is given by:
 
 $$ \tag{4}
 p(\vec{y}, \theta) = p(\vec{y} | \theta) p(\theta) = p(\theta | \vec{y}) p(\vec{y}),
 $$
 
-de donde se desprende la distribución aposteriori de $\theta$, es decir una versión actualizada de la distribución de probabilidad de la FoI condicionada a nuestros datos:
+from which we derive the aposteriori distribution of $\theta$, i.e. an updated version of the FoI probability distribution conditional on our data:
 
 $$\tag{5}
 p(\theta, \vec{y}) =  \frac{p(\vec{y} | \theta) p(\theta)}{p(\vec{y})},
 $$
 
-La distribución $p(\vec{y} | \theta)$, que corresponde a la información interna a los datos condicionada al valor del parámetro $\theta$, suele estar determinada por la naturaleza del experimento: no es lo mismo escoger pelotas dentro de una caja reemplazándolas que dejándolas por fuera de la caja (e.g.).
-En el caso particular de la FoI, contamos con datos como el número total de encuestas por edad y el número de casos positivos, por lo que es razonable asignar una distribución binomial a la probabilidad, como veremos a continuación.
+The distribution $p(\vec{y} | \theta)$, which corresponds to the information internal to the data conditional on the value of the parameter $\theta$, is usually determined by the nature of the experiment: it is not the same to choose balls inside a box by replacing them than by leaving them outside the box (e.g.).
+In the particular case of FoI, we have data such as the total number of surveys by age and the number of positive cases, so it is reasonable to assign a binomial distribution to the probability, as we will see below.
 
-### 3.3.1. Modelo FoI constante
+### 3.3.1. Constant FoI model
 
-En nuestro caso particular, el parámetro que queremos estimar es la FoI ($\lambda$).
-La distribución de probabilidad apriori de $\lambda$ representa nuestras suposiciones informadas o el conocimiento previo que tengamos sobre el comportamiento de la FoI.
-En este contexto, el estado de mínima información sobre $\lambda$ está representado por una distribución uniforme:
+In our particular case, the parameter that we want to estimate is the FoI ($\lambda$).
+The apriori probability distribution of $\lambda$ represents our informed assumptions or the prior knowledge we have about the behavior of the FoI.
+In this context, the state of minimal information about $\lambda$ is represented by a uniform distribution:
 
 $$\tag{6}
 \lambda \sim U(0, 2),
 $$
 
-lo que significa que partimos de la premisa de que todos los valores de la fuerza de infección entre $0$ y $2$ son igualmente probables.
-Por otro lado, de la teoría de modelos sero-catalíticos sabemos que la seroprevalencia en un año dado está descrita por un proceso cumulativo con la edad (Hens et al, 2010):
+which means that we start from the premise that all values of the force of infection between $0$ and $2$ are equally probable.
+On the other hand, from the theory of sero-catalytic models we know that seroprevalence in a given year is described by a cumulative process with age (Hens et al, 2010):
 
 $$\tag{7}
 P(a, t) = 1 - \exp\left(  -\sum_{i=t-a+1}^{t} \lambda_i  \right),
 $$
 
-en donde $\lambda_i$ corresponde a la FoI al tiempo $t$.
-Como en este caso la FoI es constante, la ec. (7) se reduce a:
+where $\lambda_i$ corresponds to the FoI at time $t$.
+Since in this case the FoI is constant, eq. (7) reduces to:
 
-$$\tag{8}
+$$\tag{8} 
 P(a, t) = 1 - \exp\left(  -\lambda a \right),
 $$
 
-Si $n(a, t_{sur})$ es el número de muestras positivas por edad obtenidas en un estudio serológico desarrollado en el año $t_{sur}$, entonces podemos estimar la distribución de los casos seropositivos por edad condicionada al valor de $\lambda$ como una distribución binomial:
+If $n(a, t_{sur})$ is the number of age-positive samples obtained in a serological study conducted in the year $t_{sur}$, then we can estimate the distribution of age-positive cases conditional on the value of $t_{sur}$ as a binomial distribution:
 
 $$\tag{9}
 p(a, t) \sim Binom(n(a, t), P(a, t)) \\
 \lambda \sim U(0, 2)
 $$
 
-### 3.3.2. Modelo FOI dependientes del tiempo
+### 3.3.2. Time-dependent FOI Model
 
-Actualmente, **serofoi** permite la implementación de dos modelos dependientes del tiempo: uno de variación lenta de la FoI (**time**) y otro de variación rápida (**time-log**) de la FoI.
+Currently, **serofoi** allows the implementation of two time-dependent models: one for slow variation of FoI (**time**) and one for fast variation (**time-log**) of FoI.
 
-Cada uno de ellos se basa en distintas distribuciones previas para $\lambda$, las cuales se muestran en la tabla 1.
+Each of them is based on different prior distributions for $lambda$, which are shown in Table 1.
 
-| Model Type | Logarithmic Scale | Probability of positive case at age $a$ | Prior distribution                                                            | 
+| Model Type| Model Type | Logarithmic Scale | Probability of positive case at age $a$ | Prior distribution                                                            | 
 | ---------- | ----------------- | --------------------------------------- | ----------------------------------------------------------------------------- |
 | `"constant"`           | `FALSE`                  | $\sim binom(n(a,t), P(a,t))$            | $\lambda\sim uniform(0,2)$                                                    | 
 | `"time"`           | `FALSE`                  | $\sim binom(n(a,t), P(a,t))$            | $\lambda\sim normal(\lambda(t-1),\sigma)\ \lambda(t=1)\sim normal(0,1)$       | 
 | `"time"`           | `TRUE`                  | $\sim binom(n(a,t), P(a,t))$            | $\lambda\sim normal(log(\lambda(t-1)),\sigma)\ \lambda(t=1)\sim normal(-6,4)$ | 
 
-**Tabla 1.**
-Distribuciones a priori de los distintos modelos soportados por **serofoi**. $\sigma$ representa la desviación estándar.
+**Table 1.**
+A priori distributions of the different models supported by **serofoi**. $sigma$ represents the standard deviation.
 
-Como se puede observar, las distribuciones previas de $\lambda$ en ambos casos están dadas por distribuciones Gaussianas con desviación estándar $\sigma$ y centradas en $\lambda$ (modelo de variación lenta - `"time"`) y $\log(\lambda)$ (modelo de variación rápida - `"time"` con `is_log_foi = TRUE`).
-De esta manera, la FoI en un tiempo $t$ está distribuida de acuerdo a una distribución normal alrededor del valor que esta tenía en el tiempo inmediatamente anterior.
-El logaritmo en el modelo $\log(\lambda)$ permite identificar cambios drásticos en la tendencia temporal de la FoI.
+As can be seen, the prior distributions of $\lambda$ in both cases are given by Gaussian distributions with standard deviation $\sigma$ and centered on $\lambda$ (slow-variation model - `"time"`) and $\log(\lambda)$ (fast-variation model - `"time"` with `is_log_foi = TRUE`).
+Thus, the FoI at time $t$ is distributed according to a normal distribution around the value it had at the immediately preceding time.
+The logarithm in the $log(\lambda)$ model allows to identify drastic changes in the time trend of FoI.
 
-### 4. Contenido del taller
+### Workshop content
 
-<!-- Aquí debe agregar el contenido del taller. Sea claro. Pruebe los códigos. Recuerde que si bien estará usted para dirigir el taller, el taller debe ser claro para poder ser ejecutado. -->
+<!-- Here you should add the content of the workshop. Be clear. Test the codes. Remember that while you will be there to lead the workshop, the workshop must be clear in order to be run. -->
 
-#### 4.1 Instalación de **serofoi**
+#### 4.1 **serofoi** installation
 
-Previo a la instalación de **serofoi**, cree un proyecto en R en la carpeta de su escogencia en su máquina local; esto con el fin de organizar el espacio de trabajo en donde se guardarán los códigos que desarrolle durante la sesión.
+Prior to the installation of **serofoi**, create an R project in the folder of your choice on your local machine; this in order to organize the workspace where the codes you develop during the session will be stored.
 
-Antes de realizar la instalación de **serofoi**, es necesario instalar y configurar C++ Toolchain (instrucciones para [windows](https://github.com/stan-dev/rstan/wiki/Configuring-C---Toolchain-for-Windows)/ [mac](https://github.com/stan-dev/rstan/wiki/Configuring-C---Toolchain-for-Mac)/ [linux](https://github.com/stan-dev/rstan/wiki/Configuring-C-Toolchain-for-Linux)).
-Después de haber configurado C++ Toolchain, ejecute las siguientes líneas de código para instalar el paquete:
+Before installing **serofoi**, it is necessary to install and configure C++ Toolchain (instructions for [windows](https://github.com/stan-dev/rstan/wiki/Configuring-C---Toolchain-for-Windows)/ [mac](https://github.com/stan-dev/rstan/wiki/Configuring-C---Toolchain-for-Mac)/ [linux](https://github.com/stan-dev/rstan/wiki/Configuring-C-Toolchain-for-Linux)).
+After you have configured C++ Toolchain, run the following lines of code to install the package:
 
 ```{r, eval=FALSE}
 if(!require("pak")) install.packages("pak")
 pak::pak("epiverse-trace/serofoi")
 ```
 
-Opcionalmente, es posible modificar la configuración de R para que los modelos a implementar corran en paralelo, aprovechando los núcleos del procesador de su computador.
-Esto tiene el efecto de disminuir los tiempos de cómputo de las implementaciones en Stan.
-Para activar esta opción ejecute:
+Optionally, it is possible to modify the R configuration so that the models to be implemented run in parallel, taking advantage of the processor cores of your computer.
+This has the effect of reducing the computation time of the implementations in Stan.
+To activate this option run:
 
 ```{r, eval=FALSE}
 options(mc.cores=parallel::detectCores())
 ```
 
-Finalmente, cargue el paquete ejecutando:
+Finally, load the package by running
 
 ```{r, eval=FALSE}
 library(serofoi)
 ```
 
-#### 4.2 Caso de uso: Chikungunya
+#### 4.2 Use case: Chikungunya
 
-En esta sección vamos a analizar una encuesta serológica realizada entre octubre y diciembre de 2015 en Bahía, Brasil, la cual fue realizada poco tiempo después de una epidemia de esta enfermedad en la zona.
-Nuestro objetivo es caracterizar la propagación de la enfermedad por medio de la implementación de los distintos modelos y determinar cuál de estos describe mejor la situación.
-Primero, carguemos y preparemos los datos que utilizaremos en este análisis.
-La base`chik2015` contiene los datos correspondientes a esta encuesta serológica:
+In this section we will analyze a serological survey conducted between October and December 2015 in Bahia, Brazil, which was carried out shortly after an epidemic of this disease in the area.
+Our objective is to characterize the spread of the disease by implementing the different models and determine which of these best describes the situation.
+First, let us load and prepare the data that we will use in this analysis.
+The database `chik2015` contains the data corresponding to this serological survey:
 
 ```{r chik2015, include=TRUE, echo=TRUE, errors=FALSE, warning=FALSE, message=FALSE}
 data(chik2015)
 chik2015
 ```
 
-Para correr el modelo de FoI constante y visualizar los resultados del mismo, corra las siguientes líneas de código:
+To run the constant FoI model and visualize the results of the model, run the following lines of code:
 
 ```{r chik2015_constant, include=TRUE, echo=TRUE, eval=FALSE}
 chik_constant <- fit_seromodel(serosurvey = chik2015,
                                model_type = "constant",
                                iter = 1000)
 
+
+
 chik_constant_plot <- plot_seromodel(seromodel = chik_constant,
                                      serosurvey = chik2015,
                                      size_text = 12)
 ```
 
-Ahora, corra los modelos dependientes del tiempo con `iter =1500`.
-Luego visualice conjuntamente las tres gráficas por medio de la función `plot_grid()` del paquete `cowplot`:
+Now, run the time-dependent models with `iter =1500`.
+Then visualize the three plots together using the `plot_grid()` function of the `cowplot` package:
 
 ```{r chik2015_plot, eval=FALSE}
 install.packages("cowplot")
+
+
 
 cowplot::plot_grid(chik_constant_plot,
                    chik_normal_plot,
@@ -376,10 +377,11 @@ cowplot::plot_grid(chik_constant_plot,
                    ncol = 3)
 ```
 
-**NOTA:**
-Debido a que el número de trayectorias es relativamente alto, con el fin de asegurar la convergencia de los modelos, el tiempo de cómputo de los modelos dependientes del tiempo puede tardar varios minutos.
+**NOTE:**
+.
+Because the number of trajectories is relatively high, in order to ensure convergence of the models, the computation time of the time-dependent models may take several minutes.
 
-*Pista: Debería obtener la siguiente gráfica:*
+Hint: You should get the following graph: \* Hint: You should get the following graph: \* Hint: You should get the following graph
 
 ```{r chik2015_models, include=FALSE, echo=TRUE, results="hide", errors=FALSE, warning=FALSE, message=FALSE, fig.width=5, fig.asp=1, fig.align="center", fig.keep="all"}
 # Implementation of the models
@@ -387,9 +389,13 @@ m1_chik <- fit_seromodel(serosurvey = chik2015,
                          model_type = "constant",
                          iter = 1000)
 
+
+
 m2_chik <- fit_seromodel(serosurvey = chik2015,
                          model_type = "time",
                          iter = 4000)
+
+
 
 m3_chik <- fit_seromodel(serosurvey = chik2015,
                          model_type = "time",
@@ -414,136 +420,139 @@ chik_normal_log_plot <- plot_seromodel(seromodel = m3_chik,
                           size_text = 6,
                           foi_max = 0.1)
 
+
+
 cowplot::plot_grid(chik_constant_plot, chik_normal_plot, chik_normal_log_plot, ncol=3)
 ```
 
-El poder predictivo de un modelo Bayesiano se puede caracterizar por medio del *elpd*(Expected Log Predictive Density).
-El modelo que mejor ajusta la encuesta epidemiológica es aquel que tiene valores más altos de*elpd* y valores más bajos de error estándar (se).
+The predictive power of a Bayesian model can be characterized by the *elpd*(Expected Log Predictive Density).
+The model that best fits the epidemiological survey is the one that has higher values of *elpd* and lower values of standard error (se).
 
 :::::::::::::::::::::::::::::::::: instructor
 
-**Comparación de los modelos:**
+**Comparison of the models**
 
-El poder predictivo de un modelo Bayesiano se puede caracterizar por medio del *elpd* (Expected Log Predictive Density), el cuál corresponde al valor esperado de la log-verosimilitud (*log-likelihood*) de un único dato nuevo $y'$ respecto a su distribución real (la cual queremos aproximar con el modelo):
+The predictive power of a Bayesian model can be characterized by means of the *elpd* (Expected Log Predictive Density), which corresponds to the expected value of the log-likelihood (*log-likelihood*) of a single new data $y'$ with respect to its real distribution (which we want to approximate with the model):
 
 $$
 \text{elpd} = \mathbb{E}_{\text{real}}[\log(p(y'|\vec{y}))] = \int p^{\text{real}}(y') \log(p(y'|\vec{y})) \, dy'
 $$
 
-donde $\vec{y}$ corresponde a los datos.
+where $\vec{y}$ corresponds to the data.
 
-Existen varios métodos para estimar el *elpd*que permiten aproximar la precisión predictiva de un modelo Bayesiano.
-El criterio de información de Watanabe-Akaike (WAIC) es uno de ellos:
+There are several methods for estimating the *elpd* that allow to approximate the predictive accuracy of a Bayesian model.
+The Watanabe-Akaike information criterion (WAIC) is one of them:
 
 $$
 \text{WAIC} = -2 \hat{lpd} + 2 p_{\text{waic}}
 $$
 
-donde $p_{\text{waic}}$ es el número efectivo de parámetros y $\hat{lpd}$ corresponde al logaritmo del promedio de la verosimilitud respecto a la distribución posterior para un dato $y_i \in \vec{y}$:
+where $p_{{text{waic}}$ is the effective number of parameters and ${hat{lpd}}$ corresponds to the logarithm of the average likelihood with respect to the posterior distribution for a data $y_i \in \vec{y}$:
 
 $$
 \hat{lpd} = \log(\mathbb{E}_{\text{post}}[p(y_i|\theta)])
 $$
 
-El objetivo de restar el número efectivo de parámetros del modelo es dar cuenta de la posibilidad de sobreajustar el modelo (*overfitting*).
-El WAIC nos permite caracterizar la capacidad predictiva del modelo: cuanto más bajo sea su valor, mejor.
+The purpose of subtracting the effective number of parameters from the model is to account for the possibility of overfitting the model.
+The WAIC allows us to characterize the predictive capacity of the model: the lower its value, the better.
 
-Similarmente, podemos computar el *looic* (*leave-one-out information criterion*), también conocido como *loo-cv* (*leave-one-out cross-validation*), el cual consiste en utilizar un único punto de los datos para probar el poder predictivo del modelo usando el resto de la muestra como muestra de entrenamiento.
-Este proceso se repite con cada dato de la muestra y sus respectivas densidades posteriores logarítmicas se suman (Lambert 2018), es decir:
+Similarly, we can compute the *looic* (*leave-one-out information criterion*), also known as *loo-cv* (*leave-one-out cross-validation*), which consists of using a single data point to test the predictive power of the model using the rest of the sample as the training sample.
+This process is repeated with each data point in the sample and their respective log posterior densities are summed (Lambert 2018), ie:
 
 $$
 \text{looic} = \sum_{y_i} \log(p(y_i | \vec{y}_{i}))
 $$
 
-donde $\vec{y}_{i}$ representa a la muestra de datos extrayendo $y_i$.
+where $\vec{y}_{i}$ represents the data sample extracting $y_i$.
 
 ::::::::::::::::::::::::::::::::::
 
-## 5. Reflexión
+## 5. Reflection
 
-<!-- Aquí se espera que incluya preguntas/actividades que permita reflexionar al grupo sobre los alcances y limitaciones de lo aprendido en la resolución del problema expuesto en el taller. Así como reflexiones que conlleven a un mejor aprendizaje y aplicación al campo de la salud pública. -->
+<!-- Here it is expected to include questions/activities that allow the group to reflect on the scope and limitations of what has been learned in the resolution of the problem exposed in the workshop. As well as reflections that lead to better learning and application to the field of public health. -->
 
 ::::::::::::::::::::: discussion
 
-Según los criterios explicados anteriormente, responda:
+According to the criteria explained above, please answer:
 
-- ¿Cuál de los tres modelos se ajusta mejor a esta encuesta serológica?
+- Which of the three models best fits this serological survey?
 
-- ¿Cómo interpreta estos resultados?
+- How do you interpret these results?
 
 :::::::::::::::::::::
 
 ::::::::::::::::::: instructor
 
-**Desafío: caso simulado**
+**Challenge: simulated case**
 
-El desafío se realiza con 4 equipos (cada uno de 4-5 personas), que contarán con el apoyo de un coordinador y 4 monitores.
+The challenge is carried out with 4 teams (each of 4-5 people), which will be supported by a coordinator and 4 monitors.
 
-Cada equipo debe generar un diagnóstico de la situación en las diferentes regiones, así como comparar la evolución de la enfermedad con el fin de evaluar las estrategías de control en cada región.
+Each team must generate a diagnosis of the situation in the different regions, as well as compare the evolution of the disease in order to evaluate the control strategies in each region.
 
-Fuente:
+Source:
 [Reto](https://docs.google.com/document/d/11j99fA8SBMUn1FD6oJBOvc-Nmr9aq5hd/edit?usp=sharing&ouid=108718106243006326200&rtpof=true&sd=true)
 
 :::::::::::::::::::
 
 ::::::::::::::::::::::::::::::::: challenge
 
-**Desafío: caso simulado**
+**Challenge: simulated case**
 
-En los pasados 3 años, en zonas rurales fronterizas de dos países contíguos de América Latina se han identificado casos de encefalitis de origen desconocido en humanos.
-Algunos de estos casos de encefalitis han requerido hospitalización e incluso se han reportado fallecimientos.
-Los habitantes de la zona también señalan que una epidemia similar de casos en que las personas*"perdían la conciencia después de una fuerte fiebre"*  habían ocurrido en la misma zona algunas décadas atrás.
+In the past 3 years, cases of encephalitis of unknown origin have been identified in humans in rural border areas of two neighboring Latin American countries.
+Some of these cases of encephalitis have required hospitalization and even deaths have been reported.
+Locals also point out that a similar epidemic of cases in which people\*"lost consciousness after a high fever "\* had occurred in the same area a few decades earlier.
 
-En  2023 se realizó una encuesta de seroprevalencia para los 4 virus con mayor sospecha de estar circulando en la zona fronteriza donde se presentan los casos de encefalitis.
-Estos 4 virus son biológicamente distintivos entre ellos, es decir no tienen reacción cruzada en las pruebas serológicas.
-Para cada uno de estos virus, la encuesta de seroprevalencia recoge una muestra probabilística y representativa de la población de residentes de la zona con un total de 1306 individuos muestreados entre 1 y 60 años de edad.
-Los resultados de las pruebas serológicas para cada virus se presentan como número total de personas muestreadas por cada grupo de edad y número de personas positivas para anticuerpos IgG contra uno de los 4 virus en ese grupo de edad.
+In 2023, a seroprevalence survey was conducted for the 4 viruses most suspected to be circulating in the border area where encephalitis cases occur.
+These 4 viruses are biologically distinct from each other, i.e. they do not cross-react in serological tests.
+For each of these viruses, the seroprevalence survey collected a probabilistic and representative sample of the population of residents of the area with a total of 1306 individuals sampled between 1 and 60 years of age.
+The results of the serological tests for each virus are presented as the total number of people sampled for each age group and the number of people positive for IgG antibodies against one of the 4 viruses in that age group.
 
-El desafío consiste en que usted y su grupo deben identificar cuál o cuáles de los 4 virus es el más probablemente implicado en esta emergencia de encefalitis viral haciendo uso de la librería serofoi.
+The challenge is for you and your group to identify which of the 4 viruses is most likely to be involved in this viral encephalitis emergency using the serofoi library.
 
 ::::::::::::::::: hint
 
-**Exploración de los datos y visualización de la seroprevalencia (30 min)**
+**Data exploration and visualization of seroprevalence (30 min)**.
 
-Los datos de las 4 encuestas vienen en archivos .
-RDS independientes que podrá encontrar en estos enlaces:
+The data from the 4 surveys come in separate .
+RDS files that you can find in these links:
 
 - <https://epiverse-trace.github.io/epimodelac/data/serosurvey_01.RDS>
 - <https://epiverse-trace.github.io/epimodelac/data/serosurvey_02.RDS>
 - <https://epiverse-trace.github.io/epimodelac/data/serosurvey_03.RDS>
 - <https://epiverse-trace.github.io/epimodelac/data/serosurvey_04.RDS>
 
-Lea los datos haciendo uso de la función `readRDS()`.
-En esta etapa del desafío se espera que:
+Read the data using the `readRDS()` function.
+At this stage of the challenge you are expected to:
 
-1. Exploren la estructura de los datos y analicen las características generales de una encuesta serológica transversal desagregada por edad.
+1. Explore the structure of the data and discuss the general characteristics of an age-disaggregated cross-sectional serological survey.
 
-2. Preparen los datos para el proceso de visualización por medio de funciones del paquete `{dplyr}`.
+2. Prepare the data for the visualization process by means of functions from the `{dplyr}` package.
 
-3. Visualicen la seroprevalencia de cada encuesta por medio de la función `plot_seroprev()` y analicen cualitativamente su tendencia en cada caso.
+Visualize the seroprevalence of each survey by means of the `plot_seroprev()` function and qualitatively analyze its trend in each case.
 
 :::::::::::::::::
 
 ::::::::::::::::: hint
 
-**Estimación de la fuerza de infección histórica (30 min)**
+**Estimation of the historical force of infection (30 min)**.
 
-Implemente los modelos que considere pertinentes a cada encuesta serológica y compare los resultados obtenidos usando métricas de comparación Bayesianas.
-En esta etapa se espera que:
+Implement the models you consider relevant to each serological survey and compare the results obtained using Bayesian comparison metrics.
+At this stage it is expected that:
 
-1. Implementen los modelos Bayesianos disponibles en serofoi por medio de la función `fit_seromodel()`. ¿Cómo afecta a sus resultados usar más o menos iteraciones?
+Implement the Bayesian models available in serofoi by means of the `fit_seromodel()`function.
+How does using more or fewer iterations affect your results?
 
-2. Comparación de los ajustes obtenidos por medio de la función `plot_seromodel()`. ¿Cuál modelo se ajusta mejor en cada caso?
+2. Comparison of the fits obtained by means of the `plot_seromodel()` function. Which model fits best in each case?
 
-**Análisis de resultados (30 min)**
+**Results analysis (30 min)**
 
-Con base en los resultados obtenidos anteriormente, ¿Cuál virus cree que estuvo involucrado en la epidemia reciente de encefalitis?
+Based on the results obtained above, which virus do you think was involved in the recent encephalitis epidemic?
 
 ::::::::::::::::::::::
 
 ::::::::::::::::: solution
 
-Para adaptar una de las cuatro bases de datos al formato necesario para {serofoi}, puede usar el siguiente código:
+To adapt one of the four databases to the format required for {serofoi}, you can use the following code:
 
 ```{r, eval=TRUE, message=FALSE, warning=FALSE}
 library(tidyverse)
@@ -559,18 +568,18 @@ virus_serosurvey <- readr::read_rds(
       step = 5
     )
   ) %>%
-  dplyr::group_by(age_group, survey_year = tsur) %>%
+  dplyr::group_by(age_group, survey_year = tsur) %>%% dplyr::group_by(age_group, survey_year = tsur) %>% dplyr::summarise(
   dplyr::summarise(
     n_sample = sum(total),
     n_seropositive = sum(counts),
     age_min = min(age_min),
     age_max = max(age_max)
   ) %>%
-  dplyr::ungroup() %>%
+  dplyr::ungroup() %>%% dplyr::ungroup() %>% dplyr::select(-)
   dplyr::select(-age_group)
 ```
 
-Ahora, ¿Cómo implementaría los modelos Bayesianos disponibles en serofoi por medio de la función `fit_seromodel()`?
+Now, how would you implement the Bayesian models available in serofoi via the `fit_seromodel()` function?
 
 :::::::::::::::::
 
@@ -578,16 +587,16 @@ Ahora, ¿Cómo implementaría los modelos Bayesianos disponibles en serofoi por 
 
 ::::::::::::::::: instructor
 
-Muestra de la solución para una base de datos:
+Sample solution for a database:
 
 ```{r}
-virus_serosurvey %>%
+virus_serosurvey %>%%.
   serofoi::plot_serosurvey()
 ```
 
 ```{r, message=FALSE}
-virus_serosurvey %>%
-  serofoi::fit_seromodel(model_type = "time", iter = 1000) %>% 
+virus_serosurvey %>%%
+  serofoi::fit_seromodel(model_type = "time", iter = 1000) %>%>% serofoi::plot_seromodel(serosurvey = virus_serosurvey %>% 
   serofoi::plot_seromodel(serosurvey = virus_serosurvey)
 ```
 
@@ -595,48 +604,49 @@ virus_serosurvey %>%
 
 ::::::::::::::::::::::::::::::::::::: keypoints
 
-Revise si al final de esta lección adquirió estas competencias:
+Check if you have acquired these competencies at the end of this lesson:
 
-- Explorar y analizar una encuesta serológica típica.
+- Explore and analyze a typical serological survey.
 
-- Aprender a estimar la Fuerza de Infección en un caso de uso específico.
+- Learn how to estimate the Infection Strength in a specific use case.
 
-- Visualizar e interpretar los resultados.
+- Visualize and interpret the results.
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
-### Sobre este documento
+### About this document
 
-Este documento ha sido diseñado para el Curso Internacional: Análisis de Brotes y Modelamiento en Salud Pública, Bogotá 2023.
+This document has been designed for the International Course: Outbreak Analysis and Modeling in Public Health, Bogotá 2023.
 TRACE-LAC/Javeriana.
 
-#### Contribuciones
+#### Contributions
 
 - Nicolás Torres Domínguez
 - Zulma M. Cucunuba
 
-Contribuciones son bienvenidas vía [pull requests](https://github.com/reconhub/learn/pulls).
+Contributions are welcome via [pull requests](https://github.com/reconhub/learn/pulls).
 
-## Referencias
+## References
 
 Muench, H.
 (1959).
 Catalytic models in epidemiology.
 Harvard University Press.
 
-Hens, N., Aerts, M., Faes, C., Shkedy, Z., Lejeune, O., Van Damme, P., \& Beutels, P.
+Hens, N., Aerts, M., Faes, C., Shkedy, Z., Lejeune, O., Van Damme, P., Beutels, P.
 (2010).
 Seventy-five years of estimating the force of infection from current status data.
-Epidemiology \& Infection, 138(6), 802–812.
+Epidemiology \& Infection, 138(6), 802-812.
 
 Cucunubá, Z.
 M., Nouvellet, P., Conteh, L., Vera, M.
 J., Angulo, V.
 M., Dib, J.
-C., … Basáñez, M.
+C., ...
+Basáñez, M.
 G.
 (2017).
 Modelling historical changes in the force-of-infection of Chagas disease to inform control and elimination programmes: application in Colombia.
-BMJ Global Health, 2(3). doi:10.1136/bmjgh-2017-000345
+BMJ Global Health, 2(3). doi:10.1136/bmjgh-2017-000345.
 
 

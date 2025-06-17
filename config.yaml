@@ -59,14 +59,14 @@ contact: 'gomezblaura@javeriana.edu.co'
 
 # Order of episodes in your lesson
 episodes:
-- TallerIntroAnaliticaBrotes.Rmd
-- ZIKAB.Rmd
-- EnfermedadX.Rmd
+#- TallerIntroAnaliticaBrotes.Rmd
+#- ZIKAB.Rmd
+#- EnfermedadX.Rmd
 #- EnfermedadX2.Rmd
-- Sivirep-tutorial.Rmd
+#- Sivirep-tutorial.Rmd
 - Serofoi-tutorial.Rmd
-- Vaccineff-tutorial.Rmd
-- epiCo-tutorial.Rmd
+#- Vaccineff-tutorial.Rmd
+#- epiCo-tutorial.Rmd
 
 # Information for Learners
 learners:
