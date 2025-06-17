@@ -122,7 +122,7 @@ years_total <- birth_year_max - birth_year_min
 years <- seq(birth_year_min, birth_year_max, 1)
 
 foi <- c(rep(0., 15), rep(0.065, 15), rep(0.03, 20),
-         rep(0.005, birth_year_max - birth_year_min - 15 - 15 - 20 - 20 + 1)
+         rep(0.005, birth_year_max - birth_year_min - 15 - 15 - 20 + 1)
          )
 
 foi_plot <- ggplot(data = data.frame(years = years, foi = foi),
@@ -166,8 +166,8 @@ $$
 In the case of the example, this gives us the following graph:
 
 ```{r, echo=FALSE}
-df_serosurvey <- df_seroprev %>%%
-  filter(year == birth_year_max) %>%%
+df_serosurvey <- df_seroprev %>%
+  filter(year == birth_year_max) %>%
   mutate(age = year - cohort_birth_year)
 serosurvey_plot <- ggplot(data = df_serosurvey,
                           aes(x = age, y = seroprev)) +
@@ -356,8 +356,6 @@ chik_constant <- fit_seromodel(serosurvey = chik2015,
                                model_type = "constant",
                                iter = 1000)
 
-
-
 chik_constant_plot <- plot_seromodel(seromodel = chik_constant,
                                      serosurvey = chik2015,
                                      size_text = 12)
@@ -368,8 +366,6 @@ Then visualize the three plots together using the `plot_grid()` function of the 
 
 ```{r chik2015_plot, eval=FALSE}
 install.packages("cowplot")
-
-
 
 cowplot::plot_grid(chik_constant_plot,
                    chik_normal_plot,
@@ -389,13 +385,9 @@ m1_chik <- fit_seromodel(serosurvey = chik2015,
                          model_type = "constant",
                          iter = 1000)
 
-
-
 m2_chik <- fit_seromodel(serosurvey = chik2015,
                          model_type = "time",
                          iter = 4000)
-
-
 
 m3_chik <- fit_seromodel(serosurvey = chik2015,
                          model_type = "time",
@@ -419,8 +411,6 @@ chik_normal_log_plot <- plot_seromodel(seromodel = m3_chik,
                           serosurvey = chik2015,
                           size_text = 6,
                           foi_max = 0.1)
-
-
 
 cowplot::plot_grid(chik_constant_plot, chik_normal_plot, chik_normal_log_plot, ncol=3)
 ```
@@ -568,14 +558,14 @@ virus_serosurvey <- readr::read_rds(
       step = 5
     )
   ) %>%
-  dplyr::group_by(age_group, survey_year = tsur) %>%% dplyr::group_by(age_group, survey_year = tsur) %>% dplyr::summarise(
+  dplyr::group_by(age_group, survey_year = tsur) %>% 
   dplyr::summarise(
     n_sample = sum(total),
     n_seropositive = sum(counts),
     age_min = min(age_min),
     age_max = max(age_max)
   ) %>%
-  dplyr::ungroup() %>%% dplyr::ungroup() %>% dplyr::select(-)
+  dplyr::ungroup() %>% 
   dplyr::select(-age_group)
 ```
 
@@ -590,13 +580,13 @@ Now, how would you implement the Bayesian models available in serofoi via the `f
 Sample solution for a database:
 
 ```{r}
-virus_serosurvey %>%%.
+virus_serosurvey %>%
   serofoi::plot_serosurvey()
 ```
 
 ```{r, message=FALSE}
-virus_serosurvey %>%%
-  serofoi::fit_seromodel(model_type = "time", iter = 1000) %>%>% serofoi::plot_seromodel(serosurvey = virus_serosurvey %>% 
+virus_serosurvey %>%
+  serofoi::fit_seromodel(model_type = "time", iter = 1000) %>%
   serofoi::plot_seromodel(serosurvey = virus_serosurvey)
 ```
 
