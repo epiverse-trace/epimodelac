@@ -8,10 +8,10 @@
 # lc: Library Carpentry
 # cp: Carpentries (to use for instructor training for instance)
 # incubator: The Carpentries Incubator
-carpentry: 'epitkit'
+carpentry: 'epiverse-trace'
 
 # Overall title for pages.
-title: 'Análisis de Brotes y Modelamiento en Salud Pública'
+title: 'Outbreak Analytics and Modelling in Public Health'
 
 # Date the lesson was created (YYYY-MM-DD, this is empty by default)
 created: '2023-11-10'
@@ -27,7 +27,7 @@ life_cycle: 'pre-alpha'
 license: 'CC-BY 4.0'
 
 # Link to the source repository for this lesson
-source: 'https://github.com/epiverse-trace/epimodelac'
+source: 'https://github.com/epiverse-trace-en/epimodelac'
 
 # Default branch of your lesson
 branch: 'main'
@@ -84,5 +84,5 @@ profiles:
 varnish: epiverse-trace/varnish@epiversetheme
 # this is carpentries/sandpaper#533 in our fork so we can keep it up to date with main
 sandpaper: epiverse-trace/sandpaper@patch-renv-github-bug
-lang: es
+
 
