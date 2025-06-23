@@ -28,7 +28,13 @@
     <loc>https://epiverse-trace.github.io/epimodelac/ZIKAB.html</loc>
   </url>
   <url>
+    <loc>https://epiverse-trace.github.io/epimodelac/aio.html</loc>
+  </url>
+  <url>
     <loc>https://epiverse-trace.github.io/epimodelac/epiCo-tutorial.html</loc>
+  </url>
+  <url>
+    <loc>https://epiverse-trace.github.io/epimodelac/images.html</loc>
   </url>
   <url>
     <loc>https://epiverse-trace.github.io/epimodelac/index.html</loc>
@@ -61,16 +67,34 @@
     <loc>https://epiverse-trace.github.io/epimodelac/instructor/ZIKAB.html</loc>
   </url>
   <url>
+    <loc>https://epiverse-trace.github.io/epimodelac/instructor/aio.html</loc>
+  </url>
+  <url>
     <loc>https://epiverse-trace.github.io/epimodelac/instructor/epiCo-tutorial.html</loc>
   </url>
   <url>
+    <loc>https://epiverse-trace.github.io/epimodelac/instructor/images.html</loc>
+  </url>
+  <url>
     <loc>https://epiverse-trace.github.io/epimodelac/instructor/index.html</loc>
+  </url>
+  <url>
+    <loc>https://epiverse-trace.github.io/epimodelac/instructor/instructor-notes.html</loc>
+  </url>
+  <url>
+    <loc>https://epiverse-trace.github.io/epimodelac/instructor/key-points.html</loc>
   </url>
   <url>
     <loc>https://epiverse-trace.github.io/epimodelac/instructor/profiles.html</loc>
   </url>
   <url>
     <loc>https://epiverse-trace.github.io/epimodelac/instructor/reference.html</loc>
+  </url>
+  <url>
+    <loc>https://epiverse-trace.github.io/epimodelac/instructor-notes.html</loc>
+  </url>
+  <url>
+    <loc>https://epiverse-trace.github.io/epimodelac/key-points.html</loc>
   </url>
   <url>
     <loc>https://epiverse-trace.github.io/epimodelac/profiles.html</loc>
