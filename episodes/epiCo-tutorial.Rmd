@@ -2,7 +2,6 @@
 title: "Indicadores demográficos, canales endémicos y clusters de incidencia usando epiCo"
 author: "Juan D. Umaña, Juan Montenegro-Torres"
 date: "2023-12-08"
-image: null
 editor_options:
   markdown:
     wrap: 72
@@ -41,9 +40,9 @@ Al final de este taller usted podrá:
 
 Puede descargar la última versión estable de **epiCo** a través del repositorio en [GitHub](https://github.com/epiverse-trace/epiCo) con los siguientes comandos:
 
-```{r, message=FALSE, warning=FALSE}
-# if(!require("remotes")) install.packages("remotes")
-# if(!require("epico")) remotes::install_github("epiverse-trace/epiCo")
+```{r, eval=FALSE}
+if(!require("pak")) install.packages("pak")
+if(!require("epico")) pak::pak("epiCo")
 ```
 
 ## Motivación

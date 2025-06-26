@@ -323,7 +323,7 @@ Después de haber configurado C++ Toolchain, ejecute las siguientes líneas de c
 
 ```{r, eval=FALSE}
 if(!require("pak")) install.packages("pak")
-pak::pak("epiverse-trace/serofoi")
+pak::pak("serofoi")
 ```
 
 Opcionalmente, es posible modificar la configuración de R para que los modelos a implementar corran en paralelo, aprovechando los núcleos del procesador de su computador.
