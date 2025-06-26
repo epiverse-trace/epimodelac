@@ -242,13 +242,40 @@ El logaritmo en el modelo $\log(\lambda)$ permite identificar cambios drásticos
 
 Previo a la instalación de **serofoi**, cree un proyecto en R en la carpeta de su escogencia en su máquina local; esto con el fin de organizar el espacio de trabajo en donde se guardarán los códigos que desarrolle durante la sesión.
 
-Antes de realizar la instalación de **serofoi**, es necesario instalar y configurar C++ Toolchain (instrucciones para [windows](https://github.com/stan-dev/rstan/wiki/Configuring-C---Toolchain-for-Windows)/ [mac](https://github.com/stan-dev/rstan/wiki/Configuring-C---Toolchain-for-Mac)/ [linux](https://github.com/stan-dev/rstan/wiki/Configuring-C-Toolchain-for-Linux)).
+Antes de realizar la instalación de **serofoi**, es necesario instalar y configurar C++ Toolchain (instrucciones para [windows](https://cran.r-project.org/bin/windows/Rtools/)/ [mac](https://github.com/stan-dev/rstan/wiki/Configuring-C---Toolchain-for-Mac)/ [linux](https://github.com/stan-dev/rstan/wiki/Configuring-C-Toolchain-for-Linux)).
+
+::::::::::::::::::::::::::::: spoiler
+
+### ¿Cómo instalar y configurar Rtools en Windows?
+
+Los usuarios de Windows necesitarán una instalación funcional de `Rtools` para construir el paquete desde el código fuente. `Rtools` no es un paquete de R, sino un software que necesita descargar e instalar. Le sugerimos lo siguiente:
+
+1. **Verifique la instalación de `Rtools`. Puedes hacerlo utilizando la búsqueda de Windows en tu sistema. Opcionalmente, puedes utilizar `{devtools}` en ejecución: 
+
+```r
+if(!require("devtools")) install.packages("devtools")
+devtools::find_rtools()
+```
+
+Si el resultado es `FALSE`, entonces debe realizar el paso 2.
+
+2. **Instale `Rtools`**. Descargue el instalador de `Rtools` de <https://cran.r-project.org/bin/windows/Rtools/>. Instale con las selecciones por defecto.
+
+3. **Verificar la instalación de `Rtools`**. De nuevo, podemos usar `{devtools}`:
+
+```r
+if(!require("devtools")) install.packages("devtools")
+devtools::find_rtools()
+```
+
+:::::::::::::::::::::::::::::
+
 Después de haber configurado C++ Toolchain, ejecute las siguientes líneas de código para instalar el paquete:
 
 
 ``` r
 if(!require("pak")) install.packages("pak")
-pak::pak("epiverse-trace/serofoi")
+pak::pak("serofoi")
 ```
 
 Opcionalmente, es posible modificar la configuración de R para que los modelos a implementar corran en paralelo, aprovechando los núcleos del procesador de su computador.
@@ -524,15 +551,15 @@ Chain 1: Iteration: 800 / 1000 [ 80%]  (Sampling)
 Chain 1: Iteration: 900 / 1000 [ 90%]  (Sampling)
 Chain 1: Iteration: 1000 / 1000 [100%]  (Sampling)
 Chain 1: 
-Chain 1:  Elapsed Time: 3.804 seconds (Warm-up)
-Chain 1:                4.017 seconds (Sampling)
-Chain 1:                7.821 seconds (Total)
+Chain 1:  Elapsed Time: 4.097 seconds (Warm-up)
+Chain 1:                2.873 seconds (Sampling)
+Chain 1:                6.97 seconds (Total)
 Chain 1: 
 
 SAMPLING FOR MODEL 'time_no_seroreversion' NOW (CHAIN 2).
 Chain 2: 
-Chain 2: Gradient evaluation took 9.9e-05 seconds
-Chain 2: 1000 transitions using 10 leapfrog steps per transition would take 0.99 seconds.
+Chain 2: Gradient evaluation took 0.000118 seconds
+Chain 2: 1000 transitions using 10 leapfrog steps per transition would take 1.18 seconds.
 Chain 2: Adjust your expectations accordingly!
 Chain 2: 
 Chain 2: 
@@ -549,9 +576,9 @@ Chain 2: Iteration: 800 / 1000 [ 80%]  (Sampling)
 Chain 2: Iteration: 900 / 1000 [ 90%]  (Sampling)
 Chain 2: Iteration: 1000 / 1000 [100%]  (Sampling)
 Chain 2: 
-Chain 2:  Elapsed Time: 4.236 seconds (Warm-up)
-Chain 2:                3.107 seconds (Sampling)
-Chain 2:                7.343 seconds (Total)
+Chain 2:  Elapsed Time: 4.348 seconds (Warm-up)
+Chain 2:                4.645 seconds (Sampling)
+Chain 2:                8.993 seconds (Total)
 Chain 2: 
 
 SAMPLING FOR MODEL 'time_no_seroreversion' NOW (CHAIN 3).
@@ -574,9 +601,9 @@ Chain 3: Iteration: 800 / 1000 [ 80%]  (Sampling)
 Chain 3: Iteration: 900 / 1000 [ 90%]  (Sampling)
 Chain 3: Iteration: 1000 / 1000 [100%]  (Sampling)
 Chain 3: 
-Chain 3:  Elapsed Time: 4.122 seconds (Warm-up)
-Chain 3:                2.648 seconds (Sampling)
-Chain 3:                6.77 seconds (Total)
+Chain 3:  Elapsed Time: 4.426 seconds (Warm-up)
+Chain 3:                3.423 seconds (Sampling)
+Chain 3:                7.849 seconds (Total)
 Chain 3: 
 
 SAMPLING FOR MODEL 'time_no_seroreversion' NOW (CHAIN 4).
@@ -599,25 +626,10 @@ Chain 4: Iteration: 800 / 1000 [ 80%]  (Sampling)
 Chain 4: Iteration: 900 / 1000 [ 90%]  (Sampling)
 Chain 4: Iteration: 1000 / 1000 [100%]  (Sampling)
 Chain 4: 
-Chain 4:  Elapsed Time: 4.173 seconds (Warm-up)
-Chain 4:                2.614 seconds (Sampling)
-Chain 4:                6.787 seconds (Total)
+Chain 4:  Elapsed Time: 3.985 seconds (Warm-up)
+Chain 4:                3.039 seconds (Sampling)
+Chain 4:                7.024 seconds (Total)
 Chain 4: 
-```
-
-``` warning
-Warning: There were 3 divergent transitions after warmup. See
-https://mc-stan.org/misc/warnings.html#divergent-transitions-after-warmup
-to find out why this is a problem and how to eliminate them.
-```
-
-``` warning
-Warning: There were 2 chains where the estimated Bayesian Fraction of Missing Information was low. See
-https://mc-stan.org/misc/warnings.html#bfmi-low
-```
-
-``` warning
-Warning: Examine the pairs() plot to diagnose sampling problems
 ```
 
 ``` warning

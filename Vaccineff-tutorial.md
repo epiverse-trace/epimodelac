@@ -248,8 +248,8 @@ Para installar `vaccineff` ejecute las siguientes líneas en R:
 
 
 ``` r
-# if(!require("pak")) install.packages("pak")
-# pak::pak("epiverse-trace/vaccineff@dev")
+if(!require("pak")) install.packages("pak")
+pak::pak("vaccineff")
 ```
 
 Posteriormente, para cargar los paquetes en el espacio de trabajo y el set de 

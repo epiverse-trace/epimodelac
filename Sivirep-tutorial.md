@@ -109,10 +109,12 @@ Iniciaremos instalando e importando el paquete a través de los siguientes coman
 
 
 ``` r
-remove.packages("sivirep")
 if (!require("pak")) install.packages("pak")
-pak::pak("epiverse-trace/sivirep") # Comando para instalar sivirep
-rm(list = ls()) # Comando para limpiar el ambiente de R
+pak::pak("sivirep") # Comando para instalar sivirep
+```
+
+
+``` r
 library(sivirep) # Comando para importar sivirep
 ```
 
