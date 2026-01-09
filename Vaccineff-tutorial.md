@@ -326,7 +326,7 @@ ggplot(data = cohortdata,
   theme_classic()
 ```
 
-<img src="fig/Vaccineff-tutorial-rendered-unnamed-chunk-4-1.png" style="display: block; margin: auto;" />
+<img src="fig/Vaccineff-tutorial-rendered-unnamed-chunk-4-1.png" alt="" style="display: block; margin: auto;" />
 
 #### **4.1.2. Cobertura vacunal en las cohortes**
 
@@ -352,7 +352,7 @@ vaccineff_data <- make_vaccineff_data(
 plot(vaccineff_data)
 ```
 
-<img src="fig/Vaccineff-tutorial-rendered-unnamed-chunk-5-1.png" style="display: block; margin: auto;" />
+<img src="fig/Vaccineff-tutorial-rendered-unnamed-chunk-5-1.png" alt="" style="display: block; margin: auto;" />
 
 Esta función calcula la cobertura con base a la última dosis, la cual se
 especifica en el parámetro "vacc_date_col". En particular, en el ejemplo
@@ -531,7 +531,7 @@ comando en R:
 plot(ve, type = "surv", cumulative = TRUE)
 ```
 
-<img src="fig/Vaccineff-tutorial-rendered-unnamed-chunk-10-1.png" style="display: block; margin: auto;" />
+<img src="fig/Vaccineff-tutorial-rendered-unnamed-chunk-10-1.png" alt="" style="display: block; margin: auto;" />
 
 A partir de la función anterior también es posible realizar la gráfica
 de supervivencia de las cohortes o gráfica de Kaplan-Meier en la cual se
@@ -549,7 +549,7 @@ FALSE:
 plot(ve, type = "surv", cumulative = FALSE)
 ```
 
-<img src="fig/Vaccineff-tutorial-rendered-unnamed-chunk-11-1.png" style="display: block; margin: auto;" />
+<img src="fig/Vaccineff-tutorial-rendered-unnamed-chunk-11-1.png" alt="" style="display: block; margin: auto;" />
 
 La función `estimate_vaccineff()` crea internamente una tabla Kaplan-Meier.
 
@@ -623,7 +623,7 @@ Podemos usar la función `plot()` para evaluar la hipótesis de riesgos proporci
 plot(ve, type = "loglog")
 ```
 
-<img src="fig/Vaccineff-tutorial-rendered-unnamed-chunk-15-1.png" style="display: block; margin: auto;" />
+<img src="fig/Vaccineff-tutorial-rendered-unnamed-chunk-15-1.png" alt="" style="display: block; margin: auto;" />
 
 ### **4.6 Cohorte dinámica - Emparejamiento poblacional**
 

@@ -110,11 +110,11 @@ $$
 
 Como un ejemplo, consideremos la FoI representada en la siguiente figura:
 
-<img src="fig/Serofoi-tutorial-rendered-unnamed-chunk-1-1.png" style="display: block; margin: auto;" />
+<img src="fig/Serofoi-tutorial-rendered-unnamed-chunk-1-1.png" alt="" style="display: block; margin: auto;" />
 
 A partir de esta FoI, es posible calcular la seroprevalencia para distintas cohortes por medio de la ecuación (2):
 
-<img src="fig/Serofoi-tutorial-rendered-unnamed-chunk-2-1.png" style="display: block; margin: auto;" />
+<img src="fig/Serofoi-tutorial-rendered-unnamed-chunk-2-1.png" alt="" style="display: block; margin: auto;" />
 
 Cuando conocemos los datos de una encuesta serológica, la información a la que tenemos acceso es a una fotografía de la seroprevalencia en el momento su realización $t_{sur}$ como función de la edad de los individuos en ese momento, la cual coincide con la ecuación (2) ya que los individuos envejecen al mismo ritmo al que pasa el tiempo; es decir:
 
@@ -125,7 +125,7 @@ $$
 
 En el caso del ejemplo, esto nos da la siguiente gráfica:
 
-<img src="fig/Serofoi-tutorial-rendered-unnamed-chunk-3-1.png" style="display: block; margin: auto;" />
+<img src="fig/Serofoi-tutorial-rendered-unnamed-chunk-3-1.png" alt="" style="display: block; margin: auto;" />
 
 Note que los valores de seroprevalencia de cada edad en esta gráfica corresponden a los valores de seroprevalencia al momento de la encuesta (2020) en la gráfica anterior.
 
@@ -146,7 +146,7 @@ $$
 en donde se tuvo en cuenta qué, al momento de la introducción del patógeno ($t = 0$), la proporción de individuos infectados fue $P(0) = 0$ (condición inicial).
 Note que el término de la suma en la ecuación (3) da como resultado la edad de cada cohorte al considerar la fuerza de infección constante.
 
-<img src="fig/Serofoi-tutorial-rendered-unnamed-chunk-4-1.png" style="display: block; margin: auto;" />
+<img src="fig/Serofoi-tutorial-rendered-unnamed-chunk-4-1.png" alt="" style="display: block; margin: auto;" />
 
 **Figura 1.**
 Curvas de prevalencia en función de la edad para distintos valores de FoI constante.
@@ -321,7 +321,7 @@ Debido a que el número de trayectorias es relativamente alto, con el fin de ase
 
 
 
-<img src="fig/Serofoi-tutorial-rendered-chik2015_vis-1.png" style="display: block; margin: auto;" />
+<img src="fig/Serofoi-tutorial-rendered-chik2015_vis-1.png" alt="" style="display: block; margin: auto;" />
 
 El poder predictivo de un modelo Bayesiano se puede caracterizar por medio del *elpd*(Expected Log Predictive Density).
 El modelo que mejor ajusta la encuesta epidemiológica es aquel que tiene valores más altos de*elpd* y valores más bajos de error estándar (se).
@@ -493,7 +493,7 @@ virus_serosurvey %>%
   serofoi::plot_serosurvey()
 ```
 
-<img src="fig/Serofoi-tutorial-rendered-unnamed-chunk-9-1.png" style="display: block; margin: auto;" />
+<img src="fig/Serofoi-tutorial-rendered-unnamed-chunk-9-1.png" alt="" style="display: block; margin: auto;" />
 
 
 ``` r
@@ -506,8 +506,8 @@ virus_serosurvey %>%
 
 SAMPLING FOR MODEL 'time_no_seroreversion' NOW (CHAIN 1).
 Chain 1: 
-Chain 1: Gradient evaluation took 0.000106 seconds
-Chain 1: 1000 transitions using 10 leapfrog steps per transition would take 1.06 seconds.
+Chain 1: Gradient evaluation took 0.000108 seconds
+Chain 1: 1000 transitions using 10 leapfrog steps per transition would take 1.08 seconds.
 Chain 1: Adjust your expectations accordingly!
 Chain 1: 
 Chain 1: 
@@ -524,15 +524,15 @@ Chain 1: Iteration: 800 / 1000 [ 80%]  (Sampling)
 Chain 1: Iteration: 900 / 1000 [ 90%]  (Sampling)
 Chain 1: Iteration: 1000 / 1000 [100%]  (Sampling)
 Chain 1: 
-Chain 1:  Elapsed Time: 4.022 seconds (Warm-up)
-Chain 1:                3.498 seconds (Sampling)
-Chain 1:                7.52 seconds (Total)
+Chain 1:  Elapsed Time: 4.179 seconds (Warm-up)
+Chain 1:                3.221 seconds (Sampling)
+Chain 1:                7.4 seconds (Total)
 Chain 1: 
 
 SAMPLING FOR MODEL 'time_no_seroreversion' NOW (CHAIN 2).
 Chain 2: 
-Chain 2: Gradient evaluation took 9.9e-05 seconds
-Chain 2: 1000 transitions using 10 leapfrog steps per transition would take 0.99 seconds.
+Chain 2: Gradient evaluation took 0.0001 seconds
+Chain 2: 1000 transitions using 10 leapfrog steps per transition would take 1 seconds.
 Chain 2: Adjust your expectations accordingly!
 Chain 2: 
 Chain 2: 
@@ -549,15 +549,15 @@ Chain 2: Iteration: 800 / 1000 [ 80%]  (Sampling)
 Chain 2: Iteration: 900 / 1000 [ 90%]  (Sampling)
 Chain 2: Iteration: 1000 / 1000 [100%]  (Sampling)
 Chain 2: 
-Chain 2:  Elapsed Time: 4.401 seconds (Warm-up)
-Chain 2:                4.52 seconds (Sampling)
-Chain 2:                8.921 seconds (Total)
+Chain 2:  Elapsed Time: 3.773 seconds (Warm-up)
+Chain 2:                3.453 seconds (Sampling)
+Chain 2:                7.226 seconds (Total)
 Chain 2: 
 
 SAMPLING FOR MODEL 'time_no_seroreversion' NOW (CHAIN 3).
 Chain 3: 
-Chain 3: Gradient evaluation took 9.8e-05 seconds
-Chain 3: 1000 transitions using 10 leapfrog steps per transition would take 0.98 seconds.
+Chain 3: Gradient evaluation took 0.0001 seconds
+Chain 3: 1000 transitions using 10 leapfrog steps per transition would take 1 seconds.
 Chain 3: Adjust your expectations accordingly!
 Chain 3: 
 Chain 3: 
@@ -574,15 +574,15 @@ Chain 3: Iteration: 800 / 1000 [ 80%]  (Sampling)
 Chain 3: Iteration: 900 / 1000 [ 90%]  (Sampling)
 Chain 3: Iteration: 1000 / 1000 [100%]  (Sampling)
 Chain 3: 
-Chain 3:  Elapsed Time: 3.852 seconds (Warm-up)
-Chain 3:                3.36 seconds (Sampling)
-Chain 3:                7.212 seconds (Total)
+Chain 3:  Elapsed Time: 4.172 seconds (Warm-up)
+Chain 3:                2.718 seconds (Sampling)
+Chain 3:                6.89 seconds (Total)
 Chain 3: 
 
 SAMPLING FOR MODEL 'time_no_seroreversion' NOW (CHAIN 4).
 Chain 4: 
-Chain 4: Gradient evaluation took 0.000101 seconds
-Chain 4: 1000 transitions using 10 leapfrog steps per transition would take 1.01 seconds.
+Chain 4: Gradient evaluation took 0.0001 seconds
+Chain 4: 1000 transitions using 10 leapfrog steps per transition would take 1 seconds.
 Chain 4: Adjust your expectations accordingly!
 Chain 4: 
 Chain 4: 
@@ -599,14 +599,14 @@ Chain 4: Iteration: 800 / 1000 [ 80%]  (Sampling)
 Chain 4: Iteration: 900 / 1000 [ 90%]  (Sampling)
 Chain 4: Iteration: 1000 / 1000 [100%]  (Sampling)
 Chain 4: 
-Chain 4:  Elapsed Time: 4.2 seconds (Warm-up)
-Chain 4:                3.536 seconds (Sampling)
-Chain 4:                7.736 seconds (Total)
+Chain 4:  Elapsed Time: 4.009 seconds (Warm-up)
+Chain 4:                3.698 seconds (Sampling)
+Chain 4:                7.707 seconds (Total)
 Chain 4: 
 ```
 
 ``` warning
-Warning: There were 1 chains where the estimated Bayesian Fraction of Missing Information was low. See
+Warning: There were 2 chains where the estimated Bayesian Fraction of Missing Information was low. See
 https://mc-stan.org/misc/warnings.html#bfmi-low
 ```
 
@@ -626,11 +626,7 @@ Running the chains for more iterations may help. See
 https://mc-stan.org/misc/warnings.html#tail-ess
 ```
 
-``` warning
-Warning: Some Pareto k diagnostic values are too high. See help('pareto-k-diagnostic') for details.
-```
-
-<img src="fig/Serofoi-tutorial-rendered-unnamed-chunk-10-1.png" style="display: block; margin: auto;" />
+<img src="fig/Serofoi-tutorial-rendered-unnamed-chunk-10-1.png" alt="" style="display: block; margin: auto;" />
 
 ::::::::::::::::::::::::::
 

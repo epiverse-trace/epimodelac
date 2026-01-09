@@ -424,7 +424,7 @@ p4h <- ggplot(data = out, aes(y = Rh, x = years)) +
 plot_grid(p1h, p2h, p3h, p4h, ncol = 2)
 ```
 
-<img src="fig/ZIKAB-rendered-p1-1.png" style="display: block; margin: auto;" />
+<img src="fig/ZIKAB-rendered-p1-1.png" alt="" style="display: block; margin: auto;" />
 
 ### 11.2 Comportamiento General (Población de vectores) 
  
@@ -450,7 +450,7 @@ p4v <- ggplot(data = out, aes(y = Iv, x = years)) +
 plot_grid(p1v, p2v, p3v, p4v, ncol = 2)
 ```
 
-<img src="fig/ZIKAB-rendered-p2-1.png" style="display: block; margin: auto;" />
+<img src="fig/ZIKAB-rendered-p2-1.png" alt="" style="display: block; margin: auto;" />
 
 ### 11.3 Proporción 
  
@@ -476,7 +476,7 @@ p3 <- ggplot(data = out, aes(y = Rh/(Sh+Ih+Rh), x = years)) +
 plot_grid(p1, p2, p3, ncol = 2) 
 ```
 
-<img src="fig/ZIKAB-rendered-p3-1.png" style="display: block; margin: auto;" />
+<img src="fig/ZIKAB-rendered-p3-1.png" alt="" style="display: block; margin: auto;" />
 
 ### 11.4 La primera epidemia 
  
@@ -495,7 +495,7 @@ p2e <- ggplot(dat, aes(y = Rh, x = weeks)) +
 plot_grid(p1e, p2e)
 ```
 
-<img src="fig/ZIKAB-rendered-p4-1.png" style="display: block; margin: auto;" />
+<img src="fig/ZIKAB-rendered-p4-1.png" alt="" style="display: block; margin: auto;" />
 
 
 ### 11.5 Algunos aspectos por discutir 
