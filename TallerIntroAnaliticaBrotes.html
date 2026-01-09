@@ -347,7 +347,7 @@
       </div>
       <hr></nav><main id="main-content" class="main-content"><div class="container lesson-content">
         <h1>Introducción a la analítica de brotes</h1>
-        <p>Última actualización: 2025-11-11 |
+        <p>Última actualización: 2026-01-09 |
 
         <a href="https://github.com/epiverse-trace/epimodelac/edit/main/episodes/TallerIntroAnaliticaBrotes.Rmd" class="external-link">Mejora esta página <i aria-hidden="true" data-feather="edit"></i></a></p>
 
@@ -625,7 +625,7 @@ función <code>binom.confint</code>. Y obtenga este resultado:</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1"> Pista </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
 <div class="accordion-body">
 <p>Recuerde diligenciar los espacios donde dice <code>COMPLETE</code>. Y
 obtenga este resultado</p>
@@ -729,7 +729,7 @@ a los casos nuevos cada día en específico.</p>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">plot</span><span class="op">(</span><span class="va">incidencia_diaria</span>, border <span class="op">=</span> <span class="st">"black"</span><span class="op">)</span></span></code></pre>
 </div>
-<figure><img src="fig/TallerIntroAnaliticaBrotes-rendered-unnamed-chunk-15-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>En el <code>Eje X (Fechas)</code>: Se puede observar fechas van desde
+<figure><img src="fig/TallerIntroAnaliticaBrotes-rendered-unnamed-chunk-15-1.png" alt="" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>En el <code>Eje X (Fechas)</code>: Se puede observar fechas van desde
 el <code>7 de abril de 2014</code> hasta una fecha posterior al
 <code>21 de junio de 2014</code>. Estas fechas representan el período de
 observación del brote.</p>
@@ -783,7 +783,7 @@ $interval: 7 days
 $timespan: 85 days
 $cumulative: FALSE</code></pre>
 </div>
-<figure><img src="fig/TallerIntroAnaliticaBrotes-rendered-unnamed-chunk-17-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure></div>
+<figure><img src="fig/TallerIntroAnaliticaBrotes-rendered-unnamed-chunk-17-1.png" alt="" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure></div>
 </div>
 </div>
 
@@ -813,7 +813,7 @@ exponenciales en los datos.</p>
 <span>  <span class="fu">ylab</span><span class="op">(</span><span class="st">"Incidencia semanal logarítmica"</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu">theme_minimal</span><span class="op">(</span><span class="op">)</span></span></code></pre>
 </div>
-<figure><img src="fig/TallerIntroAnaliticaBrotes-rendered-unnamed-chunk-19-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure></div>
+<figure><img src="fig/TallerIntroAnaliticaBrotes-rendered-unnamed-chunk-19-1.png" alt="" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure></div>
 <div class="section level4">
 <h4 id="interpretación-del-modelo">Ajuste un modelo log-lineal a los datos de incidencia semanal<a class="anchor" aria-label="anchor" href="#interpretaci%C3%B3n-del-modelo"></a></h4>
 <div class="codewrapper sourceCode" id="cb25">
@@ -863,7 +863,7 @@ $info: list containing the following items:
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
   <h4 class="accordion-header" id="headingSolution2"> Solución </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
 <div class="accordion-body">
 <p><code>$model</code>: Indica que se ha realizado una regresión
 logarítmica de la incidencia en función del tiempo. Esto implica que la
@@ -958,7 +958,7 @@ modelo.</p>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">plot</span><span class="op">(</span><span class="va">incidencia_semanal</span>, fit <span class="op">=</span> <span class="va">ajuste_modelo</span><span class="op">)</span></span></code></pre>
 </div>
-<figure><img src="fig/TallerIntroAnaliticaBrotes-rendered-unnamed-chunk-24-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>Tras ajustar el modelo log-lineal a la incidencia semanal para
+<figure><img src="fig/TallerIntroAnaliticaBrotes-rendered-unnamed-chunk-24-1.png" alt="" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>Tras ajustar el modelo log-lineal a la incidencia semanal para
 estimar la tasa de crecimiento de la epidemia, el gráfico muestra la
 curva de ajuste superpuesta a la incidencia semanal observada.</p>
 <p>Al final del gráfico se puede observar que la incidencia semanal
@@ -1066,7 +1066,7 @@ $info: list containing the following items:
 <p>Ahora utilizando los datos truncados
 <code>incidencia_semanal_truncada</code> vuelva a graficar el modelo
 logarítmico lineal.</p>
-<figure><img src="fig/TallerIntroAnaliticaBrotes-rendered-unnamed-chunk-29-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure></div>
+<figure><img src="fig/TallerIntroAnaliticaBrotes-rendered-unnamed-chunk-29-1.png" alt="" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure></div>
 </div>
 </div>
 
@@ -1283,7 +1283,7 @@ función del tiempo:</p>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">plot</span><span class="op">(</span><span class="va">estimacion_rt</span>, legend <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre>
 </div>
-<figure><img src="fig/TallerIntroAnaliticaBrotes-rendered-unnamed-chunk-40-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><hr><div class="section level4">
+<figure><img src="fig/TallerIntroAnaliticaBrotes-rendered-unnamed-chunk-40-1.png" alt="" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><hr><div class="section level4">
 <h4 id="sobre-este-documento">Sobre este documento<a class="anchor" aria-label="anchor" href="#sobre-este-documento"></a></h4>
 <p>Este documento ha sido una adaptación de los materiales originales
 disponibles en <a href="https://www.reconlearn.org/" class="external-link">RECON Learn</a></p>
@@ -1384,8 +1384,8 @@ any links that you are not going to use.
   "url": "https://epiverse-trace.github.io/epimodelac/TallerIntroAnaliticaBrotes.html",
   "identifier": "https://epiverse-trace.github.io/epimodelac/TallerIntroAnaliticaBrotes.html",
   "dateCreated": "2023-11-10",
-  "dateModified": "2025-11-11",
-  "datePublished": "2026-01-06"
+  "dateModified": "2026-01-09",
+  "datePublished": "2026-01-09"
 }
 
   </script><script>

@@ -346,7 +346,7 @@
       </div>
       <hr></nav><main id="main-content" class="main-content"><div class="container lesson-content">
         <h1>Introducción al cálculo de efectividad vacunal con cohortes usando vaccineff</h1>
-        <p>Última actualización: 2025-11-11 |
+        <p>Última actualización: 2026-01-09 |
 
         <a href="https://github.com/epiverse-trace/epimodelac/edit/main/episodes/Vaccineff-tutorial.Rmd" class="external-link">Mejora esta página <i aria-hidden="true" data-feather="edit"></i></a></p>
 
@@ -662,7 +662,7 @@ ggplot2. Para esto, ejecute el siguiente comando en R:</p>
 <span>  <span class="fu">geom_bar</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">theme_classic</span><span class="op">(</span><span class="op">)</span></span></code></pre>
 </div>
-<figure><img src="../fig/Vaccineff-tutorial-rendered-unnamed-chunk-4-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure></div>
+<figure><img src="../fig/Vaccineff-tutorial-rendered-unnamed-chunk-4-1.png" alt="" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure></div>
 <div class="section level4">
 <h4 id="cobertura-vacunal-en-las-cohortes"><strong>4.1.2. Cobertura vacunal en las cohortes</strong><a class="anchor" aria-label="anchor" href="#cobertura-vacunal-en-las-cohortes"></a></h4>
 <p>En un conjunto de datos típico de un estudio de cohorte se tiene
@@ -688,7 +688,7 @@ el siguiente comando en R:</p>
 <span><span class="co"># Plot the vaccine coverage of the total population</span></span>
 <span><span class="fu">plot</span><span class="op">(</span><span class="va">vaccineff_data</span><span class="op">)</span></span></code></pre>
 </div>
-<figure><img src="../fig/Vaccineff-tutorial-rendered-unnamed-chunk-5-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>Esta función calcula la cobertura con base a la última dosis, la cual
+<figure><img src="../fig/Vaccineff-tutorial-rendered-unnamed-chunk-5-1.png" alt="" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>Esta función calcula la cobertura con base a la última dosis, la cual
 se especifica en el parámetro “vacc_date_col”. En particular, en el
 ejemplo anterior se utiliza la <u>segunda dosis</u> del conjunto de
 datos de ejemplo (“vaccine_date_2”).
@@ -885,7 +885,7 @@ comando en R:</p>
 <code class="sourceCode R"><span><span class="co"># Cumulative incidence</span></span>
 <span><span class="fu">plot</span><span class="op">(</span><span class="va">ve</span>, type <span class="op">=</span> <span class="st">"surv"</span>, cumulative <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre>
 </div>
-<figure><img src="../fig/Vaccineff-tutorial-rendered-unnamed-chunk-10-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>A partir de la función anterior también es posible realizar la
+<figure><img src="../fig/Vaccineff-tutorial-rendered-unnamed-chunk-10-1.png" alt="" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>A partir de la función anterior también es posible realizar la
 gráfica de supervivencia de las cohortes o gráfica de Kaplan-Meier en la
 cual se parte del 100% de ambas cohortes en el eje de las ordenadas y en
 el eje de las abscisas se representa el tiempo y se observa la
@@ -901,7 +901,7 @@ este gráfico, se ejecuta la misma función y se cambia el argumento
 <code class="sourceCode R"><span><span class="co"># Generate Survival plot</span></span>
 <span><span class="fu">plot</span><span class="op">(</span><span class="va">ve</span>, type <span class="op">=</span> <span class="st">"surv"</span>, cumulative <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre>
 </div>
-<figure><img src="../fig/Vaccineff-tutorial-rendered-unnamed-chunk-11-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>La función <code>estimate_vaccineff()</code> crea internamente una
+<figure><img src="../fig/Vaccineff-tutorial-rendered-unnamed-chunk-11-1.png" alt="" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>La función <code>estimate_vaccineff()</code> crea internamente una
 tabla Kaplan-Meier.</p>
 <div class="codewrapper sourceCode" id="cb15">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -974,7 +974,7 @@ de riesgos proporcionales:</p>
 <code class="sourceCode R"><span><span class="co"># Generate loglog plot to check proportional hazards</span></span>
 <span><span class="fu">plot</span><span class="op">(</span><span class="va">ve</span>, type <span class="op">=</span> <span class="st">"loglog"</span><span class="op">)</span></span></code></pre>
 </div>
-<figure><img src="../fig/Vaccineff-tutorial-rendered-unnamed-chunk-15-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure></div>
+<figure><img src="../fig/Vaccineff-tutorial-rendered-unnamed-chunk-15-1.png" alt="" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure></div>
 </div>
 <div class="section level3">
 <h3 id="cohorte-dinámica---emparejamiento-poblacional"><strong>4.6 Cohorte dinámica - Emparejamiento
@@ -1208,8 +1208,8 @@ any links that you are not going to use.
   "url": "https://epiverse-trace.github.io/epimodelac/instructor/Vaccineff-tutorial.html",
   "identifier": "https://epiverse-trace.github.io/epimodelac/instructor/Vaccineff-tutorial.html",
   "dateCreated": "2023-11-10",
-  "dateModified": "2025-11-11",
-  "datePublished": "2026-01-06"
+  "dateModified": "2026-01-09",
+  "datePublished": "2026-01-09"
 }
 
   </script><script>

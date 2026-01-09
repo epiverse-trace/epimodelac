@@ -346,7 +346,7 @@
       </div>
       <hr></nav><main id="main-content" class="main-content"><div class="container lesson-content">
         <h1>Estima la fuerza de infección a partir de encuestas serológicas usando serofoi</h1>
-        <p>Última actualización: 2025-11-11 |
+        <p>Última actualización: 2026-01-09 |
 
         <a href="https://github.com/epiverse-trace/epimodelac/edit/main/episodes/Serofoi-tutorial.Rmd" class="external-link">Mejora esta página <i aria-hidden="true" data-feather="edit"></i></a></p>
 
@@ -468,9 +468,9 @@ P^\tau(t) = 1 - \exp\left(-\sum_{i = \tau}^{t} \lambda_i \right),
 \]</span></p>
 <p>Como un ejemplo, consideremos la FoI representada en la siguiente
 figura:</p>
-<figure><img src="fig/Serofoi-tutorial-rendered-unnamed-chunk-1-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>A partir de esta FoI, es posible calcular la seroprevalencia para
+<figure><img src="fig/Serofoi-tutorial-rendered-unnamed-chunk-1-1.png" alt="" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>A partir de esta FoI, es posible calcular la seroprevalencia para
 distintas cohortes por medio de la ecuación (2):</p>
-<figure><img src="fig/Serofoi-tutorial-rendered-unnamed-chunk-2-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>Cuando conocemos los datos de una encuesta serológica, la información
+<figure><img src="fig/Serofoi-tutorial-rendered-unnamed-chunk-2-1.png" alt="" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>Cuando conocemos los datos de una encuesta serológica, la información
 a la que tenemos acceso es a una fotografía de la seroprevalencia en el
 momento su realización <span class="math inline">\(t_{sur}\)</span> como
 función de la edad de los individuos en ese momento, la cual coincide
@@ -482,7 +482,7 @@ P^{t_{sur}}(a^\tau) = 1 - \exp\left(-\sum_{i = \tau}^{t_{sur}} \lambda_i
 \right).
 \]</span></p>
 <p>En el caso del ejemplo, esto nos da la siguiente gráfica:</p>
-<figure><img src="fig/Serofoi-tutorial-rendered-unnamed-chunk-3-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>Note que los valores de seroprevalencia de cada edad en esta gráfica
+<figure><img src="fig/Serofoi-tutorial-rendered-unnamed-chunk-3-1.png" alt="" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>Note que los valores de seroprevalencia de cada edad en esta gráfica
 corresponden a los valores de seroprevalencia al momento de la encuesta
 (2020) en la gráfica anterior.</p>
 <p>La misión que cumple <strong>serofoi</strong> es estimar la fuerza de
@@ -507,7 +507,7 @@ individuos infectados fue <span class="math inline">\(P(0) = 0\)</span>
 (condición inicial). Note que el término de la suma en la ecuación (3)
 da como resultado la edad de cada cohorte al considerar la fuerza de
 infección constante.</p>
-<figure><img src="fig/Serofoi-tutorial-rendered-unnamed-chunk-4-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p><strong>Figura 1.</strong> Curvas de prevalencia en función de la
+<figure><img src="fig/Serofoi-tutorial-rendered-unnamed-chunk-4-1.png" alt="" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p><strong>Figura 1.</strong> Curvas de prevalencia en función de la
 edad para distintos valores de FoI constante.</p>
 <p>En este ejemplo hemos escogido, por simplicidad, que la FoI fuese
 constante; sin embargo, este no es necesariamente el caso. Identificar
@@ -744,7 +744,7 @@ relativamente alto, con el fin de asegurar la convergencia de los
 modelos, el tiempo de cómputo de los modelos dependientes del tiempo
 puede tardar varios minutos.</p>
 <p><em>Pista: Debería obtener la siguiente gráfica:</em></p>
-<figure><img src="fig/Serofoi-tutorial-rendered-chik2015_vis-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>El poder predictivo de un modelo Bayesiano se puede caracterizar por
+<figure><img src="fig/Serofoi-tutorial-rendered-chik2015_vis-1.png" alt="" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>El poder predictivo de un modelo Bayesiano se puede caracterizar por
 medio del <em>elpd</em>(Expected Log Predictive Density). El modelo que
 mejor ajusta la encuesta epidemiológica es aquel que tiene valores más
 altos de<em>elpd</em> y valores más bajos de error estándar (se).</p>
@@ -804,7 +804,7 @@ emergencia de encefalitis viral haciendo uso de la librería serofoi.</p>
 <button class="accordion-button hint-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseHint1" aria-expanded="false" aria-controls="collapseHint1">
   <h4 class="accordion-header" id="headingHint1"> Dar una pista </h4>
 </button>
-<div id="collapseHint1" class="accordion-collapse collapse" data-bs-parent="#accordionHint1" aria-labelledby="headingHint1">
+<div id="collapseHint1" class="accordion-collapse collapse" aria-labelledby="headingHint1" data-bs-parent="#accordionHint1">
 <div class="accordion-body">
 <p><strong>Exploración de los datos y visualización de la
 seroprevalencia (30 min)</strong></p>
@@ -833,7 +833,7 @@ tendencia en cada caso.</p></li>
 <button class="accordion-button hint-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseHint2" aria-expanded="false" aria-controls="collapseHint2">
   <h4 class="accordion-header" id="headingHint2"> Dar una pista </h4>
 </button>
-<div id="collapseHint2" class="accordion-collapse collapse" data-bs-parent="#accordionHint2" aria-labelledby="headingHint2">
+<div id="collapseHint2" class="accordion-collapse collapse" aria-labelledby="headingHint2" data-bs-parent="#accordionHint2">
 <div class="accordion-body">
 <p><strong>Estimación de la fuerza de infección histórica (30
 min)</strong></p>
@@ -858,7 +858,7 @@ que estuvo involucrado en la epidemia reciente de encefalitis?</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1"> Mostrar la solución </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
 <div class="accordion-body">
 <p>Para adaptar una de las cuatro bases de datos al formato necesario
 para {serofoi}, puede usar el siguiente código:</p>
@@ -997,8 +997,8 @@ any links that you are not going to use.
   "url": "https://epiverse-trace.github.io/epimodelac/Serofoi-tutorial.html",
   "identifier": "https://epiverse-trace.github.io/epimodelac/Serofoi-tutorial.html",
   "dateCreated": "2023-11-10",
-  "dateModified": "2025-11-11",
-  "datePublished": "2026-01-06"
+  "dateModified": "2026-01-09",
+  "datePublished": "2026-01-09"
 }
 
   </script><script>
