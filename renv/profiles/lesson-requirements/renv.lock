@@ -5,10 +5,6 @@
       {
         "Name": "CRAN",
         "URL": "https://cran.rstudio.com"
-      },
-      {
-        "Name": "RSPM",
-        "URL": "https://packagemanager.posit.co/cran/latest"
       }
     ]
   },
@@ -120,7 +116,7 @@
       "VignetteBuilder": "knitr",
       "NeedsCompilation": "no",
       "Author": "Anne Cori [aut, cre] (ORCID: <https://orcid.org/0000-0002-8443-9162>), Simon Cauchemez [ctb], Neil M. Ferguson [ctb] (ORCID: <https://orcid.org/0000-0002-1154-8093>), Christophe Fraser [ctb] (ORCID: <https://orcid.org/0000-0003-2399-9657>), Elisabeth Dahlqwist [ctb] (ORCID: <https://orcid.org/0000-0001-5797-6803>), P. Alex Demarsh [ctb], Thibaut Jombart [ctb] (ORCID: <https://orcid.org/0000-0003-2226-8692>), Zhian N. Kamvar [ctb] (ORCID: <https://orcid.org/0000-0003-1458-7108>), Justin Lessler [ctb] (ORCID: <https://orcid.org/0000-0002-9741-8109>), Shikun Li [ctb], Jonathan A. Polonsky [ctb] (ORCID: <https://orcid.org/0000-0002-8634-4255>), Jake Stockwin [ctb], Robin Thompson [ctb] (ORCID: <https://orcid.org/0000-0001-8545-5212>), Rolina van Gaalen [ctb]",
-      "Repository": "CRAN"
+      "Repository": "https://packagemanager.posit.co/cran/latest"
     },
     "KernSmooth": {
       "Package": "KernSmooth",
@@ -210,7 +206,7 @@
       "SystemRequirements": "gcc (>= 4.0)",
       "URL": "https://CRAN.R-project.org/package=MCMCpack",
       "NeedsCompilation": "yes",
-      "Repository": "RSPM",
+      "Repository": "https://packagemanager.posit.co/cran/latest",
       "RoxygenNote": "7.3.1",
       "Encoding": "UTF-8",
       "Author": "Andrew D. Martin [aut], Kevin M. Quinn [aut], Jong Hee Park [aut, cre], Ghislain Vieilledent [ctb], Michael Malecki [ctb], Matthew Blackwell [ctb], Keith Poole [ctb], Craig Reed [ctb], Ben Goodrich [ctb], Qiushi Yu [ctb], Ross Ihaka [cph], The R Development Core Team [cph], The R Foundation [cph], Pierre L'Ecuyer [cph], Makoto Matsumoto [cph], Takuji Nishimura [cph]",
@@ -353,7 +349,7 @@
       "NeedsCompilation": "no",
       "Author": "Douglas Bates [aut] (<https://orcid.org/0000-0001-8316-9503>), Martin Maechler [aut, cre] (<https://orcid.org/0000-0002-8685-9910>)",
       "Maintainer": "Martin Maechler <mmaechler+Matrix@gmail.com>",
-      "Repository": "CRAN"
+      "Repository": "https://packagemanager.posit.co/cran/latest"
     },
     "QuickJSR": {
       "Package": "QuickJSR",
@@ -421,7 +417,8 @@
       "Description": "Provides color schemes for maps (and other graphics) designed by Cynthia Brewer as described at http://colorbrewer2.org.",
       "License": "Apache License 2.0",
       "NeedsCompilation": "no",
-      "Repository": "CRAN"
+      "Repository": "RSPM",
+      "Encoding": "UTF-8"
     },
     "Rcpp": {
       "Package": "Rcpp",
@@ -645,7 +642,8 @@
       "URL": "http://www.econ.uiuc.edu/~roger/research/sparse/sparse.html",
       "NeedsCompilation": "yes",
       "Author": "Roger Koenker [cre, aut], Pin Tian Ng [ctb] (Contributions to Sparse QR code), Yousef Saad [ctb] (author of sparskit2), Ben Shaby [ctb] (author of chol2csr), Martin Maechler [ctb] (chol() tweaks; S4, <https://orcid.org/0000-0002-8685-9910>)",
-      "Repository": "CRAN"
+      "Repository": "https://packagemanager.posit.co/cran/latest",
+      "Encoding": "UTF-8"
     },
     "StanHeaders": {
       "Package": "StanHeaders",
@@ -760,7 +758,112 @@
       "NeedsCompilation": "no",
       "Author": "Zhian N. Kamvar [aut, cre]",
       "Maintainer": "Zhian N. Kamvar <zkamvar@gmail.com>",
-      "Repository": "RSPM"
+      "Repository": "https://packagemanager.posit.co/cran/latest"
+    },
+    "babeldown": {
+      "Package": "babeldown",
+      "Version": "0.0.0.9000",
+      "Source": "GitHub",
+      "Title": "Helpers for Automatic Translation of Markdown-based Content",
+      "Authors@R": "c( person(\"Maëlle\", \"Salmon\", , \"msmaellesalmon@gmail.com\", role = c(\"cre\", \"aut\"), comment = c(ORCID = \"0000-0002-2815-0399\")), person(\"Xavier\", \"Timbeau\", role = \"ctb\"), person(\"rOpenSci\", role = \"fnd\", comment = c(ROR = \"019jywm96\")) )",
+      "Description": "Provide workflows and guidance for automatic translation of Markdown-based R content using DeepL API.",
+      "License": "MIT + file LICENSE",
+      "Encoding": "UTF-8",
+      "Roxygen": "list(markdown = TRUE)",
+      "RoxygenNote": "7.3.2.9000",
+      "URL": "https://github.com/ropensci-review-tools/babeldown",
+      "BugReports": "https://github.com/ropensci-review-tools/babeldown/issues",
+      "Depends": [
+        "R (>= 4.1)"
+      ],
+      "Imports": [
+        "babelquarto (>= 0.0.0.9000)",
+        "brio",
+        "cli",
+        "digest",
+        "glue",
+        "httr2",
+        "lifecycle",
+        "memoise",
+        "purrr",
+        "readr",
+        "rlang",
+        "rstudioapi",
+        "snakecase",
+        "tibble",
+        "tinkr (>= 0.2.0.9001)",
+        "withr",
+        "xml2",
+        "yaml (>= 2.3.8)"
+      ],
+      "Suggests": [
+        "blogdown",
+        "fs",
+        "gert",
+        "httptest2",
+        "knitr",
+        "quarto",
+        "rmarkdown",
+        "rprojroot",
+        "sys",
+        "testthat (>= 3.0.0)"
+      ],
+      "Remotes": "ropensci-review-tools/babelquarto, ropensci/tinkr",
+      "Config/testthat/edition": "3",
+      "RemoteType": "github",
+      "RemoteHost": "api.github.com",
+      "RemoteRepo": "babeldown",
+      "RemoteUsername": "ropensci-review-tools",
+      "RemotePkgRef": "ropensci-review-tools/babeldown",
+      "RemoteRef": "HEAD",
+      "RemoteSha": "98991a4213b6a934d99e0dc296885b9e4ae1781d",
+      "NeedsCompilation": "no",
+      "Author": "Maëlle Salmon [cre, aut] (ORCID: <https://orcid.org/0000-0002-2815-0399>), Xavier Timbeau [ctb], rOpenSci [fnd] (ROR: <https://ror.org/019jywm96>)",
+      "Maintainer": "Maëlle Salmon <msmaellesalmon@gmail.com>"
+    },
+    "babelquarto": {
+      "Package": "babelquarto",
+      "Version": "0.1.0.9000",
+      "Source": "GitHub",
+      "Title": "Renders a Multilingual Quarto Book",
+      "Authors@R": "c( person(\"Maëlle\", \"Salmon\", , \"msmaellesalmon@gmail.com\", role = c(\"cre\", \"aut\"), comment = c(ORCID = \"0000-0002-2815-0399\")), person(\"Johannes\", \"Ranke\", role = \"ctb\"), person(\"Joel H.\", \"Nitta\", , \"joelnitta@gmail.com\", role = \"ctb\", comment = c(ORCID = \"0000-0003-4719-7472\")), person(\"Pascal\", \"Burkhard\", , \"pascal.burkhard@gmail.com\", role = \"aut\", comment = c(ORCID = \"0009-0001-5504-5084\")), person(\"rOpenSci\", role = \"fnd\", comment = c(ROR = \"019jywm96\")), person(\"Ella\", \"Kaye\", role = \"rev\", comment = c(\"Ella reviewed the package (v. 0.0.1) for rOpenSci, see <https://github.com/ropensci/software-review/issues/720>.\", ORCID = \"0000-0002-7300-3718\")), person(\"João\", \"Granja-Correia\", role = \"rev\", comment = c(\"João reviewed the package (v. 0.0.1) for rOpenSci, see <https://github.com/ropensci/software-review/issues/720>.\", ORCID = \"0009-0003-8982-278X\")) )",
+      "Description": "Automate rendering and cross-linking of Quarto books following a  prescribed structure.",
+      "License": "MIT + file LICENSE",
+      "Encoding": "UTF-8",
+      "Roxygen": "list(markdown = TRUE, roclets = c(\"collate\", \"rd\", \"namespace\", \"devtag::dev_roclet\"))",
+      "RoxygenNote": "7.3.3.9000",
+      "Imports": [
+        "brio",
+        "cli",
+        "fs",
+        "purrr",
+        "quarto",
+        "rlang",
+        "sys",
+        "whoami",
+        "withr",
+        "xml2",
+        "yaml"
+      ],
+      "Depends": [
+        "R (>= 4.1.0)"
+      ],
+      "Suggests": [
+        "servr",
+        "testthat (>= 3.0.0)"
+      ],
+      "URL": "https://docs.ropensci.org/babelquarto/, https://github.com/ropensci-review-tools/babelquarto",
+      "BugReports": "https://github.com/ropensci-review-tools/babelquarto/issues",
+      "Config/testthat/edition": "3",
+      "VignetteBuilder": "quarto",
+      "Author": "Maëlle Salmon [cre, aut] (ORCID: <https://orcid.org/0000-0002-2815-0399>), Johannes Ranke [ctb], Joel H. Nitta [ctb] (ORCID: <https://orcid.org/0000-0003-4719-7472>), Pascal Burkhard [aut] (ORCID: <https://orcid.org/0009-0001-5504-5084>), rOpenSci [fnd] (ROR: <https://ror.org/019jywm96>), Ella Kaye [rev] (Ella reviewed the package (v. 0.0.1) for rOpenSci, see <https://github.com/ropensci/software-review/issues/720>., ORCID: <https://orcid.org/0000-0002-7300-3718>), João Granja-Correia [rev] (João reviewed the package (v. 0.0.1) for rOpenSci, see <https://github.com/ropensci/software-review/issues/720>., ORCID: <https://orcid.org/0009-0003-8982-278X>)",
+      "Maintainer": "Maëlle Salmon <msmaellesalmon@gmail.com>",
+      "RemoteType": "github",
+      "RemoteHost": "api.github.com",
+      "RemoteUsername": "ropensci-review-tools",
+      "RemoteRepo": "babelquarto",
+      "RemoteRef": "main",
+      "RemoteSha": "23acbec9eda0b979a8a8f87abfd49b747f6bb408"
     },
     "backports": {
       "Package": "backports",
@@ -801,7 +904,8 @@
       "License": "GPL-2 | GPL-3",
       "URL": "http://www.rforge.net/base64enc",
       "NeedsCompilation": "yes",
-      "Repository": "CRAN"
+      "Repository": "RSPM",
+      "Encoding": "UTF-8"
     },
     "bayesplot": {
       "Package": "bayesplot",
@@ -1002,6 +1106,32 @@
       "License": "Unlimited",
       "NeedsCompilation": "no",
       "Author": "Angelo Canty [aut] (author of original code for S), Brian Ripley [aut, trl] (conversion to R, maintainer 1999--2022, author of parallel support), Alessandra R. Brazzale [ctb, cre] (minor bug fixes)",
+      "Repository": "CRAN"
+    },
+    "brio": {
+      "Package": "brio",
+      "Version": "1.1.5",
+      "Source": "Repository",
+      "Title": "Basic R Input Output",
+      "Authors@R": "c( person(\"Jim\", \"Hester\", role = \"aut\", comment = c(ORCID = \"0000-0002-2739-7082\")), person(\"Gábor\", \"Csárdi\", , \"csardi.gabor@gmail.com\", role = c(\"aut\", \"cre\")), person(given = \"Posit Software, PBC\", role = c(\"cph\", \"fnd\")) )",
+      "Description": "Functions to handle basic input output, these functions always read and write UTF-8 (8-bit Unicode Transformation Format) files and provide more explicit control over line endings.",
+      "License": "MIT + file LICENSE",
+      "URL": "https://brio.r-lib.org, https://github.com/r-lib/brio",
+      "BugReports": "https://github.com/r-lib/brio/issues",
+      "Depends": [
+        "R (>= 3.6)"
+      ],
+      "Suggests": [
+        "covr",
+        "testthat (>= 3.0.0)"
+      ],
+      "Config/Needs/website": "tidyverse/tidytemplate",
+      "Config/testthat/edition": "3",
+      "Encoding": "UTF-8",
+      "RoxygenNote": "7.2.3",
+      "NeedsCompilation": "yes",
+      "Author": "Jim Hester [aut] (<https://orcid.org/0000-0002-2739-7082>), Gábor Csárdi [aut, cre], Posit Software, PBC [cph, fnd]",
+      "Maintainer": "Gábor Csárdi <csardi.gabor@gmail.com>",
       "Repository": "CRAN"
     },
     "broom": {
@@ -1279,7 +1409,8 @@
       "NeedsCompilation": "no",
       "Author": "Jennifer Bryan [cre, aut], Hadley Wickham [ctb]",
       "Maintainer": "Jennifer Bryan <jenny@stat.ubc.ca>",
-      "Repository": "CRAN"
+      "Repository": "RSPM",
+      "Encoding": "UTF-8"
     },
     "checkmate": {
       "Package": "checkmate",
@@ -1532,7 +1663,7 @@
       "RoxygenNote": "7.3.2",
       "NeedsCompilation": "no",
       "Author": "Nicholas G. Reich [aut, cre], Justin Lessler [aut], Andrew Azman [aut], Zhian N. Kamvar [ctb], Hugo Gruson [ctb]",
-      "Repository": "CRAN"
+      "Repository": "https://packagemanager.posit.co/cran/latest"
     },
     "coda": {
       "Package": "coda",
@@ -1961,7 +2092,8 @@
       "URL": "http://desolve.r-forge.r-project.org/",
       "LazyData": "yes",
       "NeedsCompilation": "yes",
-      "Repository": "CRAN"
+      "Repository": "RSPM",
+      "Encoding": "UTF-8"
     },
     "deldir": {
       "Package": "deldir",
@@ -2432,6 +2564,33 @@
       "Author": "Winston Chang [aut, cre], Posit Software, PBC [cph, fnd], Tessil [cph] (hopscotch_map library)",
       "Maintainer": "Winston Chang <winston@posit.co>",
       "Repository": "RSPM"
+    },
+    "filelock": {
+      "Package": "filelock",
+      "Version": "1.0.3",
+      "Source": "Repository",
+      "Title": "Portable File Locking",
+      "Authors@R": "c( person(\"Gábor\", \"Csárdi\", , \"csardi.gabor@gmail.com\", role = c(\"aut\", \"cre\")), person(\"Posit Software, PBC\", role = c(\"cph\", \"fnd\")) )",
+      "Description": "Place an exclusive or shared lock on a file. It uses 'LockFile' on Windows and 'fcntl' locks on Unix-like systems.",
+      "License": "MIT + file LICENSE",
+      "URL": "https://r-lib.github.io/filelock/, https://github.com/r-lib/filelock",
+      "BugReports": "https://github.com/r-lib/filelock/issues",
+      "Depends": [
+        "R (>= 3.4)"
+      ],
+      "Suggests": [
+        "callr (>= 2.0.0)",
+        "covr",
+        "testthat (>= 3.0.0)"
+      ],
+      "Config/Needs/website": "tidyverse/tidytemplate",
+      "Config/testthat/edition": "3",
+      "Encoding": "UTF-8",
+      "RoxygenNote": "7.2.3",
+      "NeedsCompilation": "yes",
+      "Author": "Gábor Csárdi [aut, cre], Posit Software, PBC [cph, fnd]",
+      "Maintainer": "Gábor Csárdi <csardi.gabor@gmail.com>",
+      "Repository": "CRAN"
     },
     "fitdistrplus": {
       "Package": "fitdistrplus",
@@ -3327,6 +3486,44 @@
       "Maintainer": "Hadley Wickham <hadley@posit.co>",
       "Repository": "CRAN"
     },
+    "here": {
+      "Package": "here",
+      "Version": "1.0.2",
+      "Source": "Repository",
+      "Title": "A Simpler Way to Find Your Files",
+      "Date": "2025-09-06",
+      "Authors@R": "c(person(given = \"Kirill\", family = \"M\\u00fcller\", role = c(\"aut\", \"cre\"), email = \"kirill@cynkra.com\", comment = c(ORCID = \"0000-0002-1416-3412\")), person(given = \"Jennifer\", family = \"Bryan\", role = \"ctb\", email = \"jenny@rstudio.com\", comment = c(ORCID = \"0000-0002-6983-2759\")))",
+      "Description": "Constructs paths to your project's files. Declare the relative path of a file within your project with 'i_am()'. Use the 'here()' function as a drop-in replacement for 'file.path()', it will always locate the files relative to your project root.",
+      "License": "MIT + file LICENSE",
+      "URL": "https://here.r-lib.org/, https://github.com/r-lib/here",
+      "BugReports": "https://github.com/r-lib/here/issues",
+      "Imports": [
+        "rprojroot (>= 2.1.0)"
+      ],
+      "Suggests": [
+        "conflicted",
+        "covr",
+        "fs",
+        "knitr",
+        "palmerpenguins",
+        "plyr",
+        "readr",
+        "rlang",
+        "rmarkdown",
+        "testthat",
+        "uuid",
+        "withr"
+      ],
+      "VignetteBuilder": "knitr",
+      "Encoding": "UTF-8",
+      "RoxygenNote": "7.3.3.9000",
+      "Config/testthat/edition": "3",
+      "Config/Needs/website": "tidyverse/tidytemplate",
+      "NeedsCompilation": "no",
+      "Author": "Kirill Müller [aut, cre] (ORCID: <https://orcid.org/0000-0002-1416-3412>), Jennifer Bryan [ctb] (ORCID: <https://orcid.org/0000-0002-6983-2759>)",
+      "Maintainer": "Kirill Müller <kirill@cynkra.com>",
+      "Repository": "CRAN"
+    },
     "highr": {
       "Package": "highr",
       "Version": "0.11",
@@ -3692,7 +3889,7 @@
       "NeedsCompilation": "no",
       "Author": "Thibaut Jombart [aut], Zhian N. Kamvar [aut] (ORCID: <https://orcid.org/0000-0003-1458-7108>), Rich FitzJohn [aut], Tim Taylor [cre] (ORCID: <https://orcid.org/0000-0002-8587-7113>), Jun Cai [ctb] (ORCID: <https://orcid.org/0000-0001-9495-1226>), Sangeeta Bhatia [ctb], Jakob Schumacher [ctb], Juliet R.C. Pulliam [ctb] (ORCID: <https://orcid.org/0000-0003-3314-8223>)",
       "Maintainer": "Tim Taylor <tim.taylor@hiddenelephants.co.uk>",
-      "Repository": "CRAN"
+      "Repository": "https://packagemanager.posit.co/cran/latest"
     },
     "inline": {
       "Package": "inline",
@@ -3717,7 +3914,8 @@
       "NeedsCompilation": "no",
       "Author": "Oleg Sklyar [aut], Dirk Eddelbuettel [aut, cre] (<https://orcid.org/0000-0001-6419-907X>), Romain Francois [aut] (<https://orcid.org/0000-0002-2444-4226>), Mike Smith [ctb], Duncan Murdoch [ctb], Karline Soetaert [ctb] (<https://orcid.org/0000-0003-4603-7100>), Johannes Ranke [ctb] (<https://orcid.org/0000-0003-4371-6538>)",
       "Maintainer": "Dirk Eddelbuettel <edd@debian.org>",
-      "Repository": "CRAN"
+      "Repository": "RSPM",
+      "Encoding": "UTF-8"
     },
     "isoband": {
       "Package": "isoband",
@@ -3881,6 +4079,46 @@
       "Maintainer": "Hao Zhu <haozhu233@gmail.com>",
       "Repository": "RSPM"
     },
+    "keyring": {
+      "Package": "keyring",
+      "Version": "1.4.1",
+      "Source": "Repository",
+      "Title": "Access the System Credential Store from R",
+      "Authors@R": "c( person(\"Gábor\", \"Csárdi\", , \"csardi.gabor@gmail.com\", role = c(\"aut\", \"cre\")), person(\"Alec\", \"Wong\", role = \"ctb\"), person(\"Posit Software, PBC\", role = c(\"cph\", \"fnd\"), comment = c(ROR = \"03wc8by49\")) )",
+      "Description": "Platform independent 'API' to access the operating system's credential store. Currently supports: 'Keychain' on 'macOS', Credential Store on 'Windows', the Secret Service 'API' on 'Linux', and simple, platform independent stores implemented with environment variables or encrypted files.  Additional storage back-ends can be added easily.",
+      "License": "MIT + file LICENSE",
+      "URL": "https://keyring.r-lib.org/, https://github.com/r-lib/keyring",
+      "BugReports": "https://github.com/r-lib/keyring/issues",
+      "Depends": [
+        "R (>= 3.5)"
+      ],
+      "Imports": [
+        "askpass",
+        "filelock",
+        "R6",
+        "tools",
+        "utils",
+        "yaml"
+      ],
+      "Suggests": [
+        "callr",
+        "covr",
+        "openssl",
+        "testthat (>= 3.0.0)",
+        "withr"
+      ],
+      "Biarch": "true",
+      "Config/Needs/website": "tidyverse/tidytemplate",
+      "Config/testthat/edition": "3",
+      "Config/usethis/last-upkeep": "2025-04-30",
+      "Encoding": "UTF-8",
+      "RoxygenNote": "7.3.2.9000",
+      "SystemRequirements": "Optional: libsecret on Linux (libsecret-1-dev on Debian/Ubuntu, libsecret-devel on Fedora/CentOS)",
+      "NeedsCompilation": "yes",
+      "Author": "Gábor Csárdi [aut, cre], Alec Wong [ctb], Posit Software, PBC [cph, fnd] (ROR: <https://ror.org/03wc8by49>)",
+      "Maintainer": "Gábor Csárdi <csardi.gabor@gmail.com>",
+      "Repository": "CRAN"
+    },
     "knitr": {
       "Package": "knitr",
       "Version": "1.51",
@@ -3963,6 +4201,42 @@
         "stats",
         "graphics"
       ],
+      "Repository": "RSPM",
+      "Encoding": "UTF-8"
+    },
+    "later": {
+      "Package": "later",
+      "Version": "1.4.4",
+      "Source": "Repository",
+      "Type": "Package",
+      "Title": "Utilities for Scheduling Functions to Execute Later with Event Loops",
+      "Authors@R": "c( person(\"Winston\", \"Chang\", , \"winston@posit.co\", role = \"aut\"), person(\"Joe\", \"Cheng\", , \"joe@posit.co\", role = \"aut\"), person(\"Charlie\", \"Gao\", , \"charlie.gao@posit.co\", role = c(\"aut\", \"cre\"), comment = c(ORCID = \"0000-0002-0750-061X\")), person(\"Posit Software, PBC\", role = c(\"cph\", \"fnd\"), comment = c(ROR = \"03wc8by49\")), person(\"Marcus\", \"Geelnard\", role = c(\"ctb\", \"cph\"), comment = \"TinyCThread library, https://tinycthread.github.io/\"), person(\"Evan\", \"Nemerson\", role = c(\"ctb\", \"cph\"), comment = \"TinyCThread library, https://tinycthread.github.io/\") )",
+      "Description": "Executes arbitrary R or C functions some time after the current time, after the R execution stack has emptied. The functions are scheduled in an event loop.",
+      "License": "MIT + file LICENSE",
+      "URL": "https://later.r-lib.org, https://github.com/r-lib/later",
+      "BugReports": "https://github.com/r-lib/later/issues",
+      "Imports": [
+        "Rcpp (>= 0.12.9)",
+        "rlang"
+      ],
+      "Suggests": [
+        "knitr",
+        "nanonext",
+        "rmarkdown",
+        "testthat (>= 3.0.0)"
+      ],
+      "LinkingTo": [
+        "Rcpp"
+      ],
+      "VignetteBuilder": "knitr",
+      "Config/Needs/website": "tidyverse/tidytemplate",
+      "Config/testthat/edition": "3",
+      "Config/usethis/last-upkeep": "2025-07-18",
+      "Encoding": "UTF-8",
+      "RoxygenNote": "7.3.2",
+      "NeedsCompilation": "yes",
+      "Author": "Winston Chang [aut], Joe Cheng [aut], Charlie Gao [aut, cre] (ORCID: <https://orcid.org/0000-0002-0750-061X>), Posit Software, PBC [cph, fnd] (ROR: <https://ror.org/03wc8by49>), Marcus Geelnard [ctb, cph] (TinyCThread library, https://tinycthread.github.io/), Evan Nemerson [ctb, cph] (TinyCThread library, https://tinycthread.github.io/)",
+      "Maintainer": "Charlie Gao <charlie.gao@posit.co>",
       "Repository": "CRAN"
     },
     "lattice": {
@@ -4443,7 +4717,8 @@
       "License": "MIT + file LICENSE",
       "URL": "http://www.stat.umn.edu/geyer/mcmc/, https://github.com/cjgeyer/mcmc",
       "NeedsCompilation": "yes",
-      "Repository": "CRAN"
+      "Repository": "https://packagemanager.posit.co/cran/latest",
+      "Encoding": "UTF-8"
     },
     "memoise": {
       "Package": "memoise",
@@ -5151,7 +5426,7 @@
       "Description": "Estimation and inference methods for models for conditional quantile functions:  Linear and nonlinear parametric and non-parametric (total variation penalized) models  for conditional quantiles of a univariate response and several methods for handling censored survival data.  Portfolio selection methods based on expected shortfall risk are also now included. See Koenker, R. (2005) Quantile Regression, Cambridge U. Press, <doi:10.1017/CBO9780511754098> and Koenker, R. et al. (2017) Handbook of Quantile Regression,  CRC Press, <doi:10.1201/9781315120256>.",
       "Authors@R": "c( person(\"Roger\", \"Koenker\",  role = c(\"cre\",\"aut\"), email =  \"rkoenker@illinois.edu\"), person(\"Stephen\", \"Portnoy\",  role = c(\"ctb\"),  comment = \"Contributions to Censored QR code\", email =  \"sportnoy@illinois.edu\"), person(c(\"Pin\", \"Tian\"), \"Ng\",  role = c(\"ctb\"),  comment = \"Contributions to Sparse QR code\", email =  \"pin.ng@nau.edu\"), person(\"Blaise\", \"Melly\",  role = c(\"ctb\"),  comment = \"Contributions to preprocessing code\", email =  \"mellyblaise@gmail.com\"), person(\"Achim\", \"Zeileis\",  role = c(\"ctb\"),  comment = \"Contributions to dynrq code essentially identical to his dynlm code\",  email =  \"Achim.Zeileis@uibk.ac.at\"), person(\"Philip\", \"Grosjean\",  role = c(\"ctb\"),  comment = \"Contributions to nlrq code\", email =  \"phgrosjean@sciviews.org\"), person(\"Cleve\", \"Moler\",  role = c(\"ctb\"),  comment = \"author of several linpack routines\"), person(\"Yousef\", \"Saad\",  role = c(\"ctb\"),  comment = \"author of sparskit2\"), person(\"Victor\", \"Chernozhukov\",  role = c(\"ctb\"),  comment = \"contributions to extreme value inference code\"), person(\"Ivan\", \"Fernandez-Val\",  role = c(\"ctb\"),  comment = \"contributions to extreme value inference code\"), person(\"Martin\", \"Maechler\", role = \"ctb\", comment = c(\"tweaks (src/chlfct.f, 'tiny','Large')\", ORCID = \"0000-0002-8685-9910\")), person(c(\"Brian\", \"D\"), \"Ripley\",  role = c(\"trl\",\"ctb\"),  comment = \"Initial (2001) R port from S (to my everlasting shame --  how could I have been so slow to adopt R!) and for numerous other  suggestions and useful advice\", email =  \"ripley@stats.ox.ac.uk\"))",
       "Maintainer": "Roger Koenker <rkoenker@illinois.edu>",
-      "Repository": "CRAN",
+      "Repository": "https://packagemanager.posit.co/cran/latest",
       "Depends": [
         "R (>= 3.5)",
         "stats",
@@ -5179,7 +5454,71 @@
       "URL": "https://www.r-project.org",
       "NeedsCompilation": "yes",
       "VignetteBuilder": "R.rsp",
-      "Author": "Roger Koenker [cre, aut], Stephen Portnoy [ctb] (Contributions to Censored QR code), Pin Tian Ng [ctb] (Contributions to Sparse QR code), Blaise Melly [ctb] (Contributions to preprocessing code), Achim Zeileis [ctb] (Contributions to dynrq code essentially identical to his dynlm code), Philip Grosjean [ctb] (Contributions to nlrq code), Cleve Moler [ctb] (author of several linpack routines), Yousef Saad [ctb] (author of sparskit2), Victor Chernozhukov [ctb] (contributions to extreme value inference code), Ivan Fernandez-Val [ctb] (contributions to extreme value inference code), Martin Maechler [ctb] (tweaks (src/chlfct.f, 'tiny','Large'), <https://orcid.org/0000-0002-8685-9910>), Brian D Ripley [trl, ctb] (Initial (2001) R port from S (to my everlasting shame -- how could I have been so slow to adopt R!) and for numerous other suggestions and useful advice)"
+      "Author": "Roger Koenker [cre, aut], Stephen Portnoy [ctb] (Contributions to Censored QR code), Pin Tian Ng [ctb] (Contributions to Sparse QR code), Blaise Melly [ctb] (Contributions to preprocessing code), Achim Zeileis [ctb] (Contributions to dynrq code essentially identical to his dynlm code), Philip Grosjean [ctb] (Contributions to nlrq code), Cleve Moler [ctb] (author of several linpack routines), Yousef Saad [ctb] (author of sparskit2), Victor Chernozhukov [ctb] (contributions to extreme value inference code), Ivan Fernandez-Val [ctb] (contributions to extreme value inference code), Martin Maechler [ctb] (tweaks (src/chlfct.f, 'tiny','Large'), <https://orcid.org/0000-0002-8685-9910>), Brian D Ripley [trl, ctb] (Initial (2001) R port from S (to my everlasting shame -- how could I have been so slow to adopt R!) and for numerous other suggestions and useful advice)",
+      "Encoding": "UTF-8"
+    },
+    "quarto": {
+      "Package": "quarto",
+      "Version": "1.5.1",
+      "Source": "Repository",
+      "Title": "R Interface to 'Quarto' Markdown Publishing System",
+      "Authors@R": "c( person(\"JJ\", \"Allaire\", , \"jj@posit.co\", role = \"aut\", comment = c(ORCID = \"0000-0003-0174-9868\")), person(\"Christophe\", \"Dervieux\", , \"cderv@posit.co\", role = c(\"cre\", \"aut\"), comment = c(ORCID = \"0000-0003-4474-2498\")), person(\"Posit Software, PBC\", role = c(\"cph\", \"fnd\")), person(\"Gordon\", \"Woodhull\", role = \"ctb\") )",
+      "Description": "Convert R Markdown documents and 'Jupyter' notebooks to a variety of output formats using 'Quarto'.",
+      "License": "MIT + file LICENSE",
+      "URL": "https://github.com/quarto-dev/quarto-r, https://quarto-dev.github.io/quarto-r/",
+      "BugReports": "https://github.com/quarto-dev/quarto-r/issues",
+      "Depends": [
+        "R (>= 4.1.0)"
+      ],
+      "Imports": [
+        "cli",
+        "fs",
+        "htmltools",
+        "jsonlite",
+        "later",
+        "lifecycle",
+        "processx",
+        "rlang",
+        "rmarkdown",
+        "rstudioapi",
+        "tools",
+        "utils",
+        "xfun",
+        "yaml (>= 2.3.10)"
+      ],
+      "Suggests": [
+        "bslib",
+        "callr",
+        "curl",
+        "dplyr",
+        "flextable",
+        "ggiraph",
+        "ggplot2",
+        "gt",
+        "heatmaply",
+        "kableExtra",
+        "knitr",
+        "palmerpenguins",
+        "patchwork",
+        "pkgload",
+        "plotly",
+        "rsconnect (>= 0.8.26)",
+        "testthat (>= 3.1.7)",
+        "thematic",
+        "tidyverse",
+        "tinytable",
+        "whoami",
+        "withr"
+      ],
+      "VignetteBuilder": "quarto",
+      "Config/testthat/edition": "3",
+      "Encoding": "UTF-8",
+      "RoxygenNote": "7.3.2",
+      "SystemRequirements": "Quarto command line tool (<https://github.com/quarto-dev/quarto-cli>).",
+      "NeedsCompilation": "no",
+      "Author": "JJ Allaire [aut] (ORCID: <https://orcid.org/0000-0003-0174-9868>), Christophe Dervieux [cre, aut] (ORCID: <https://orcid.org/0000-0003-4474-2498>), Posit Software, PBC [cph, fnd], Gordon Woodhull [ctb]",
+      "Maintainer": "Christophe Dervieux <cderv@posit.co>",
+      "Repository": "CRAN"
     },
     "ragg": {
       "Package": "ragg",
@@ -5678,6 +6017,40 @@
       "Maintainer": "Yihui Xie <xie@yihui.name>",
       "Repository": "CRAN"
     },
+    "rprojroot": {
+      "Package": "rprojroot",
+      "Version": "2.1.1",
+      "Source": "Repository",
+      "Title": "Finding Files in Project Subdirectories",
+      "Authors@R": "person(given = \"Kirill\", family = \"M\\u00fcller\", role = c(\"aut\", \"cre\"), email = \"kirill@cynkra.com\", comment = c(ORCID = \"0000-0002-1416-3412\"))",
+      "Description": "Robust, reliable and flexible paths to files below a project root. The 'root' of a project is defined as a directory that matches a certain criterion, e.g., it contains a certain regular file.",
+      "License": "MIT + file LICENSE",
+      "URL": "https://rprojroot.r-lib.org/, https://github.com/r-lib/rprojroot",
+      "BugReports": "https://github.com/r-lib/rprojroot/issues",
+      "Depends": [
+        "R (>= 3.0.0)"
+      ],
+      "Suggests": [
+        "covr",
+        "knitr",
+        "lifecycle",
+        "rlang",
+        "rmarkdown",
+        "testthat (>= 3.2.0)",
+        "withr"
+      ],
+      "VignetteBuilder": "knitr",
+      "Config/testthat/edition": "3",
+      "Encoding": "UTF-8",
+      "RoxygenNote": "7.3.2.9000",
+      "Config/autostyle/scope": "line_breaks",
+      "Config/autostyle/strict": "true",
+      "Config/Needs/website": "tidyverse/tidytemplate",
+      "NeedsCompilation": "no",
+      "Author": "Kirill Müller [aut, cre] (ORCID: <https://orcid.org/0000-0002-1416-3412>)",
+      "Maintainer": "Kirill Müller <kirill@cynkra.com>",
+      "Repository": "CRAN"
+    },
     "rstan": {
       "Package": "rstan",
       "Version": "2.32.7",
@@ -5999,7 +6372,7 @@
     "serofoi": {
       "Package": "serofoi",
       "Version": "1.0.3",
-      "Source": "GitHub",
+      "Source": "Repository",
       "Title": "Bayesian Estimation of the Force of Infection from Serological Data",
       "Type": "Package",
       "Authors@R": "c( person(\"Zulma M.\", \"Cucunubá\", , \"zulma.cucunuba@javeriana.edu.co\", role = c(\"aut\", \"cre\"), comment = c(ORCID = \"0000-0002-8165-3198\")), person(\"Nicolás\", \"T. Domínguez\", , \"ex-ntorres@javeriana.edu.co\", role = \"aut\", comment = c(ORCID = \"0009-0002-8484-1298\")), person(\"Ben\", \"Lambert\", role = \"aut\"), person(\"Pierre\", \"Nouvellet\", role = \"aut\"), person(\"Geraldine\", \"Gómez\", role = \"ctb\", comment = c(ORCID = \"0009-0007-8701-0568\")), person(\"Jaime A.\", \"Pavlich-Mariscal\", role = \"ctb\", comment = c(ORCID = \"0000-0002-3892-6680\")), person(\"Hugo\", \"Gruson\", role = \"ctb\", comment = c(ORCID = \"0000-0002-4094-1476\")), person(\"David Santiago\", \"Quevedo\", role = \"ctb\", comment = c(ORCID = \"0000-0003-1583-4262\")), person(\"Miguel\", \"Gámez\", role = \"ctb\"), person(\"Sumali\", \"Bajaj\", role = \"ctb\"), person(\"Everlyn\", \"Kamau\", role = \"ctb\"), person(\"Richard\", \"Creswell\", role = \"ctb\"), person(\"International Development Research Center (IDRC)\", role = \"fnd\"), person(\"Pontificia Universidad Javeriana\", role = \"cph\") )",
@@ -6054,16 +6427,11 @@
       "Language": "en-GB",
       "LazyData": "true",
       "NeedsCompilation": "yes",
-      "Roxygen": "list(markdown = TRUE)",
       "RoxygenNote": "7.3.2",
       "SystemRequirements": "GNU make",
-      "Author": "Zulma M. Cucunubá [aut, cre] (ORCID: <https://orcid.org/0000-0002-8165-3198>), Nicolás T. Domínguez [aut] (ORCID: <https://orcid.org/0009-0002-8484-1298>), Ben Lambert [aut], Pierre Nouvellet [aut], Geraldine Gómez [ctb] (ORCID: <https://orcid.org/0009-0007-8701-0568>), Jaime A. Pavlich-Mariscal [ctb] (ORCID: <https://orcid.org/0000-0002-3892-6680>), Hugo Gruson [ctb] (ORCID: <https://orcid.org/0000-0002-4094-1476>), David Santiago Quevedo [ctb] (ORCID: <https://orcid.org/0000-0003-1583-4262>), Miguel Gámez [ctb], Sumali Bajaj [ctb], Everlyn Kamau [ctb], Richard Creswell [ctb], International Development Research Center (IDRC) [fnd], Pontificia Universidad Javeriana [cph]",
+      "Author": "Zulma M. Cucunubá [aut, cre] (<https://orcid.org/0000-0002-8165-3198>), Nicolás T. Domínguez [aut] (<https://orcid.org/0009-0002-8484-1298>), Ben Lambert [aut], Pierre Nouvellet [aut], Geraldine Gómez [ctb] (<https://orcid.org/0009-0007-8701-0568>), Jaime A. Pavlich-Mariscal [ctb] (<https://orcid.org/0000-0002-3892-6680>), Hugo Gruson [ctb] (<https://orcid.org/0000-0002-4094-1476>), David Santiago Quevedo [ctb] (<https://orcid.org/0000-0003-1583-4262>), Miguel Gámez [ctb], Sumali Bajaj [ctb], Everlyn Kamau [ctb], Richard Creswell [ctb], International Development Research Center (IDRC) [fnd], Pontificia Universidad Javeriana [cph]",
       "Maintainer": "Zulma M. Cucunubá <zulma.cucunuba@javeriana.edu.co>",
-      "RemoteType": "github",
-      "RemoteUsername": "epiverse-trace",
-      "RemoteRepo": "serofoi",
-      "RemoteSha": "910997966d703c33dc9e64fd9d400884be3f91f6",
-      "RemoteHost": "api.github.com"
+      "Repository": "CRAN"
     },
     "sf": {
       "Package": "sf",
@@ -6226,8 +6594,7 @@
       "Copyright": "see file COPYRIGHTS",
       "RoxygenNote": "7.1.0",
       "NeedsCompilation": "no",
-      "Repository": "RSPM",
-      "Encoding": "UTF-8"
+      "Repository": "CRAN"
     },
     "sivirep": {
       "Package": "sivirep",
@@ -6274,13 +6641,51 @@
       "URL": "https://epiverse-trace.github.io/sivirep/, https://github.com/epiverse-trace/sivirep",
       "BugReports": "https://github.com/epiverse-trace/sivirep/issues",
       "Config/testthat/edition": "3",
-      "Author": "Geraldine Gómez-Millán [aut, cre, ctb] (ORCID: <https://orcid.org/0009-0007-8701-0568>), Zulma M. Cucunubá [aut, ctb] (ORCID: <https://orcid.org/0000-0002-8165-3198>), Jennifer A. Mendez-Romero [aut, ctb] (ORCID: <https://orcid.org/0009-0001-6138-0225>), Claudia Huguett-Aragón [aut, ctb] (ORCID: <https://orcid.org/0000-0002-9814-2386>), Hugo Gruson [ctb] (ORCID: <https://orcid.org/0000-0002-4094-1476>), Juanita Romero-Garcés [ctb] (ORCID: <https://orcid.org/0000-0001-9796-6626>), Jaime Pavlich-Mariscal [ctb] (ORCID: <https://orcid.org/0000-0002-3892-6680>), Laura Gómez Bermeo [ctb] (ORCID: <https://orcid.org/0000-0003-4028-2893>), Andrés Moreno [ctb] (ORCID: <https://orcid.org/0000-0001-9266-731X>), Miguel Gámez [ctb], Johan Calderón [ctb], Lady Flórez-Tapiero [ctb], Verónica Tangarife-Arredondo [ctb], Gerard Alarcon [ctb], International Development Research Center (IDRC) [fnd] (ROR: <https://ror.org/0445x0472>), Pontificia Universidad Javeriana [cph] (ROR: <https://ror.org/03etyjw28>)",
-      "Maintainer": "Geraldine Gómez-Millán <geralidine.gomez@javeriana.edu.co>",
       "RemoteType": "github",
-      "RemoteUsername": "epiverse-trace",
+      "RemoteHost": "api.github.com",
       "RemoteRepo": "sivirep",
+      "RemoteUsername": "epiverse-trace",
+      "RemotePkgRef": "epiverse-trace/sivirep",
+      "RemoteRef": "HEAD",
       "RemoteSha": "853c0874c60c28cc13e9cb352e45d3e8ba63922c",
-      "RemoteHost": "api.github.com"
+      "NeedsCompilation": "no",
+      "Author": "Geraldine Gómez-Millán [aut, cre, ctb] (ORCID: <https://orcid.org/0009-0007-8701-0568>), Zulma M. Cucunubá [aut, ctb] (ORCID: <https://orcid.org/0000-0002-8165-3198>), Jennifer A. Mendez-Romero [aut, ctb] (ORCID: <https://orcid.org/0009-0001-6138-0225>), Claudia Huguett-Aragón [aut, ctb] (ORCID: <https://orcid.org/0000-0002-9814-2386>), Hugo Gruson [ctb] (ORCID: <https://orcid.org/0000-0002-4094-1476>), Juanita Romero-Garcés [ctb] (ORCID: <https://orcid.org/0000-0001-9796-6626>), Jaime Pavlich-Mariscal [ctb] (ORCID: <https://orcid.org/0000-0002-3892-6680>), Laura Gómez Bermeo [ctb] (ORCID: <https://orcid.org/0000-0003-4028-2893>), Andrés Moreno [ctb] (ORCID: <https://orcid.org/0000-0001-9266-731X>), Miguel Gámez [ctb], Johan Calderón [ctb], Lady Flórez-Tapiero [ctb], Verónica Tangarife-Arredondo [ctb], Gerard Alarcon [ctb], International Development Research Center (IDRC) [fnd] (ROR: <https://ror.org/0445x0472>), Pontificia Universidad Javeriana [cph] (ROR: <https://ror.org/03etyjw28>)",
+      "Maintainer": "Geraldine Gómez-Millán <geralidine.gomez@javeriana.edu.co>"
+    },
+    "snakecase": {
+      "Package": "snakecase",
+      "Version": "0.11.1",
+      "Source": "Repository",
+      "Date": "2023-08-27",
+      "Title": "Convert Strings into any Case",
+      "Description": "A consistent, flexible and easy to use tool to parse and convert strings into cases like snake or camel among others.",
+      "Authors@R": "c( person(\"Malte\", \"Grosser\", , \"malte.grosser@gmail.com\", role = c(\"aut\", \"cre\")))",
+      "Maintainer": "Malte Grosser <malte.grosser@gmail.com>",
+      "Depends": [
+        "R (>= 3.2)"
+      ],
+      "Imports": [
+        "stringr",
+        "stringi"
+      ],
+      "Suggests": [
+        "testthat",
+        "covr",
+        "tibble",
+        "purrrlyr",
+        "knitr",
+        "rmarkdown",
+        "magrittr"
+      ],
+      "URL": "https://github.com/Tazinho/snakecase",
+      "BugReports": "https://github.com/Tazinho/snakecase/issues",
+      "Encoding": "UTF-8",
+      "License": "GPL-3",
+      "RoxygenNote": "6.1.1",
+      "VignetteBuilder": "knitr",
+      "NeedsCompilation": "no",
+      "Author": "Malte Grosser [aut, cre]",
+      "Repository": "CRAN"
     },
     "sp": {
       "Package": "sp",
@@ -7104,6 +7509,51 @@
       "Maintainer": "Vitalie Spinu <spinuvit@gmail.com>",
       "Repository": "RSPM"
     },
+    "tinkr": {
+      "Package": "tinkr",
+      "Version": "0.3.0",
+      "Source": "GitHub",
+      "Title": "Cast '(R)Markdown' Files to 'XML' and Back Again",
+      "Authors@R": "c(person(given = \"Maëlle\", family = \"Salmon\", role = c(\"aut\"), email = \"msmaellesalmon@gmail.com\", comment = c(ORCID = \"0000-0002-2815-0399\")), person(given = \"Zhian N.\", family = \"Kamvar\", role = c(\"aut\", \"cre\"), email = \"zkamvar@gmail.com\", comment = c(ORCID = \"0000-0003-1458-7108\")), person(given = \"Jeroen\", family = \"Ooms\", role = \"aut\"), person(given = \"Nick\", family = \"Wellnhofer\", role = \"cph\", comment = \"Nick Wellnhofer wrote the XSLT stylesheet.\"), person(given = \"rOpenSci\", role = \"fnd\", comment = c(ROR = \"019jywm96\")), person(given = \"Peter\", family = \"Daengeli\", role = \"ctb\"))",
+      "Description": "Parsing '(R)Markdown' files with numerous regular expressions can be fraught with peril, but it does not have to be this way. Converting '(R)Markdown' files to 'XML' using the 'commonmark' package allows in-memory editing via of 'markdown' elements via 'XPath' through the extensible 'R6' class called 'yarn'. These modified 'XML' representations can be written to '(R)Markdown' documents via an 'xslt' stylesheet which implements an extended version of 'GitHub'-flavoured 'markdown' so that you can tinker to your hearts content.",
+      "License": "GPL-3",
+      "URL": "https://docs.ropensci.org/tinkr/, https://github.com/ropensci/tinkr",
+      "BugReports": "https://github.com/ropensci/tinkr/issues",
+      "Imports": [
+        "commonmark (>= 1.6)",
+        "glue",
+        "lifecycle",
+        "magrittr",
+        "purrr",
+        "R6",
+        "rlang (>= 0.4.5)",
+        "xml2",
+        "xslt"
+      ],
+      "Suggests": [
+        "knitr",
+        "rmarkdown",
+        "covr",
+        "testthat (>= 3.0.0)",
+        "withr"
+      ],
+      "Config/testthat/edition": "3",
+      "Encoding": "UTF-8",
+      "LazyData": "true",
+      "Roxygen": "list(markdown = TRUE, roclets = c(\"collate\", \"rd\", \"namespace\", \"devtag::dev_roclet\"))",
+      "RoxygenNote": "7.3.2.9000",
+      "VignetteBuilder": "knitr",
+      "Config/Needs/build": "moodymudskipper/devtag",
+      "Language": "en-US",
+      "Author": "Maëlle Salmon [aut] (ORCID: <https://orcid.org/0000-0002-2815-0399>), Zhian N. Kamvar [aut, cre] (ORCID: <https://orcid.org/0000-0003-1458-7108>), Jeroen Ooms [aut], Nick Wellnhofer [cph] (Nick Wellnhofer wrote the XSLT stylesheet.), rOpenSci [fnd] (ROR: <https://ror.org/019jywm96>), Peter Daengeli [ctb]",
+      "Maintainer": "Zhian N. Kamvar <zkamvar@gmail.com>",
+      "RemoteType": "github",
+      "RemoteHost": "api.github.com",
+      "RemoteUsername": "ropensci",
+      "RemoteRepo": "tinkr",
+      "RemoteRef": "main",
+      "RemoteSha": "638ff1dd70768fb8b3a3e4b2d26ef370bc6c1811"
+    },
     "tinytex": {
       "Package": "tinytex",
       "Version": "0.58",
@@ -7324,12 +7774,13 @@
       "URL": "https://www.rforge.net/uuid",
       "BugReports": "https://github.com/s-u/uuid/issues",
       "NeedsCompilation": "yes",
-      "Repository": "CRAN"
+      "Repository": "RSPM",
+      "Encoding": "UTF-8"
     },
     "vaccineff": {
       "Package": "vaccineff",
       "Version": "1.0.1",
-      "Source": "GitHub",
+      "Source": "Repository",
       "Title": "Estimate Vaccine Effectiveness Based on Different Study Designs",
       "Authors@R": "c( person(\"David Santiago\", \"Quevedo\", , \"ex-dsquevedo@javeriana.edu.co\", role = \"aut\", comment = c(ORCID = \"0000-0003-1583-4262\")), person(\"Zulma M.\", \"Cucunubá\", , \"tracelacdev@gmail.com\", role = c(\"aut\", \"cre\"), comment = c(ORCID = \"0000-0002-8165-3198\")), person(\"International Development Research Center (IDRC)\", role = \"fnd\", comment = c(ROR = \"0445x0472\")), person(\"Geraldine\", \"Gómez Millán\", , \"geralidine.gomez@javeriana.edu.co\", role = \"ctb\", comment = c(ORCID = \"0009-0007-8701-0568\")), person(\"Pratik\", \"Gupte\", , \"pratik.gupte@lshtm.ac.uk\", role = \"ctb\", comment = c(ORCID = \"0000-0001-5294-7819\")), person(\"Érika J\", \"Cantor\", , \"erika.cantor@javeriana.edu.co\", role = \"ctb\", comment = c(ORCID = \"0000-0003-3320-6032\")), person(\"Santiago\", \"Loaiza\", , \"santiago.loaiza@javeriana.edu.co\", role = \"ctb\", comment = c(ORCID = \"0000-0002-2092-3262\")), person(\"Jaime\", \"Pavlich-Mariscal\", , \"jpavlich@javeriana.edu.co\", role = \"ctb\", comment = c(ORCID = \"0000-0002-3892-6680\")), person(\"Hugo\", \"Gruson\", , \"hugo.gruson@data.org\", role = \"ctb\", comment = c(ORCID = \"0000-0002-4094-1476\")), person(\"Chris\", \"Hartgerink\", , \"chris@data.org\", role = \"ctb\", comment = c(ORCID = \"0000-0003-1050-6809\")), person(\"Felipe Segundo\", \"Abril\", , \"fsabrilb@unal.edu.co\", role = \"ctb\", comment = c(ORCID = \"0000-0002-2512-4929\")), person(\"Joshua W.\", \"Lambert\", , \"joshua.lambert@lshtm.ac.uk\", role = \"ctb\", comment = c(ORCID = \"0000-0001-5218-3046\")), person(\"Julian\", \"Otero\", , \"jd.otero10@uniandes.edu.co\", role = \"ctb\", comment = c(ORCID = \"0009-0006-0429-7747\")), person(\"Pontificia Universidad Javeriana\", role = \"cph\", comment = c(ROR = \"03etyjw28\")) )",
       "Description": "Provides tools for estimating vaccine effectiveness and related metrics. The 'vaccineff_data' class manages key features for preparing, visualizing, and organizing cohort data, as well as estimating vaccine effectiveness. The results and model performance are assessed using the 'vaccineff' class.",
@@ -7361,15 +7812,11 @@
       "Encoding": "UTF-8",
       "Language": "en-US",
       "LazyData": "true",
-      "Roxygen": "list(markdown = TRUE)",
       "RoxygenNote": "7.3.2",
+      "NeedsCompilation": "no",
       "Author": "David Santiago Quevedo [aut] (ORCID: <https://orcid.org/0000-0003-1583-4262>), Zulma M. Cucunubá [aut, cre] (ORCID: <https://orcid.org/0000-0002-8165-3198>), International Development Research Center (IDRC) [fnd] (ROR: <https://ror.org/0445x0472>), Geraldine Gómez Millán [ctb] (ORCID: <https://orcid.org/0009-0007-8701-0568>), Pratik Gupte [ctb] (ORCID: <https://orcid.org/0000-0001-5294-7819>), Érika J Cantor [ctb] (ORCID: <https://orcid.org/0000-0003-3320-6032>), Santiago Loaiza [ctb] (ORCID: <https://orcid.org/0000-0002-2092-3262>), Jaime Pavlich-Mariscal [ctb] (ORCID: <https://orcid.org/0000-0002-3892-6680>), Hugo Gruson [ctb] (ORCID: <https://orcid.org/0000-0002-4094-1476>), Chris Hartgerink [ctb] (ORCID: <https://orcid.org/0000-0003-1050-6809>), Felipe Segundo Abril [ctb] (ORCID: <https://orcid.org/0000-0002-2512-4929>), Joshua W. Lambert [ctb] (ORCID: <https://orcid.org/0000-0001-5218-3046>), Julian Otero [ctb] (ORCID: <https://orcid.org/0009-0006-0429-7747>), Pontificia Universidad Javeriana [cph] (ROR: <https://ror.org/03etyjw28>)",
       "Maintainer": "Zulma M. Cucunubá <tracelacdev@gmail.com>",
-      "RemoteType": "github",
-      "RemoteUsername": "epiverse-trace",
-      "RemoteRepo": "vaccineff",
-      "RemoteSha": "49ef36f3c4936243fd35357492be37b233f75a41",
-      "RemoteHost": "api.github.com"
+      "Repository": "CRAN"
     },
     "vctrs": {
       "Package": "vctrs",
@@ -7608,6 +8055,34 @@
       "Maintainer": "Jennifer Bryan <jenny@posit.co>",
       "Repository": "CRAN"
     },
+    "whoami": {
+      "Package": "whoami",
+      "Version": "1.3.0",
+      "Source": "Repository",
+      "Title": "Username, Full Name, Email Address, 'GitHub' Username of the Current User",
+      "Authors@R": "c(person(given = \"Gábor\", family = \"Csárdi\",  email = \"csardi.gabor@gmail.com\",  role = c(\"aut\", \"cre\")), person(given = \"Maëlle\", family = \"Salmon\", role = \"ctb\"))",
+      "Description": "Look up the username and full name of the current user, the current user's email address and 'GitHub' username, using various sources of system and configuration information.",
+      "License": "MIT + file LICENSE",
+      "URL": "https://github.com/r-lib/whoami#readme",
+      "BugReports": "https://github.com/r-lib/whoami/issues",
+      "Imports": [
+        "httr",
+        "jsonlite",
+        "utils"
+      ],
+      "Suggests": [
+        "covr",
+        "mockery",
+        "testthat",
+        "withr"
+      ],
+      "Encoding": "UTF-8",
+      "RoxygenNote": "6.1.1",
+      "NeedsCompilation": "no",
+      "Author": "Gábor Csárdi [aut, cre], Maëlle Salmon [ctb]",
+      "Maintainer": "Gábor Csárdi <csardi.gabor@gmail.com>",
+      "Repository": "CRAN"
+    },
     "withr": {
       "Package": "withr",
       "Version": "3.0.2",
@@ -7762,6 +8237,36 @@
       "NeedsCompilation": "yes",
       "Author": "Hadley Wickham [aut], Jim Hester [aut], Jeroen Ooms [aut, cre], Posit Software, PBC [cph, fnd], R Foundation [ctb] (Copy of R-project homepage cached as example)",
       "Maintainer": "Jeroen Ooms <jeroenooms@gmail.com>",
+      "Repository": "CRAN"
+    },
+    "xslt": {
+      "Package": "xslt",
+      "Version": "1.5.1",
+      "Source": "Repository",
+      "Title": "Extensible Style-Sheet Language Transformations",
+      "Description": "An extension for the 'xml2' package to transform XML documents by applying an 'xslt' style-sheet.",
+      "Authors@R": "person(\"Jeroen\", \"Ooms\", role = c(\"aut\", \"cre\"), email = \"jeroenooms@gmail.com\", comment = c(ORCID = \"0000-0002-4035-0289\"))",
+      "Maintainer": "Jeroen Ooms <jeroenooms@gmail.com>",
+      "URL": "https://ropensci.r-universe.dev/xslt https://docs.ropensci.org/xslt/",
+      "BugReports": "https://github.com/ropensci/xslt/issues",
+      "Depends": [
+        "xml2 (>= 1.3.0)"
+      ],
+      "Imports": [
+        "Rcpp"
+      ],
+      "LinkingTo": [
+        "Rcpp",
+        "xml2"
+      ],
+      "SystemRequirements": "libxslt: libxslt1-dev (deb), libxslt-devel (rpm)",
+      "License": "GPL (>= 2)",
+      "RoxygenNote": "6.0.1",
+      "Suggests": [
+        "testthat"
+      ],
+      "NeedsCompilation": "yes",
+      "Author": "Jeroen Ooms [aut, cre] (<https://orcid.org/0000-0002-4035-0289>)",
       "Repository": "CRAN"
     },
     "yaml": {
