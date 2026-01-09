@@ -318,12 +318,39 @@ El logaritmo en el modelo $\log(\lambda)$ permite identificar cambios drásticos
 
 Previo a la instalación de **serofoi**, cree un proyecto en R en la carpeta de su escogencia en su máquina local; esto con el fin de organizar el espacio de trabajo en donde se guardarán los códigos que desarrolle durante la sesión.
 
-Antes de realizar la instalación de **serofoi**, es necesario instalar y configurar C++ Toolchain (instrucciones para [windows](https://github.com/stan-dev/rstan/wiki/Configuring-C---Toolchain-for-Windows)/ [mac](https://github.com/stan-dev/rstan/wiki/Configuring-C---Toolchain-for-Mac)/ [linux](https://github.com/stan-dev/rstan/wiki/Configuring-C-Toolchain-for-Linux)).
+Antes de realizar la instalación de **serofoi**, es necesario instalar y configurar C++ Toolchain (instrucciones para [windows](https://cran.r-project.org/bin/windows/Rtools/)/ [mac](https://github.com/stan-dev/rstan/wiki/Configuring-C---Toolchain-for-Mac)/ [linux](https://github.com/stan-dev/rstan/wiki/Configuring-C-Toolchain-for-Linux)).
+
+::::::::::::::::::::::::::::: spoiler
+
+### ¿Cómo instalar y configurar Rtools en Windows?
+
+Los usuarios de Windows necesitarán una instalación funcional de `Rtools` para construir el paquete desde el código fuente. `Rtools` no es un paquete de R, sino un software que necesita descargar e instalar. Le sugerimos lo siguiente:
+
+1. **Verifique la instalación de `Rtools`. Puedes hacerlo utilizando la búsqueda de Windows en tu sistema. Opcionalmente, puedes utilizar `{devtools}` en ejecución: 
+
+```r
+if(!require("devtools")) install.packages("devtools")
+devtools::find_rtools()
+```
+
+Si el resultado es `FALSE`, entonces debe realizar el paso 2.
+
+2. **Instale `Rtools`**. Descargue el instalador de `Rtools` de <https://cran.r-project.org/bin/windows/Rtools/>. Instale con las selecciones por defecto.
+
+3. **Verificar la instalación de `Rtools`**. De nuevo, podemos usar `{devtools}`:
+
+```r
+if(!require("devtools")) install.packages("devtools")
+devtools::find_rtools()
+```
+
+:::::::::::::::::::::::::::::
+
 Después de haber configurado C++ Toolchain, ejecute las siguientes líneas de código para instalar el paquete:
 
 ```{r, eval=FALSE}
 if(!require("pak")) install.packages("pak")
-pak::pak("epiverse-trace/serofoi")
+pak::pak("serofoi")
 ```
 
 Opcionalmente, es posible modificar la configuración de R para que los modelos a implementar corran en paralelo, aprovechando los núcleos del procesador de su computador.

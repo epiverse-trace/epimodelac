@@ -118,11 +118,12 @@ afectadas en Colombia a lo largo del tiempo por esta enfermedad.
 
 Iniciaremos instalando e importando el paquete a través de los siguientes comandos:
 
-```{r import_library}
-remove.packages("sivirep")
+```{r import_library, eval=FALSE}
 if (!require("pak")) install.packages("pak")
-pak::pak("epiverse-trace/sivirep") # Comando para instalar sivirep
-rm(list = ls()) # Comando para limpiar el ambiente de R
+pak::pak("sivirep") # Comando para instalar sivirep
+```
+
+```{r}
 library(sivirep) # Comando para importar sivirep
 ```
 
