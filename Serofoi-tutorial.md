@@ -506,8 +506,8 @@ virus_serosurvey %>%
 
 SAMPLING FOR MODEL 'time_no_seroreversion' NOW (CHAIN 1).
 Chain 1: 
-Chain 1: Gradient evaluation took 0.000107 seconds
-Chain 1: 1000 transitions using 10 leapfrog steps per transition would take 1.07 seconds.
+Chain 1: Gradient evaluation took 0.000119 seconds
+Chain 1: 1000 transitions using 10 leapfrog steps per transition would take 1.19 seconds.
 Chain 1: Adjust your expectations accordingly!
 Chain 1: 
 Chain 1: 
@@ -524,15 +524,15 @@ Chain 1: Iteration: 800 / 1000 [ 80%]  (Sampling)
 Chain 1: Iteration: 900 / 1000 [ 90%]  (Sampling)
 Chain 1: Iteration: 1000 / 1000 [100%]  (Sampling)
 Chain 1: 
-Chain 1:  Elapsed Time: 4.315 seconds (Warm-up)
-Chain 1:                3.085 seconds (Sampling)
-Chain 1:                7.4 seconds (Total)
+Chain 1:  Elapsed Time: 4.555 seconds (Warm-up)
+Chain 1:                3.497 seconds (Sampling)
+Chain 1:                8.052 seconds (Total)
 Chain 1: 
 
 SAMPLING FOR MODEL 'time_no_seroreversion' NOW (CHAIN 2).
 Chain 2: 
-Chain 2: Gradient evaluation took 0.000131 seconds
-Chain 2: 1000 transitions using 10 leapfrog steps per transition would take 1.31 seconds.
+Chain 2: Gradient evaluation took 0.00011 seconds
+Chain 2: 1000 transitions using 10 leapfrog steps per transition would take 1.1 seconds.
 Chain 2: Adjust your expectations accordingly!
 Chain 2: 
 Chain 2: 
@@ -549,15 +549,15 @@ Chain 2: Iteration: 800 / 1000 [ 80%]  (Sampling)
 Chain 2: Iteration: 900 / 1000 [ 90%]  (Sampling)
 Chain 2: Iteration: 1000 / 1000 [100%]  (Sampling)
 Chain 2: 
-Chain 2:  Elapsed Time: 4.287 seconds (Warm-up)
-Chain 2:                5.08 seconds (Sampling)
-Chain 2:                9.367 seconds (Total)
+Chain 2:  Elapsed Time: 4.592 seconds (Warm-up)
+Chain 2:                2.956 seconds (Sampling)
+Chain 2:                7.548 seconds (Total)
 Chain 2: 
 
 SAMPLING FOR MODEL 'time_no_seroreversion' NOW (CHAIN 3).
 Chain 3: 
-Chain 3: Gradient evaluation took 0.000126 seconds
-Chain 3: 1000 transitions using 10 leapfrog steps per transition would take 1.26 seconds.
+Chain 3: Gradient evaluation took 0.000111 seconds
+Chain 3: 1000 transitions using 10 leapfrog steps per transition would take 1.11 seconds.
 Chain 3: Adjust your expectations accordingly!
 Chain 3: 
 Chain 3: 
@@ -574,15 +574,15 @@ Chain 3: Iteration: 800 / 1000 [ 80%]  (Sampling)
 Chain 3: Iteration: 900 / 1000 [ 90%]  (Sampling)
 Chain 3: Iteration: 1000 / 1000 [100%]  (Sampling)
 Chain 3: 
-Chain 3:  Elapsed Time: 4.486 seconds (Warm-up)
-Chain 3:                4.368 seconds (Sampling)
-Chain 3:                8.854 seconds (Total)
+Chain 3:  Elapsed Time: 4.35 seconds (Warm-up)
+Chain 3:                4.345 seconds (Sampling)
+Chain 3:                8.695 seconds (Total)
 Chain 3: 
 
 SAMPLING FOR MODEL 'time_no_seroreversion' NOW (CHAIN 4).
 Chain 4: 
-Chain 4: Gradient evaluation took 0.0001 seconds
-Chain 4: 1000 transitions using 10 leapfrog steps per transition would take 1 seconds.
+Chain 4: Gradient evaluation took 0.00011 seconds
+Chain 4: 1000 transitions using 10 leapfrog steps per transition would take 1.1 seconds.
 Chain 4: Adjust your expectations accordingly!
 Chain 4: 
 Chain 4: 
@@ -599,14 +599,20 @@ Chain 4: Iteration: 800 / 1000 [ 80%]  (Sampling)
 Chain 4: Iteration: 900 / 1000 [ 90%]  (Sampling)
 Chain 4: Iteration: 1000 / 1000 [100%]  (Sampling)
 Chain 4: 
-Chain 4:  Elapsed Time: 4.211 seconds (Warm-up)
-Chain 4:                2.835 seconds (Sampling)
-Chain 4:                7.046 seconds (Total)
+Chain 4:  Elapsed Time: 5.116 seconds (Warm-up)
+Chain 4:                4.23 seconds (Sampling)
+Chain 4:                9.346 seconds (Total)
 Chain 4: 
 ```
 
 ``` warning
-Warning: There were 1 chains where the estimated Bayesian Fraction of Missing Information was low. See
+Warning: There were 1 divergent transitions after warmup. See
+https://mc-stan.org/misc/warnings.html#divergent-transitions-after-warmup
+to find out why this is a problem and how to eliminate them.
+```
+
+``` warning
+Warning: There were 2 chains where the estimated Bayesian Fraction of Missing Information was low. See
 https://mc-stan.org/misc/warnings.html#bfmi-low
 ```
 
