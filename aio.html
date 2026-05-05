@@ -666,7 +666,7 @@ Clopper-Pearson).</p>
 función <code>binom.confint</code>. Y obtenga este resultado:</p>
 <table class="table">
 <caption><strong>CFR con intervalos de confianza</strong></caption>
-<thead><tr class="header">
+<thead><tr>
 <th align="left">method</th>
 <th align="right">x</th>
 <th align="right">n</th>
@@ -674,7 +674,7 @@ función <code>binom.confint</code>. Y obtenga este resultado:</p>
 <th align="right">lower</th>
 <th align="right">upper</th>
 </tr></thead>
-<tbody><tr class="odd">
+<tbody><tr>
 <td align="left">exact</td>
 <td align="right">60</td>
 <td align="right">103</td>
@@ -691,7 +691,7 @@ función <code>binom.confint</code>. Y obtenga este resultado:</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1"> Pista </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
 <div class="accordion-body">
 <p>Recuerde diligenciar los espacios donde dice <code>COMPLETE</code>. Y
 obtenga este resultado</p>
@@ -942,7 +942,7 @@ $info: list containing the following items:
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
   <h4 class="accordion-header" id="headingSolution2"> Solución </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
 <div class="accordion-body">
 <p><code>$model</code>: Indica que se ha realizado una regresión
 logarítmica de la incidencia en función del tiempo. Esto implica que la
@@ -2090,24 +2090,24 @@ para rezagos epidemiológicos.</caption>
 <col width="23%">
 <col width="58%">
 </colgroup>
-<thead><tr class="header">
+<thead><tr>
 <th>Distribución</th>
 <th align="center">Parámetros</th>
 </tr></thead>
 <tbody>
-<tr class="odd">
+<tr>
 <td><strong>Weibull</strong></td>
 <td align="center">
 <code>shape</code> y <code>scale</code> (forma y
 escala)</td>
 </tr>
-<tr class="even">
+<tr>
 <td><strong>gamma</strong></td>
 <td align="center">
 <code>shape</code> y <code>scale</code> (forma y
 escala)</td>
 </tr>
-<tr class="odd">
+<tr>
 <td><strong>log normal</strong></td>
 <td align="center">
 <code>log mean</code> y
@@ -3977,19 +3977,19 @@ incubación.</em></strong>
 <col width="2%">
 </colgroup>
 <tbody>
-<tr class="odd">
+<tr>
 <td></td>
 <td>Distribución</td>
 <td colspan="3">Media (días) | Desviación estándar (días)</td>
 </tr>
-<tr class="even">
+<tr>
 <td>Grupo 1</td>
 <td>Log normal</td>
 <td>5.7</td>
 <td>4.6</td>
 <td></td>
 </tr>
-<tr class="odd">
+<tr>
 <td>Grupo 2</td>
 <td>Weibull</td>
 <td>7.1</td>
@@ -4009,19 +4009,19 @@ serial</em></strong>.</caption>
 <col width="2%">
 </colgroup>
 <tbody>
-<tr class="odd">
+<tr>
 <td></td>
 <td>Distribución</td>
 <td colspan="3">Media (días) | Desviación estándar (días)</td>
 </tr>
-<tr class="even">
+<tr>
 <td>Group 1</td>
 <td>Gamma</td>
 <td>8.4</td>
 <td>4.9</td>
 <td></td>
 </tr>
-<tr class="odd">
+<tr>
 <td>Group 2</td>
 <td>Gamma</td>
 <td>4.8</td>
@@ -4817,7 +4817,7 @@ la tabla 1.</p>
 <col width="27%">
 <col width="53%">
 </colgroup>
-<thead><tr class="header">
+<thead><tr>
 <th>Model Type</th>
 <th>Logarithmic Scale</th>
 <th>Probability of positive case at age <span class="math inline">\(a\)</span>
@@ -4825,20 +4825,20 @@ la tabla 1.</p>
 <th>Prior distribution</th>
 </tr></thead>
 <tbody>
-<tr class="odd">
+<tr>
 <td><code>"constant"</code></td>
 <td><code>FALSE</code></td>
 <td><span class="math inline">\(\sim binom(n(a,t), P(a,t))\)</span></td>
 <td><span class="math inline">\(\lambda\sim uniform(0,2)\)</span></td>
 </tr>
-<tr class="even">
+<tr>
 <td><code>"time"</code></td>
 <td><code>FALSE</code></td>
 <td><span class="math inline">\(\sim binom(n(a,t), P(a,t))\)</span></td>
 <td><span class="math inline">\(\lambda\sim normal(\lambda(t-1),\sigma)\
 \lambda(t=1)\sim normal(0,1)\)</span></td>
 </tr>
-<tr class="odd">
+<tr>
 <td><code>"time"</code></td>
 <td><code>TRUE</code></td>
 <td><span class="math inline">\(\sim binom(n(a,t), P(a,t))\)</span></td>
@@ -5292,7 +5292,7 @@ en circunstancias típicas o cotidianas.</p></li>
 </ul>
 <table class="table">
 <colgroup><col width="100%"></colgroup>
-<tbody><tr class="odd">
+<tbody><tr>
 <td>Un ejemplo podría ser un medicamento que en experimentos clínicos
 (en condiciones ideales) mostró una eficacia del 95% en prevenir el
 desenlace. Sin embargo, cuando se usó en el contexto general,
@@ -6923,8 +6923,8 @@ any links that you are not going to use.
   "url": "https://epiverse-trace.github.io/epimodelac/aio.html",
   "identifier": "https://epiverse-trace.github.io/epimodelac/aio.html",
   "dateCreated": "2023-11-10",
-  "dateModified": "2026-04-28",
-  "datePublished": "2026-04-28"
+  "dateModified": "2026-05-05",
+  "datePublished": "2026-05-05"
 }
 
   </script><script>
